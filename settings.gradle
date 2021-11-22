@@ -6,9 +6,13 @@ pluginManagement {
 }
 
 plugins {
-    id 'io.micronaut.build.shared.settings' version '4.2.3'
+    id 'io.micronaut.build.shared.settings' version '4.2.6'
 }
 
-rootProject.name = 'xxx-parent'
+rootProject.name = 'email-parent'
 
-include 'xxx'
+include 'email'
+include 'email-sendgrid'
+include 'email-postmark'
+include 'email-mailjet'
+include 'email-template'
