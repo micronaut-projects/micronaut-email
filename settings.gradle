@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'io.micronaut.build.shared.settings' version '4.2.3'
+}
+
+rootProject.name = 'xxx-parent'
+
+include 'xxx'
