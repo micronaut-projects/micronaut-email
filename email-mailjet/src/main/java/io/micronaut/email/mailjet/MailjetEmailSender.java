@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 /**
  * <a href="https://www.mailjet.com">Mailjet</a> implementation of {@link EmailCourier}.
@@ -77,7 +78,7 @@ public class MailjetEmailSender implements EmailCourier {
     private MailjetRequest createRequest(@NonNull TransactionalEmail email) {
         JSONObject message = new JSONObject();
         message.put(Emailv31.Message.FROM, from(email));
-        message.put(Emailv31.Message.TO, to(email));
+        to(email).ifPresent(jsonArray -> message.put(Emailv31.Message.TO, jsonArray));
         message.put(Emailv31.Message.SUBJECT, email.getSubject());
         if (email.getText() != null) {
             message.put(Emailv31.Message.TEXTPART, email.getText());
@@ -93,11 +94,14 @@ public class MailjetEmailSender implements EmailCourier {
 
     @NonNull
     private static JSONObject from(@NonNull TransactionalEmail email) {
-        return new JSONObject().put("Email", email.getFrom());
+        return new JSONObject().put("Email", email.getFrom().getEmail());
     }
 
     @NonNull
-    private static JSONArray to(@NonNull TransactionalEmail email) {
-        return new JSONArray().put(new JSONObject().put("Email", email.getTo()));
+    private static Optional<JSONArray> to(@NonNull TransactionalEmail email) {
+        if (email.getTo().isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(new JSONArray().put(new JSONObject().put("Email", email.getTo().get(0).getEmail())));
     }
 }

@@ -7,6 +7,7 @@ group = "io.micronaut.email"
 dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
     implementation("io.micronaut:micronaut-validation")
-    implementation("com.sendgrid:sendgrid-java:4.8.0")
+    implementation("com.mailjet:mailjet-client:5.2.0")
     implementation(project(":email"))
+    implementation(project(":test-utils"))
 }

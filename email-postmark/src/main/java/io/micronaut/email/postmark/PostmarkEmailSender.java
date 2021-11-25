@@ -23,6 +23,7 @@ import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.EmailCourier;
 import io.micronaut.email.TransactionalEmail;
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,7 @@ import java.io.IOException;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@Singleton
 public class PostmarkEmailSender implements EmailCourier {
     private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailSender.class);
 
