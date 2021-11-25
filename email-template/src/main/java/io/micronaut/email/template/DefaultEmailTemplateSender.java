@@ -37,6 +37,7 @@ import java.util.Optional;
  * Sends Email templates using {@link ViewsRenderer}.
  * @author Sergio del Amo
  * @since 1.0.0
+ * @param <T> The model type
  */
 @Singleton
 public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
