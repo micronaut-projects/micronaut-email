@@ -1,8 +1,9 @@
-package io.micronaut.email.sendgrid
+package io.micronaut.email
 
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.core.util.StringUtils
+import io.micronaut.email.sendgrid.SendGridConfiguration
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 import jakarta.inject.Inject

@@ -98,7 +98,7 @@ public class SendgridEmailSender implements EmailCourier {
         }
 
         if (email.getCc() != null) {
-            for (Contact cc : email.getCc() ) {
+            for (Contact cc : email.getCc()) {
                 Email ccEmail = new Email();
                 ccEmail.setEmail(cc.getEmail());
                 if (cc.getName() != null) {

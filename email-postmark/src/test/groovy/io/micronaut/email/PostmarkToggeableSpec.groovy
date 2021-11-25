@@ -1,8 +1,9 @@
-package io.micronaut.email.postmark
+package io.micronaut.email
 
 import io.micronaut.context.BeanContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.core.util.StringUtils
+import io.micronaut.email.postmark.PostmarkConfiguration
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
