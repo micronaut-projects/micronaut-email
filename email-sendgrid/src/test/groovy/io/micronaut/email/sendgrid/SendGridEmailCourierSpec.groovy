@@ -10,7 +10,7 @@ import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 @MicronautTest(startApplication = false)
-class SendGridEmailSenderSpec extends Specification {
+class SendGridEmailCourierSpec extends Specification {
 
     @Inject
     EmailCourier emailCourier

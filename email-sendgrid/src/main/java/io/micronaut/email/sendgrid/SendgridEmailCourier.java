@@ -27,6 +27,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Contact;
 import io.micronaut.email.EmailCourier;
 import io.micronaut.email.TransactionalEmail;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,9 +43,10 @@ import java.util.stream.Collectors;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@Named("sendgrid")
 @Singleton
-public class SendgridEmailSender implements EmailCourier {
-    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailSender.class);
+public class SendgridEmailCourier implements EmailCourier {
+    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailCourier.class);
 
     private final SendGrid sendGrid;
 
@@ -52,7 +54,7 @@ public class SendgridEmailSender implements EmailCourier {
      *
      * @param sendGridConfiguration SendGrid Configuration
      */
-    public SendgridEmailSender(SendGridConfiguration sendGridConfiguration) {
+    public SendgridEmailCourier(SendGridConfiguration sendGridConfiguration) {
         sendGrid = new SendGrid(sendGridConfiguration.getApiKey());
     }
 

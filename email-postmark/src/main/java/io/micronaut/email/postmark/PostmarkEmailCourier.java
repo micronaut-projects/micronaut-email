@@ -23,6 +23,7 @@ import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.EmailCourier;
 import io.micronaut.email.TransactionalEmail;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +38,10 @@ import java.io.IOException;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@Named("postmark")
 @Singleton
-public class PostmarkEmailSender implements EmailCourier {
-    private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailSender.class);
+public class PostmarkEmailCourier implements EmailCourier {
+    private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailCourier.class);
 
     private final ApiClient client;
 
@@ -47,7 +49,7 @@ public class PostmarkEmailSender implements EmailCourier {
      *
      * @param postmarkConfiguration Postmark configuration
      */
-    public PostmarkEmailSender(PostmarkConfiguration postmarkConfiguration) {
+    public PostmarkEmailCourier(PostmarkConfiguration postmarkConfiguration) {
         client = Postmark.getApiClient(postmarkConfiguration.getApiToken());
     }
 

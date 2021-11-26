@@ -11,7 +11,7 @@ import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 @MicronautTest(startApplication = false)
-class PostmarkEmailSenderSpec extends Specification {
+class PostmarkEmailCourierSpec extends Specification {
 
     @Inject
     EmailCourier emailCourier

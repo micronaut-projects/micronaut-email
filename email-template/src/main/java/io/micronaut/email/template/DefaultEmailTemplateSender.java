@@ -16,6 +16,7 @@
 package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.io.Writable;
 import io.micronaut.email.EmailCourier;
 import io.micronaut.email.Recipient;
@@ -60,11 +61,11 @@ public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
     public void send(@NonNull @NotNull @Valid Sender sender,
                          @NonNull @NotNull @Valid Recipient recipient,
                          @NonNull @NotBlank String subject,
-                         @NonNull ModelAndView<T> text,
-                         @NonNull ModelAndView<T> html) {
+                         @Nullable ModelAndView<T> text,
+                         @Nullable ModelAndView<T> html) {
         Optional<String> renderedTextOptional = content(text);
         Optional<String> renderedHtmlOptional = content(html);
-        if (renderedTextOptional.isPresent() ||renderedHtmlOptional.isPresent()) {
+        if (renderedTextOptional.isPresent() || renderedHtmlOptional.isPresent()) {
             TransactionalEmail.Builder builder = emailBuilder(sender, recipient, subject);
             if (renderedTextOptional.isPresent()) {
                 builder = builder.text(renderedTextOptional.get());
@@ -77,7 +78,10 @@ public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
     }
 
     @NonNull
-    private Optional<String> content(@NonNull ModelAndView<T> modelAndView) {
+    private Optional<String> content(@Nullable ModelAndView<T> modelAndView) {
+        if (modelAndView == null) {
+            return Optional.empty();
+        }
         if (modelAndView.getView().isPresent()) {
             String viewName = modelAndView.getView().get();
             Writable writable = viewsRenderer.render(viewName, modelAndView.getModel().orElse(null), null);

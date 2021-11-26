@@ -24,6 +24,7 @@ import com.mailjet.client.resource.Emailv31;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.EmailCourier;
 import io.micronaut.email.TransactionalEmail;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,10 +40,11 @@ import java.util.Optional;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@Named("mailjet")
 @Singleton
-public class MailjetEmailSender implements EmailCourier {
+public class MailjetEmailCourier implements EmailCourier {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MailjetEmailSender.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MailjetEmailCourier.class);
 
     private final MailjetClient mailjetClient;
 
@@ -50,7 +52,7 @@ public class MailjetEmailSender implements EmailCourier {
      *
      * @param mailjetConfiguration Mailjet Configuration.
      */
-    public MailjetEmailSender(MailjetConfiguration mailjetConfiguration) {
+    public MailjetEmailCourier(MailjetConfiguration mailjetConfiguration) {
         ClientOptions clientOptions = ClientOptions.builder()
                 .apiKey(mailjetConfiguration.getApiKey())
                 .apiSecretKey(mailjetConfiguration.getApiSecret())
