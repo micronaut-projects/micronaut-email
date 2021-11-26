@@ -16,7 +16,7 @@ class MailjetEmailSenderSpec extends Specification {
     EmailCourier emailCourier
 
     @Requires({env["MAILJET_API_KEY"] && env["MAILJET_API_SECRET"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
-    void "Functional test of SendGrid integration"() {
+    void "Functional test of Mailjet integration"() {
         given:
         String subject = "[Mailjet] Test"
         String gmail = System.getenv("GMAIL_USERNAME")
