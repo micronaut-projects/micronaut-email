@@ -16,6 +16,7 @@
 package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.Recipient;
 import io.micronaut.email.Sender;
 import io.micronaut.views.ModelAndView;
@@ -31,28 +32,47 @@ import javax.validation.constraints.NotNull;
  * @since 1.0
  * @param <T> The model type
  */
+@FunctionalInterface
 public interface EmailTemplateSender<T> {
     /**
      * Sends a template as a text email.
      * @param sender Email's Sender (from, replyTo emails).
      * @param recipient Email's Recipient (to, cc, bcc)
      * @param subject Email's subject
-     * @param content Emails Template's name and model
+     * @param text Emails Template's name and model for text
+     * @param html Emails Template's name and model for html
      */
-    void sendText(@NonNull @NotNull @Valid Sender sender,
-                  @NonNull @NotNull @Valid Recipient recipient,
-                  @NonNull @NotBlank String subject,
-                  @NonNull ModelAndView<T> content);
+    void send(@NonNull @NotNull @Valid Sender sender,
+              @NonNull @NotNull @Valid Recipient recipient,
+              @NonNull @NotBlank String subject,
+              @Nullable ModelAndView<T> text,
+              @Nullable ModelAndView<T> html);
 
     /**
-     * Sends a template as a HTML email.
+     * Sends a template as a text email.
      * @param sender Email's Sender (from, replyTo emails).
      * @param recipient Email's Recipient (to, cc, bcc)
      * @param subject Email's subject
-     * @param content Emails Template's name and model
+     * @param text Emails Template's name and model for text
      */
-    void sendHtml(@NonNull @NotNull @Valid Sender sender,
-                  @NonNull @NotNull @Valid Recipient recipient,
-                  @NonNull @NotBlank String subject,
-                  @NonNull ModelAndView<T> content);
+    default void sendText(@NonNull @NotNull @Valid Sender sender,
+              @NonNull @NotNull @Valid Recipient recipient,
+              @NonNull @NotBlank String subject,
+              @NonNull ModelAndView<T> text) {
+        send(sender, recipient, subject, text, null);
+    }
+
+    /**
+     * Sends a template as a text email.
+     * @param sender Email's Sender (from, replyTo emails).
+     * @param recipient Email's Recipient (to, cc, bcc)
+     * @param subject Email's subject
+     * @param html Emails Template's name and model for text
+     */
+    default void sendHtml(@NonNull @NotNull @Valid Sender sender,
+                          @NonNull @NotNull @Valid Recipient recipient,
+                          @NonNull @NotBlank String subject,
+                          @NonNull ModelAndView<T> html) {
+        send(sender, recipient, subject, null, html);
+    }
 }

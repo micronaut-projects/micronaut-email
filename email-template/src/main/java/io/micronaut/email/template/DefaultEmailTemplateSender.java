@@ -57,27 +57,23 @@ public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
     }
 
     @Override
-    public void sendText(@NonNull @NotNull @Valid Sender sender,
+    public void send(@NonNull @NotNull @Valid Sender sender,
                          @NonNull @NotNull @Valid Recipient recipient,
                          @NonNull @NotBlank String subject,
-                         @NonNull ModelAndView<T> modelAndView) {
-        content(modelAndView).ifPresent(content -> {
-            courier.send(emailBuilder(sender, recipient, subject)
-                    .text(content)
-                    .build());
-        });
-    }
-
-    @Override
-    public void sendHtml(@NonNull @NotNull @Valid Sender sender,
-                         @NonNull @NotNull @Valid Recipient recipient,
-                         @NonNull @NotBlank String subject,
-                         @NonNull ModelAndView<T> modelAndView) {
-        content(modelAndView).ifPresent(content -> {
-            courier.send(emailBuilder(sender, recipient, subject)
-                    .html(content)
-                    .build());
-        });
+                         @NonNull ModelAndView<T> text,
+                         @NonNull ModelAndView<T> html) {
+        Optional<String> renderedTextOptional = content(text);
+        Optional<String> renderedHtmlOptional = content(html);
+        if (renderedTextOptional.isPresent() ||renderedHtmlOptional.isPresent()) {
+            TransactionalEmail.Builder builder = emailBuilder(sender, recipient, subject);
+            if (renderedTextOptional.isPresent()) {
+                builder = builder.text(renderedTextOptional.get());
+            }
+            if (renderedHtmlOptional.isPresent()) {
+                builder = builder.html(renderedHtmlOptional.get());
+            }
+            courier.send(builder.build());
+        }
     }
 
     @NonNull
