@@ -22,8 +22,8 @@ import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.resource.Emailv31;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.email.EmailCourier;
-import io.micronaut.email.TransactionalEmail;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.Email;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.json.JSONArray;
@@ -36,15 +36,20 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
- * <a href="https://www.mailjet.com">Mailjet</a> implementation of {@link EmailCourier}.
+ * <a href="https://www.mailjet.com">Mailjet</a> implementation of {@link EmailSender}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Named("mailjet")
+@Named(MailjetEmailSender.NAME)
 @Singleton
-public class MailjetEmailCourier implements EmailCourier {
+public class MailjetEmailSender implements EmailSender {
+    /**
+     * {@link MailjetEmailSender} name.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public static final String NAME = "mailjet";
 
-    private static final Logger LOG = LoggerFactory.getLogger(MailjetEmailCourier.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MailjetEmailSender.class);
 
     private final MailjetClient mailjetClient;
 
@@ -52,7 +57,7 @@ public class MailjetEmailCourier implements EmailCourier {
      *
      * @param mailjetConfiguration Mailjet Configuration.
      */
-    public MailjetEmailCourier(MailjetConfiguration mailjetConfiguration) {
+    public MailjetEmailSender(MailjetConfiguration mailjetConfiguration) {
         ClientOptions clientOptions = ClientOptions.builder()
                 .apiKey(mailjetConfiguration.getApiKey())
                 .apiSecretKey(mailjetConfiguration.getApiSecret())
@@ -61,7 +66,13 @@ public class MailjetEmailCourier implements EmailCourier {
     }
 
     @Override
-    public void send(@NonNull @NotNull @Valid TransactionalEmail email) {
+    @NonNull
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public void send(@NonNull @NotNull @Valid Email email) {
         MailjetRequest request = createRequest(email);
         try {
             MailjetResponse response = mailjetClient.post(request);
@@ -77,7 +88,7 @@ public class MailjetEmailCourier implements EmailCourier {
     }
 
     @NonNull
-    private MailjetRequest createRequest(@NonNull TransactionalEmail email) {
+    private MailjetRequest createRequest(@NonNull Email email) {
         JSONObject message = new JSONObject();
         message.put(Emailv31.Message.FROM, from(email));
         to(email).ifPresent(jsonArray -> message.put(Emailv31.Message.TO, jsonArray));
@@ -95,12 +106,12 @@ public class MailjetEmailCourier implements EmailCourier {
     }
 
     @NonNull
-    private static JSONObject from(@NonNull TransactionalEmail email) {
+    private static JSONObject from(@NonNull Email email) {
         return new JSONObject().put("Email", email.getFrom().getEmail());
     }
 
     @NonNull
-    private static Optional<JSONArray> to(@NonNull TransactionalEmail email) {
+    private static Optional<JSONArray> to(@NonNull Email email) {
         if (email.getTo().isEmpty()) {
             return Optional.empty();
         }

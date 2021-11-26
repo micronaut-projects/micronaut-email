@@ -1,7 +1,7 @@
 package io.micronaut.email.sendgrid
 
-import io.micronaut.email.EmailCourier
-import io.micronaut.email.TransactionalEmail
+import io.micronaut.email.EmailSender
+import io.micronaut.email.Email
 import io.micronaut.email.test.MailTestUtils
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -10,10 +10,10 @@ import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 @MicronautTest(startApplication = false)
-class SendGridEmailCourierSpec extends Specification {
+class SendGridEmailSenderSpec extends Specification {
 
     @Inject
-    EmailCourier emailCourier
+    EmailSender emailCourier
 
     @Requires({env["SENDGRID_API_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
     void "Functional test of SendGrid integration"() {
@@ -21,7 +21,7 @@ class SendGridEmailCourierSpec extends Specification {
         String subject = "[Sendgrid] Test"
         String gmail = System.getenv("GMAIL_USERNAME")
         when:
-        emailCourier.send(TransactionalEmail.builder()
+        emailCourier.send(Email.builder()
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)

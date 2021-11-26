@@ -13,22 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email;
+package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailHeader;
+import io.micronaut.views.ModelAndView;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Defines a functional interface to send transactional emails.
+ * Renders a {@link Email} with text and html views.
+ *
  * @author Sergio del Amo
- * @since 1.0.0
+ * @since 1.0
+ * @param <T> The model type
  */
 @FunctionalInterface
-public interface EmailCourier {
-
+public interface EmailRenderer<T> {
     /**
-     * @param email Email
+     * Renders a {@link Email} with text and html views.
+     * @param emailHeader Email Sender, recipients and subjects
+     * @param text Emails Template's name and model for text
+     * @param html Emails Template's name and model for html
+     * @return A rendered email.
      */
-    void send(@NonNull @NotNull @Valid TransactionalEmail email);
+    @NonNull
+    Email render(@NonNull @NotNull @Valid EmailHeader emailHeader,
+                 @Nullable ModelAndView<T> text,
+                 @Nullable ModelAndView<T> html);
 }

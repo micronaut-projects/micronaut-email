@@ -1,7 +1,8 @@
 package io.micronaut.email.mailjet
 
-import io.micronaut.email.EmailCourier
-import io.micronaut.email.TransactionalEmail
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
 import io.micronaut.email.test.MailTestUtils
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -13,7 +14,7 @@ import spock.util.concurrent.PollingConditions
 class MailjetEmailSenderSpec extends Specification {
 
     @Inject
-    EmailCourier emailCourier
+    EmailSender emailCourier
 
     @Requires({env["MAILJET_API_KEY"] && env["MAILJET_API_SECRET"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
     void "Functional test of Mailjet integration"() {
@@ -21,7 +22,7 @@ class MailjetEmailSenderSpec extends Specification {
         String subject = "[Mailjet] Test"
         String gmail = System.getenv("GMAIL_USERNAME")
         when:
-        emailCourier.send(TransactionalEmail.builder()
+        emailCourier.send(Email.builder()
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)

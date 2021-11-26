@@ -18,11 +18,9 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-
+import io.micronaut.core.util.StringUtils;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,21 +30,12 @@ import java.util.Objects;
  * @since 1.0.0
  */
 @Introspected
-public class TransactionalEmail {
+public class Email {
 
     @NonNull
     @NotNull
     @Valid
-    private final Sender sender;
-
-    @NonNull
-    @NotNull
-    @Valid
-    private final Recipient recipient;
-
-    @NonNull
-    @NotBlank
-    private final String subject;
+    private final EmailHeader emailHeader;
 
     @Nullable
     private final String html;
@@ -56,59 +45,39 @@ public class TransactionalEmail {
 
     /**
      *
-     * @param from Sender of the Email
-     * @param to Email's recipient
-     * @param subject Email's subject
-     */
-    public TransactionalEmail(@NonNull Contact from,
-                              @NonNull List<Contact> to,
-                              @NonNull String subject) {
-        this(from, to, subject, null, null, null, null, null);
-    }
-
-    /**
-     *
-     * @param from Sender of the Email
-     * @param to Email's recipient
-     * @param subject Email's subject
-     * @param replyTo Reply to
-     * @param cc Carbon copy
-     * @param bcc Blind Carbon copy
+     * @param emailHeader Email Sender, recipients and subjects
      * @param html Email content as HTML
      * @param text Email content as text
      */
-    public TransactionalEmail(@NonNull Contact from,
-                 @NonNull List<Contact> to,
-                 @NonNull String subject,
-                 @Nullable Contact replyTo,
-                 @Nullable List<Contact> cc,
-                 @Nullable List<Contact> bcc,
+    public Email(@NonNull EmailHeader emailHeader,
                  @Nullable String html,
                  @Nullable String text) {
-
-        this.subject = subject;
-        this.sender = new Sender(from, replyTo);
-        this.recipient = new Recipient(to, cc, bcc);
+        this.emailHeader = emailHeader;
         this.html = html;
         this.text = text;
     }
 
     /**
-     *
-     * @return The Email' sender (from and reply to emails)
+     * @param from Sender of the Email
+     * @param replyTo Reply to
+     * @param to To recipients
+     * @param cc Carbon Copy recipients
+     * @param bcc Blind Carbon Copy recipients
+     * @param subject Subject
+     * @param html Email content as HTML
+     * @param text Email content as text
      */
-    @NonNull
-    public Sender getSender() {
-        return sender;
-    }
-
-    /**
-     *
-     * @return The Email' recpient (to, cc and bcc emails)
-     */
-    @NonNull
-    public Recipient getRecipient() {
-        return recipient;
+    public Email(@NonNull Contact from,
+                 @Nullable Contact replyTo,
+                 @Nullable List<Contact> to,
+                 @Nullable List<Contact> cc,
+                 @Nullable List<Contact> bcc,
+                 @NonNull String subject,
+                 @Nullable String html,
+                 @Nullable String text) {
+        this.emailHeader = new EmailHeader(from, replyTo, to, cc, bcc, subject);
+        this.html = html;
+        this.text = text;
     }
 
     /**
@@ -117,7 +86,7 @@ public class TransactionalEmail {
      */
     @Nullable
     public List<Contact> getCc() {
-        return getRecipient().getCc();
+        return emailHeader.getCc();
     }
 
     /**
@@ -126,16 +95,16 @@ public class TransactionalEmail {
      */
     @Nullable
     public List<Contact> getBcc() {
-        return getRecipient().getBcc();
+        return emailHeader.getBcc();
     }
 
     /**
      *
      * @return Email recipients.
      */
-    @NonNull
+    @Nullable
     public List<Contact> getTo() {
-        return getRecipient().getTo();
+        return emailHeader.getTo();
     }
 
     /**
@@ -144,7 +113,7 @@ public class TransactionalEmail {
      */
     @NonNull
     public String getSubject() {
-        return subject;
+        return emailHeader.getSubject();
     }
 
     /**
@@ -171,7 +140,7 @@ public class TransactionalEmail {
      */
     @NonNull
     public Contact getFrom() {
-        return getSender().getFrom();
+        return emailHeader.getFrom();
     }
 
     /**
@@ -180,7 +149,7 @@ public class TransactionalEmail {
      */
     @Nullable
     public Contact getReplyTo() {
-        return getSender().getReplyTo();
+        return emailHeader.getReplyTo();
     }
 
     /**
@@ -193,15 +162,41 @@ public class TransactionalEmail {
     }
 
     /**
+     *
+     * @param emailHeader Email Sender, recipients and subjects
+     * @return A Builder with Sender, recipients and subjects populated.
+     */
+    @NonNull
+    public static Builder builder(@NonNull EmailHeader emailHeader) {
+        Email.Builder builder = Email.builder()
+                .subject(emailHeader.getSubject())
+                .from(emailHeader.getFrom());
+        if (emailHeader.getReplyTo() != null) {
+            builder = builder.replyTo(emailHeader.getReplyTo());
+        }
+        if (emailHeader.getTo() != null) {
+            for (Contact to : emailHeader.getTo()) {
+                builder = builder.to(to);
+            }
+        }
+        if (emailHeader.getCc() != null) {
+            for (Contact cc : emailHeader.getCc()) {
+                builder = builder.cc(cc);
+            }
+        }
+        if (emailHeader.getBcc() != null) {
+            for (Contact bcc : emailHeader.getBcc()) {
+                builder = builder.bcc(bcc);
+            }
+        }
+        return builder;
+    }
+
+    /**
      * TransactionEmail  builder.
      */
     public static class Builder {
-        private Contact from;
-        private List<Contact> to;
-        private String subject;
-        private Contact replyTo;
-        private List<Contact> cc;
-        private List<Contact> bcc;
+        private EmailHeader.Builder builder;
         private String html;
         private String text;
 
@@ -212,7 +207,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder from(@NonNull String from) {
-            this.from = new Contact(from);
+            builder = builder == null ? EmailHeader.builder().from(from) : builder.from(from);
             return this;
         }
 
@@ -223,7 +218,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder from(@NonNull Contact from) {
-            this.from = from;
+            builder = builder == null ? EmailHeader.builder().from(from) : builder.from(from);
             return this;
         }
 
@@ -234,7 +229,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder replyTo(@NonNull String replyTo) {
-            this.replyTo = new Contact(replyTo);
+            builder = builder == null ? EmailHeader.builder().replyTo(replyTo) : builder.replyTo(replyTo);
             return this;
         }
 
@@ -245,7 +240,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder replyTo(@NonNull Contact replyTo) {
-            this.replyTo = replyTo;
+            builder = builder == null ? EmailHeader.builder().replyTo(replyTo) : builder.replyTo(replyTo);
             return this;
         }
 
@@ -256,10 +251,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder to(@NonNull String to) {
-            if (this.to == null) {
-                this.to = new ArrayList<>();
-            }
-            this.to.add(new Contact(to));
+            builder = builder == null ? EmailHeader.builder().to(to) : builder.to(to);
             return this;
         }
 
@@ -270,15 +262,8 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder to(@NonNull Contact to) {
-            addTo(to);
+            builder = builder == null ? EmailHeader.builder().to(to) : builder.to(to);
             return this;
-        }
-
-        private void addTo(@NonNull Contact to) {
-            if (this.to == null) {
-                this.to = new ArrayList<>();
-            }
-            this.to.add(to);
         }
 
         /**
@@ -288,15 +273,8 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder cc(@NonNull Contact cc) {
-            addCc(cc);
+            builder = builder == null ? EmailHeader.builder().cc(cc) : builder.cc(cc);
             return this;
-        }
-
-        private void addCc(Contact cc) {
-            if (this.cc == null) {
-                this.cc = new ArrayList<>();
-            }
-            this.cc.add(cc);
         }
 
         /**
@@ -306,15 +284,8 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder bcc(@NonNull Contact bcc) {
-            addBcc(bcc);
+            builder = builder == null ? EmailHeader.builder().bcc(bcc) : builder.bcc(bcc);
             return this;
-        }
-
-        private void addBcc(@NonNull Contact bcc) {
-            if (this.bcc == null) {
-                this.bcc = new ArrayList<>();
-            }
-            this.bcc.add(bcc);
         }
 
         /**
@@ -324,7 +295,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder subject(@NonNull String subject) {
-            this.subject = subject;
+            builder = builder == null ? EmailHeader.builder().subject(subject) : builder.subject(subject);
             return this;
         }
 
@@ -335,10 +306,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder cc(@NonNull String cc) {
-            if (this.cc == null) {
-                this.cc = new ArrayList<>();
-            }
-            this.cc.add(new Contact(cc));
+            builder = builder == null ? EmailHeader.builder().cc(cc) : builder.cc(cc);
             return this;
         }
 
@@ -349,10 +317,7 @@ public class TransactionalEmail {
          */
         @NonNull
         public Builder bcc(@NonNull String bcc) {
-            if (this.bcc == null) {
-                this.bcc = new ArrayList<>();
-            }
-            this.bcc.add(new Contact(bcc));
+            builder = builder == null ? EmailHeader.builder().bcc(bcc) : builder.bcc(bcc);
             return this;
         }
 
@@ -383,38 +348,13 @@ public class TransactionalEmail {
          * @return a TransactionEmail
          */
         @NonNull
-        public TransactionalEmail build() {
-            return new TransactionalEmail(Objects.requireNonNull(from),
-                    Objects.requireNonNull(to),
-                    Objects.requireNonNull(subject),
-                    replyTo,
-                    cc,
-                    bcc,
+        public Email build() {
+            if (StringUtils.isEmpty(html) && StringUtils.isEmpty(text)) {
+                throw new IllegalArgumentException("you have to specify the email's content with Text, HTML or both");
+            }
+            return new Email(Objects.requireNonNull(builder).build(),
                     html,
                     text);
-        }
-
-        /**
-         *
-         * @param recipient The email recipient (to, cc, bcc).
-         * @return The Builder
-         */
-        @NonNull
-        public Builder recipient(@NonNull Recipient recipient) {
-            for (Contact to : recipient.getTo()) {
-                to(to);
-            }
-            if (recipient.getBcc() != null) {
-                for (Contact bcc : recipient.getBcc()) {
-                    addBcc(bcc);
-                }
-            }
-            if (recipient.getCc() != null) {
-                for (Contact cc : recipient.getCc()) {
-                    addCc(cc);
-                }
-            }
-            return this;
         }
     }
 }

@@ -21,12 +21,11 @@ import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Contact;
-import io.micronaut.email.EmailCourier;
-import io.micronaut.email.TransactionalEmail;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.Email;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -39,14 +38,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * <a href="https://sendgrid.com">SendGrid</a> implementation of {@link EmailCourier}.
+ * <a href="https://sendgrid.com">SendGrid</a> implementation of {@link EmailSender}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Named("sendgrid")
+@Named(SendgridEmailSender.NAME)
 @Singleton
-public class SendgridEmailCourier implements EmailCourier {
-    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailCourier.class);
+public class SendgridEmailSender implements EmailSender {
+    /**
+     * {@link SendgridEmailSender} name.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public static final String NAME = "sendgrid";
+    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailSender.class);
 
     private final SendGrid sendGrid;
 
@@ -54,12 +58,18 @@ public class SendgridEmailCourier implements EmailCourier {
      *
      * @param sendGridConfiguration SendGrid Configuration
      */
-    public SendgridEmailCourier(SendGridConfiguration sendGridConfiguration) {
+    public SendgridEmailSender(SendGridConfiguration sendGridConfiguration) {
         sendGrid = new SendGrid(sendGridConfiguration.getApiKey());
     }
 
     @Override
-    public void send(@NonNull @NotNull @Valid TransactionalEmail email) {
+    @NonNull
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public void send(@NonNull @NotNull @Valid Email email) {
         try {
             if (LOG.isTraceEnabled()) {
                 LOG.trace("Sending email to {}", email.getTo());
@@ -73,7 +83,7 @@ public class SendgridEmailCourier implements EmailCourier {
     }
 
     @NonNull
-    private Mail createMail(@NonNull TransactionalEmail email) {
+    private Mail createMail(@NonNull Email email) {
         Mail mail = new Mail();
         com.sendgrid.helpers.mail.objects.Email from = new com.sendgrid.helpers.mail.objects.Email();
         from.setEmail(email.getFrom().getEmail());
@@ -87,11 +97,11 @@ public class SendgridEmailCourier implements EmailCourier {
     }
 
     @NonNull
-    private Personalization createPersonalization(@NonNull TransactionalEmail email) {
+    private Personalization createPersonalization(@NonNull Email email) {
         Personalization personalization = new Personalization();
         personalization.setSubject(email.getSubject());
         for (Contact contactTo : email.getTo()) {
-            Email to = new Email();
+            com.sendgrid.helpers.mail.objects.Email to = new com.sendgrid.helpers.mail.objects.Email();
             to.setEmail(contactTo.getEmail());
             if (contactTo.getName() != null) {
                 to.setName(contactTo.getName());
@@ -101,7 +111,7 @@ public class SendgridEmailCourier implements EmailCourier {
 
         if (email.getCc() != null) {
             for (Contact cc : email.getCc()) {
-                Email ccEmail = new Email();
+                com.sendgrid.helpers.mail.objects.Email ccEmail = new com.sendgrid.helpers.mail.objects.Email();
                 ccEmail.setEmail(cc.getEmail());
                 if (cc.getName() != null) {
                     ccEmail.setName(cc.getName());
@@ -112,7 +122,7 @@ public class SendgridEmailCourier implements EmailCourier {
 
         if (email.getBcc()  != null) {
             for (Contact bcc : email.getBcc()) {
-                Email bccEmail = new Email();
+                com.sendgrid.helpers.mail.objects.Email bccEmail = new com.sendgrid.helpers.mail.objects.Email();
                 bccEmail.setEmail(bcc.getEmail());
                 if (bcc.getName() != null) {
                     bccEmail.setName(bcc.getName());
@@ -147,7 +157,7 @@ public class SendgridEmailCourier implements EmailCourier {
     }
 
     @NonNull
-    private Optional<Content> contentOfEmail(@NonNull TransactionalEmail email) {
+    private Optional<Content> contentOfEmail(@NonNull Email email) {
         if (email.getText() != null) {
             return Optional.of(new Content("text/plain", email.getText()));
         }

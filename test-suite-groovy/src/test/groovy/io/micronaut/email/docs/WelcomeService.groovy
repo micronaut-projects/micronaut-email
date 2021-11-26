@@ -1,19 +1,20 @@
 package io.micronaut.email.docs
 
-import io.micronaut.email.EmailCourier
-import io.micronaut.email.TransactionalEmail
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
 import jakarta.inject.Singleton
 
 @Singleton
 class WelcomeService {
-    private final EmailCourier emailCourier
+    private final EmailSender emailCourier
 
-    WelcomeService(EmailCourier emailCourier) {
+    WelcomeService(EmailSender emailCourier) {
         this.emailCourier = emailCourier
     }
 
     void sendWelcomeEmail() {
-        emailCourier.send(TransactionalEmail.builder()
+        emailCourier.send(Email.builder()
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")

@@ -13,64 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email;
+package io.micronaut.email.template;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailHeader;
+import io.micronaut.views.ModelAndView;
+import io.micronaut.views.ViewsRenderer;
+import jakarta.inject.Singleton;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author Sergio del Amo
  * @since 1.0.0
+ * @param <T> The model type
  */
-@Introspected
-public class Sender {
+@Singleton
+public class DefaultEmailRenderer<T> implements EmailRenderer<T> {
+    private final ViewsRenderer<T> viewsRenderer;
+
+    /**
+     *
+     * @param viewsRenderer Utility to render views
+     */
+    public DefaultEmailRenderer(ViewsRenderer<T> viewsRenderer) {
+        this.viewsRenderer = viewsRenderer;
+    }
+
+    @Override
     @NonNull
-    @NotNull
-    @Valid
-    private final Contact from;
-
-    @Nullable
-    @Valid
-    private final Contact replyTo;
-
-    /**
-     *
-     * @param from Sender of the Email
-     */
-    public Sender(@NonNull String from) {
-        this(new Contact(from), null);
-    }
-
-    /**
-     *
-     * @param from Sender of the Email
-     * @param replyTo Reply to
-     */
-    public Sender(@NonNull Contact from,
-                  @Nullable Contact replyTo) {
-        this.from = from;
-        this.replyTo = replyTo;
-    }
-
-    /**
-     *
-     * @return Email sender
-     */
-    @NonNull
-    public Contact getFrom() {
-        return from;
-    }
-
-    /**
-     *
-     * @return Email Reply-to
-     */
-    @Nullable
-    public Contact getReplyTo() {
-        return replyTo;
+    public Email render(@NonNull @NotNull @Valid EmailHeader emailHeader,
+                        @Nullable ModelAndView<T> text,
+                        @Nullable ModelAndView<T> html) {
+        return EmailRenderUtils.render(viewsRenderer, emailHeader, text, html);
     }
 }

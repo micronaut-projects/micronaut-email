@@ -15,7 +15,7 @@ public class WelcomeWithTemplateServiceTest {
     WelcomeWithTemplateService welcomeService;
 
     @Inject
-    MockEmailCourier emailCourier;
+    MockEmailSender emailCourier;
 
     @Test
     void transactionalEmailIsCorrectlyBuilt() {
@@ -27,8 +27,8 @@ public class WelcomeWithTemplateServiceTest {
         welcomeService.sendWelcomeEmail();
         //then:
         assertEquals(1, emailCourier.getEmails().size());
-        assertEquals("sender@example.com", emailCourier.getEmails().get(0).getSender().getFrom().getEmail());
-        assertNull(emailCourier.getEmails().get(0).getSender().getFrom().getName());
+        assertEquals("sender@example.com", emailCourier.getEmails().get(0).getFrom().getEmail());
+        assertNull(emailCourier.getEmails().get(0).getFrom().getName());
         assertEquals(1, emailCourier.getEmails().get(0).getTo().size());
         assertEquals("john@example.com", emailCourier.getEmails().get(0).getTo().get(0).getEmail());
         assertNull(emailCourier.getEmails().get(0).getTo().get(0).getName());

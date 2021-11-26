@@ -6,6 +6,6 @@ group = "io.micronaut.email"
 dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
     implementation("io.micronaut:micronaut-validation")
-    implementation("io.micronaut.views:micronaut-views-core")
-    implementation(project(":email"))
+    api("io.micronaut.views:micronaut-views-core")
+    api(project(":email"))
 }

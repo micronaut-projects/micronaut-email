@@ -11,15 +11,15 @@ class WelcomeServiceSpec extends Specification {
     WelcomeService welcomeService
 
     @Inject
-    MockEmailCourier emailCourier
+    MockEmailSender emailCourier
 
-    void "TransactionalEmail is correctly built"() {
+    void "Email is correctly built"() {
         when:
         welcomeService.sendWelcomeEmail()
         then:
         emailCourier.emails.size()
-        'sender@example.com' == emailCourier.emails[0].sender.from.email
-        !emailCourier.emails[0].sender.from.name
+        'sender@example.com' == emailCourier.emails[0].from.email
+        !emailCourier.emails[0].from.name
         1 == emailCourier.emails[0].to.size()
         'john@example.com' == emailCourier.emails[0].to[0].email
         !emailCourier.emails[0].to[0].name

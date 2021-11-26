@@ -21,8 +21,8 @@ import com.wildbit.java.postmark.client.data.model.message.Message;
 import com.wildbit.java.postmark.client.data.model.message.MessageResponse;
 import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.email.EmailCourier;
-import io.micronaut.email.TransactionalEmail;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.Email;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -33,28 +33,38 @@ import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 /**
- * {@link EmailCourier} implementation which uses Postmark.
+ * {@link EmailSender} implementation which uses Postmark.
  *
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Named("postmark")
+@Named(PostmarkEmailSender.NAME)
 @Singleton
-public class PostmarkEmailCourier implements EmailCourier {
-    private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailCourier.class);
-
+public class PostmarkEmailSender implements EmailSender {
+    /**
+     * {@link PostmarkEmailSender} name.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public static final String NAME = "postmark";
+    private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailSender.class);
     private final ApiClient client;
 
     /**
      *
      * @param postmarkConfiguration Postmark configuration
      */
-    public PostmarkEmailCourier(PostmarkConfiguration postmarkConfiguration) {
+    public PostmarkEmailSender(PostmarkConfiguration postmarkConfiguration) {
         client = Postmark.getApiClient(postmarkConfiguration.getApiToken());
     }
 
     @Override
-    public void send(@NonNull @NotNull @Valid TransactionalEmail email) {
+    @NonNull
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public void send(@NonNull @NotNull @Valid Email email) {
         Message message = new Message(email.getFrom().getEmail(),
                 email.getTo().isEmpty() ? null : email.getTo().get(0).getEmail(),
                 email.getSubject(), email.getText(), email.getHtml());

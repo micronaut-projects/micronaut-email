@@ -14,7 +14,7 @@ class WelcomeWithTemplateServiceTest {
     lateinit var welcomeService: WelcomeWithTemplateService
 
     @Inject
-    lateinit var emailCourier: MockEmailCourier
+    lateinit var emailCourier: MockEmailSender
 
     @Test
     fun transactionalEmailIsCorrectlyBuilt() {
@@ -28,12 +28,13 @@ class WelcomeWithTemplateServiceTest {
         assertEquals(1, emailCourier.getEmails().size)
         assertEquals(
             "sender@example.com",
-            emailCourier.getEmails()[0].sender.from.email
+            emailCourier.getEmails()[0].from.email
         )
-        assertNull(emailCourier.getEmails()[0].sender.from.name)
-        assertEquals(1, emailCourier.getEmails()[0].to.size)
-        assertEquals("john@example.com", emailCourier.getEmails()[0].to[0].email)
-        assertNull(emailCourier.getEmails()[0].to[0].name)
+        assertNull(emailCourier.getEmails()[0].from.name)
+        assertNotNull(emailCourier.getEmails()[0].to)
+        assertEquals(1, emailCourier.getEmails()[0].to!!.size)
+        assertEquals("john@example.com", emailCourier.getEmails()[0].to!![0].email)
+        assertNull(emailCourier.getEmails()[0].to!![0].name)
         assertNull(emailCourier.getEmails()[0].cc)
         assertNull(emailCourier.getEmails()[0].bcc)
         assertEquals("Micronaut test", emailCourier.getEmails()[0].subject)

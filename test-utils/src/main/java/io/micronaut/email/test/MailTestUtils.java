@@ -31,6 +31,14 @@ public final class MailTestUtils {
     private final static String HOST = "smtp.gmail.com";
     private final static String FOLDER_INBOX = "Inbox";
 
+    /**
+     *
+     * @param user SMTP user
+     * @param password SMTP password
+     * @param subject Target subject
+     * @return the number of emails which matched the target subject
+     * @throws MessagingException exception thrown while reading emails
+     */
     public static int countAndDeleteInboxEmailsBySubject(String user,
                                                          String password,
                                                          String subject) throws MessagingException {
