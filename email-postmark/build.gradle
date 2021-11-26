@@ -8,7 +8,6 @@ dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
     implementation("com.wildbit.java:postmark:$postmarkVersion")
     implementation("io.micronaut:micronaut-validation")
-    implementation("com.sendgrid:sendgrid-java:4.8.0")
     implementation(project(":email"))
     testImplementation project(":test-utils")
 }
