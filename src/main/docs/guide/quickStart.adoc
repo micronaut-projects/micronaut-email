@@ -1,4 +1,5 @@
-https://postmarkapp.com[Postmark]
+First, you need to <<integrations, install the dependency and add configuration>> for your transactional email provider.
 
+Then, you can send an email by injecting a bean of type api:io.micronaut.email.EmailCourier[].
 
-https://sendgrid.com[SendGrid]
+snippet::io.micronaut.email.docs.WelcomeService[]

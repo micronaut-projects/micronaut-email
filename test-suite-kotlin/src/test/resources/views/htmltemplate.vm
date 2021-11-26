@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>$message</title>
+    <meta property="og:title" content="@htmlTemplate.getTitle()" />
+    <style type="text/css" data-premailer='ignore'>
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+        @import url(https://fonts.googleapis.com/css?family=Merriweather:400,700,400italic,700italic);
+
+        body,h1,h2,h3,h5,h6,p,li,.hs,.ha,.cf div{font-family:'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+        .hi h2,.hi h2 span,.hi h2 i,.ct h1,.ct h1 span{font-family:'Merriweather', Georgia, 'Times New Roman', Times, serif !important;}
+    </style>
+    <style type="text/css">
+        body,h1,h2,h3,h5,h6,p,li,.hs,.ha,.cf div{font-family:'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+        .hi h2,.hi h2 span,.hi h2 i,.ct h1,.ct h1 span{font-family:'Merriweather', Georgia, 'Times New Roman', Times, serif !important;}
+
+        p {
+            margin: 1em 0;
+        }
+        table {
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        img,
+        a img {
+            border: 0;
+            outline: none;
+            text-decoration: none;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            display: block !important;
+            font-weight: 400;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        body,
+        #lbt,
+        #lbc {
+            height: 100% !important;
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+        }
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+        #outlook a {
+            padding: 0;
+        }
+        table {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+        .ReadMsgBody {
+            width: 100%;
+        }
+        .ExternalClass {
+            width: 100%;
+        }
+        p,
+        a,
+        li,
+        blockquote {
+            mso-line-height-rule: exactly;
+        }
+        a[href^="tel"],
+        a[href^="sms"] {
+            color: inherit;
+            cursor: default;
+            text-decoration: none;
+        }
+        body {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass td,
+        .ExternalClass div,
+        .ExternalClass span,
+        .ExternalClass font {
+            line-height: 100%;
+        }
+        .lc {
+            max-width: 600px;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        td {
+            vertical-align: top;
+        }
+        body {
+            background-color: #ffffff;
+            color: #454547;
+        }
+        hr {
+            border: 0;
+            font-size: 4px;
+            height: 1px;
+            line-height: 4px;
+            Margin-bottom: 30px;
+            Margin-left: auto;
+            Margin-right: auto;
+            Margin-top: 30px;
+            text-align: center;
+            width: 82%;
+        }
+        #h {
+            background-color: #ffffff;
+            color: #FFFFFF;
+        }
+        .h {
+            background-color: #181313;
+            background-size: cover;
+            font-size: 13px;
+            line-height: 21px;
+            padding: 10px 20px 20px;
+            text-align: center;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        .h div {
+            color: #FFFFFF;
+            font-size: 13px;
+            line-height: 21px;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        .h a {
+            color: #FFFFFF;
+        }
+        .h .hs {
+            font-size: 12px;
+            line-height: 16px;
+        }
+        .h .s {
+            font-size: 18px;
+            line-height: 18px;
+        }
+        .hl {
+            color: #FFFFFF;
+            font-size: 26px;
+            font-weight: 400;
+            line-height: 36px;
+        }
+        .hl img {
+            font-size: 30px;
+            line-height: 30px;
+            max-width: 100%;
+            text-align: center;
+        }
+        .hi {
+            font-size: 16px;
+            line-height: 21px;
+            padding: 30px 20px;
+        }
+        .hi h2 {
+            color: #454547;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 21px;
+        }
+        .hi h2 i {
+            color: #77777b;
+        }
+        .s {
+            mso-line-height-rule: exactly;
+            font-size: 26px;
+            line-height: 26px;
+        }
+        .c {
+            color: #454547;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .c .lc {
+            Margin-bottom: 22px;
+        }
+        .c a {
+            color: #000000;
+        }
+        .c a:hover {
+            color: #000000 !important;
+        }
+        .ct {
+            Margin-bottom: 0;
+            vertical-align: middle;
+        }
+        .ct h1 {
+            color: #454547;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 30px;
+            Margin-bottom: 0;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .ct img {
+            max-width: 100%;
+            vertical-align: middle;
+        }
+        .ct2 .ct h1,
+        .ct.ct2 h1 {
+            font-size: 28px;
+            line-height: 36px;
+        }
+        .cth {
+            vertical-align: middle;
+        }
+        .cth h1 {
+            Margin-left: 18px !important;
+        }
+        .ctl {
+            border-radius: 3px;
+            display: inline-block;
+            font-size: 16px;
+            line-height: 20px;
+            padding: 6px 6px;
+            text-transform: uppercase;
+            mso-line-height-rule: exactly;
+        }
+        .ct2 .ctl {
+            font-size: 24px;
+            line-height: 30px;
+            padding: 9px 30px;
+        }
+        .ci h1,
+        .ci h2,
+        .ci h3,
+        .ci h4,
+        .ci h5,
+        .ci h6 {
+            font-weight: 400;
+            Margin-bottom: 10px !important;
+            Margin-top: 0 !important;
+            text-rendering: optimizeLegibility;
+        }
+        .ci h1,
+        .ci h3,
+        .ci h5 {
+            font-weight: 700;
+        }
+        .ci h1,
+        .ci h2 {
+            font-size: 22px;
+            line-height: 28px;
+        }
+        .ci h3,
+        .ci h4 {
+            font-size: 20px;
+            line-height: 26px;
+        }
+        .ci h5,
+        .ci h6 {
+            font-size: 18px;
+            line-height: 26px;
+        }
+        .ci .cit {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 28px;
+            Margin-bottom: 10px !important;
+        }
+        .ci .cit a:hover,
+        .ci .cit a:focus {
+            text-decoration: underline !important;
+        }
+        .ci p,
+        .ci ol,
+        .ci ul {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 26px;
+            Margin-bottom: 20px;
+            Margin-top: 0;
+            text-rendering: optimizeLegibility;
+        }
+        .ci ol,
+        .ci ul {
+            list-style-position: inside;
+            padding-left: 15px;
+        }
+        .ci code {
+            background: rgba(238, 238, 238, 0.3);
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 90%;
+            margin: auto 3px;
+            padding: 2px 5px;
+        }
+        .ci pre {
+            background: rgba(238, 238, 238, 0.3);
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: block;
+            margin-bottom: 20px;
+            padding: 9px 12px;
+        }
+        .ci pre code {
+            background: transparent;
+            border: 0;
+            font-size: inherit;
+            margin: auto;
+            padding: 0;
+        }
+        .ci ol {
+            list-style-type: decimal;
+        }
+        .ci li {
+            line-height: 26px;
+            Margin-bottom: 10px;
+            Margin-left: 0;
+        }
+        .ci blockquote {
+            border-left: 5px solid;
+            Margin-bottom: 20px;
+            Margin-left: 0;
+            Margin-right: 0;
+            Margin-top: 20px;
+            padding: 0 10px;
+        }
+        .ci blockquote blockquote {
+            Margin-bottom: 25px;
+            Margin-left: 10px;
+            Margin-right: 10px;
+            Margin-top: 25px;
+        }
+        .ci img {
+            display: block;
+            width: 100%;
+        }
+        .ci .cii {
+            Margin-bottom: 26px;
+        }
+        .ci p a,
+        .ci li a {
+            text-decoration: underline;
+        }
+        .ci p a:hover,
+        .ci li a:hover,
+        .ci p a:focus,
+        .ci li a:focus {
+            text-decoration: none !important;
+        }
+        .ci p.cif {
+            color: #454547;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 22px;
+            Margin-bottom: 0 !important;
+            Margin-top: -10px !important;
+        }
+        .ci p.cif a {
+            text-decoration: none;
+        }
+        .ci p.cif a:hover,
+        .ci p.cif a:focus {
+            text-decoration: underline !important;
+        }
+        .ci p.cif .cifp {
+            font-style: normal;
+        }
+        .ci p.cif .cifp img {
+            display: inline !important;
+            height: 10px !important;
+            width: 10px !important;
+        }
+        .ci p.cif .cifp:hover,
+        .ci p.cif .cifp:focus {
+            text-decoration: none !important;
+        }
+        .cihr {
+            mso-line-height-rule: exactly;
+            padding-bottom: 26px;
+        }
+        .cihr hr {
+            background-color: #454547;
+            color: #454547;
+            Margin-bottom: 0;
+            Margin-left: 0;
+            Margin-right: 0;
+            Margin-top: 0;
+            width: 55px;
+        }
+        .cf div {
+            font-size: 16px;
+            mso-line-height-rule: exactly;
+            line-height: 26px;
+            padding: 15px 10px 15px 10px;
+        }
+        .cf a:hover,
+        .cf a:focus {
+            text-decoration: underline !important;
+        }
+        #f {
+            background-color: #e2e6eb;
+            color: #8a9099;
+        }
+        .f {
+            font-size: 13px;
+            line-height: 20px;
+            padding: 35px 20px 30px;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        .f div {
+            color: #8a9099;
+            font-size: 13px;
+            line-height: 20px;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        .f a {
+            color: #8a9099;
+            text-decoration: none;
+        }
+        .f a:hover,
+        .f a:focus {
+            color: #737880 !important;
+        }
+        .f a.fs {
+            color: #737880;
+            text-decoration: underline;
+        }
+        .f a.fs:hover,
+        .f a.fs:focus {
+            color: #737880;
+            text-decoration: none !important;
+        }
+        .f hr {
+            background-color: #ccd1d7;
+            color: #ccd1d7;
+            Margin-bottom: 0;
+            Margin-left: 0;
+            Margin-right: 0;
+            Margin-top: 0;
+            width: 55px;
+        }
+        .f .s {
+            font-size: 18px;
+            line-height: 18px;
+        }
+        .f .sl img {
+            margin: 0 9px;
+        }
+        @@media only screen {
+            .ci img {
+                width: 100%;
+                height: auto !important;
+            }
+        }
+        @@media screen and (min-width: 640px) {
+            .lc {
+                width: 600px !important;
+            }
+        }
+        @@media screen and (max-width: 640px) {
+            .hs {
+                display: none !important;
+                visibility: hidden !important;
+            }
+        }
+        @@media only screen and (max-width: 480px) {
+            body {
+                min-width: 100% !important;
+                width: 100% !important;
+            }
+            .hs {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            .logo img {
+                max-width: 80%;
+            }
+            .hi {
+                padding: 15px 0;
+            }
+        }
+    </style>
+    <style type="text/css" data-premailer='ignore'>
+        .c .lc{Margin-bottom:22px}
+        .cth h1{Margin-left:18px !important}
+        .ci .cit{Margin-bottom:10px !important}
+        .ci h1,.ci h2,.ci h3,.ci h4,.ci h5,.ci h6,.ci p,.ci ol,.ci ul{Margin-bottom:10px;Margin-top:10px}
+        .ci li{Margin-bottom:5px;Margin-left:0}
+        .ci .cii{Margin-bottom:26px !important}
+        .ci p.cif{Margin-bottom:0 !important}
+        .cf p{Margin-bottom:6px !important;Margin-top:6px !important}
+    </style>
+    <!--[if mso]>
+    <style type="text/css">
+        h1,h2,h3,h4,h5,h6,p,ul,ol,li,td,div,span,a,em,strong{font-family:'Helvetica Neue', Helvetica, Arial, sans-serif !important;}
+        .hi h2,.hi h2 span,.hi h2 i,.ct h1,.ct h1 span{font-family:Georgia, 'Times New Roman', Times, serif !important;}
+        .ci img{width:600px !important;}
+        table{font-size:1px;line-height:0;mso-margin-top-alt:1px;}
+        .h{background-color:transparent !important;}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<center>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="lbt">
+        <tr>
+            <td align="center" valign="top" id="lbc">
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td align="center" class="c" valign="top" id="cc-comment">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="lc">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <!--[if (gte mso 9)|(IE)]>
+                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                                <td align="center" valign="top"><![endif]-->
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td align="center" class="cihr" valign="top"></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" class="ci">
+                                                    <h2 class="cit">$message</h2>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" class="cihr" valign="top"></td>
+                                            </tr>
+                                        </table>
+                                        <!--[if (gte mso 9)|(IE)]></td>
+                                    </tr>
+                                    </table>
+                                        <![endif]-->
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" id="f" valign="top">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="lc">
+                                <tr>
+                                    <td align="center" class="f" valign="top">
+                                        <!--[if (gte mso 9)|(IE)]>
+                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                                            <tr>
+                                                <td align="center" valign="top" width="600"><![endif]-->
+                                        <div>$address</div>
+                                        <div class="s">&nbsp;</div>
+                                        <hr/>
+                                        <div class="s">&nbsp;</div>
+                                        <div>$copyright</div>
+                                        <!--[if (gte mso 9)|(IE)]></td>
+                                    </tr>
+                                    </table>
+                                        <![endif]-->
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

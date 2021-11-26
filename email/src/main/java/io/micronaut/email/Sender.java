@@ -40,6 +40,14 @@ public class Sender {
     /**
      *
      * @param from Sender of the Email
+     */
+    public Sender(@NonNull String from) {
+        this(new Contact(from), null);
+    }
+
+    /**
+     *
+     * @param from Sender of the Email
      * @param replyTo Reply to
      */
     public Sender(@NonNull Contact from,

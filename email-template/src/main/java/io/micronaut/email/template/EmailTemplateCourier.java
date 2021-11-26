@@ -33,7 +33,7 @@ import javax.validation.constraints.NotNull;
  * @param <T> The model type
  */
 @FunctionalInterface
-public interface EmailTemplateSender<T> {
+public interface EmailTemplateCourier<T> {
     /**
      * Sends a template as a text email.
      * @param sender Email's Sender (from, replyTo emails).

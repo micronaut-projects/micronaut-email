@@ -51,7 +51,7 @@ public class SendGridConfigurationProperties implements SendGridConfiguration {
     }
 
     /**
-     * If Security is enabled. Default value {@value #DEFAULT_ENABLED}
+     * If SendGrid integration is enabled. Default value {@value #DEFAULT_ENABLED}
      *
      * @param enabled True if security is enabled
      */

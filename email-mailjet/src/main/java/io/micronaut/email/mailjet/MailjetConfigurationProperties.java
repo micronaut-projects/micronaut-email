@@ -67,7 +67,7 @@ public class MailjetConfigurationProperties implements MailjetConfiguration {
     }
 
     /**
-     * If Security is enabled. Default value {@value #DEFAULT_ENABLED}
+     * If Mailjet integration is enabled. Default value: `{@value #DEFAULT_ENABLED}`
      *
      * @param enabled True if security is enabled
      */
@@ -82,7 +82,7 @@ public class MailjetConfigurationProperties implements MailjetConfiguration {
     }
 
     /**
-     *
+     * Mailjet API Version. Default value: `{@value #DEFAULT_VERSION}`
      * @param version Mailjet API Version
      */
     public void setVersion(@NonNull String version) {

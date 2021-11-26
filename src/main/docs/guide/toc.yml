@@ -3,5 +3,12 @@ introduction:
 releaseHistory: Release History
 quickStart:
   title: Quick Start
+template:
+  title: Templates
+integrations:
+  title: Integrations
+  postmark: Postmark
+  sendgrid: SendGrid
+  mailjet: Mailjet
 repository: Repository
 

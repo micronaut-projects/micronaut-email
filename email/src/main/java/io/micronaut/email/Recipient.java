@@ -21,6 +21,7 @@ import io.micronaut.core.annotation.Nullable;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,6 +44,14 @@ public class Recipient {
     @Nullable
     @Valid
     private final List<Contact> bcc;
+
+    /**
+     *
+     * @param to Email's recipient
+     */
+    public Recipient(@NonNull String to) {
+        this(Collections.singletonList(new Contact(to)), null, null);
+    }
 
     /**
      *

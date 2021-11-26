@@ -1,1 +1,1 @@
-TODO
+The Micronaut Email module provides integration with Transactional email providers such as https://postmarkapp.com[Postmark], https://www.mailjet.com[Mailjet] or https://sendgrid.com[SendGrid].

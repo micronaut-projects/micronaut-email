@@ -1,0 +1,7 @@
+To integrate with https://postmarkapp.com[Postmark], add the following dependency to your application.
+
+dependency:micronaut-email-postmark[groupId=io.micronaut.email]
+
+You need to supply your Postmark's _API token_ via configuration:
+
+include::{includedir}configurationProperties/io.micronaut.email.postmark.PostmarkConfigurationProperties.adoc[]

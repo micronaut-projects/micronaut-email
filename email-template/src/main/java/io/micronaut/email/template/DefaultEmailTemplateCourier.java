@@ -41,8 +41,8 @@ import java.util.Optional;
  * @param <T> The model type
  */
 @Singleton
-public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultEmailTemplateSender.class);
+public class DefaultEmailTemplateCourier<T> implements EmailTemplateCourier<T> {
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultEmailTemplateCourier.class);
     private final ViewsRenderer<T> viewsRenderer;
     private final EmailCourier courier;
 
@@ -51,8 +51,8 @@ public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
      * @param viewsRenderer Utility to render a view.
      * @param courier The Email Courier
      */
-    public DefaultEmailTemplateSender(ViewsRenderer<T> viewsRenderer,
-                                      EmailCourier courier) {
+    public DefaultEmailTemplateCourier(ViewsRenderer<T> viewsRenderer,
+                                       EmailCourier courier) {
         this.viewsRenderer = viewsRenderer;
         this.courier = courier;
     }

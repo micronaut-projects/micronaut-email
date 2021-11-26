@@ -1,0 +1,22 @@
+If you want to send Emails using templates, add the following dependency to your application.
+
+dependency:micronaut-email-template[groupId=io.micronaut.email]
+
+You can use any Template Engines supported by https://micronaut-projects.github.io/micronaut-views/latest/guide/[Micronaut Views].
+
+For example, you can use velocity templates for your emails if you include the following dependency:
+
+dependency:micronaut-views-velocity[groupId=io.micronaut.views]
+
+You can send an email template by injecting a bean of type api:io.micronaut.email.tempalte.EmailTemplateCourier[].
+
+snippet::io.micronaut.email.docs.WelcomeWithTemplateService[]
+
+In the previous example, you could have a Velocity template such as:
+
+_src/main/resources/views/texttemplate.vm_
+
+[source, text]
+----
+include::test-suite/src/test/resources/views/texttemplate.vm[]
+----
