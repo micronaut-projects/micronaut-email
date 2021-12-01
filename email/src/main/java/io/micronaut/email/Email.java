@@ -66,6 +66,8 @@ public class Email {
      * @param subject Subject
      * @param html Email content as HTML
      * @param text Email content as text
+     * @param trackOpens Whether to track if the email is opened
+     * @param trackLinks Whether email links should be tracked
      */
     public Email(@NonNull Contact from,
                  @Nullable Contact replyTo,
@@ -74,8 +76,10 @@ public class Email {
                  @Nullable List<Contact> bcc,
                  @NonNull String subject,
                  @Nullable String html,
-                 @Nullable String text) {
-        this.emailHeader = new EmailHeader(from, replyTo, to, cc, bcc, subject);
+                 @Nullable String text,
+                 boolean trackOpens,
+                 TrackLinks trackLinks) {
+        this.emailHeader = new EmailHeader(from, replyTo, to, cc, bcc, subject, trackOpens, trackLinks);
         this.html = html;
         this.text = text;
     }
@@ -190,6 +194,23 @@ public class Email {
             }
         }
         return builder;
+    }
+
+    /**
+     *
+     * @return Whether to track if the email is opened
+     */
+    public boolean getTrackOpens() {
+        return this.emailHeader.getTrackOpens();
+    }
+
+    /**
+     *
+     * @return Whether to track the email's links
+     */
+    @Nullable
+    public TrackLinks getTrackLinks() {
+        return this.emailHeader.getTrackLinks();
     }
 
     /**
@@ -318,6 +339,26 @@ public class Email {
         @NonNull
         public Builder bcc(@NonNull String bcc) {
             builder = builder == null ? EmailHeader.builder().bcc(bcc) : builder.bcc(bcc);
+            return this;
+        }
+
+        /**
+         *
+         * @param trackLinks Whether email links should be tracked
+         * @return Email Header Builder
+         */
+        public Builder trackLinks(TrackLinks trackLinks) {
+            builder = builder == null ? EmailHeader.builder().trackLinks(trackLinks) : builder.trackLinks(trackLinks);
+            return this;
+        }
+
+        /**
+         *
+         * @param trackOpens Whether the email needs to track the opening.
+         * @return The Transactional Email Builder
+         */
+        public Builder trackOpens(boolean trackOpens) {
+            builder = builder == null ? EmailHeader.builder().trackOpens(trackOpens) : builder.trackOpens(trackOpens);
             return this;
         }
 

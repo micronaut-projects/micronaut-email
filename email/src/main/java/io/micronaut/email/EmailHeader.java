@@ -59,6 +59,11 @@ public class EmailHeader {
     @NonNull
     private final String subject;
 
+    private final boolean trackOpens;
+
+    @Nullable
+    private final TrackLinks trackLinks;
+
     /**
      *
      * @param from Sender of the Email
@@ -67,19 +72,34 @@ public class EmailHeader {
      * @param cc Carbon Copy recipients
      * @param bcc Blind Carbon Copy recipients
      * @param subject Subject
+     * @param trackOpens Whether to track if the email is opened
+     * @param trackLinks Whether to track the email's links
      */
     public EmailHeader(@NonNull Contact from,
                        @Nullable Contact replyTo,
                        @Nullable List<Contact> to,
                        @Nullable List<Contact> cc,
                        @Nullable List<Contact> bcc,
-                       @NonNull String subject) {
+                       @NonNull String subject,
+                       boolean trackOpens,
+                       @Nullable TrackLinks trackLinks) {
         this.from = from;
         this.replyTo = replyTo;
         this.to = to;
         this.cc = cc;
         this.bcc = bcc;
         this.subject = subject;
+        this.trackOpens = trackOpens;
+        this.trackLinks = trackLinks;
+    }
+
+    /**
+     *
+     * @return Whether to track the email's links
+     */
+    @Nullable
+    public TrackLinks getTrackLinks() {
+        return trackLinks;
     }
 
     /**
@@ -146,6 +166,14 @@ public class EmailHeader {
     }
 
     /**
+     *
+     * @return Whether to track if the email is opened
+     */
+    public boolean getTrackOpens() {
+        return trackOpens;
+    }
+
+    /**
      * EmailHeader builder.
      */
     public static class Builder {
@@ -155,6 +183,18 @@ public class EmailHeader {
         private Contact replyTo;
         private List<Contact> cc;
         private List<Contact> bcc;
+        private boolean trackOpens;
+        private TrackLinks trackLinks;
+
+        /**
+         *
+         * @param trackLinks Whether email links should be tracked
+         * @return Email Header Builder
+         */
+        public Builder trackLinks(TrackLinks trackLinks) {
+            this.trackLinks = trackLinks;
+            return this;
+        }
 
         /**
          *
@@ -309,6 +349,16 @@ public class EmailHeader {
 
         /**
          *
+         * @param trackOpens Whether the email needs to track the opening.
+         * @return The Transactional Email Builder
+         */
+        public Builder trackOpens(boolean trackOpens) {
+            this.trackOpens = trackOpens;
+            return this;
+        }
+
+        /**
+         *
          * @return Builds an EmailHeader
          * @throws IllegalArgumentException If recipients are empty or subject or sender are missing
          */
@@ -328,8 +378,9 @@ public class EmailHeader {
                     to,
                     cc,
                     bcc,
-                    subject);
+                    subject,
+                    trackOpens,
+                    trackLinks);
         }
-
     }
 }

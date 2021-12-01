@@ -23,6 +23,7 @@ import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
+import io.micronaut.email.TrackLinks;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -68,6 +69,13 @@ public class PostmarkEmailSender implements EmailSender {
         Message message = new Message(email.getFrom().getEmail(),
                 email.getTo().isEmpty() ? null : email.getTo().get(0).getEmail(),
                 email.getSubject(), email.getText(), email.getHtml());
+
+        if (email.getTrackOpens()) {
+            message.setTrackOpens(email.getTrackOpens());
+        }
+        if (email.getTrackLinks() != null) {
+            message.setTrackLinks(trackLinks(email.getTrackLinks()));
+        }
         try {
             MessageResponse response = client.deliverMessage(message);
             if (LOG.isTraceEnabled()) {
@@ -82,6 +90,19 @@ public class PostmarkEmailSender implements EmailSender {
             if (LOG.isErrorEnabled()) {
                 LOG.error("IO Exception", e);
             }
+        }
+    }
+
+    @NonNull
+    private Message.TRACK_LINKS trackLinks(@NonNull TrackLinks trackLinks) {
+        switch (trackLinks) {
+            case HTML:
+                return Message.TRACK_LINKS.Html;
+            case TEXT:
+                return Message.TRACK_LINKS.Text;
+            case HTML_AND_TEXT:
+            default:
+                return Message.TRACK_LINKS.HtmlAndText;
         }
     }
 }

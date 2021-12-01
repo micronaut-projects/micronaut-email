@@ -22,6 +22,34 @@ class EmailHeaderSpec extends Specification {
         noExceptionThrown()
     }
 
+    void "trackOpens accepts a boolean"() {
+        given:
+        EmailHeader email = EmailHeader.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackOpens(true)
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.getTrackOpens()
+    }
+
+    void "trackLinks accepts an enum"() {
+        given:
+        EmailHeader email = EmailHeader.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackLinks(TrackLinks.HTML)
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.HTML
+    }
+
     void "from, to and subject are required validation"() {
         given:
         EmailHeader email = EmailHeader.builder()

@@ -29,9 +29,38 @@ class EmailSpec extends Specification {
                 .subject("Apple Music")
                 .text("Stream music to your device")
                 .build()
+        expect:
+        !validator.validate(email)
+    }
+
+    void "trackOpens accepts a boolean"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .text("Stream music to your device")
+                .trackOpens(true)
+                .build()
 
         expect:
         !validator.validate(email)
+        email.trackOpens
+    }
+
+    void "trackLinks accepts an enum"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .text("Stream music to your device")
+                .trackLinks(TrackLinks.HTML)
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.HTML
     }
 
     void "from is required"() {
