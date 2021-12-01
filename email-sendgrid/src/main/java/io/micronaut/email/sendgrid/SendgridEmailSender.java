@@ -20,9 +20,11 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Attachments;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.email.Attachment;
 import io.micronaut.email.Contact;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
@@ -33,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,6 +96,15 @@ public class SendgridEmailSender implements EmailSender {
         mail.from = from;
         mail.addPersonalization(createPersonalization(email));
         contentOfEmail(email).ifPresent(mail::addContent);
+
+        if (email.getAttachments() != null) {
+            for (Attachment att : email.getAttachments()) {
+                mail.addAttachments(new Attachments.Builder(att.getFilename(), new ByteArrayInputStream(att.getContent()))
+                        .withType(att.getContentType())
+                        .withContentId(att.getId())
+                        .build());
+            }
+        }
         return mail;
     }
 

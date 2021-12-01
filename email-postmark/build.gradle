@@ -9,5 +9,6 @@ dependencies {
     implementation("com.wildbit.java:postmark:$postmarkVersion")
     implementation("io.micronaut:micronaut-validation")
     implementation(project(":email"))
+    testImplementation("io.micronaut:micronaut-http")
     testImplementation project(":test-utils")
 }

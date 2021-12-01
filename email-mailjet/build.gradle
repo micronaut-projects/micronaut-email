@@ -10,4 +10,5 @@ dependencies {
     implementation("com.mailjet:mailjet-client:$mailjetVersion")
     implementation(project(":email"))
     testImplementation(project(":test-utils"))
+    testImplementation("io.micronaut:micronaut-http")
 }

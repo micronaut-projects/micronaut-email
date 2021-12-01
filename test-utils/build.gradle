@@ -8,6 +8,7 @@ repositories {
 
 dependencies {
     api("com.sun.mail:javax.mail:$javaxmailVersion")
+    api("org.apache.poi:poi-ooxml:$poiOoxmlVersion")
 }
 
 java {

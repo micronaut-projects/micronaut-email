@@ -21,6 +21,7 @@ import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.StringUtils;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,18 +44,33 @@ public class Email {
     @Nullable
     private final String text;
 
+    @Nullable
+    private List<Attachment> attachments;
+
     /**
      *
      * @param emailHeader Email Sender, recipients and subjects
      * @param html Email content as HTML
      * @param text Email content as text
+     * @param attachments Email attachments
      */
     public Email(@NonNull EmailHeader emailHeader,
                  @Nullable String html,
-                 @Nullable String text) {
+                 @Nullable String text,
+                 @Nullable List<Attachment> attachments) {
         this.emailHeader = emailHeader;
         this.html = html;
         this.text = text;
+        this.attachments = attachments;
+    }
+
+    /**
+     *
+     * @return Email attachments
+     */
+    @Nullable
+    public List<Attachment> getAttachments() {
+        return attachments;
     }
 
     /**
@@ -78,7 +94,7 @@ public class Email {
                  @Nullable String html,
                  @Nullable String text,
                  boolean trackOpens,
-                 TrackLinks trackLinks) {
+                 @Nullable TrackLinks trackLinks) {
         this.emailHeader = new EmailHeader(from, replyTo, to, cc, bcc, subject, trackOpens, trackLinks);
         this.html = html;
         this.text = text;
@@ -220,6 +236,7 @@ public class Email {
         private EmailHeader.Builder builder;
         private String html;
         private String text;
+        private List<Attachment> attachments;
 
         /**
          *
@@ -386,6 +403,20 @@ public class Email {
 
         /**
          *
+         * @param attachment Email's attachment
+         * @return The Transactional Email Builder
+         */
+        @NonNull
+        public Builder attachment(@NonNull Attachment attachment) {
+            if (this.attachments == null) {
+                attachments = new ArrayList<>();
+            }
+            attachments.add(attachment);
+            return this;
+        }
+
+        /**
+         *
          * @return a TransactionEmail
          */
         @NonNull
@@ -395,7 +426,8 @@ public class Email {
             }
             return new Email(Objects.requireNonNull(builder).build(),
                     html,
-                    text);
+                    text,
+                    attachments);
         }
     }
 }

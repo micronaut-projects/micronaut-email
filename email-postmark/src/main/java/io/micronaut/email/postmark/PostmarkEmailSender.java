@@ -21,6 +21,7 @@ import com.wildbit.java.postmark.client.data.model.message.Message;
 import com.wildbit.java.postmark.client.data.model.message.MessageResponse;
 import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.email.Attachment;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.TrackLinks;
@@ -75,6 +76,11 @@ public class PostmarkEmailSender implements EmailSender {
         }
         if (email.getTrackLinks() != null) {
             message.setTrackLinks(trackLinks(email.getTrackLinks()));
+        }
+        if (email.getAttachments() != null) {
+            for (Attachment att : email.getAttachments()) {
+                message.addAttachment(att.getFilename(), att.getContent(), att.getContentType(), att.getId());
+            }
         }
         try {
             MessageResponse response = client.deliverMessage(message);

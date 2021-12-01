@@ -22,6 +22,8 @@ import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.resource.Emailv31;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.email.Attachment;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
 import jakarta.inject.Named;
@@ -33,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Base64;
 import java.util.Optional;
 
 /**
@@ -99,10 +102,28 @@ public class MailjetEmailSender implements EmailSender {
         if (email.getHtml() != null) {
             message.put(Emailv31.Message.HTMLPART, email.getHtml());
         }
+        attachmentsAsJsonArray(email).ifPresent(arr -> message.put(Emailv31.Message.ATTACHMENTS, arr));
         JSONArray messages = new JSONArray();
         messages.put(message);
         return new MailjetRequest(Emailv31.resource)
                 .property(Emailv31.MESSAGES, messages);
+    }
+
+    @NonNull
+    private static Optional<JSONArray> attachmentsAsJsonArray(@NonNull Email email) {
+        if (CollectionUtils.isEmpty(email.getAttachments())) {
+            return Optional.empty();
+        }
+        JSONArray arr = new JSONArray();
+        email.getAttachments().forEach(att -> arr.put(attachmentAsJsonObject(att)));
+        return Optional.of(arr);
+    }
+
+    @NonNull
+    private static JSONObject attachmentAsJsonObject(@NonNull Attachment attachment) {
+        return new JSONObject().put("ContentType", attachment.getContentType())
+                .put("Filename", attachment.getFilename())
+                .put("Base64Content", Base64.getEncoder().encodeToString(attachment.getContent()));
     }
 
     @NonNull
@@ -112,7 +133,7 @@ public class MailjetEmailSender implements EmailSender {
 
     @NonNull
     private static Optional<JSONArray> to(@NonNull Email email) {
-        if (email.getTo().isEmpty()) {
+        if (CollectionUtils.isEmpty(email.getTo())) {
             return Optional.empty();
         }
         return Optional.of(new JSONArray().put(new JSONObject().put("Email", email.getTo().get(0).getEmail())));

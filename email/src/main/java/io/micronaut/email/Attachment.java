@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Emails Attachment
+ * Email's Attachment.
  * @author Sergio del Amo
  * @since 1.0.0
  */
@@ -68,8 +68,44 @@ public class Attachment {
      * @return Attachment's builder
      */
     @NonNull
-    public Builder builder() {
+    public static Builder builder() {
         return new Builder();
+    }
+
+    /**
+     *
+     * @return filename to show up in email
+     */
+    @NonNull
+    public String getFilename() {
+        return this.filename;
+    }
+
+    /**
+     *
+     * @return file content type
+     */
+    @NonNull
+    public String getContentType() {
+        return this.contentType;
+    }
+
+    /**
+     *
+     * @return file content type
+     */
+    @NonNull
+    public byte[] getContent() {
+        return this.content;
+    }
+
+    /**
+     *
+     * @return Content Id
+     */
+    @Nullable
+    public String getId() {
+        return this.id;
     }
 
     /**
