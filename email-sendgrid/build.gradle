@@ -9,5 +9,5 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation("com.sendgrid:sendgrid-java:$sendgridVersion")
     implementation(project(":email"))
-    implementation(project(":test-utils"))
+    testImplementation(project(":test-utils"))
 }
