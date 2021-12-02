@@ -1,8 +1,6 @@
 plugins {
-    id("io.micronaut.build.internal.module")
+    id("io.micronaut.build.internal.email-module")
 }
-
-group = "io.micronaut.email"
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
