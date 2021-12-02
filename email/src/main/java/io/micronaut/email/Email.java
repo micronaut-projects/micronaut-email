@@ -65,15 +65,6 @@ public class Email {
     }
 
     /**
-     *
-     * @return Email attachments
-     */
-    @Nullable
-    public List<Attachment> getAttachments() {
-        return attachments;
-    }
-
-    /**
      * @param from Sender of the Email
      * @param replyTo Reply to
      * @param to To recipients
@@ -98,6 +89,15 @@ public class Email {
         this.emailHeader = new EmailHeader(from, replyTo, to, cc, bcc, subject, trackOpens, trackLinks);
         this.html = html;
         this.text = text;
+    }
+
+    /**
+     *
+     * @return Email attachments
+     */
+    @Nullable
+    public List<Attachment> getAttachments() {
+        return attachments;
     }
 
     /**
