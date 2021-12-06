@@ -51,6 +51,11 @@ jobs:
           if [ ${{ matrix.java }} == 16 ]; then export GRADLE_OPTS="-Dorg.gradle.jvmargs=--illegal-access=permit"; fi
           ./gradlew dependencyUpdates check --no-daemon --parallel --continue
         env:
+           POSTMARK_API_TOKEN: ${{ secrets.POSTMARK_API_TOKEN }}
+           MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
+           GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
            TESTCONTAINERS_RYUK_DISABLED: true
            GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
       - name: Publish Test Report
