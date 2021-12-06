@@ -23,6 +23,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Representation of a transactional email.
@@ -377,6 +378,14 @@ public class Email implements EmailWithoutContent {
             }
             attachments.add(attachment);
             return this;
+        }
+
+        @Override
+        @NonNull
+        public Email.Builder attachment(@NonNull Consumer<Attachment.Builder> attachment) {
+            Attachment.Builder builder = Attachment.builder();
+            attachment.accept(builder);
+            return attachment(builder.build());
         }
 
         /**

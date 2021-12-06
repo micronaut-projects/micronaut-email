@@ -17,6 +17,8 @@ package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
 
+import java.util.function.Consumer;
+
 /**
  * Represents an email without builder.
  * @author Sergio del Amo
@@ -29,28 +31,28 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param trackLinks Whether email links should be tracked
-     * @return Email Header Builder
+     * @return Email Builder
      */
     @NonNull
     B trackLinks(@NonNull TrackLinks trackLinks);
 
     /**
      * Email links should be tracked in HTML emails.
-     * @return Email Header Builder
+     * @return Email Builder
      */
     @NonNull
     B trackLinksInHtml();
 
     /**
      * Email links should be tracked in Text emails.
-     * @return Email Header Builder
+     * @return Email Builder
      */
     @NonNull
     B trackLinksInText();
 
     /**
      * Email links should be tracked in HTML and Text emails.
-     * @return Email Header Builder
+     * @return Email Builder
      */
     @NonNull
     B trackLinksInHtmlAndText();
@@ -58,7 +60,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param from sender email address
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B from(@NonNull String from);
@@ -66,7 +68,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param from sender email address
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B from(@NonNull Contact from);
@@ -74,7 +76,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param replyTo reply to email address
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B replyTo(@NonNull String replyTo);
@@ -82,7 +84,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param replyTo reply to contact
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B replyTo(@NonNull Contact replyTo);
@@ -90,7 +92,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param to Email recipient
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B to(@NonNull String to);
@@ -98,7 +100,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param to Email recipient
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B to(@NonNull Contact to);
@@ -106,7 +108,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param cc carbon copy recipient
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B cc(@NonNull Contact cc);
@@ -114,7 +116,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param bcc Blind carbon copy recipient
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B bcc(@NonNull Contact bcc);
@@ -122,7 +124,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param subject Email's subject
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B subject(@NonNull String subject);
@@ -130,7 +132,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param cc carbon copy email address
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B cc(@NonNull String cc);
@@ -138,7 +140,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param bcc blind carbon copy email address
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B bcc(@NonNull String bcc);
@@ -146,7 +148,7 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param trackOpens Whether the email needs to track the opening.
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B trackOpens(boolean trackOpens);
@@ -154,10 +156,18 @@ public interface EmailWithoutContentBuilder<B, E> {
     /**
      *
      * @param attachment Email's attachment
-     * @return The Transactional Email Builder
+     * @return Email builder
      */
     @NonNull
     B attachment(@NonNull Attachment attachment);
+
+    /**
+     *
+     * @param attachment Email attachment builder
+     * @return Email Builder
+     */
+    @NonNull
+    B attachment(@NonNull Consumer<Attachment.Builder> attachment);
 
     /**
      *

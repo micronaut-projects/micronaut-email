@@ -30,6 +30,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Email with text and html templates.
@@ -200,10 +201,10 @@ public class Email<H, T> implements EmailWithoutContent {
         return new Builder<>();
     }
 
-     /**
-      * Email builder.
-      * @param <H> HTML model
-      * @param <T> Text model
+    /**
+     * Email builder.
+     * @param <H> HTML model
+     * @param <T> Text model
      */
     public static class Builder<H, T> implements EmailWithoutContentBuilder<Email.Builder<H, T>, Email<H, T>> {
         private Contact from;
@@ -368,6 +369,14 @@ public class Email<H, T> implements EmailWithoutContent {
             }
             attachments.add(attachment);
             return this;
+        }
+
+        @Override
+        @NonNull
+        public Builder<H,T> attachment(@NonNull Consumer<Attachment.Builder> attachment) {
+            Attachment.Builder builder = Attachment.builder();
+            attachment.accept(builder);
+            return attachment(builder.build());
         }
 
         /**
