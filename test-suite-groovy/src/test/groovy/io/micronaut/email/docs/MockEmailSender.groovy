@@ -10,15 +10,18 @@ import javax.validation.constraints.NotNull
 
 @Named("mock")
 @Singleton
-class MockEmailSender implements EmailSender {
+class MockEmailSender implements EmailSender<Void> {
     List<Email> emails = []
     @Override
     @NonNull
     String getName() {
         return "mock"
     }
+
     @Override
-    void send(@NonNull @NotNull @Valid Email email) {
+    @NonNull
+    Optional<Void> send(@NonNull @NotNull @Valid Email email) {
         emails << email
+        Optional.empty()
     }
 }

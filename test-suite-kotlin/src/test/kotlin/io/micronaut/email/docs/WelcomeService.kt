@@ -5,7 +5,7 @@ import io.micronaut.email.Email
 import jakarta.inject.Singleton
 
 @Singleton
-class WelcomeService(private val emailSender: EmailSender) {
+class WelcomeService(private val emailSender: EmailSender<Void>) {
     fun sendWelcomeEmail() {
         emailSender.send(
             Email.builder()

@@ -16,6 +16,7 @@
 package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.StringUtils;
 
 /**
@@ -26,17 +27,21 @@ import io.micronaut.core.util.StringUtils;
 public final class EmailValidationUtils {
 
     /**
-     * @param email to be validated
+     * @param recipients Email recipients
+     * @param from Email from address
+     * @param subject Email subject
      * @throws IllegalArgumentException if email is not valid
      */
-    public static void validate(@NonNull EmailWithoutContent email) throws IllegalArgumentException {
-        if (!RecipientsUtils.isValid(email)) {
+    public static void validate(@NonNull Recipients recipients,
+                                @Nullable Contact from,
+                                @Nullable String subject) throws IllegalArgumentException {
+        if (!RecipientsUtils.isValid(recipients)) {
             throw new IllegalArgumentException("At least one to, cc or bcc recipient must be specified");
         }
-        if (email.getFrom() == null || StringUtils.isEmpty(email.getFrom().getEmail())) {
+        if (from == null || StringUtils.isEmpty(from.getEmail())) {
             throw new IllegalArgumentException("you have to specify the sender of the email");
         }
-        if (StringUtils.isEmpty(email.getSubject())) {
+        if (StringUtils.isEmpty(subject)) {
             throw new IllegalArgumentException("you have to specify the email's subject");
         }
     }

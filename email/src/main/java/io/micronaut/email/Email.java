@@ -413,7 +413,26 @@ public class Email implements EmailWithoutContent {
         @Override
         @NonNull
         public Email build() throws IllegalArgumentException {
-            Email email = new Email(from,
+            EmailValidationUtils.validate(new Recipients() {
+                @Override
+                @Nullable
+                public List<Contact> getTo() {
+                    return to;
+                }
+
+                @Override
+                @Nullable
+                public List<Contact> getCc() {
+                    return cc;
+                }
+
+                @Override
+                @Nullable
+                public List<Contact> getBcc() {
+                    return bcc;
+                }
+            }, from, subject);
+            return new Email(from,
                     replyTo,
                     to,
                     cc,
@@ -424,9 +443,6 @@ public class Email implements EmailWithoutContent {
                     attachments,
                     html,
                     text);
-            EmailValidationUtils.validate(email);
-
-            return email;
         }
     }
 }

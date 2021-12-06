@@ -9,15 +9,18 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Named("mock")
 @Singleton
-public class MockEmailSender implements EmailSender {
+public class MockEmailSender implements EmailSender<Void> {
     private List<Email> emails = new ArrayList<>();
 
     @Override
-    public void send(@NonNull @NotNull @Valid Email email) {
+    @NonNull
+    public Optional<Void> send(@NonNull @NotNull @Valid Email email) {
         emails.add(email);
+        return Optional.empty();
     }
 
     public List<Email> getEmails() {
@@ -29,4 +32,6 @@ public class MockEmailSender implements EmailSender {
     public String getName() {
         return "mock";
     }
+
+
 }

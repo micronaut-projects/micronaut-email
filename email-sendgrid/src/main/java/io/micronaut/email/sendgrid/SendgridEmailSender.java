@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
  */
 @Named(SendgridEmailSender.NAME)
 @Singleton
-public class SendgridEmailSender implements EmailSender {
+public class SendgridEmailSender implements EmailSender<Response> {
     /**
      * {@link SendgridEmailSender} name.
      */
@@ -72,17 +72,19 @@ public class SendgridEmailSender implements EmailSender {
     }
 
     @Override
-    public void send(@NonNull @NotNull @Valid Email email) {
+    @NonNull
+    public Optional<Response> send(@NonNull @NotNull @Valid Email email) {
         try {
             if (LOG.isTraceEnabled()) {
                 LOG.trace("Sending email to {}", email.getTo());
             }
-            send(createRequest(createMail(email)));
+            return Optional.of(send(createRequest(createMail(email))));
         } catch (IOException ex) {
             if (LOG.isErrorEnabled()) {
                 LOG.error("Error sending email", ex);
             }
         }
+        return Optional.empty();
     }
 
     @NonNull
@@ -154,7 +156,7 @@ public class SendgridEmailSender implements EmailSender {
         return request;
     }
 
-    private void send(@NonNull Request request) throws IOException {
+    private Response send(@NonNull Request request) throws IOException {
         Response response = sendGrid.api(request);
         if (LOG.isInfoEnabled()) {
             LOG.info("Status Code: {}", String.valueOf(response.getStatusCode()));
@@ -165,7 +167,7 @@ public class SendgridEmailSender implements EmailSender {
                     .map(key -> key.toString() + "=" + response.getHeaders().get(key))
                     .collect(Collectors.joining(", ", "{", "}")));
         }
-
+        return response;
     }
 
     @NonNull

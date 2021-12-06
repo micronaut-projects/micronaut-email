@@ -25,6 +25,11 @@ import io.micronaut.core.util.CollectionUtils;
  */
 public final class RecipientsUtils {
 
+    /**
+     *
+     * @param recipients Email recipients
+     * @return whether the recipients are valid or not
+     */
     public static boolean isValid(@NonNull Recipients recipients) {
         return !(
                 CollectionUtils.isEmpty(recipients.getTo()) &&

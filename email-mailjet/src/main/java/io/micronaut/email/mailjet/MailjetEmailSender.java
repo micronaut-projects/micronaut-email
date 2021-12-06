@@ -45,7 +45,7 @@ import java.util.Optional;
  */
 @Named(MailjetEmailSender.NAME)
 @Singleton
-public class MailjetEmailSender implements EmailSender {
+public class MailjetEmailSender implements EmailSender<MailjetResponse> {
     /**
      * {@link MailjetEmailSender} name.
      */
@@ -75,7 +75,8 @@ public class MailjetEmailSender implements EmailSender {
     }
 
     @Override
-    public void send(@NonNull @NotNull @Valid Email email) {
+    @NonNull
+    public Optional<MailjetResponse> send(@NonNull @NotNull @Valid Email email) {
         MailjetRequest request = createRequest(email);
         try {
             MailjetResponse response = mailjetClient.post(request);
@@ -83,11 +84,13 @@ public class MailjetEmailSender implements EmailSender {
                 LOG.trace("response status: {}", response.getStatus());
                 LOG.trace("response data: {}", response.getData().toString());
             }
+            return Optional.of(response);
         } catch (MailjetException e) {
             if (LOG.isErrorEnabled()) {
                 LOG.error("Mailjet exception", e);
             }
         }
+        return Optional.empty();
     }
 
     @NonNull

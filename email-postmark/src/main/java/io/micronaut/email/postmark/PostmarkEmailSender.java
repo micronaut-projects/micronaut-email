@@ -22,6 +22,7 @@ import com.wildbit.java.postmark.client.data.model.message.MessageResponse;
 import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
+import io.micronaut.email.Contact;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.TrackLinks;
@@ -33,6 +34,8 @@ import org.slf4j.LoggerFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * {@link EmailSender} implementation which uses Postmark.
@@ -42,7 +45,7 @@ import java.io.IOException;
  */
 @Named(PostmarkEmailSender.NAME)
 @Singleton
-public class PostmarkEmailSender implements EmailSender {
+public class PostmarkEmailSender implements EmailSender<MessageResponse> {
     /**
      * {@link PostmarkEmailSender} name.
      */
@@ -66,11 +69,24 @@ public class PostmarkEmailSender implements EmailSender {
     }
 
     @Override
-    public void send(@NonNull @NotNull @Valid Email email) {
-        Message message = new Message(email.getFrom().getEmail(),
-                email.getTo().isEmpty() ? null : email.getTo().get(0).getEmail(),
-                email.getSubject(), email.getText(), email.getHtml());
-
+    @NonNull
+    public Optional<MessageResponse> send(@NonNull @NotNull @Valid Email email) {
+        Message message = new Message();
+        if (email.getFrom().getName() != null) {
+            message.setFrom(email.getFrom().getName(), email.getFrom().getEmail());
+        } else {
+            message.setFrom(email.getFrom().getEmail());
+        }
+        if (email.getTo() != null) {
+            message.setTo(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
+        }
+        message.setSubject(email.getSubject());
+        if (email.getText() != null) {
+            message.setTextBody(email.getText());
+        }
+        if (email.getHtml() != null) {
+            message.setHtmlBody(email.getHtml());
+        }
         if (email.getTrackOpens()) {
             message.setTrackOpens(email.getTrackOpens());
         }
@@ -88,6 +104,7 @@ public class PostmarkEmailSender implements EmailSender {
                 LOG.trace("postmark errorCode: {}", response.getErrorCode() + "");
                 LOG.trace("postmark response: {}", response.getMessage());
             }
+            return Optional.of(response);
         } catch (PostmarkException e) {
             if (LOG.isErrorEnabled()) {
                 LOG.error("Postmark exception", e);
@@ -97,6 +114,7 @@ public class PostmarkEmailSender implements EmailSender {
                 LOG.error("IO Exception", e);
             }
         }
+        return Optional.empty();
     }
 
     @NonNull
