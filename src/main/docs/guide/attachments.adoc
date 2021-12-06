@@ -1,0 +1,3 @@
+To send attachment use the api:io.micronaut.email.Attachment[] builder.
+
+snippet::io.micronaut.email.docs.SendAttachmentService[]
