@@ -21,10 +21,6 @@ class MailjetEmailSenderSpec extends Specification {
         given:
         String subject = "[Mailjet] Test"
         String gmail = System.getenv("GMAIL_USERNAME")
-        then:
-        new PollingConditions(timeout: 60).eventually {
-            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
-        }
         when:
         emailSender.send(Email.builder()
                 .from(gmail)
@@ -32,5 +28,9 @@ class MailjetEmailSenderSpec extends Specification {
                 .subject(subject)
                 .text("Hello world")
                 .build())
+        then:
+        new PollingConditions(timeout: 60).eventually {
+            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
+        }
     }
 }
