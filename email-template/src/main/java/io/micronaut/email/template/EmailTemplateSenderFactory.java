@@ -24,18 +24,19 @@ import io.micronaut.email.EmailSender;
  * {@link Factory} which creates a {@link EmailTemplateSender} for each bean of type {@link EmailSender}.
  * @author Sergio del Amo
  * @since 1.0.0
- * @param <T> The model type
+ * @param <H> HTML model
+ * @param <T> Text model
  */
 @Factory
-public class EmailTemplateSenderFactory<T> {
+public class EmailTemplateSenderFactory<H, T> {
 
-    private final EmailRenderer<T> emailRenderer;
+    private final EmailRenderer<H, T> emailRenderer;
 
     /**
      *
      * @param emailRenderer Utility to render an email.
      */
-    public EmailTemplateSenderFactory(EmailRenderer<T> emailRenderer) {
+    public EmailTemplateSenderFactory(EmailRenderer<H, T> emailRenderer) {
         this.emailRenderer = emailRenderer;
     }
 
@@ -45,7 +46,7 @@ public class EmailTemplateSenderFactory<T> {
      * @return A {@link DefaultEmailTemplateSender}.
      */
     @EachBean(EmailSender.class)
-    public EmailTemplateSender<T> createEmailTemplateCourier(EmailSender emailSender) {
+    public EmailTemplateSender<H, T> createEmailTemplateCourier(EmailSender emailSender) {
         return new DefaultEmailTemplateSender<>(emailRenderer, emailSender);
     }
 }

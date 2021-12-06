@@ -16,31 +16,52 @@
 package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.naming.Named;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.function.Consumer;
+import io.micronaut.core.annotation.Nullable;
+import java.util.List;
 
 /**
- * Defines a functional interface to send transactional emails.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public interface EmailSender extends Named {
+public interface EmailWithoutContent extends Recipients {
+    /**
+     *
+     * @return Email sender
+     */
+    @NonNull
+    Contact getFrom();
 
     /**
-     * Sends an email.
-     * @param email Email
+     *
+     * @return Email Reply-to
      */
-    void send(@NonNull @NotNull @Valid Email email);
+    @Nullable
+    Contact getReplyTo();
 
     /**
-     * It builds and sends an email using the supplied builder.
-     * @param email Email builder consumer
+     *
+     * @return Email's subject
      */
-    default void send(Consumer<Email.Builder> email) {
-        Email.Builder builder = Email.builder();
-        email.accept(builder);
-        send(builder.build());
-    }
+    @NonNull
+    String getSubject();
+
+    /**
+     *
+     * @return Whether to track if the email is opened
+     */
+    boolean getTrackOpens();
+
+    /**
+     *
+     * @return Whether to track the email's links
+     */
+    @Nullable
+    TrackLinks getTrackLinks();
+
+    /**
+     *
+     * @return Email attachments
+     */
+    @Nullable
+    List<Attachment> getAttachments();
 }

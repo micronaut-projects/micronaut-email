@@ -13,11 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email;
+package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.email.Attachment;
+import io.micronaut.email.Contact;
+import io.micronaut.email.EmailValidationUtils;
+import io.micronaut.email.EmailWithoutContent;
+import io.micronaut.email.EmailWithoutContentBuilder;
+import io.micronaut.email.TrackLinks;
+import io.micronaut.views.ModelAndView;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,12 +32,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Representation of a transactional email.
+ * Email with text and html templates.
  * @author Sergio del Amo
  * @since 1.0.0
+ * @param <H> HTML model
+ * @param <T> Text model
  */
 @Introspected
-public class Email implements EmailWithoutContent {
+public class Email<H, T> implements EmailWithoutContent {
 
     @NonNull
     @NotNull
@@ -63,13 +72,13 @@ public class Email implements EmailWithoutContent {
     private final TrackLinks trackLinks;
 
     @Nullable
-    private List<Attachment> attachments;
+    private final List<Attachment> attachments;
 
     @Nullable
-    private final String html;
+    private final ModelAndView<T> text;
 
     @Nullable
-    private final String text;
+    private final ModelAndView<H> html;
 
     /**
      *
@@ -94,8 +103,8 @@ public class Email implements EmailWithoutContent {
                  boolean trackOpens,
                  @Nullable TrackLinks trackLinks,
                  @Nullable List<Attachment> attachments,
-                 @Nullable String html,
-                 @Nullable String text) {
+                 @Nullable ModelAndView<H> html,
+                 @Nullable ModelAndView<T> text) {
         this.from = from;
         this.replyTo = replyTo;
         this.to = to;
@@ -105,28 +114,6 @@ public class Email implements EmailWithoutContent {
         this.trackOpens = trackOpens;
         this.trackLinks = trackLinks;
         this.attachments = attachments;
-        this.html = html;
-        this.text = text;
-    }
-
-    /**
-     *
-     * @param email Email without content.
-     * @param html Email HTML
-     * @param text Email Text
-     */
-    public Email(@NonNull EmailWithoutContent email,
-                 @Nullable String html,
-                 @Nullable String text) {
-        this.from = email.getFrom();
-        this.replyTo = email.getReplyTo();
-        this.to = email.getTo();
-        this.cc = email.getCc();
-        this.bcc = email.getBcc();
-        this.subject = email.getSubject();
-        this.trackOpens = email.getTrackOpens();
-        this.trackLinks = email.getTrackLinks();
-        this.attachments = email.getAttachments();
         this.html = html;
         this.text = text;
     }
@@ -189,7 +176,7 @@ public class Email implements EmailWithoutContent {
      * @return Email HTML
      */
     @Nullable
-    public String getHtml() {
+    public ModelAndView<H> getHtml() {
         return html;
     }
 
@@ -198,23 +185,27 @@ public class Email implements EmailWithoutContent {
      * @return Email Text
      */
     @Nullable
-    public String getText() {
+    public ModelAndView<T> getText() {
         return text;
     }
 
     /**
      *
-     * @return Builder
+     * @param <H> HTML model
+     * @param <T> Text model
+     * @return The Builder
      */
     @NonNull
-    public static Email.Builder builder() {
-        return new Builder();
+    public static <H, T> Builder<H, T> builder() {
+        return new Builder<>();
     }
 
-    /**
-     * Email builder.
+     /**
+      * Email builder.
+      * @param <H> HTML model
+      * @param <T> Text model
      */
-    public static class Builder implements EmailWithoutContentBuilder<Email.Builder, Email> {
+    public static class Builder<H, T> implements EmailWithoutContentBuilder<Email.Builder<H, T>, Email<H, T>> {
         private Contact from;
         private List<Contact> to;
         private String subject;
@@ -224,68 +215,68 @@ public class Email implements EmailWithoutContent {
         private boolean trackOpens;
         private TrackLinks trackLinks;
         private List<Attachment> attachments;
-        private String html;
-        private String text;
+        private ModelAndView<H> html;
+        private ModelAndView<T> text;
 
         @Override
         @NonNull
-        public Email.Builder trackLinks(@NonNull TrackLinks trackLinks) {
+        public Builder<H, T> trackLinks(@NonNull TrackLinks trackLinks) {
             this.trackLinks = trackLinks;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder trackLinksInHtml() {
+        public Builder<H, T> trackLinksInHtml() {
             this.trackLinks = TrackLinks.HTML;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder trackLinksInText() {
+        public Builder<H, T> trackLinksInText() {
             this.trackLinks = TrackLinks.TEXT;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder trackLinksInHtmlAndText() {
+        public Builder<H, T> trackLinksInHtmlAndText() {
             this.trackLinks = TrackLinks.HTML_AND_TEXT;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder from(@NonNull String from) {
+        public Builder<H, T> from(@NonNull String from) {
             this.from = new Contact(from);
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder from(@NonNull Contact from) {
+        public Builder<H, T> from(@NonNull Contact from) {
             this.from = from;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder replyTo(@NonNull String replyTo) {
+        public Builder<H, T> replyTo(@NonNull String replyTo) {
             this.replyTo = new Contact(replyTo);
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder replyTo(@NonNull Contact replyTo) {
+        public Builder<H, T> replyTo(@NonNull Contact replyTo) {
             this.replyTo = replyTo;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder to(@NonNull String to) {
+        public Builder<H, T> to(@NonNull String to) {
             if (this.to == null) {
                 this.to = new ArrayList<>();
             }
@@ -295,7 +286,7 @@ public class Email implements EmailWithoutContent {
 
         @Override
         @NonNull
-        public Email.Builder to(@NonNull Contact to) {
+        public Builder<H, T> to(@NonNull Contact to) {
             addTo(to);
             return this;
         }
@@ -309,7 +300,7 @@ public class Email implements EmailWithoutContent {
 
         @Override
         @NonNull
-        public Email.Builder cc(@NonNull Contact cc) {
+        public Builder<H, T> cc(@NonNull Contact cc) {
             addCc(cc);
             return this;
         }
@@ -323,7 +314,7 @@ public class Email implements EmailWithoutContent {
 
         @Override
         @NonNull
-        public Email.Builder bcc(@NonNull Contact bcc) {
+        public Builder<H, T> bcc(@NonNull Contact bcc) {
             addBcc(bcc);
             return this;
         }
@@ -337,14 +328,14 @@ public class Email implements EmailWithoutContent {
 
         @Override
         @NonNull
-        public Email.Builder subject(@NonNull String subject) {
+        public Builder<H, T> subject(@NonNull String subject) {
             this.subject = subject;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder cc(@NonNull String cc) {
+        public Builder<H, T> cc(@NonNull String cc) {
             if (this.cc == null) {
                 this.cc = new ArrayList<>();
             }
@@ -354,7 +345,7 @@ public class Email implements EmailWithoutContent {
 
         @Override
         @NonNull
-        public Email.Builder bcc(@NonNull String bcc) {
+        public Builder<H, T> bcc(@NonNull String bcc) {
             if (this.bcc == null) {
                 this.bcc = new ArrayList<>();
             }
@@ -364,14 +355,14 @@ public class Email implements EmailWithoutContent {
 
         @Override
         @NonNull
-        public Email.Builder trackOpens(boolean trackOpens) {
+        public Builder<H, T> trackOpens(boolean trackOpens) {
             this.trackOpens = trackOpens;
             return this;
         }
 
         @Override
         @NonNull
-        public Email.Builder attachment(@NonNull Attachment attachment) {
+        public Builder<H, T> attachment(@NonNull Attachment attachment) {
             if (this.attachments == null) {
                 attachments = new ArrayList<>();
             }
@@ -385,7 +376,7 @@ public class Email implements EmailWithoutContent {
          * @return The Transactional Email Builder
          */
         @NonNull
-        public Builder html(@Nullable String html) {
+        public Builder<H, T> html(@Nullable ModelAndView<H> html) {
             this.html = html;
             return this;
         }
@@ -396,15 +387,39 @@ public class Email implements EmailWithoutContent {
          * @return The Transactional Email Builder
          */
         @NonNull
-        public Builder text(@Nullable String text) {
+        public Builder<H, T> text(@Nullable ModelAndView<T> text) {
             this.text = text;
+            return this;
+        }
+
+        /**
+         *
+         * @param view view name to be rendered
+         * @param model Model to be rendered against the view
+         * @return The Transactional Email Builder
+         */
+        @NonNull
+        public Builder<H, T> html(@NonNull String view, @NonNull H model) {
+            this.html = new ModelAndView<>(view, model);
+            return this;
+        }
+
+        /**
+         *
+         * @param view view name to be rendered
+         * @param model Model to be rendered against the view
+         * @return The Transactional Email Builder
+         */
+        @NonNull
+        public Builder<H, T> text(@NonNull String view, @NonNull T model) {
+            this.text = new ModelAndView<>(view, model);
             return this;
         }
 
         @Override
         @NonNull
-        public Email build() throws IllegalArgumentException {
-            Email email = new Email(from,
+        public Email<H, T> build() throws IllegalArgumentException {
+            Email<H, T> email = new Email<>(from,
                     replyTo,
                     to,
                     cc,
@@ -416,8 +431,8 @@ public class Email implements EmailWithoutContent {
                     html,
                     text);
             EmailValidationUtils.validate(email);
-
             return email;
         }
     }
 }
+

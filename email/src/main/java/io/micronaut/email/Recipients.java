@@ -13,25 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email.template;
+package io.micronaut.email;
 
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.naming.Named;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import io.micronaut.core.annotation.Nullable;
+import java.util.List;
 
 /**
- * Contract for sending an Email template.
- *
+ * Email Recipients. To, carbon copy and blind carbon copy recipients.
  * @author Sergio del Amo
- * @since 1.0
- * @param <H> HTML model
- * @param <T> Text model
+ * @since 1.0.0
  */
-public interface EmailTemplateSender<H, T> extends Named {
+public interface Recipients {
+
     /**
-     * Sends a template as a text email.
-     * @param email Email
+     *
+     * @return Email recipients.
      */
-    void send(@NonNull @NotNull @Valid Email<H, T>  email);
+    @Nullable
+    List<Contact> getTo();
+
+    /**
+     *
+     * @return Email carbon copy recipients.
+     */
+    @Nullable
+    List<Contact> getCc();
+
+    /**
+     *
+     * @return Email blind carbon copy recipients.
+     */
+    @Nullable
+    List<Contact> getBcc();
 }

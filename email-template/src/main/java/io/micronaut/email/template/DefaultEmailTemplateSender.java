@@ -16,13 +16,7 @@
 package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
-import io.micronaut.email.Email;
-import io.micronaut.email.EmailHeader;
 import io.micronaut.email.EmailSender;
-import io.micronaut.views.ModelAndView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -30,11 +24,11 @@ import javax.validation.constraints.NotNull;
  * Renders an email and sends it.
  * @author Sergio del Amo
  * @since 1.0.0
- * @param <T> The model type
+ * @param <H> HTML model
+ * @param <T> Text model
  */
-public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultEmailTemplateSender.class);
-    private final EmailRenderer<T> emailRenderer;
+public class DefaultEmailTemplateSender<H, T> implements EmailTemplateSender<H, T> {
+    private final EmailRenderer<H, T> emailRenderer;
     private final EmailSender emailSender;
 
     /**
@@ -42,17 +36,20 @@ public class DefaultEmailTemplateSender<T> implements EmailTemplateSender<T> {
      * @param emailRenderer Utility to render an email.
      * @param emailSender The Email Sender
      */
-    public DefaultEmailTemplateSender(EmailRenderer<T> emailRenderer,
+    public DefaultEmailTemplateSender(EmailRenderer<H, T> emailRenderer,
                                       EmailSender emailSender) {
         this.emailRenderer = emailRenderer;
         this.emailSender = emailSender;
     }
 
     @Override
-    public void send(@NonNull @NotNull @Valid EmailHeader emailHeader,
-                          @Nullable ModelAndView<T> text,
-                          @Nullable ModelAndView<T> html) {
-        Email email = emailRenderer.render(emailHeader, text, html);
-        emailSender.send(email);
+    public void send(@NonNull @NotNull @Valid Email<H, T> email) {
+        emailSender.send(emailRenderer.render(email, email.getHtml(), email.getText()));
+    }
+
+    @Override
+    @NonNull
+    public String getName() {
+        return emailSender.getName();
     }
 }

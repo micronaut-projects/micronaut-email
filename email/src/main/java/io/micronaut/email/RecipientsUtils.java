@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email.template;
+package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.naming.Named;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import io.micronaut.core.util.CollectionUtils;
 
 /**
- * Contract for sending an Email template.
- *
+ * Utility class for {@link Recipients}.
  * @author Sergio del Amo
- * @since 1.0
- * @param <H> HTML model
- * @param <T> Text model
+ * @since 1.0.0
  */
-public interface EmailTemplateSender<H, T> extends Named {
-    /**
-     * Sends a template as a text email.
-     * @param email Email
-     */
-    void send(@NonNull @NotNull @Valid Email<H, T>  email);
+public final class RecipientsUtils {
+
+    public static boolean isValid(@NonNull Recipients recipients) {
+        return !(
+                CollectionUtils.isEmpty(recipients.getTo()) &&
+                CollectionUtils.isEmpty(recipients.getCc()) &&
+                CollectionUtils.isEmpty(recipients.getBcc())
+        );
+    }
 }

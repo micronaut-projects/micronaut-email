@@ -18,30 +18,28 @@ package io.micronaut.email.template;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.Email;
-import io.micronaut.email.EmailHeader;
+import io.micronaut.email.EmailWithoutContent;
 import io.micronaut.views.ModelAndView;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * Renders a {@link Email} with text and html views.
  *
  * @author Sergio del Amo
  * @since 1.0
- * @param <T> The model type
+ * @param <H> HTML model
+ * @param <T> Text model
  */
 @FunctionalInterface
-public interface EmailRenderer<T> {
+public interface EmailRenderer<H, T> {
     /**
      * Renders a {@link Email} with text and html views.
-     * @param emailHeader Email Sender, recipients and subjects
+     * @param email Email without content
      * @param text Emails Template's name and model for text
      * @param html Emails Template's name and model for html
      * @return A rendered email.
      */
     @NonNull
-    Email render(@NonNull @NotNull @Valid EmailHeader emailHeader,
-                 @Nullable ModelAndView<T> text,
-                 @Nullable ModelAndView<T> html);
+    Email render(@NonNull EmailWithoutContent email,
+                 @Nullable ModelAndView<H> html,
+                 @Nullable ModelAndView<T> text);
 }

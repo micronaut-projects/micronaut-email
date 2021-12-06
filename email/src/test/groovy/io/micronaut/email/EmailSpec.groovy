@@ -33,6 +33,48 @@ class EmailSpec extends Specification {
         !validator.validate(email)
     }
 
+    void "trackLinksInHtml sets TrackLinks.HTML"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackLinksInHtml()
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.HTML
+    }
+
+    void "trackLinksInHtml sets TrackLinks.TEXT"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackLinksInText()
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.TEXT
+    }
+
+    void "trackLinksInHtml sets TrackLinks.HTML_AND_TEXT"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackLinksInHtmlAndText()
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.HTML_AND_TEXT
+    }
+
     void "trackOpens accepts a boolean"() {
         given:
         Email email = Email.builder()
@@ -75,7 +117,6 @@ class EmailSpec extends Specification {
         thrown(IllegalArgumentException)
     }
 
-    @PendingFeature
     void "from must be a valid email address"() {
         given:
         Email email = Email.builder()
@@ -89,7 +130,6 @@ class EmailSpec extends Specification {
         validator.validate(email)
     }
 
-    @PendingFeature
     void "to must be a valid email address"() {
         given:
         Email email = Email.builder()
@@ -103,7 +143,6 @@ class EmailSpec extends Specification {
         validator.validate(email)
     }
 
-    @PendingFeature
     void "cc must be a valid email address"() {
         given:
         Email email = Email.builder()
@@ -118,7 +157,6 @@ class EmailSpec extends Specification {
         validator.validate(email)
     }
 
-    @PendingFeature
     void "bcc must be a valid email address"() {
         given:
         Email email = Email.builder()
