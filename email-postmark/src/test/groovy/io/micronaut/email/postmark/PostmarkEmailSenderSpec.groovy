@@ -28,7 +28,7 @@ class PostmarkEmailSenderSpec extends Specification {
                 .subject(subject).text("Hello world")
                 .build())
         then:
-        new PollingConditions(timeout: 20).eventually {
+        new PollingConditions(timeout: 60).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(to, System.getenv("GMAIL_PASSWORD"), subject)
         }
     }
