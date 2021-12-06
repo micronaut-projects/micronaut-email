@@ -373,7 +373,7 @@ public class Email<H, T> implements EmailWithoutContent {
 
         @Override
         @NonNull
-        public Builder<H,T> attachment(@NonNull Consumer<Attachment.Builder> attachment) {
+        public Builder<H, T> attachment(@NonNull Consumer<Attachment.Builder> attachment) {
             Attachment.Builder builder = Attachment.builder();
             attachment.accept(builder);
             return attachment(builder.build());

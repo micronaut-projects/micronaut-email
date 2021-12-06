@@ -19,6 +19,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.function.Consumer;
 
 /**
  * Contract for sending an Email template.
@@ -34,4 +35,14 @@ public interface EmailTemplateSender<H, T> extends Named {
      * @param email Email
      */
     void send(@NonNull @NotNull @Valid Email<H, T>  email);
+
+    /**
+     * It builds and sends an email using the supplied builder.
+     * @param email Email builder consumer
+     */
+    default void send(Consumer<Email.Builder<H, T>> email) {
+        Email.Builder<H, T> builder = Email.builder();
+        email.accept(builder);
+        send(builder.build());
+    }
 }
