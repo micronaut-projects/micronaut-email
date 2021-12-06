@@ -50,6 +50,48 @@ class EmailHeaderSpec extends Specification {
         email.trackLinks == TrackLinks.HTML
     }
 
+    void "trackLinksInHtml sets TrackLinks.HTML"() {
+        given:
+        EmailHeader email = EmailHeader.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackLinksInHtml()
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.HTML
+    }
+
+    void "trackLinksInHtml sets TrackLinks.TEXT"() {
+        given:
+        EmailHeader email = EmailHeader.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackLinksInText()
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.TEXT
+    }
+
+    void "trackLinksInHtml sets TrackLinks.HTML_AND_TEXT"() {
+        given:
+        EmailHeader email = EmailHeader.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .trackLinksInHtmlAndText()
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.trackLinks == TrackLinks.HTML_AND_TEXT
+    }
+
     void "from, to and subject are required validation"() {
         given:
         EmailHeader email = EmailHeader.builder()

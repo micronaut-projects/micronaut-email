@@ -197,6 +197,33 @@ public class EmailHeader {
         }
 
         /**
+         * Email links should be tracked in HTML emails.
+         * @return Email Header Builder
+         */
+        public Builder trackLinksInHtml() {
+            this.trackLinks = TrackLinks.HTML;
+            return this;
+        }
+
+        /**
+         * Email links should be tracked in Text emails.
+         * @return Email Header Builder
+         */
+        public Builder trackLinksInText() {
+            this.trackLinks = TrackLinks.TEXT;
+            return this;
+        }
+
+        /**
+         * Email links should be tracked in HTML and Text emails.
+         * @return Email Header Builder
+         */
+        public Builder trackLinksInHtmlAndText() {
+            this.trackLinks = TrackLinks.HTML_AND_TEXT;
+            return this;
+        }
+
+        /**
          *
          * @param from sender email address
          * @return The Transactional Email Builder
