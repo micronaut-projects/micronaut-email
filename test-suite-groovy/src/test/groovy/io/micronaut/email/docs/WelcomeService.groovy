@@ -7,14 +7,14 @@ import jakarta.inject.Singleton
 
 @Singleton
 class WelcomeService {
-    private final EmailSender emailCourier
+    private final EmailSender<?> emailSender
 
-    WelcomeService(EmailSender emailCourier) {
-        this.emailCourier = emailCourier
+    WelcomeService(EmailSender<?> emailSender) {
+        this.emailSender = emailSender
     }
 
     void sendWelcomeEmail() {
-        emailCourier.send(Email.builder()
+        emailSender.send(Email.builder()
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")

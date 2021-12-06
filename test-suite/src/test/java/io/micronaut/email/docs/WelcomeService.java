@@ -6,9 +6,9 @@ import jakarta.inject.Singleton;
 
 @Singleton
 public class WelcomeService {
-    private final EmailSender emailSender;
+    private final EmailSender<?> emailSender;
 
-    public WelcomeService(EmailSender emailSender) {
+    public WelcomeService(EmailSender<?> emailSender) {
         this.emailSender = emailSender;
     }
 

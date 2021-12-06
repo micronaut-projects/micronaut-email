@@ -14,7 +14,7 @@ import spock.util.concurrent.PollingConditions
 class PostmarkEmailSenderSpec extends Specification {
 
     @Inject
-    EmailSender emailCourier
+    EmailSender emailSender
 
     @Requires({env["POSTMARK_API_TOKEN"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
     void "Functional test of postmark integration"() {
@@ -22,7 +22,7 @@ class PostmarkEmailSenderSpec extends Specification {
         String subject = "[Postmark] Test"
         String to = System.getenv("GMAIL_USERNAME")
         when:
-        emailCourier.send(Email.builder()
+        emailSender.send(Email.builder()
                 .from("marketing@micronaut.io")
                 .to(to)
                 .subject(subject).text("Hello world")

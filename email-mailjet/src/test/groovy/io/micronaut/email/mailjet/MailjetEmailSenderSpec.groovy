@@ -14,7 +14,7 @@ import spock.util.concurrent.PollingConditions
 class MailjetEmailSenderSpec extends Specification {
 
     @Inject
-    EmailSender emailCourier
+    EmailSender emailSender
 
     @Requires({env["MAILJET_API_KEY"] && env["MAILJET_API_SECRET"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
     void "Functional test of Mailjet integration"() {
@@ -22,7 +22,7 @@ class MailjetEmailSenderSpec extends Specification {
         String subject = "[Mailjet] Test"
         String gmail = System.getenv("GMAIL_USERNAME")
         when:
-        emailCourier.send(Email.builder()
+        emailSender.send(Email.builder()
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)

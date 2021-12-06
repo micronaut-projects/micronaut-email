@@ -11,22 +11,22 @@ class WelcomeServiceSpec extends Specification {
     WelcomeService welcomeService
 
     @Inject
-    MockEmailSender emailCourier
+    MockEmailSender emailSender
 
     void "Email is correctly built"() {
         when:
         welcomeService.sendWelcomeEmail()
         then:
-        emailCourier.emails.size()
-        'sender@example.com' == emailCourier.emails[0].from.email
-        !emailCourier.emails[0].from.name
-        1 == emailCourier.emails[0].to.size()
-        'john@example.com' == emailCourier.emails[0].to[0].email
-        !emailCourier.emails[0].to[0].name
-        !emailCourier.emails[0].cc
-        !emailCourier.emails[0].bcc
-        "Micronaut test" == emailCourier.emails[0].subject
-        "Hello dear Micronaut user" == emailCourier.emails[0].text
-        "<html><body><strong>Hello</strong> dear Micronaut user.</body></html>" == emailCourier.emails[0].html
+        emailSender.emails.size()
+        'sender@example.com' == emailSender.emails[0].from.email
+        !emailSender.emails[0].from.name
+        1 == emailSender.emails[0].to.size()
+        'john@example.com' == emailSender.emails[0].to[0].email
+        !emailSender.emails[0].to[0].name
+        !emailSender.emails[0].cc
+        !emailSender.emails[0].bcc
+        "Micronaut test" == emailSender.emails[0].subject
+        "Hello dear Micronaut user" == emailSender.emails[0].text
+        "<html><body><strong>Hello</strong> dear Micronaut user.</body></html>" == emailSender.emails[0].html
     }
 }

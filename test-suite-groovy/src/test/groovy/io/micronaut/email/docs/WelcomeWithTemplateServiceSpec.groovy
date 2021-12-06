@@ -11,7 +11,7 @@ class WelcomeWithTemplateServiceSpec extends Specification {
     WelcomeWithTemplateService welcomeWithTemplateService
 
     @Inject
-    MockEmailSender emailCourier
+    MockEmailSender emailSender
 
     void "Email is correctly built with templates"() {
         given:
@@ -22,22 +22,22 @@ class WelcomeWithTemplateServiceSpec extends Specification {
         when:
         welcomeWithTemplateService.sendWelcomeEmail()
         then:
-        emailCourier.emails.size()
-        'sender@example.com' == emailCourier.emails[0].from.email
-        !emailCourier.emails[0].from.name
-        1 == emailCourier.emails[0].to.size()
-        'john@example.com' == emailCourier.emails[0].to[0].email
-        !emailCourier.emails[0].to[0].name
-        !emailCourier.emails[0].cc
-        !emailCourier.emails[0].bcc
-        "Micronaut test" == emailCourier.emails[0].subject
-        emailCourier.emails[0].text
-        emailCourier.emails[0].text.contains(message)
-        emailCourier.emails[0].text.contains(copyright)
-        emailCourier.emails[0].text.contains(address)
-        emailCourier.emails[0].html
-        emailCourier.emails[0].html.contains('<h2 class="cit">' + message + '</h2>')
-        emailCourier.emails[0].html.contains('<div>' + copyright + '</div>')
-        emailCourier.emails[0].html.contains('<div>' + address + '</div>')
+        emailSender.emails.size()
+        'sender@example.com' == emailSender.emails[0].from.email
+        !emailSender.emails[0].from.name
+        1 == emailSender.emails[0].to.size()
+        'john@example.com' == emailSender.emails[0].to[0].email
+        !emailSender.emails[0].to[0].name
+        !emailSender.emails[0].cc
+        !emailSender.emails[0].bcc
+        "Micronaut test" == emailSender.emails[0].subject
+        emailSender.emails[0].text
+        emailSender.emails[0].text.contains(message)
+        emailSender.emails[0].text.contains(copyright)
+        emailSender.emails[0].text.contains(address)
+        emailSender.emails[0].html
+        emailSender.emails[0].html.contains('<h2 class="cit">' + message + '</h2>')
+        emailSender.emails[0].html.contains('<div>' + copyright + '</div>')
+        emailSender.emails[0].html.contains('<div>' + address + '</div>')
     }
 }

@@ -13,7 +13,7 @@ import spock.util.concurrent.PollingConditions
 class SendGridEmailSenderSpec extends Specification {
 
     @Inject
-    EmailSender emailCourier
+    EmailSender emailSender
 
     @Requires({env["SENDGRID_API_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
     void "Functional test of SendGrid integration"() {
@@ -21,7 +21,7 @@ class SendGridEmailSenderSpec extends Specification {
         String subject = "[Sendgrid] Test"
         String gmail = System.getenv("GMAIL_USERNAME")
         when:
-        emailCourier.send(Email.builder()
+        emailSender.send(Email.builder()
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)

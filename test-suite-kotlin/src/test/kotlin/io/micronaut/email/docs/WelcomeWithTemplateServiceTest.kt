@@ -14,7 +14,7 @@ class WelcomeWithTemplateServiceTest {
     lateinit var welcomeService: WelcomeWithTemplateService
 
     @Inject
-    lateinit var emailCourier: MockEmailSender
+    lateinit var emailSender: MockEmailSender
 
     @Test
     fun transactionalEmailIsCorrectlyBuilt() {
@@ -25,26 +25,26 @@ class WelcomeWithTemplateServiceTest {
         //when:
         welcomeService.sendWelcomeEmail()
         //then:
-        assertEquals(1, emailCourier.getEmails().size)
+        assertEquals(1, emailSender.getEmails().size)
         assertEquals(
             "sender@example.com",
-            emailCourier.getEmails()[0].from.email
+            emailSender.getEmails()[0].from.email
         )
-        assertNull(emailCourier.getEmails()[0].from.name)
-        assertNotNull(emailCourier.getEmails()[0].to)
-        assertEquals(1, emailCourier.getEmails()[0].to!!.size)
-        assertEquals("john@example.com", emailCourier.getEmails()[0].to!![0].email)
-        assertNull(emailCourier.getEmails()[0].to!![0].name)
-        assertNull(emailCourier.getEmails()[0].cc)
-        assertNull(emailCourier.getEmails()[0].bcc)
-        assertEquals("Micronaut test", emailCourier.getEmails()[0].subject)
-        assertNotNull(emailCourier.getEmails()[0].text)
-        assertTrue(emailCourier.getEmails()[0].text!!.contains(message))
-        assertTrue(emailCourier.getEmails()[0].text!!.contains(copyright))
-        assertTrue(emailCourier.getEmails()[0].text!!.contains(address))
-        assertNotNull(emailCourier.getEmails()[0].html)
-        assertTrue(emailCourier.getEmails()[0].html!!.contains("<h2 class=\"cit\">$message</h2>"))
-        assertTrue(emailCourier.getEmails()[0].html!!.contains("<div>$copyright</div>"))
-        assertTrue(emailCourier.getEmails()[0].html!!.contains("<div>$address</div>"))
+        assertNull(emailSender.getEmails()[0].from.name)
+        assertNotNull(emailSender.getEmails()[0].to)
+        assertEquals(1, emailSender.getEmails()[0].to!!.size)
+        assertEquals("john@example.com", emailSender.getEmails()[0].to!![0].email)
+        assertNull(emailSender.getEmails()[0].to!![0].name)
+        assertNull(emailSender.getEmails()[0].cc)
+        assertNull(emailSender.getEmails()[0].bcc)
+        assertEquals("Micronaut test", emailSender.getEmails()[0].subject)
+        assertNotNull(emailSender.getEmails()[0].text)
+        assertTrue(emailSender.getEmails()[0].text!!.contains(message))
+        assertTrue(emailSender.getEmails()[0].text!!.contains(copyright))
+        assertTrue(emailSender.getEmails()[0].text!!.contains(address))
+        assertNotNull(emailSender.getEmails()[0].html)
+        assertTrue(emailSender.getEmails()[0].html!!.contains("<h2 class=\"cit\">$message</h2>"))
+        assertTrue(emailSender.getEmails()[0].html!!.contains("<div>$copyright</div>"))
+        assertTrue(emailSender.getEmails()[0].html!!.contains("<div>$address</div>"))
     }
 }
