@@ -74,6 +74,24 @@ public class MailjetEmailSender implements EmailSender<MailjetResponse> {
         return NAME;
     }
 
+    /**
+     *
+     * @return Whether tracking links is supported.
+     */
+    @Override
+    public boolean isTrackingLinksSupported() {
+        return false;
+    }
+
+    /**
+     *
+     * @return Whether sending attachments is supported
+     */
+    @Override
+    public boolean isSendingAttachmentsSupported() {
+        return true;
+    }
+
     @Override
     @NonNull
     public Optional<MailjetResponse> send(@NonNull @NotNull @Valid Email email) {

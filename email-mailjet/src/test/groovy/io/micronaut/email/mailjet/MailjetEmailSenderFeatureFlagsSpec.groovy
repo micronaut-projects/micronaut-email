@@ -1,9 +1,8 @@
 package io.micronaut.email.mailjet
 
-import io.micronaut.context.BeanContext
+import com.mailjet.client.MailjetResponse
 import io.micronaut.context.annotation.Property
 import io.micronaut.email.EmailSender
-import io.micronaut.inject.qualifiers.Qualifiers
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
@@ -11,13 +10,17 @@ import spock.lang.Specification
 @Property(name = "mailjet.api-secret", value = "xxx")
 @Property(name = "mailjet.api-key", value = "yyyy")
 @MicronautTest(startApplication = false)
-class MailjetEmailSenderNamedSpec extends Specification {
+class MailjetEmailSenderFeatureFlagsSpec extends Specification {
 
     @Inject
-    BeanContext beanContext
+    EmailSender<MailjetResponse> emailSender
 
-    void "MailjetEmailCourier is annotated with @Named"() {
+    void "Mailjet supports attachments"() {
         expect:
-        beanContext.containsBean(EmailSender, Qualifiers.byName("mailjet"))
+        emailSender.isSendingAttachmentsSupported()
+    }
+
+    void "Mailjet supports tracking"() {
+        !emailSender.isTrackingLinksSupported()
     }
 }

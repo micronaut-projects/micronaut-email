@@ -68,6 +68,24 @@ public class PostmarkEmailSender implements EmailSender<MessageResponse> {
         return NAME;
     }
 
+    /**
+     *
+     * @return Whether tracking links is supported.
+     */
+    @Override
+    public boolean isTrackingLinksSupported() {
+        return true;
+    }
+
+    /**
+     *
+     * @return Whether sending attachments is supported
+     */
+    @Override
+    public boolean isSendingAttachmentsSupported() {
+        return true;
+    }
+
     @Override
     @NonNull
     public Optional<MessageResponse> send(@NonNull @NotNull @Valid Email email) {

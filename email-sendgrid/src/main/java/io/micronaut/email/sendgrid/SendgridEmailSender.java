@@ -71,6 +71,24 @@ public class SendgridEmailSender implements EmailSender<Response> {
         return NAME;
     }
 
+    /**
+     *
+     * @return Whether tracking links is supported.
+     */
+    @Override
+    public boolean isTrackingLinksSupported() {
+        return false;
+    }
+
+    /**
+     *
+     * @return Whether sending attachments is supported
+     */
+    @Override
+    public boolean isSendingAttachmentsSupported() {
+        return true;
+    }
+
     @Override
     @NonNull
     public Optional<Response> send(@NonNull @NotNull @Valid Email email) {

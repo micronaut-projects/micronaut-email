@@ -49,4 +49,20 @@ public interface EmailSender<R> extends Named {
         email.accept(builder);
         return send(builder.build());
     }
+
+    /**
+     *
+     * @return Whether tracking links is supported.
+     */
+    default boolean isTrackingLinksSupported() {
+        return false;
+    }
+
+    /**
+     *
+     * @return Whether sending attachments is supported
+     */
+    default boolean isSendingAttachmentsSupported() {
+        return false;
+    }
 }
