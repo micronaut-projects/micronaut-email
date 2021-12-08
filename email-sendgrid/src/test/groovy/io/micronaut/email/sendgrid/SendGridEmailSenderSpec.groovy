@@ -28,7 +28,7 @@ class SendGridEmailSenderSpec extends Specification {
                 .text("Hello world")
                 .build())
         then:
-        new PollingConditions(timeout: 60).eventually {
+        new PollingConditions(timeout: 30).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
         }
     }
