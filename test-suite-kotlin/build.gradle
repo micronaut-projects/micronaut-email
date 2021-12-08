@@ -20,7 +20,7 @@ dependencies {
 
     testImplementation project(":email")
     testImplementation project(":email-template")
-    testImplementation(project(":test-utils"))
+    testImplementation(project(":test-suite-utils"))
     testImplementation("io.micronaut.views:micronaut-views-velocity")
 }
 

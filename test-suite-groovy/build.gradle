@@ -12,7 +12,7 @@ dependencies {
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
         exclude module: 'groovy-all'
     }
-    testImplementation(project(":test-utils"))
+    testImplementation(project(":test-suite-utils"))
     testImplementation(project(":email"))
     testImplementation(project(":email-template"))
     testImplementation "io.micronaut.test:micronaut-test-spock"

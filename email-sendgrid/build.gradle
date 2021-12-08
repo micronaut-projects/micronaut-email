@@ -8,5 +8,5 @@ dependencies {
     api(project(":email"))
     implementation("io.micronaut:micronaut-validation")
     testImplementation("io.micronaut:micronaut-http")
-    testImplementation(project(":test-utils"))
+    testImplementation(project(":test-suite-utils"))
 }

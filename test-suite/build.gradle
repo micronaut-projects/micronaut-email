@@ -16,7 +16,7 @@ dependencies {
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    testImplementation(project(":test-utils"))
+    testImplementation(project(":test-suite-utils"))
     testImplementation(project(":email"))
     testImplementation(project(":email-template"))
 
