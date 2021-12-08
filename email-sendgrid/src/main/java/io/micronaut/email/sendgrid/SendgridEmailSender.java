@@ -151,7 +151,6 @@ public class SendgridEmailSender implements TransactionalEmailSender<Response> {
     @NonNull
     private Personalization createPersonalization(@NonNull Email email) {
         Personalization personalization = new Personalization();
-        personalization.setFrom(createForm(email));
         personalization.setSubject(email.getSubject());
         if (email.getTo() != null) {
             for (Contact contactTo : email.getTo()) {
