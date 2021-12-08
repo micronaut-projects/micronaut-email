@@ -3,6 +3,7 @@ package io.micronaut.email.docs;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
+import io.micronaut.email.TransactionalEmailSender;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import javax.validation.Valid;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 @Named("mock")
 @Singleton
-public class MockEmailSender implements EmailSender<Void> {
+public class MockEmailSender implements TransactionalEmailSender<Void> {
     private List<Email> emails = new ArrayList<>();
 
     @Override

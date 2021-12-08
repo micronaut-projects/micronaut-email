@@ -17,17 +17,19 @@ package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 /**
- * Defines a functional interface to send transactional emails.
+ * API to be implemented by third party transactional email providers.
+ * Emails are validated.
  * @author Sergio del Amo
  * @since 1.0.0
  * @param <R> Response Object
  */
-public interface EmailSender<R> extends Named {
+public interface TransactionalEmailSender<R> extends Named {
 
     /**
      * Sends an email.
@@ -35,19 +37,7 @@ public interface EmailSender<R> extends Named {
      * @return Response Object or empty optional if an error occurred
      */
     @NonNull
-    Optional<R> send(@NonNull @NotNull Email email);
-
-    /**
-     * It builds and sends an email using the supplied builder.
-     * @param email Email builder consumer
-     * @return Response Object or empty optional if an error occurred
-     */
-    @NonNull
-    default Optional<R> send(@NonNull @NotNull Consumer<Email.Builder> email) {
-        Email.Builder builder = Email.builder();
-        email.accept(builder);
-        return send(builder.build());
-    }
+    Optional<R> send(@NonNull @NotNull @Valid Email email);
 
     /**
      *

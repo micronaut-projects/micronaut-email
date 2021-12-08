@@ -22,6 +22,7 @@ import io.micronaut.core.annotation.Nullable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Class representing the person who receives an email.
@@ -71,5 +72,29 @@ public class Contact {
     @Nullable
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Contact contact = (Contact) o;
+
+        if (!Objects.equals(email, contact.email)) {
+            return false;
+        }
+        return Objects.equals(name, contact.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = email != null ? email.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

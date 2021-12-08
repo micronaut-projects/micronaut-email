@@ -13,57 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email;
+package io.micronaut.email.validation;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.email.validation.Recipients;
-
-import java.util.List;
+import io.micronaut.email.Contact;
+import java.util.Collection;
 
 /**
+ * Email Recipients. To, carbon copy and blind carbon copy recipients.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public interface EmailWithoutContent extends Recipients {
+public interface Recipients {
+
     /**
      *
-     * @return Email sender
+     * @return Email recipients.
+     */
+    @Nullable
+    Collection<Contact> getTo();
+
+    /**
+     *
+     * @return Email carbon copy recipients.
+     */
+    @Nullable
+    Collection<Contact> getCc();
+
+    /**
+     *
+     * @return Email blind carbon copy recipients.
+     */
+    @Nullable
+    Collection<Contact> getBcc();
+
+    /**
+     *
+     * @return Email recipients
      */
     @NonNull
-    Contact getFrom();
-
-    /**
-     *
-     * @return Email Reply-to
-     */
-    @Nullable
-    Contact getReplyTo();
-
-    /**
-     *
-     * @return Email's subject
-     */
-    @NonNull
-    String getSubject();
-
-    /**
-     *
-     * @return Whether to track if the email is opened
-     */
-    boolean getTrackOpens();
-
-    /**
-     *
-     * @return Whether to track the email's links
-     */
-    @Nullable
-    TrackLinks getTrackLinks();
-
-    /**
-     *
-     * @return Email attachments
-     */
-    @Nullable
-    List<Attachment> getAttachments();
+    default Recipients getRecipients() {
+        return RecipientsUtils.create(getTo(), getCc(), getBcc());
+    }
 }

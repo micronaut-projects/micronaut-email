@@ -28,8 +28,8 @@ public class SendAttachmentServiceTest {
         assertEquals("sender@example.com", emailSender.getEmails().get(0).getFrom().getEmail());
         assertNull(emailSender.getEmails().get(0).getFrom().getName());
         assertEquals(1, emailSender.getEmails().get(0).getTo().size());
-        assertEquals("john@example.com", emailSender.getEmails().get(0).getTo().get(0).getEmail());
-        assertNull(emailSender.getEmails().get(0).getTo().get(0).getName());
+        assertEquals("john@example.com", emailSender.getEmails().get(0).getTo().stream().findFirst().get().getEmail());
+        assertNull(emailSender.getEmails().get(0).getTo().stream().findFirst().get().getName());
         assertNull(emailSender.getEmails().get(0).getCc());
         assertNull(emailSender.getEmails().get(0).getBcc());
         assertEquals("Monthly reports", emailSender.getEmails().get(0).getSubject());

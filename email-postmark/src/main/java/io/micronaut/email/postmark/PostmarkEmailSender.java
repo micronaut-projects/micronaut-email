@@ -23,9 +23,9 @@ import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Contact;
-import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.TrackLinks;
+import io.micronaut.email.TransactionalEmailSender;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -38,14 +38,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * {@link EmailSender} implementation which uses Postmark.
+ * {@link TransactionalEmailSender} implementation which uses Postmark.
  *
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Named(PostmarkEmailSender.NAME)
 @Singleton
-public class PostmarkEmailSender implements EmailSender<MessageResponse> {
+public class PostmarkEmailSender implements TransactionalEmailSender<MessageResponse> {
     /**
      * {@link PostmarkEmailSender} name.
      */

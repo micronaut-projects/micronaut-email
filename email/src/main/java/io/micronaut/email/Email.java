@@ -18,10 +18,14 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.email.validation.AnyContent;
+import io.micronaut.email.validation.AnyRecipient;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -30,47 +34,49 @@ import java.util.function.Consumer;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@AnyContent
+@AnyRecipient
 @Introspected
 public class Email implements EmailWithoutContent {
 
     @NonNull
     @NotNull
     @Valid
-    private final Contact from;
+    private Contact from;
 
     @Nullable
     @Valid
-    private final Contact replyTo;
+    private Contact replyTo;
 
     @Nullable
     @Valid
-    private final List<Contact> to;
+    private Collection<Contact> to;
 
     @Nullable
     @Valid
-    private final List<Contact> cc;
+    private Collection<Contact> cc;
 
     @Nullable
     @Valid
-    private final List<Contact> bcc;
+    private Collection<Contact> bcc;
 
     @NotBlank
     @NonNull
-    private final String subject;
+    private String subject;
 
-    private final boolean trackOpens;
+    private boolean trackOpens;
 
     @Nullable
-    private final TrackLinks trackLinks;
+    private TrackLinks trackLinks;
 
     @Nullable
     private List<Attachment> attachments;
 
     @Nullable
-    private final String html;
+    private String html;
 
     @Nullable
-    private final String text;
+    private String text;
 
     /**
      *
@@ -132,6 +138,94 @@ public class Email implements EmailWithoutContent {
         this.text = text;
     }
 
+    /**
+     * 
+     * @param from contact sending the email
+     */
+    public void setFrom(@NonNull Contact from) {
+        this.from = from;
+    }
+
+    /**
+     *
+     * @param replyTo Reply to contact
+     */
+    public void setReplyTo(@Nullable Contact replyTo) {
+        this.replyTo = replyTo;
+    }
+
+    /**
+     *
+     * @param to Recipients to
+     */
+    public void setTo(@Nullable Collection<Contact> to) {
+        this.to = to;
+    }
+
+    /**
+     *
+     * @param cc Recipients carbon copy contacts.
+     */
+    public void setCc(@Nullable Collection<Contact> cc) {
+        this.cc = cc;
+    }
+
+    /**
+     *
+     * @param bcc Recipients blind carbon copy contacts.
+     */
+    public void setBcc(@Nullable Collection<Contact> bcc) {
+        this.bcc = bcc;
+    }
+
+    /**
+     *
+     * @param subject Email subject
+     */
+    public void setSubject(@NonNull String subject) {
+        this.subject = subject;
+    }
+
+    /**
+     *
+     * @param trackOpens Whether to track if the email is opened
+     */
+    public void setTrackOpens(boolean trackOpens) {
+        this.trackOpens = trackOpens;
+    }
+
+    /**
+     *
+     * @param trackLinks Whether to track the email's links
+     */
+    public void setTrackLinks(@Nullable TrackLinks trackLinks) {
+        this.trackLinks = trackLinks;
+    }
+
+    /**
+     *
+     * @param attachments Email attachments
+     */
+    public void setAttachments(@Nullable List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
+    /**
+     *
+     * @param html Email HTML
+     */
+    public void setHtml(@Nullable String html) {
+        this.html = html;
+    }
+
+    /**
+     *
+     * @param text Email text
+     */
+    public void setText(@Nullable String text) {
+        this.text = text;
+    }
+
     @Override
     @NonNull
     public Contact getFrom() {
@@ -146,19 +240,19 @@ public class Email implements EmailWithoutContent {
 
     @Override
     @Nullable
-    public List<Contact> getTo() {
+    public Collection<Contact> getTo() {
         return to;
     }
 
     @Override
     @Nullable
-    public List<Contact> getCc() {
+    public Collection<Contact> getCc() {
         return cc;
     }
 
     @Override
     @Nullable
-    public List<Contact> getBcc() {
+    public Collection<Contact> getBcc() {
         return bcc;
     }
 
@@ -413,25 +507,6 @@ public class Email implements EmailWithoutContent {
         @Override
         @NonNull
         public Email build() throws IllegalArgumentException {
-            EmailValidationUtils.validate(new Recipients() {
-                @Override
-                @Nullable
-                public List<Contact> getTo() {
-                    return to;
-                }
-
-                @Override
-                @Nullable
-                public List<Contact> getCc() {
-                    return cc;
-                }
-
-                @Override
-                @Nullable
-                public List<Contact> getBcc() {
-                    return bcc;
-                }
-            }, from, subject);
             return new Email(from,
                     replyTo,
                     to,

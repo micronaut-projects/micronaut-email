@@ -13,28 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email;
+package io.micronaut.email.configuration;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.email.Contact;
 
 /**
- * Utility class for {@link Recipients}.
+ * A bean of type {@link FromConfiguration} defines the default sender.
+ * It will be used by {@link io.micronaut.email.FromDecorator} to populate {@link io.micronaut.email.Email#getFrom()} if not specified.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public final class RecipientsUtils {
+@FunctionalInterface
+public interface FromConfiguration {
 
     /**
      *
-     * @param recipients Email recipients
-     * @return whether the recipients are valid or not
+     * @return Contact of the person sending the email.
      */
-    public static boolean isValid(@NonNull Recipients recipients) {
-        return !(
-                CollectionUtils.isEmpty(recipients.getTo()) &&
-                CollectionUtils.isEmpty(recipients.getCc()) &&
-                CollectionUtils.isEmpty(recipients.getBcc())
-        );
-    }
+    @NonNull
+    Contact getFrom();
 }

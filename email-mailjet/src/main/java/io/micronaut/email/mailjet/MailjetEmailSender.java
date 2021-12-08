@@ -24,8 +24,9 @@ import com.mailjet.client.resource.Emailv31;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
-import io.micronaut.email.EmailSender;
+import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
+import io.micronaut.email.TransactionalEmailSender;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.json.JSONArray;
@@ -39,13 +40,13 @@ import java.util.Base64;
 import java.util.Optional;
 
 /**
- * <a href="https://www.mailjet.com">Mailjet</a> implementation of {@link EmailSender}.
+ * <a href="https://www.mailjet.com">Mailjet</a> implementation of {@link TransactionalEmailSender}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Named(MailjetEmailSender.NAME)
 @Singleton
-public class MailjetEmailSender implements EmailSender<MailjetResponse> {
+public class MailjetEmailSender implements TransactionalEmailSender<MailjetResponse> {
     /**
      * {@link MailjetEmailSender} name.
      */
@@ -114,7 +115,7 @@ public class MailjetEmailSender implements EmailSender<MailjetResponse> {
     @NonNull
     private MailjetRequest createRequest(@NonNull Email email) {
         JSONObject message = new JSONObject();
-        message.put(Emailv31.Message.FROM, from(email));
+        message.put(Emailv31.Message.FROM, createJsonObject(email.getFrom()));
         to(email).ifPresent(jsonArray -> message.put(Emailv31.Message.TO, jsonArray));
         message.put(Emailv31.Message.SUBJECT, email.getSubject());
         if (email.getText() != null) {
@@ -148,15 +149,19 @@ public class MailjetEmailSender implements EmailSender<MailjetResponse> {
     }
 
     @NonNull
-    private static JSONObject from(@NonNull Email email) {
-        return new JSONObject().put("Email", email.getFrom().getEmail());
-    }
-
-    @NonNull
     private static Optional<JSONArray> to(@NonNull Email email) {
         if (CollectionUtils.isEmpty(email.getTo())) {
             return Optional.empty();
         }
-        return Optional.of(new JSONArray().put(new JSONObject().put("Email", email.getTo().get(0).getEmail())));
+        JSONArray arr = new JSONArray();
+        for (Contact to : email.getTo()) {
+            arr.put(createJsonObject(to));
+        }
+        return Optional.of(arr);
+    }
+
+    @NonNull
+    private static JSONObject createJsonObject(@NonNull Contact contact) {
+        return new JSONObject().put("Email", contact.getEmail());
     }
 }

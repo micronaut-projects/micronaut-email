@@ -39,6 +39,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
+                .text("I love Apple Music")
                 .trackLinksInHtml()
                 .build()
 
@@ -53,6 +54,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
+                .text("I love Apple Music")
                 .trackLinksInText()
                 .build()
 
@@ -67,6 +69,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
+                .text("I love Apple Music")
                 .trackLinksInHtmlAndText()
                 .build()
 
@@ -107,14 +110,14 @@ class EmailSpec extends Specification {
 
     void "from is required"() {
         when:
-        Email.builder()
+        Email email = Email.builder()
                 .to("ecue@apple.com")
                 .subject("Apple Music")
                 .text("Stream music to your device")
                 .build()
 
         then:
-        thrown(IllegalArgumentException)
+        validator.validate(email)
     }
 
     void "from must be a valid email address"() {
@@ -171,25 +174,49 @@ class EmailSpec extends Specification {
         validator.validate(email)
     }
 
-    void "to is required"() {
+    void "At least a recipient (to, cc or bcc) is required"() {
         when:
-        Email.builder()
+        Email email = Email.builder()
                 .from("tcook@apple.com")
                 .subject("Apple Music")
                 .text("Stream music to your device")
                 .build()
         then:
-        thrown(IllegalArgumentException)
+        validator.validate(email)
+    }
+
+    void "to is not required if you provide a cc"() {
+        when:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .cc('ecue@apple.com')
+                .subject("Apple Music")
+                .text("Stream music to your device")
+                .build()
+        then:
+        !validator.validate(email)
+    }
+
+    void "to is not required if you provide a bcc"() {
+        when:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .bcc('ecue@apple.com')
+                .subject("Apple Music")
+                .text("Stream music to your device")
+                .build()
+        then:
+        !validator.validate(email)
     }
 
     void "subject is required"() {
         when:
-        Email.builder()
+        Email email = Email.builder()
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .text("Stream music to your device")
                 .build()
         then:
-        thrown(IllegalArgumentException)
+        validator.validate(email)
     }
 }

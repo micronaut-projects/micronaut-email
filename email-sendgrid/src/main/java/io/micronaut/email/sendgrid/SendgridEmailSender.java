@@ -26,8 +26,8 @@ import com.sendgrid.helpers.mail.objects.Personalization;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Contact;
-import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
+import io.micronaut.email.TransactionalEmailSender;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -41,13 +41,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * <a href="https://sendgrid.com">SendGrid</a> implementation of {@link EmailSender}.
+ * <a href="https://sendgrid.com">SendGrid</a> implementation of {@link TransactionalEmailSender}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Named(SendgridEmailSender.NAME)
 @Singleton
-public class SendgridEmailSender implements EmailSender<Response> {
+public class SendgridEmailSender implements TransactionalEmailSender<Response> {
     /**
      * {@link SendgridEmailSender} name.
      */

@@ -20,10 +20,8 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Contact;
-import io.micronaut.email.EmailValidationUtils;
 import io.micronaut.email.EmailWithoutContent;
 import io.micronaut.email.EmailWithoutContentBuilder;
-import io.micronaut.email.Recipients;
 import io.micronaut.email.TrackLinks;
 import io.micronaut.views.ModelAndView;
 import javax.validation.Valid;
@@ -429,25 +427,6 @@ public class Email<H, T> implements EmailWithoutContent {
         @Override
         @NonNull
         public Email<H, T> build() throws IllegalArgumentException {
-            EmailValidationUtils.validate(new Recipients() {
-                @Override
-                @Nullable
-                public List<Contact> getTo() {
-                    return to;
-                }
-
-                @Override
-                @Nullable
-                public List<Contact> getCc() {
-                    return cc;
-                }
-
-                @Override
-                @Nullable
-                public List<Contact> getBcc() {
-                    return bcc;
-                }
-            }, from, subject);
             return new Email<>(from,
                     replyTo,
                     to,

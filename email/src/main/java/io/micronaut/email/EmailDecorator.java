@@ -15,34 +15,22 @@
  */
 package io.micronaut.email;
 
-import io.micronaut.core.annotation.Nullable;
-import java.util.List;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.order.Ordered;
+
+import javax.validation.constraints.NotNull;
 
 /**
- * Email Recipients. To, carbon copy and blind carbon copy recipients.
+ * Decorates every Email send by a {@link EmailSender}.
+ * For example, you can use a decorator to add a bcc recipient to every email you send.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public interface Recipients {
+public interface EmailDecorator extends Ordered {
 
     /**
-     *
-     * @return Email recipients.
+     * Populates an email.
+     * @param email Email
      */
-    @Nullable
-    List<Contact> getTo();
-
-    /**
-     *
-     * @return Email carbon copy recipients.
-     */
-    @Nullable
-    List<Contact> getCc();
-
-    /**
-     *
-     * @return Email blind carbon copy recipients.
-     */
-    @Nullable
-    List<Contact> getBcc();
+    void decorate(@NonNull @NotNull Email email);
 }

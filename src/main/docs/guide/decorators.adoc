@@ -1,0 +1,7 @@
+If you send emails always from the same email address you can specify it via configuration and skip populating the `from` field when you build the api:io.micronaut.email.Email[].
+
+include::{includedir}configurationProperties/io.micronaut.email.configuration.FromConfigurationProperties.adoc[]
+
+By setting `micronaut.email.from.email`, Micronaut Email registers a bean of type api:io.micronaut.email.FromDecorator[] which populates the `from` field if not specified in the construction of the api:io.micronaut.email.Email[].
+
+Moreover, if you have a custom need (e.g. always bcc an email address, adding a prefix to the email subject in a particular environment), you can register a bean of type api:io.micronaut.email.EmailDecorator[].
