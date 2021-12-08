@@ -4,9 +4,9 @@ plugins {
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
-    implementation("com.wildbit.java:postmark:$postmarkVersion")
+    api("com.wildbit.java:postmark:$postmarkVersion")
+    api(project(":email"))
     implementation("io.micronaut:micronaut-validation")
-    implementation(project(":email"))
     testImplementation("io.micronaut:micronaut-http")
     testImplementation project(":test-utils")
 }

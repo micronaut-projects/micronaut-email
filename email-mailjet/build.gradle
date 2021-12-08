@@ -4,9 +4,9 @@ plugins {
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
+    api("com.mailjet:mailjet-client:$mailjetVersion")
+    api(project(":email"))
     implementation("io.micronaut:micronaut-validation")
-    implementation("com.mailjet:mailjet-client:$mailjetVersion")
-    implementation(project(":email"))
     testImplementation(project(":test-utils"))
     testImplementation("io.micronaut:micronaut-http")
 }
