@@ -108,12 +108,9 @@ public class SendgridEmailSender implements TransactionalEmailSender<Response> {
     @NonNull
     private Mail createMail(@NonNull Email email) {
         Mail mail = new Mail();
-        com.sendgrid.helpers.mail.objects.Email from = new com.sendgrid.helpers.mail.objects.Email();
-        from.setEmail(email.getFrom().getEmail());
-        if (email.getFrom().getName() != null) {
-            from.setName(email.getFrom().getName());
-        }
-        mail.from = from;
+        mail.setFrom(createForm(email));
+        mail.setSubject(email.getSubject());
+        createReplyTo(email).ifPresent(mail::setReplyTo);
         mail.addPersonalization(createPersonalization(email));
         contentOfEmail(email).ifPresent(mail::addContent);
 
@@ -129,18 +126,43 @@ public class SendgridEmailSender implements TransactionalEmailSender<Response> {
     }
 
     @NonNull
+    private Optional<com.sendgrid.helpers.mail.objects.Email> createReplyTo(@NonNull Email email) {
+        if (email.getReplyTo() == null) {
+            return Optional.empty();
+        }
+        com.sendgrid.helpers.mail.objects.Email replyTo = new com.sendgrid.helpers.mail.objects.Email();
+        replyTo.setEmail(email.getReplyTo().getEmail());
+        if (email.getReplyTo().getName() != null) {
+            replyTo.setName(email.getReplyTo().getName());
+        }
+        return Optional.of(replyTo);
+    }
+
+    @NonNull
+    private com.sendgrid.helpers.mail.objects.Email createForm(@NonNull Email email) {
+        com.sendgrid.helpers.mail.objects.Email from = new com.sendgrid.helpers.mail.objects.Email();
+        from.setEmail(email.getFrom().getEmail());
+        if (email.getFrom().getName() != null) {
+            from.setName(email.getFrom().getName());
+        }
+        return from;
+    }
+
+    @NonNull
     private Personalization createPersonalization(@NonNull Email email) {
         Personalization personalization = new Personalization();
+        personalization.setFrom(createForm(email));
         personalization.setSubject(email.getSubject());
-        for (Contact contactTo : email.getTo()) {
-            com.sendgrid.helpers.mail.objects.Email to = new com.sendgrid.helpers.mail.objects.Email();
-            to.setEmail(contactTo.getEmail());
-            if (contactTo.getName() != null) {
-                to.setName(contactTo.getName());
+        if (email.getTo() != null) {
+            for (Contact contactTo : email.getTo()) {
+                com.sendgrid.helpers.mail.objects.Email to = new com.sendgrid.helpers.mail.objects.Email();
+                to.setEmail(contactTo.getEmail());
+                if (contactTo.getName() != null) {
+                    to.setName(contactTo.getName());
+                }
+                personalization.addTo(to);
             }
-            personalization.addTo(to);
         }
-
         if (email.getCc() != null) {
             for (Contact cc : email.getCc()) {
                 com.sendgrid.helpers.mail.objects.Email ccEmail = new com.sendgrid.helpers.mail.objects.Email();
@@ -151,7 +173,6 @@ public class SendgridEmailSender implements TransactionalEmailSender<Response> {
                 personalization.addCc(ccEmail);
             }
         }
-
         if (email.getBcc()  != null) {
             for (Contact bcc : email.getBcc()) {
                 com.sendgrid.helpers.mail.objects.Email bccEmail = new com.sendgrid.helpers.mail.objects.Email();
