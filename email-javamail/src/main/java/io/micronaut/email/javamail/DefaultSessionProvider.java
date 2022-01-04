@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email.javaxemail;
+package io.micronaut.email.javamail;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.annotation.Secondary;

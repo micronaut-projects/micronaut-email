@@ -15,5 +15,6 @@ integrations:
   postmark: Postmark
   sendgrid: SendGrid
   mailjet: Mailjet
+  javamail: JavaMail
 repository: Repository
 

@@ -1,4 +1,4 @@
-package io.micronaut.email.javaxemail
+package io.micronaut.email.javamail
 
 import io.micronaut.context.condition.Condition
 import io.micronaut.context.condition.ConditionContext

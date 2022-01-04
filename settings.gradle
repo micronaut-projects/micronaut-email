@@ -12,7 +12,7 @@ plugins {
 rootProject.name = 'email-parent'
 
 include 'email'
-include 'email-javax-mail'
+include 'email-javamail'
 include 'email-bom'
 include 'email-sendgrid'
 include 'email-amazon-ses'

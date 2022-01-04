@@ -21,7 +21,7 @@ import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.TransactionalEmailSender;
-import io.micronaut.email.javaxemail.MessageComposer;
+import io.micronaut.email.javamail.MessageComposer;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;

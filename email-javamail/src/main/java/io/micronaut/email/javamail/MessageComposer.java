@@ -13,23 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email.javaxemail;
+package io.micronaut.email.javamail;
 
+import io.micronaut.context.annotation.DefaultImplementation;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.email.Email;
 
-import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
 
 /**
- * Providers {@link Properties} for Mail session.
+ * Creates a {@link Message} for the given {@link Email}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@DefaultImplementation(DefaultMessageComposer.class)
 @FunctionalInterface
-public interface MailPropertiesProvider {
+public interface MessageComposer {
     /**
      *
-     * @return properties as listed in Appendix A of the JavaMail spec (particularly mail.store.protocol, mail.transport.protocol, mail.host, mail.user, and mail.from)
+     * @param email Email
+     * @param session Session Object
+     * @return A Message
+     * @throws MessagingException when creating Message
      */
     @NonNull
-    Properties mailProperties();
+    Message compose(@NonNull Email email,
+                    @NonNull Session session) throws MessagingException;
 }
