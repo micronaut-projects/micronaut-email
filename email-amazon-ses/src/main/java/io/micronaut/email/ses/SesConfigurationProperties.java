@@ -25,7 +25,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
 @ConfigurationProperties(SesConfigurationProperties.PREFIX)
 public class SesConfigurationProperties implements SesConfiguration {
     /**
-     * mailjet prefix.
+     * SES prefix.
      */
     @SuppressWarnings("WeakerAccess")
     public static final String PREFIX = "ses";
