@@ -12,8 +12,10 @@ plugins {
 rootProject.name = 'email-parent'
 
 include 'email'
+include 'email-javax-mail'
 include 'email-bom'
 include 'email-sendgrid'
+include 'email-amazon-ses'
 include 'email-postmark'
 include 'email-mailjet'
 include 'email-template'

@@ -1,0 +1,13 @@
+plugins {
+    id("io.micronaut.build.internal.module")
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-validation")
+    api(project(":email-javax-mail"))
+    api("io.micronaut.aws:micronaut-aws-sdk-v2")
+    api("software.amazon.awssdk:ses")
+    implementation("io.micronaut:micronaut-validation")
+    testImplementation(project(":test-suite-utils"))
+    testImplementation("io.micronaut:micronaut-http")
+}

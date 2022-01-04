@@ -11,6 +11,7 @@ template:
   title: Templates
 integrations:
   title: Integrations
+  ses: SES
   postmark: Postmark
   sendgrid: SendGrid
   mailjet: Mailjet

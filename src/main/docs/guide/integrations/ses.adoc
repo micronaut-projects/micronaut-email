@@ -1,0 +1,11 @@
+To integrate with https://aws.amazon.com/ses/[Amazon Simple Email Service], add the following dependency to your application.
+
+dependency:micronaut-email-ses[groupId="io.micronaut.email"]
+
+This integration uses https://micronaut-projects.github.io/micronaut-aws/latest/guide/#sdkv2[Micronaut AWS SDK v2 integration].
+
+Read about:
+
+* https://micronaut-projects.github.io/micronaut-aws/latest/guide/#awsCredentials[Supplying AWS Credentials].
+* Select https://micronaut-projects.github.io/micronaut-aws/latest/guide/#awsRegionSelection[AWS Region Selection]
+* https://micronaut-projects.github.io/micronaut-aws/latest/guide/#ses[SES beans]
