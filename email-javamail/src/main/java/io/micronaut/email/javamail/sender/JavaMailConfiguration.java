@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email.javamail;
+package io.micronaut.email.javamail.sender;
 
-import io.micronaut.core.annotation.NonNull;
-
-import javax.mail.Session;
+import io.micronaut.core.annotation.Nullable;
+import io.micronaut.core.util.Toggleable;
+import java.util.Map;
 
 /**
- *
+ * Integration with Mailjet.
+ * <a href="https://www.mailjet.com">Mailjet</a>
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@FunctionalInterface
-public interface SessionProvider {
-    /**
-     *
-     * @return Get session
-     */
-    @NonNull
-    Session session();
+public interface JavaMailConfiguration extends Toggleable {
+
+    @Nullable
+    Map<String, Object> getProperties();
 }

@@ -13,23 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email.javamail;
-
-import io.micronaut.core.annotation.NonNull;
-
-import java.util.Properties;
-
 /**
- * Providers {@link Properties} for Mail session.
+ * Classes related with the composing of {@link javax.mail.Message}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@FunctionalInterface
-public interface MailPropertiesProvider {
-    /**
-     *
-     * @return properties as listed in Appendix A of the JavaMail spec (particularly mail.store.protocol, mail.transport.protocol, mail.host, mail.user, and mail.from)
-     */
-    @NonNull
-    Properties mailProperties();
-}
+package io.micronaut.email.javamail.composer;
