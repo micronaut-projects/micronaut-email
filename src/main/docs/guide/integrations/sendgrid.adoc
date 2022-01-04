@@ -1,6 +1,6 @@
 To integrate with https://sendgrid.com[SendGrid], add the following dependency to your application.
 
-dependency:micronaut-email-sendgrid[groupId=io.micronaut.email]
+dependency:micronaut-email-sendgrid[groupId="io.micronaut.email"]
 
 You need to supply your SendGrid's _API key and secret_ via configuration:
 

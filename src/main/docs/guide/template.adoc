@@ -1,6 +1,6 @@
 If you want to send Emails using templates, add the following dependency to your application.
 
-dependency:micronaut-email-template[groupId=io.micronaut.email]
+dependency:micronaut-email-template[groupId="io.micronaut.email"]
 
 You can use any Template Engines supported by https://micronaut-projects.github.io/micronaut-views/latest/guide/[Micronaut Views].
 

@@ -1,6 +1,6 @@
 To integrate with https://www.mailjet.com[Mailjet], add the following dependency to your application.
 
-dependency:micronaut-email-mailjet[groupId=io.micronaut.email]
+dependency:micronaut-email-mailjet[groupId="io.micronaut.email"]
 
 You need to supply your Mailjet's _API key and secret_ via configuration:
 
