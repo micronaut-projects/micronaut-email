@@ -15,30 +15,29 @@
  */
 package io.micronaut.email.javaxemail;
 
-import io.micronaut.context.annotation.DefaultImplementation;
+import io.micronaut.context.annotation.Requires;
+import io.micronaut.context.annotation.Secondary;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.email.Email;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
+import jakarta.inject.Singleton;
 import javax.mail.Session;
 
 /**
- * Creates a {@link Message} for the given {@link Email}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@DefaultImplementation(DefaultMessageComposer.class)
-@FunctionalInterface
-public interface MessageComposer {
-    /**
-     *
-     * @param email Email
-     * @param session Session Object
-     * @return A Message
-     * @throws MessagingException when creating Message
-     */
+@Requires(beans = MailPropertiesProvider.class)
+@Secondary
+@Singleton
+public class DefaultSessionProvider implements SessionProvider {
+    private final MailPropertiesProvider mailPropertiesProvider;
+
+    public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider) {
+        this.mailPropertiesProvider = mailPropertiesProvider;
+    }
+
+    @Override
     @NonNull
-    Message compose(@NonNull Email email,
-                    @NonNull Session session) throws MessagingException;
+    public Session session() {
+        return Session.getDefaultInstance(mailPropertiesProvider.mailProperties());
+    }
 }

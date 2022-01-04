@@ -41,9 +41,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 
 /**
+ * {@link io.micronaut.context.annotation.DefaultImplementation} of {@link MessageComposer}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
@@ -55,8 +55,8 @@ public class DefaultMessageComposer implements MessageComposer {
 
     @Override
     @NonNull
-    public Message compose(@NonNull Email email) throws MessagingException {
-        Session session = Session.getDefaultInstance(new Properties());
+    public Message compose(@NonNull Email email,
+                           @NonNull Session session) throws MessagingException {
         MimeMessage message = new MimeMessage(session);
         message.setSubject(email.getSubject(), "UTF-8");
         message.setFrom(new InternetAddress(email.getFrom().getEmail()));

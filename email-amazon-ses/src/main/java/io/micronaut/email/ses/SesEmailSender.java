@@ -42,12 +42,14 @@ import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
 import software.amazon.awssdk.services.ses.model.SendRawEmailResponse;
 import software.amazon.awssdk.services.ses.model.SesResponse;
 
+import javax.mail.Session;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
@@ -127,7 +129,7 @@ public class SesEmailSender implements TransactionalEmailSender<SesResponse> {
     private SendRawEmailRequest sendRawEmailRequest(@NonNull Email email) throws MessagingException, IOException {
         return SendRawEmailRequest.builder()
                     .rawMessage(RawMessage.builder()
-                            .data(bytesOfMessage(messageComposer.compose(email)))
+                            .data(bytesOfMessage(messageComposer.compose(email, Session.getDefaultInstance(new Properties()))))
                             .build())
                     .build();
     }
