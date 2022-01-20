@@ -45,6 +45,18 @@ public final class MailTestUtils {
         return countAndDeleteEmailsBySubject(FOLDER_INBOX, HOST, subject, user, password);
     }
 
+    /**
+     *
+     * @param subject Target subject
+     * @return the number of emails which matched the target subject
+     * @throws MessagingException exception thrown while reading emails
+     */
+    public static int countAndDeleteInboxEmailsBySubject(String subject) throws MessagingException {
+        String user = System.getenv("GMAIL_USERNAME");
+        String password = System.getenv("GMAIL_PASSWORD");
+        return countAndDeleteEmailsBySubject(FOLDER_INBOX, HOST, subject, user, password);
+    }
+
     private static int countAndDeleteEmailsBySubject(String folderName,
                                                      String host,
                                                      String subject,

@@ -37,7 +37,7 @@ class SesEmailSenderAttachmentSpec extends Specification {
                         .build()))
         then:
         new PollingConditions(timeout: 30).eventually {
-            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
+            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)
         }
     }
 }

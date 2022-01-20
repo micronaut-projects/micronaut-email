@@ -37,7 +37,7 @@ class SendGridEmailSenderAttachmentSpec extends Specification {
                         .build()))
         then:
         new PollingConditions(initialDelay: 10, timeout: 180).eventually {
-            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
+            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)
         }
     }
 }

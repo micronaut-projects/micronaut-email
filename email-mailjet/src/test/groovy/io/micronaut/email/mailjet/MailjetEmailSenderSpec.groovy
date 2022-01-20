@@ -29,7 +29,7 @@ class MailjetEmailSenderSpec extends Specification {
                 .text("Hello world"))
         then:
         new PollingConditions(initialDelay: 20, timeout: 180).eventually {
-            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
+            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)
         }
     }
 }
