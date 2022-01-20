@@ -27,7 +27,8 @@ public class WelcomeWithTemplateService {
                         .from("sender@example.com")
                         .to("john@example.com")
                         .subject("Micronaut test")
-                        .body(new MultipartBody(new TemplateBody<>(new ModelAndView<>("htmltemplate", model)),
+                        .body(new MultipartBody(
+                                new TemplateBody<>(new ModelAndView<>("htmltemplate", model)),
                                 new TemplateBody<>(new ModelAndView<>("texttemplate", model), BodyType.TEXT))));
     }
 

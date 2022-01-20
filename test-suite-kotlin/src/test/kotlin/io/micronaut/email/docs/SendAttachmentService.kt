@@ -1,9 +1,6 @@
 package io.micronaut.email.docs
 
-import io.micronaut.email.Attachment
-import io.micronaut.email.BodyType
-import io.micronaut.email.Email
-import io.micronaut.email.EmailSender
+import io.micronaut.email.*
 import jakarta.inject.Singleton
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.ByteArrayOutputStream
@@ -17,7 +14,7 @@ class SendAttachmentService(private val emailSender: EmailSender<Any, Any>) {
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Monthly reports")
-                .body("<html><body><strong>Attached Monthly reports</strong>.</body></html>", BodyType.HTML)
+                .body(MultipartBody("<html><body><strong>Attached Monthly reports</strong>.</body></html>", "Attached Monthly reports"))
                 .attachment(
                     Attachment.builder()
                     .filename("reports.xlsx")

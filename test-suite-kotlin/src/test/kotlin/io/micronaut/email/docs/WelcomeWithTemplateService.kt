@@ -2,6 +2,7 @@ package io.micronaut.email.docs
 
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
 import io.micronaut.email.template.TemplateBody
 import io.micronaut.views.ModelAndView
 import jakarta.inject.Singleton
@@ -20,7 +21,9 @@ class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>)
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")
-                .body(TemplateBody(ModelAndView("htmltemplate", model)))
+                .body(MultipartBody(
+                    TemplateBody(ModelAndView("htmltemplate", model)),
+                    TemplateBody(ModelAndView("texttemplate", model))))
         )
     }
 
