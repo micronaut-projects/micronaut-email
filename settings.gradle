@@ -12,6 +12,7 @@ plugins {
 rootProject.name = 'email-parent'
 
 include 'email'
+include 'email-bom'
 include 'email-javamail'
 include 'email-javamail-composer'
 include 'email-bom'
