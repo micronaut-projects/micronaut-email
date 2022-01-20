@@ -16,30 +16,41 @@
 package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
-import io.micronaut.email.Email;
-import io.micronaut.email.EmailWithoutContent;
+import io.micronaut.email.Body;
 import io.micronaut.views.ModelAndView;
 
 /**
- * Renders a {@link Email} with text and html views.
+ * Email HTML Body backed by a template.
  *
  * @author Sergio del Amo
  * @since 1.0
- * @param <H> HTML model
- * @param <T> Text model
+ * @param <T> HTML model
  */
-@FunctionalInterface
-public interface EmailRenderer<H, T> {
-    /**
-     * Renders a {@link Email} with text and html views.
-     * @param email Email without content
-     * @param text Emails Template's name and model for text
-     * @param html Emails Template's name and model for html
-     * @return A rendered email.
-     */
+public class TemplateBody<T> implements Body<ModelAndView<T>> {
+
     @NonNull
-    Email render(@NonNull EmailWithoutContent email,
-                 @Nullable ModelAndView<H> html,
-                 @Nullable ModelAndView<T> text);
+    private final ModelAndView<T> modelAndView;
+
+    /**
+     * Constructor.
+     *
+     * @param view  view name to be rendered
+     * @param model Model to be rendered against the view
+     */
+    public TemplateBody(String view, T model) {
+        this(new ModelAndView<>(view, model));
+    }
+
+    /**
+     * @param modelAndView Emails Template's name and model for html
+     */
+    public TemplateBody(@NonNull ModelAndView<T> modelAndView) {
+        this.modelAndView = modelAndView;
+    }
+
+    @Override
+    @NonNull
+    public ModelAndView<T> get() {
+        return modelAndView;
+    }
 }

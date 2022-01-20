@@ -1,25 +1,29 @@
 package io.micronaut.email.docs
 
+import io.micronaut.core.annotation.NonNull
 import io.micronaut.email.Email
+import io.micronaut.email.EmailException
 import io.micronaut.email.TransactionalEmailSender
 import jakarta.inject.Named
 import jakarta.inject.Singleton
-import java.util.Optional
-import kotlin.collections.ArrayList
+import java.util.function.Consumer
 
 @Named("mock")
 @Singleton
-class MockEmailSender : TransactionalEmailSender<Void> {
+class MockEmailSender<I, O> : TransactionalEmailSender<I, O?> {
     private val emails: MutableList<Email> = ArrayList()
-
-    override fun send(email: Email): Optional<Void> {
-        emails.add(email)
-        return Optional.empty()
+    fun getEmails(): List<Email> {
+        return emails
     }
 
-    override fun getName(): String = "mock"
+    @NonNull
+    override fun getName(): String {
+        return "mock"
+    }
 
-    fun getEmails(): List<Email> {
-        return this.emails
+    @Throws(EmailException::class)
+    override fun send(email: Email, emailRequest: Consumer<I>): O? {
+        emails.add(email)
+        return null
     }
 }

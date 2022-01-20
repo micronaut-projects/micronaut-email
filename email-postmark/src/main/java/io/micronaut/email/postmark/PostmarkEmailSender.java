@@ -21,11 +21,10 @@ import com.wildbit.java.postmark.client.data.model.message.Message;
 import com.wildbit.java.postmark.client.data.model.message.MessageResponse;
 import com.wildbit.java.postmark.client.exception.PostmarkException;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.email.Attachment;
-import io.micronaut.email.Contact;
+import io.micronaut.email.AbstractTransactionalEmailSender;
 import io.micronaut.email.Email;
-import io.micronaut.email.TrackLinks;
-import io.micronaut.email.TransactionalEmailSender;
+import io.micronaut.email.EmailException;
+import io.micronaut.scheduling.TaskExecutors;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -34,18 +33,18 @@ import org.slf4j.LoggerFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.concurrent.ExecutorService;
+import java.util.function.Consumer;
 
 /**
- * {@link TransactionalEmailSender} implementation which uses Postmark.
+ * <a href="https://postmarkapp.com">Postmark</a> implementation of {@link io.micronaut.email.TransactionalEmailSender} and {@link io.micronaut.email.AsyncTransactionalEmailSender}.
  *
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Named(PostmarkEmailSender.NAME)
 @Singleton
-public class PostmarkEmailSender implements TransactionalEmailSender<MessageResponse> {
+public class PostmarkEmailSender extends AbstractTransactionalEmailSender<Message, MessageResponse> {
     /**
      * {@link PostmarkEmailSender} name.
      */
@@ -53,13 +52,19 @@ public class PostmarkEmailSender implements TransactionalEmailSender<MessageResp
     public static final String NAME = "postmark";
     private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailSender.class);
     private final ApiClient client;
+    private final PostmarkEmailComposer postmarkEmailComposer;
 
     /**
-     *
+     * @param executorService Executor service
      * @param postmarkConfiguration Postmark configuration
+     * @param postmarkEmailComposer Postmark Email Composer
      */
-    public PostmarkEmailSender(PostmarkConfiguration postmarkConfiguration) {
+    public PostmarkEmailSender(@Named(TaskExecutors.IO) ExecutorService executorService,
+                               PostmarkConfiguration postmarkConfiguration,
+                               PostmarkEmailComposer postmarkEmailComposer) {
+        super(executorService);
         client = Postmark.getApiClient(postmarkConfiguration.getApiToken());
+        this.postmarkEmailComposer = postmarkEmailComposer;
     }
 
     @Override
@@ -68,83 +73,20 @@ public class PostmarkEmailSender implements TransactionalEmailSender<MessageResp
         return NAME;
     }
 
-    /**
-     *
-     * @return Whether tracking links is supported.
-     */
-    @Override
-    public boolean isTrackingLinksSupported() {
-        return true;
-    }
-
-    /**
-     *
-     * @return Whether sending attachments is supported
-     */
-    @Override
-    public boolean isSendingAttachmentsSupported() {
-        return true;
-    }
-
     @Override
     @NonNull
-    public Optional<MessageResponse> send(@NonNull @NotNull @Valid Email email) {
-        Message message = new Message();
-        if (email.getFrom().getName() != null) {
-            message.setFrom(email.getFrom().getName(), email.getFrom().getEmail());
-        } else {
-            message.setFrom(email.getFrom().getEmail());
-        }
-        if (email.getTo() != null) {
-            message.setTo(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
-        }
-        message.setSubject(email.getSubject());
-        if (email.getText() != null) {
-            message.setTextBody(email.getText());
-        }
-        if (email.getHtml() != null) {
-            message.setHtmlBody(email.getHtml());
-        }
-        if (email.getTrackOpens()) {
-            message.setTrackOpens(email.getTrackOpens());
-        }
-        if (email.getTrackLinks() != null) {
-            message.setTrackLinks(trackLinks(email.getTrackLinks()));
-        }
-        if (email.getAttachments() != null) {
-            for (Attachment att : email.getAttachments()) {
-                message.addAttachment(att.getFilename(), att.getContent(), att.getContentType(), att.getId());
-            }
-        }
+    public MessageResponse send(@NonNull @NotNull @Valid Email email,
+                                @NonNull @NotNull Consumer<Message> emailRequest) throws EmailException {
+        Message message = postmarkEmailComposer.compose(email, emailRequest);
         try {
             MessageResponse response = client.deliverMessage(message);
             if (LOG.isTraceEnabled()) {
                 LOG.trace("postmark errorCode: {}", response.getErrorCode() + "");
                 LOG.trace("postmark response: {}", response.getMessage());
             }
-            return Optional.of(response);
-        } catch (PostmarkException e) {
-            if (LOG.isErrorEnabled()) {
-                LOG.error("Postmark exception", e);
-            }
-        } catch (IOException e) {
-            if (LOG.isErrorEnabled()) {
-                LOG.error("IO Exception", e);
-            }
-        }
-        return Optional.empty();
-    }
-
-    @NonNull
-    private Message.TRACK_LINKS trackLinks(@NonNull TrackLinks trackLinks) {
-        switch (trackLinks) {
-            case HTML:
-                return Message.TRACK_LINKS.Html;
-            case TEXT:
-                return Message.TRACK_LINKS.Text;
-            case HTML_AND_TEXT:
-            default:
-                return Message.TRACK_LINKS.HtmlAndText;
+            return response;
+        } catch (PostmarkException | IOException e) {
+            throw new EmailException(e);
         }
     }
 }

@@ -16,11 +16,7 @@
 package io.micronaut.email.validation;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.CollectionUtils;
-import io.micronaut.email.Contact;
-
-import java.util.Collection;
 
 /**
  * Utility class for {@link Recipients}.
@@ -37,37 +33,5 @@ public final class RecipientsUtils {
         return CollectionUtils.isNotEmpty(recipients.getTo()) ||
                 CollectionUtils.isNotEmpty(recipients.getCc()) ||
                 CollectionUtils.isNotEmpty(recipients.getBcc());
-    }
-
-    /**
-     *
-     * @param to To recipients
-     * @param cc Carbon copy recipients
-     * @param bcc Blind Carbon copy recipients
-     * @return Email recipients
-     */
-    @NonNull
-    public static Recipients create(@Nullable Collection<Contact> to,
-                                    @Nullable Collection<Contact> cc,
-                                    @Nullable Collection<Contact> bcc) {
-        return new Recipients() {
-            @Override
-            @Nullable
-            public Collection<Contact> getTo() {
-                return to;
-            }
-
-            @Override
-            @Nullable
-            public Collection<Contact> getCc() {
-                return cc;
-            }
-
-            @Override
-            @Nullable
-            public Collection<Contact> getBcc() {
-                return bcc;
-            }
-        };
     }
 }

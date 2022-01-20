@@ -7,9 +7,9 @@ import jakarta.inject.Singleton
 
 @Singleton
 class WelcomeService {
-    private final EmailSender<?> emailSender
+    private final EmailSender<?, ?> emailSender
 
-    WelcomeService(EmailSender<?> emailSender) {
+    WelcomeService(EmailSender<?, ?> emailSender) {
         this.emailSender = emailSender
     }
 
@@ -19,7 +19,6 @@ class WelcomeService {
                 .to("john@example.com")
                 .subject("Micronaut test")
                 .text("Hello dear Micronaut user")
-                .html("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>")
-                .build())
+                .html("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>"))
     }
 }

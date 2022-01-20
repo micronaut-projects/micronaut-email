@@ -18,50 +18,35 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * Defines a functional interface to send transactional emails.
+ * API to send transactional emails synchronously.
  * @author Sergio del Amo
  * @since 1.0.0
- * @param <R> Response Object
+ * @param <I> Email Request
+ * @param <O> Email Response
  */
-public interface EmailSender<R> extends Named {
+public interface EmailSender<I, O> extends Named {
+    /**
+     * Sends an email.
+     * @param emailBuilder Email Builder
+     * @return Response Object or empty optional if an error occurred
+     * @throws EmailException Wrapper of any exception thrown while sending email
+     */
+    @NonNull
+    default O send(@NonNull @NotNull Email.Builder emailBuilder) throws EmailException {
+        return send(emailBuilder, i -> { });
+    }
 
     /**
      * Sends an email.
-     * @param email Email
+     * @param emailBuilder Email Builder
+     * @param emailRequest Email Request Consumer
      * @return Response Object or empty optional if an error occurred
+     * @throws EmailException Wrapper of any exception thrown while sending email
      */
     @NonNull
-    Optional<R> send(@NonNull @NotNull Email email);
-
-    /**
-     * It builds and sends an email using the supplied builder.
-     * @param email Email builder consumer
-     * @return Response Object or empty optional if an error occurred
-     */
-    @NonNull
-    default Optional<R> send(@NonNull @NotNull Consumer<Email.Builder> email) {
-        Email.Builder builder = Email.builder();
-        email.accept(builder);
-        return send(builder.build());
-    }
-
-    /**
-     *
-     * @return Whether tracking links is supported.
-     */
-    default boolean isTrackingLinksSupported() {
-        return false;
-    }
-
-    /**
-     *
-     * @return Whether sending attachments is supported
-     */
-    default boolean isSendingAttachmentsSupported() {
-        return false;
-    }
+    O send(@NonNull @NotNull Email.Builder emailBuilder,
+           @NonNull @NotNull Consumer<I> emailRequest) throws EmailException;
 }

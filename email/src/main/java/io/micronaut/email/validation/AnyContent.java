@@ -24,6 +24,8 @@ import java.lang.annotation.Target;
 
 /**
  * The annotated type must have content.
+ * @author Sergio del Amo
+ * @since 1.0.0
  */
 @Constraint(validatedBy = {})
 @Target({ElementType.TYPE})

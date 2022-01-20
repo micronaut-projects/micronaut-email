@@ -5,7 +5,7 @@ import io.micronaut.email.Email
 import jakarta.inject.Singleton
 
 @Singleton
-class WelcomeService(private val emailSender: EmailSender<Any>) {
+class WelcomeService(private val emailSender: EmailSender<Any, Any>) {
     fun sendWelcomeEmail() {
         emailSender.send(
             Email.builder()
@@ -14,7 +14,6 @@ class WelcomeService(private val emailSender: EmailSender<Any>) {
                 .subject("Micronaut test")
                 .text("Hello dear Micronaut user")
                 .html("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>")
-                .build()
         )
     }
 }

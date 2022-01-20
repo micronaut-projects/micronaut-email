@@ -1,5 +1,6 @@
 package io.micronaut.email.docs;
 
+import io.micronaut.email.Email;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class WelcomeWithTemplateServiceTest {
     WelcomeWithTemplateService welcomeService;
 
     @Inject
-    MockEmailSender emailSender;
+    MockEmailSender<?> emailSender;
 
     @Test
     void transactionalEmailIsCorrectlyBuilt() {
@@ -27,19 +28,21 @@ public class WelcomeWithTemplateServiceTest {
         welcomeService.sendWelcomeEmail();
         //then:
         assertEquals(1, emailSender.getEmails().size());
-        assertEquals("sender@example.com", emailSender.getEmails().get(0).getFrom().getEmail());
-        assertNull(emailSender.getEmails().get(0).getFrom().getName());
-        assertEquals(1, emailSender.getEmails().get(0).getTo().size());
-        assertEquals("john@example.com", emailSender.getEmails().get(0).getTo().stream().findFirst().get().getEmail());
-        assertNull(emailSender.getEmails().get(0).getTo().stream().findFirst().get().getName());
-        assertNull(emailSender.getEmails().get(0).getCc());
-        assertNull(emailSender.getEmails().get(0).getBcc());
-        assertEquals("Micronaut test", emailSender.getEmails().get(0).getSubject());
-        assertTrue(emailSender.getEmails().get(0).getText().contains(message));
-        assertTrue(emailSender.getEmails().get(0).getText().contains(copyright));
-        assertTrue(emailSender.getEmails().get(0).getText().contains(address));
-        assertTrue(emailSender.getEmails().get(0).getHtml().contains("<h2 class=\"cit\">" + message + "</h2>"));
-        assertTrue(emailSender.getEmails().get(0).getHtml().contains("<div>" + copyright + "</div>"));
-        assertTrue(emailSender.getEmails().get(0).getHtml().contains("<div>" + address + "</div>"));
+
+        Email email = emailSender.getEmails().get(0);
+        assertEquals("sender@example.com", email.getFrom().getEmail());
+        assertNull(email.getFrom().getName());
+        assertEquals(1, email.getTo().size());
+        assertEquals("john@example.com", email.getTo().stream().findFirst().get().getEmail());
+        assertNull(email.getTo().stream().findFirst().get().getName());
+        assertNull(email.getCc());
+        assertNull(email.getBcc());
+        assertEquals("Micronaut test", email.getSubject());
+        assertTrue(email.getText().contains(message));
+        assertTrue(email.getText().contains(copyright));
+        assertTrue(email.getText().contains(address));
+        assertTrue(email.getHtml().contains("<h2 class=\"cit\">" + message + "</h2>"));
+        assertTrue(email.getHtml().contains("<div>" + copyright + "</div>"));
+        assertTrue(email.getHtml().contains("<div>" + address + "</div>"));
     }
 }

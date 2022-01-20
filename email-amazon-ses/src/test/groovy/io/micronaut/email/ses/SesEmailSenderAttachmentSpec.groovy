@@ -16,7 +16,7 @@ import spock.util.concurrent.PollingConditions
 class SesEmailSenderAttachmentSpec extends Specification {
 
     @Inject
-    EmailSender emailSender
+    EmailSender<?, ?> emailSender
 
     @Requires({env["AWS_REGION"] && env["AWS_ACCESS_KEY_ID"] && env["AWS_SECRET_ACCESS_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
     void "Functional test of Email with Attachment for SES integration"() {
@@ -34,8 +34,7 @@ class SesEmailSenderAttachmentSpec extends Specification {
                         .filename("monthlyreports.xlsx")
                         .contentType(MediaType.MICROSOFT_EXCEL_OPEN_XML)
                         .content(SpreadsheetUtils.spreadsheet())
-                        .build())
-                .build())
+                        .build()))
         then:
         new PollingConditions(timeout: 30).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)

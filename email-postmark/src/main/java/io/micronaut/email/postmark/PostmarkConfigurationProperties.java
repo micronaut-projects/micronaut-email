@@ -18,6 +18,8 @@ package io.micronaut.email.postmark;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.email.TrackLinks;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -40,11 +42,28 @@ public class PostmarkConfigurationProperties implements PostmarkConfiguration {
     @SuppressWarnings("WeakerAccess")
     public static final boolean DEFAULT_ENABLED = true;
 
+    /**
+     * The default track opens value.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public static final boolean DEFAULT_TRACK_OPENS = false;
+
+    /**
+     * The default track links value.
+     */
+    @SuppressWarnings("WeakerAccess")
+    private static final TrackLinks DEFAULT_TRACK_LINKS = TrackLinks.DO_NOT_TRACK;
+
     private boolean enabled = DEFAULT_ENABLED;
 
     @NonNull
     @NotBlank
     private String apiToken;
+
+    private boolean trackOpens = DEFAULT_TRACK_OPENS;
+
+    @NonNull
+    private TrackLinks trackLinks = DEFAULT_TRACK_LINKS;
 
     @Override
     public boolean isEnabled() {
@@ -76,5 +95,32 @@ public class PostmarkConfigurationProperties implements PostmarkConfiguration {
      */
     public void setApiToken(@NonNull String apiToken) {
         this.apiToken = apiToken;
+    }
+
+    /**
+     * Whether to track if the email is opened. Default value: `{@value #DEFAULT_TRACK_OPENS}`
+     * @param trackOpens Whether to track if the email is opened
+     */
+    public void setTrackOpens(boolean trackOpens) {
+        this.trackOpens = trackOpens;
+    }
+
+    /**
+     * Whether to track the email's links. Default value DO_NOT_TRACK.
+     * @param trackLinks Whether to track the email's links
+     */
+    public void setTrackLinks(@NonNull TrackLinks trackLinks) {
+        this.trackLinks = trackLinks;
+    }
+
+    @Override
+    public boolean getTrackOpens() {
+        return trackOpens;
+    }
+
+    @Override
+    @NonNull
+    public TrackLinks getTrackLinks() {
+        return trackLinks;
     }
 }

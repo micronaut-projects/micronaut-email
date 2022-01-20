@@ -11,7 +11,7 @@ class SendAttachmentServiceTest {
     lateinit var sendAttachmentService: SendAttachmentService
 
     @Inject
-    lateinit var emailSender: MockEmailSender
+    lateinit var emailSender: MockEmailSender<Any, Any>
 
     @Test
     fun transactionalEmailIsCorrectlyBuilt() {

@@ -8,9 +8,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 @Singleton
 class SendAttachmentService {
-    private final EmailSender<?> emailSender;
+    private final EmailSender<?, ?> emailSender;
 
-    SendAttachmentService(EmailSender<?> emailSender) {
+    SendAttachmentService(EmailSender<?, ?> emailSender) {
         this.emailSender = emailSender;
     }
 
@@ -25,8 +25,7 @@ class SendAttachmentService {
                         .filename("reports.xlsx")
                         .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                         .content(excel())
-                        .build())
-                .build())
+                        .build()))
     }
 
     private static byte[] excel() throws IOException {

@@ -41,9 +41,9 @@ public class FromDecorator implements EmailDecorator {
     }
 
     @Override
-    public void decorate(@NonNull @NotNull Email email) {
-        if (email.getFrom() == null) {
-            email.setFrom(fromConfiguration.getFrom());
+    public void decorate(@NonNull @NotNull Email.Builder emailBuilder) {
+        if (!emailBuilder.getFrom().isPresent()) {
+            emailBuilder.from(fromConfiguration.getFrom());
         }
     }
 }

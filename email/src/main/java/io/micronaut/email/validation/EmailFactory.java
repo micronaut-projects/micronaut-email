@@ -22,6 +22,8 @@ import jakarta.inject.Singleton;
 import io.micronaut.validation.validator.constraints.ConstraintValidator;
 
 /**
+ * Builds {@link ConstraintValidator} for {@link AnyContent}, {@link io.micronaut.email.validation.AnyRecipient} for {@link Email}.
+ *
  * @author Sergio del Amo
  * @since 1.0.0
  */
@@ -36,7 +38,7 @@ public class EmailFactory {
             if (value == null) {
                 return true;
             }
-            return RecipientsUtils.isValid(value.getRecipients());
+            return RecipientsUtils.isValid(value);
         };
     }
 

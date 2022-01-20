@@ -20,38 +20,37 @@ import io.micronaut.core.naming.Named;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * API to be implemented by third party transactional email providers.
  * Emails are validated.
  * @author Sergio del Amo
  * @since 1.0.0
- * @param <R> Response Object
+ * @param <I> Email Request
+ * @param <O> Email Response
  */
-public interface TransactionalEmailSender<R> extends Named {
-
+public interface TransactionalEmailSender<I, O> extends Named {
     /**
      * Sends an email.
      * @param email Email
      * @return Response Object or empty optional if an error occurred
+     * @throws EmailException Wrapper of any exception thrown while sending email
      */
     @NonNull
-    Optional<R> send(@NonNull @NotNull @Valid Email email);
-
-    /**
-     *
-     * @return Whether tracking links is supported.
-     */
-    default boolean isTrackingLinksSupported() {
-        return false;
+    default O send(@NonNull @NotNull @Valid Email email) throws EmailException {
+        return send(email, i -> { });
     }
 
     /**
-     *
-     * @return Whether sending attachments is supported
+     * Sends an email.
+     * @param email Email
+     * @param emailRequest Email Request Consumer
+     * @return Response Object or empty optional if an error occurred
+     * @throws EmailException Wrapper of any exception thrown while sending email
      */
-    default boolean isSendingAttachmentsSupported() {
-        return false;
-    }
+    @NonNull
+    O send(@NonNull @NotNull @Valid Email email,
+           @NonNull @NotNull Consumer<I> emailRequest) throws EmailException;
+
 }

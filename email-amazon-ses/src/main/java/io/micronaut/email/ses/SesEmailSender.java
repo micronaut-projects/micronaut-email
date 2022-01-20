@@ -17,50 +17,33 @@ package io.micronaut.email.ses;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.util.CollectionUtils;
-import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
+import io.micronaut.email.EmailException;
 import io.micronaut.email.TransactionalEmailSender;
-import io.micronaut.email.javamail.composer.MessageComposer;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-
-import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.ses.SesClient;
-import software.amazon.awssdk.services.ses.model.Body;
-import software.amazon.awssdk.services.ses.model.Content;
-import software.amazon.awssdk.services.ses.model.Destination;
-import software.amazon.awssdk.services.ses.model.RawMessage;
 import software.amazon.awssdk.services.ses.model.SendEmailRequest;
 import software.amazon.awssdk.services.ses.model.SendEmailResponse;
 import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
 import software.amazon.awssdk.services.ses.model.SendRawEmailResponse;
+import software.amazon.awssdk.services.ses.model.SesRequest;
 import software.amazon.awssdk.services.ses.model.SesResponse;
-
-import javax.mail.Session;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 /**
- * <a href="https://aws.amazon.com/es/ses/">Amazon Simple Email Service</a> implementation of {@link TransactionalEmailSender}.
+ * <a href="https://aws.amazon.com/es/ses/">Amazon Simple Email Service</a> implementation of {@link io.micronaut.email.TransactionalEmailSender}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Named(SesEmailSender.NAME)
 @Requires(beans = SesClient.class)
 @Singleton
-public class SesEmailSender implements TransactionalEmailSender<SesResponse> {
+public class SesEmailSender implements TransactionalEmailSender<SesRequest, SesResponse> {
     /**
      * {@link SesEmailSender} name.
      */
@@ -70,14 +53,14 @@ public class SesEmailSender implements TransactionalEmailSender<SesResponse> {
     private static final Logger LOG = LoggerFactory.getLogger(SesEmailSender.class);
 
     private final SesClient ses;
-    private final MessageComposer messageComposer;
+    private final SesEmailComposer messageComposer;
 
     /**
-     *
      * @param ses Amazon Simple Email Service Client
      * @param messageComposer Message Composer
      */
-    public SesEmailSender(SesClient ses, MessageComposer messageComposer) {
+    public SesEmailSender(SesClient ses,
+                          SesEmailComposer messageComposer) {
         this.ses = ses;
         this.messageComposer = messageComposer;
     }
@@ -93,102 +76,34 @@ public class SesEmailSender implements TransactionalEmailSender<SesResponse> {
      * @param email Email
      * @return {@link SendRawEmailResponse} or {@link SendEmailResponse} or empty optional if an error occurred
      */
+    @Override
     @NonNull
-    public Optional<SesResponse> send(@NonNull @NotNull @Valid Email email) {
-        if (CollectionUtils.isEmpty(email.getAttachments())) {
-            SendEmailResponse response = ses.sendEmail(sendEmailRequest(email));
-            if (LOG.isTraceEnabled()) {
-                LOG.trace("Send Email response: {}", response.toString());
-            }
-            return Optional.of(response);
+    public SesResponse send(@NonNull @NotNull @Valid Email email,
+                            @NonNull @NotNull Consumer<SesRequest> emailRequest) throws EmailException {
+        SesRequest sesRequest = messageComposer.compose(email, emailRequest);
+        if (sesRequest instanceof SendRawEmailRequest) {
+            return sendRawEmail((SendRawEmailRequest) sesRequest);
+        } else if (sesRequest instanceof SendEmailRequest) {
+            return sendEmailRequest((SendEmailRequest) sesRequest);
         }
-        return sendRawEmail(email);
+        throw new EmailException("SesRequest returned by SesEmailComposer should be either SendRawEmailRequest or SendEmailRequest");
     }
 
     @NonNull
-    private Optional<SesResponse> sendRawEmail(@NonNull Email email) {
-        try {
-            SendRawEmailResponse rawEmailResponse = ses.sendRawEmail(sendRawEmailRequest(email));
-            if (LOG.isTraceEnabled()) {
-                LOG.trace("Send Raw Email response: {}", rawEmailResponse.toString());
-            }
-            return Optional.of(rawEmailResponse);
-        } catch (MessagingException e) {
-            if (LOG.isErrorEnabled()) {
-                LOG.error("Messaging Exception sending email with attachments", e);
-            }
-        } catch (IOException e) {
-            if (LOG.isErrorEnabled()) {
-                LOG.error("IOException sending email with attachments", e);
-            }
+    private SesResponse sendEmailRequest(@NonNull SendEmailRequest email) throws EmailException {
+        SendEmailResponse response = ses.sendEmail(email);
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Send Email response: {}", response.toString());
         }
-        return Optional.empty();
+        return response;
     }
 
     @NonNull
-    private SendRawEmailRequest sendRawEmailRequest(@NonNull Email email) throws MessagingException, IOException {
-        return SendRawEmailRequest.builder()
-                    .rawMessage(RawMessage.builder()
-                            .data(bytesOfMessage(messageComposer.compose(email, Session.getDefaultInstance(new Properties()))))
-                            .build())
-                    .build();
-    }
-
-    @NonNull
-    private SdkBytes bytesOfMessage(@NonNull Message message) throws IOException, MessagingException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        message.writeTo(outputStream);
-        ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
-        byte[] arr = new byte[buf.remaining()];
-        buf.get(arr);
-        return SdkBytes.fromByteArray(arr);
-    }
-
-    @NonNull
-    private SendEmailRequest sendEmailRequest(@NonNull Email email) {
-        SendEmailRequest.Builder requestBuilder = SendEmailRequest.builder()
-                .destination(destinationBuilder(email).build())
-                .source(email.getFrom().getEmail())
-                .message(message(email));
-        if (email.getReplyTo() != null) {
-            requestBuilder = requestBuilder.replyToAddresses(email.getReplyTo().getEmail());
+    private SesResponse sendRawEmail(@NonNull SendRawEmailRequest email) throws EmailException {
+        SendRawEmailResponse rawEmailResponse = ses.sendRawEmail(email);
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Send Raw Email response: {}", rawEmailResponse.toString());
         }
-        return requestBuilder.build();
+        return rawEmailResponse;
     }
-
-    @NonNull
-    private Destination.Builder destinationBuilder(@NonNull Email email) {
-        Destination.Builder destinationBuilder = Destination.builder();
-        if (email.getTo() != null) {
-            destinationBuilder.toAddresses(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
-        }
-        if (email.getCc() != null) {
-            destinationBuilder.toAddresses(email.getCc().stream().map(Contact::getEmail).collect(Collectors.toList()));
-        }
-        if (email.getBcc() != null) {
-            destinationBuilder.toAddresses(email.getBcc().stream().map(Contact::getEmail).collect(Collectors.toList()));
-        }
-        return destinationBuilder;
-    }
-
-    @NonNull
-    private software.amazon.awssdk.services.ses.model.Message message(@NonNull Email email) {
-        return software.amazon.awssdk.services.ses.model.Message.builder()
-                .subject(Content.builder().data(email.getSubject()).build())
-                .body(bodyBuilder(email).build())
-                .build();
-    }
-
-    @NonNull
-    private Body.Builder bodyBuilder(@NonNull Email email) {
-        Body.Builder bodyBuilder = Body.builder();
-        if (email.getHtml() != null) {
-            bodyBuilder.html(Content.builder().data(email.getHtml()).build());
-        }
-        if (email.getText() != null) {
-            bodyBuilder.text(Content.builder().data(email.getText()).build());
-        }
-        return bodyBuilder;
-    }
-
 }

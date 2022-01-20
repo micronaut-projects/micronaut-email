@@ -6,6 +6,7 @@ dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
     api("com.sendgrid:sendgrid-java:$sendgridVersion")
     api(project(":email"))
+    implementation("io.micronaut.reactor:micronaut-reactor")
     implementation("io.micronaut:micronaut-validation")
     testImplementation("io.micronaut:micronaut-http")
     testImplementation(project(":test-suite-utils"))

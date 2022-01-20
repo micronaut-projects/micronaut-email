@@ -13,7 +13,7 @@ import spock.util.concurrent.PollingConditions
 class SesEmailSenderSpec extends Specification {
 
     @Inject
-    EmailSender emailSender
+    EmailSender<?, ?> emailSender
 
     @Requires({env["AWS_REGION"] && env["AWS_ACCESS_KEY_ID"] && env["AWS_SECRET_ACCESS_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
     void "Functional test of SES integration"() {
@@ -25,8 +25,7 @@ class SesEmailSenderSpec extends Specification {
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)
-                .text("Hello world")
-                .build())
+                .text("Hello world"))
         then:
         new PollingConditions(timeout: 30).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)

@@ -17,7 +17,7 @@ package io.micronaut.email.postmark;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.Toggleable;
-
+import io.micronaut.email.TrackLinks;
 
 /**
  * Defines Configuration for Postmark integration.
@@ -33,4 +33,17 @@ public interface PostmarkConfiguration extends Toggleable {
      */
     @NonNull
     String getApiToken();
+
+    /**
+     *
+     * @return Whether to track if the email is opened
+     */
+    boolean getTrackOpens();
+
+    /**
+     *
+     * @return Whether to track the email's links
+     */
+    @NonNull
+    TrackLinks getTrackLinks();
 }

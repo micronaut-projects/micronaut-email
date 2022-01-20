@@ -14,7 +14,7 @@ class WelcomeWithTemplateServiceTest {
     lateinit var welcomeService: WelcomeWithTemplateService
 
     @Inject
-    lateinit var emailSender: MockEmailSender
+    lateinit var emailSender: MockEmailSender<Any, Any>
 
     @Test
     fun transactionalEmailIsCorrectlyBuilt() {

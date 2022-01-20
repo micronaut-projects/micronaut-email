@@ -15,7 +15,7 @@ class PostmarkEmailSenderNamedSpec extends Specification {
     @Inject
     BeanContext beanContext
 
-    void "PostmarkEmailCourier is annotated with @Named"() {
+    void "PostmarkEmailSender is annotated with @Named"() {
         expect:
         beanContext.containsBean(EmailSender, Qualifiers.byName("postmark"))
     }

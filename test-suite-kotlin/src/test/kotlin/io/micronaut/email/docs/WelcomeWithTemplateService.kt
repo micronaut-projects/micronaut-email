@@ -1,27 +1,26 @@
 package io.micronaut.email.docs
 
-import io.micronaut.email.template.Email
-import io.micronaut.email.template.EmailTemplateSender
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.template.TemplateBody
 import io.micronaut.views.ModelAndView
 import jakarta.inject.Singleton
 
 @Singleton
-class WelcomeWithTemplateService(private val emailTemplateSender: EmailTemplateSender<Map<String, String>, Map<String, String>>) {
+class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>) {
     fun sendWelcomeEmail() {
         val model = mapOf(
             "message" to "Hello dear Micronaut user",
             "copyright" to "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
             "address" to "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141"
         )
-        val builder = Email.builder<Map<String, String>, Map<String, String>>()
-        emailTemplateSender.send(
-            builder
+        emailSender.send(
+            Email.builder()
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")
-                .text(ModelAndView("texttemplate", model))
-                .html(ModelAndView("htmltemplate", model))
-                .build()
+                .text(TemplateBody(ModelAndView("texttemplate", model)))
+                .html(TemplateBody(ModelAndView("htmltemplate", model)))
         )
     }
 }

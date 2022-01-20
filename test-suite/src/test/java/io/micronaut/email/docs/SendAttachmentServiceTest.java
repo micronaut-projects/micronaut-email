@@ -1,5 +1,6 @@
 package io.micronaut.email.docs;
 
+import io.micronaut.email.Email;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class SendAttachmentServiceTest {
     SendAttachmentService sendAttachmentService;
 
     @Inject
-    MockEmailSender emailSender;
+    MockEmailSender<?> emailSender;
 
     @Test
     void transactionalEmailIsCorrectlyBuilt() throws IOException {
@@ -25,19 +26,20 @@ public class SendAttachmentServiceTest {
         sendAttachmentService.sendReport();
         //then:
         assertEquals(1, emailSender.getEmails().size());
-        assertEquals("sender@example.com", emailSender.getEmails().get(0).getFrom().getEmail());
-        assertNull(emailSender.getEmails().get(0).getFrom().getName());
-        assertEquals(1, emailSender.getEmails().get(0).getTo().size());
-        assertEquals("john@example.com", emailSender.getEmails().get(0).getTo().stream().findFirst().get().getEmail());
-        assertNull(emailSender.getEmails().get(0).getTo().stream().findFirst().get().getName());
-        assertNull(emailSender.getEmails().get(0).getCc());
-        assertNull(emailSender.getEmails().get(0).getBcc());
-        assertEquals("Monthly reports", emailSender.getEmails().get(0).getSubject());
-        assertEquals("Attached Monthly reports", emailSender.getEmails().get(0).getText());
-        assertEquals("<html><body><strong>Attached Monthly reports</strong>.</body></html>", emailSender.getEmails().get(0).getHtml());
-        assertNotNull(emailSender.getEmails().get(0).getAttachments());
-        assertEquals("reports.xlsx", emailSender.getEmails().get(0).getAttachments().get(0).getFilename());
-        assertEquals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", emailSender.getEmails().get(0).getAttachments().get(0).getContentType());
-        assertNotNull(emailSender.getEmails().get(0).getAttachments().get(0).getContent());
+        Email email = emailSender.getEmails().get(0);
+        assertEquals("sender@example.com", email.getFrom().getEmail());
+        assertNull(email.getFrom().getName());
+        assertEquals(1, email.getTo().size());
+        assertEquals("john@example.com", email.getTo().stream().findFirst().get().getEmail());
+        assertNull(email.getTo().stream().findFirst().get().getName());
+        assertNull(email.getCc());
+        assertNull(email.getBcc());
+        assertEquals("Monthly reports", email.getSubject());
+        assertEquals("Attached Monthly reports", email.getText());
+        assertEquals("<html><body><strong>Attached Monthly reports</strong>.</body></html>", email.getHtml());
+        assertNotNull(email.getAttachments());
+        assertEquals("reports.xlsx", email.getAttachments().get(0).getFilename());
+        assertEquals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", email.getAttachments().get(0).getContentType());
+        assertNotNull(email.getAttachments().get(0).getContent());
     }
 }

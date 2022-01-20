@@ -13,36 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.email.template;
+package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.naming.Named;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.function.Consumer;
 
 /**
- * Contract for sending an Email template.
- *
+ * Composes an Email Request for the Transactional Email provider given a {@link Email}.
  * @author Sergio del Amo
- * @since 1.0
- * @param <H> HTML model
- * @param <T> Text model
+ * @since 1.0.0
+ * @param <I> Email Request
  */
-public interface EmailTemplateSender<H, T> extends Named {
-    /**
-     * Sends a template as a text email.
-     * @param email Email
-     */
-    void send(@NonNull @NotNull @Valid Email<H, T>  email);
+@FunctionalInterface
+public interface EmailComposer<I> {
+    @NonNull
+    I compose(@NonNull @NotNull @Valid Email email) throws EmailException;
 
-    /**
-     * It builds and sends an email using the supplied builder.
-     * @param email Email builder consumer
-     */
-    default void send(Consumer<Email.Builder<H, T>> email) {
-        Email.Builder<H, T> builder = Email.builder();
-        email.accept(builder);
-        send(builder.build());
+    @NonNull
+    default I compose(@NonNull @NotNull @Valid Email email,
+              Consumer<I> emailRequest) throws EmailException {
+        I result = compose(email);
+        emailRequest.accept(result);
+        return result;
     }
 }

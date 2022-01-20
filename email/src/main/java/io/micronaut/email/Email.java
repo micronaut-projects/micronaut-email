@@ -20,6 +20,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.validation.AnyContent;
 import io.micronaut.email.validation.AnyRecipient;
+import io.micronaut.email.validation.Recipients;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -27,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -37,46 +39,41 @@ import java.util.function.Consumer;
 @AnyContent
 @AnyRecipient
 @Introspected
-public class Email implements EmailWithoutContent {
+public final class Email implements Recipients {
 
     @NonNull
     @NotNull
     @Valid
-    private Contact from;
+    private final Contact from;
 
     @Nullable
     @Valid
-    private Contact replyTo;
+    private final Contact replyTo;
 
     @Nullable
     @Valid
-    private Collection<Contact> to;
+    private final Collection<Contact> to;
 
     @Nullable
     @Valid
-    private Collection<Contact> cc;
+    private final Collection<Contact> cc;
 
     @Nullable
     @Valid
-    private Collection<Contact> bcc;
+    private final Collection<Contact> bcc;
 
     @NotBlank
     @NonNull
-    private String subject;
-
-    private boolean trackOpens;
+    private final String subject;
 
     @Nullable
-    private TrackLinks trackLinks;
+    private final List<Attachment> attachments;
 
     @Nullable
-    private List<Attachment> attachments;
+    private final String html;
 
     @Nullable
-    private String html;
-
-    @Nullable
-    private String text;
+    private final String text;
 
     /**
      *
@@ -86,20 +83,16 @@ public class Email implements EmailWithoutContent {
      * @param cc Carbon Copy recipients
      * @param bcc Blind Carbon Copy recipients
      * @param subject Subject
-     * @param trackOpens Whether to track if the email is opened
-     * @param trackLinks Whether to track the email's links
      * @param attachments Email attachments
      * @param html Email HTML
      * @param text Email Text
      */
-    public Email(@NonNull Contact from,
+    private Email(@NonNull Contact from,
                  @Nullable Contact replyTo,
                  @Nullable List<Contact> to,
                  @Nullable List<Contact> cc,
                  @Nullable List<Contact> bcc,
                  @NonNull String subject,
-                 boolean trackOpens,
-                 @Nullable TrackLinks trackLinks,
                  @Nullable List<Attachment> attachments,
                  @Nullable String html,
                  @Nullable String text) {
@@ -109,130 +102,16 @@ public class Email implements EmailWithoutContent {
         this.cc = cc;
         this.bcc = bcc;
         this.subject = subject;
-        this.trackOpens = trackOpens;
-        this.trackLinks = trackLinks;
         this.attachments = attachments;
         this.html = html;
         this.text = text;
     }
 
-    /**
-     *
-     * @param email Email without content.
-     * @param html Email HTML
-     * @param text Email Text
-     */
-    public Email(@NonNull EmailWithoutContent email,
-                 @Nullable String html,
-                 @Nullable String text) {
-        this.from = email.getFrom();
-        this.replyTo = email.getReplyTo();
-        this.to = email.getTo();
-        this.cc = email.getCc();
-        this.bcc = email.getBcc();
-        this.subject = email.getSubject();
-        this.trackOpens = email.getTrackOpens();
-        this.trackLinks = email.getTrackLinks();
-        this.attachments = email.getAttachments();
-        this.html = html;
-        this.text = text;
-    }
-
-    /**
-     * 
-     * @param from contact sending the email
-     */
-    public void setFrom(@NonNull Contact from) {
-        this.from = from;
-    }
-
-    /**
-     *
-     * @param replyTo Reply to contact
-     */
-    public void setReplyTo(@Nullable Contact replyTo) {
-        this.replyTo = replyTo;
-    }
-
-    /**
-     *
-     * @param to Recipients to
-     */
-    public void setTo(@Nullable Collection<Contact> to) {
-        this.to = to;
-    }
-
-    /**
-     *
-     * @param cc Recipients carbon copy contacts.
-     */
-    public void setCc(@Nullable Collection<Contact> cc) {
-        this.cc = cc;
-    }
-
-    /**
-     *
-     * @param bcc Recipients blind carbon copy contacts.
-     */
-    public void setBcc(@Nullable Collection<Contact> bcc) {
-        this.bcc = bcc;
-    }
-
-    /**
-     *
-     * @param subject Email subject
-     */
-    public void setSubject(@NonNull String subject) {
-        this.subject = subject;
-    }
-
-    /**
-     *
-     * @param trackOpens Whether to track if the email is opened
-     */
-    public void setTrackOpens(boolean trackOpens) {
-        this.trackOpens = trackOpens;
-    }
-
-    /**
-     *
-     * @param trackLinks Whether to track the email's links
-     */
-    public void setTrackLinks(@Nullable TrackLinks trackLinks) {
-        this.trackLinks = trackLinks;
-    }
-
-    /**
-     *
-     * @param attachments Email attachments
-     */
-    public void setAttachments(@Nullable List<Attachment> attachments) {
-        this.attachments = attachments;
-    }
-
-    /**
-     *
-     * @param html Email HTML
-     */
-    public void setHtml(@Nullable String html) {
-        this.html = html;
-    }
-
-    /**
-     *
-     * @param text Email text
-     */
-    public void setText(@Nullable String text) {
-        this.text = text;
-    }
-
-    @Override
     @NonNull
     public Contact getFrom() {
         return from;
     }
 
-    @Override
     @Nullable
     public Contact getReplyTo() {
         return replyTo;
@@ -256,24 +135,11 @@ public class Email implements EmailWithoutContent {
         return bcc;
     }
 
-    @Override
     @NonNull
     public String getSubject() {
         return subject;
     }
 
-    @Override
-    public boolean getTrackOpens() {
-        return trackOpens;
-    }
-
-    @Override
-    @Nullable
-    public TrackLinks getTrackLinks() {
-        return trackLinks;
-    }
-
-    @Override
     @Nullable
     public List<Attachment> getAttachments() {
         return attachments;
@@ -309,76 +175,83 @@ public class Email implements EmailWithoutContent {
     /**
      * Email builder.
      */
-    public static class Builder implements EmailWithoutContentBuilder<Email.Builder, Email> {
+    public static class Builder {
+        @Nullable
         private Contact from;
+
+        @Nullable
         private List<Contact> to;
+
+        @Nullable
         private String subject;
+
+        @Nullable
         private Contact replyTo;
+
+        @Nullable
         private List<Contact> cc;
+
+        @Nullable
         private List<Contact> bcc;
-        private boolean trackOpens;
-        private TrackLinks trackLinks;
+
+        @Nullable
         private List<Attachment> attachments;
-        private String html;
-        private String text;
 
-        @Override
-        @NonNull
-        public Email.Builder trackLinks(@NonNull TrackLinks trackLinks) {
-            this.trackLinks = trackLinks;
-            return this;
-        }
+        @Nullable
+        private Body<?> html;
 
-        @Override
-        @NonNull
-        public Email.Builder trackLinksInHtml() {
-            this.trackLinks = TrackLinks.HTML;
-            return this;
-        }
+        @Nullable
+        private Body<?> text;
 
-        @Override
-        @NonNull
-        public Email.Builder trackLinksInText() {
-            this.trackLinks = TrackLinks.TEXT;
-            return this;
-        }
-
-        @Override
-        @NonNull
-        public Email.Builder trackLinksInHtmlAndText() {
-            this.trackLinks = TrackLinks.HTML_AND_TEXT;
-            return this;
-        }
-
-        @Override
+        /**
+         *
+         * @param from contact sending the email
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder from(@NonNull String from) {
             this.from = new Contact(from);
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param from contact sending the email
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder from(@NonNull Contact from) {
             this.from = from;
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param replyTo Reply to contact
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder replyTo(@NonNull String replyTo) {
             this.replyTo = new Contact(replyTo);
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param replyTo Reply to contact
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder replyTo(@NonNull Contact replyTo) {
             this.replyTo = replyTo;
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param to Recipients to
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder to(@NonNull String to) {
             if (this.to == null) {
@@ -388,7 +261,11 @@ public class Email implements EmailWithoutContent {
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param to Recipients to
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder to(@NonNull Contact to) {
             addTo(to);
@@ -402,7 +279,11 @@ public class Email implements EmailWithoutContent {
             this.to.add(to);
         }
 
-        @Override
+        /**
+         *
+         * @param cc carbon copy recipient.
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder cc(@NonNull Contact cc) {
             addCc(cc);
@@ -416,7 +297,25 @@ public class Email implements EmailWithoutContent {
             this.cc.add(cc);
         }
 
-        @Override
+        /**
+         *
+         * @param cc carbon copy recipient.
+         * @return Email Builder
+         */
+        @NonNull
+        public Email.Builder cc(@NonNull String cc) {
+            if (this.cc == null) {
+                this.cc = new ArrayList<>();
+            }
+            this.cc.add(new Contact(cc));
+            return this;
+        }
+
+        /**
+         *
+         * @param bcc blind carbon copy recipient.
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder bcc(@NonNull Contact bcc) {
             addBcc(bcc);
@@ -430,24 +329,11 @@ public class Email implements EmailWithoutContent {
             this.bcc.add(bcc);
         }
 
-        @Override
-        @NonNull
-        public Email.Builder subject(@NonNull String subject) {
-            this.subject = subject;
-            return this;
-        }
-
-        @Override
-        @NonNull
-        public Email.Builder cc(@NonNull String cc) {
-            if (this.cc == null) {
-                this.cc = new ArrayList<>();
-            }
-            this.cc.add(new Contact(cc));
-            return this;
-        }
-
-        @Override
+        /**
+         *
+         * @param bcc blind carbon copy recipient.
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder bcc(@NonNull String bcc) {
             if (this.bcc == null) {
@@ -457,14 +343,22 @@ public class Email implements EmailWithoutContent {
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param subject Email subject
+         * @return Email Builder
+         */
         @NonNull
-        public Email.Builder trackOpens(boolean trackOpens) {
-            this.trackOpens = trackOpens;
+        public Email.Builder subject(@NonNull String subject) {
+            this.subject = subject;
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param attachment Email attachment
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder attachment(@NonNull Attachment attachment) {
             if (this.attachments == null) {
@@ -474,7 +368,11 @@ public class Email implements EmailWithoutContent {
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param attachment attachment builder consumer
+         * @return Email Builder
+         */
         @NonNull
         public Email.Builder attachment(@NonNull Consumer<Attachment.Builder> attachment) {
             Attachment.Builder builder = Attachment.builder();
@@ -485,39 +383,142 @@ public class Email implements EmailWithoutContent {
         /**
          *
          * @param html Email's html
-         * @return The Transactional Email Builder
+         * @return The Email Builder
          */
         @NonNull
-        public Builder html(@Nullable String html) {
-            this.html = html;
+        public Builder html(@NonNull String html) {
+            this.html = new StringBody(html);
             return this;
         }
 
         /**
          *
          * @param text Email's text
-         * @return The Transactional Email Builder
+         * @return The Email Builder
          */
         @NonNull
-        public Builder text(@Nullable String text) {
+        public Builder text(@NonNull String text) {
+            this.text = new StringBody(text);
+            return this;
+        }
+
+        /**
+         *
+         * @param text Email's text
+         * @return The Email Builder
+         */
+        @NonNull
+        public Builder text(@NonNull Body<?> text) {
             this.text = text;
             return this;
         }
 
-        @Override
+        /**
+         *
+         * @param html Email's html
+         * @return The Email Builder
+         */
         @NonNull
-        public Email build() throws IllegalArgumentException {
+        public Builder html(@NonNull Body<?> html) {
+            this.html = html;
+            return this;
+        }
+
+        /**
+         * @return An email
+         */
+        @NonNull
+        public Email build() {
             return new Email(from,
                     replyTo,
                     to,
                     cc,
                     bcc,
                     subject,
-                    trackOpens,
-                    trackLinks,
                     attachments,
-                    html,
-                    text);
+                    html != null ? html.get().toString() : null,
+                    text != null ? text.get().toString() : null);
+        }
+
+        /**
+         *
+         * @return Email sender
+         */
+        @NonNull
+        public Optional<Contact> getFrom() {
+            return Optional.ofNullable(this.from);
+        }
+
+        /**
+         *
+         * @return Email Text
+         */
+        @NonNull
+        public Optional<Body<?>> getText() {
+            return Optional.ofNullable(this.text);
+        }
+
+        /**
+         *
+         * @return Email HTML
+         */
+        @NonNull
+        public Optional<Body<?>> getHtml() {
+            return Optional.ofNullable(this.html);
+        }
+
+        /**
+         *
+         * @return Email recipients.
+         */
+        @NonNull
+        public Optional<List<Contact>> getTo() {
+            return Optional.ofNullable(to);
+        }
+
+        /**
+         *
+         * @return Email's subject
+         */
+        @NonNull
+        public Optional<String> getSubject() {
+            return Optional.ofNullable(subject);
+        }
+
+        /**
+         *
+         * @return Email Reply-to
+         */
+        @NonNull
+        public Optional<Contact> getReplyTo() {
+            return Optional.ofNullable(replyTo);
+        }
+
+        /**
+         *
+         * @return Email carbon copy recipients.
+         */
+        @NonNull
+        public Optional<List<Contact>> getCc() {
+            return Optional.ofNullable(cc);
+        }
+
+        /**
+         *
+         * @return Email blind carbon copy recipients.
+         */
+        @NonNull
+        public Optional<List<Contact>> getBcc() {
+            return Optional.ofNullable(bcc);
+        }
+
+        /**
+         *
+         * @return Email attachments
+         */
+        @NonNull
+        public Optional<List<Attachment>> getAttachments() {
+            return Optional.ofNullable(attachments);
         }
     }
 }

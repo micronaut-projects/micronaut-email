@@ -21,16 +21,17 @@ import io.micronaut.core.order.Ordered;
 import javax.validation.constraints.NotNull;
 
 /**
- * Decorates every Email send by a {@link EmailSender}.
+ * Decorates every Email send by an {@link EmailSender} or an {@link AsyncEmailSender}.
  * For example, you can use a decorator to add a bcc recipient to every email you send.
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@FunctionalInterface
 public interface EmailDecorator extends Ordered {
 
     /**
      * Populates an email.
-     * @param email Email
+     * @param emailBuilder Email Builder
      */
-    void decorate(@NonNull @NotNull Email email);
+    void decorate(@NonNull @NotNull Email.Builder emailBuilder);
 }

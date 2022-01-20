@@ -25,8 +25,7 @@ class PostmarkEmailSenderSpec extends Specification {
         emailSender.send(Email.builder()
                 .from("marketing@micronaut.io")
                 .to(to)
-                .subject(subject).text("Hello world")
-                .build())
+                .subject(subject).text("Hello world"))
         then:
         new PollingConditions(timeout: 30).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(to, System.getenv("GMAIL_PASSWORD"), subject)

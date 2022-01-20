@@ -20,7 +20,7 @@ import io.micronaut.core.annotation.NonNull;
 import javax.mail.Session;
 
 /**
- *
+ * Provides a Session.
  * @author Sergio del Amo
  * @since 1.0.0
  */

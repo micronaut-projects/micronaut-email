@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.ByteArrayOutputStream
 
 @Singleton
-class SendAttachmentService(private val emailSender: EmailSender<Any>) {
+class SendAttachmentService(private val emailSender: EmailSender<Any, Any>) {
     fun sendWelcomeEmail() {
         emailSender.send(
             Email.builder()
@@ -22,9 +22,7 @@ class SendAttachmentService(private val emailSender: EmailSender<Any>) {
                     .filename("reports.xlsx")
                     .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                     .content(excel())
-                    .build())
-                .build()
-        )
+                    .build()))
     }
 
     private fun excel(): ByteArray {

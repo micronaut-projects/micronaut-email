@@ -8,7 +8,9 @@ For example, you can use velocity templates for your emails if you include the f
 
 dependency:micronaut-views-velocity[groupId=io.micronaut.views]
 
-You can send an email template by injecting a bean of type api:io.micronaut.email.tempalte.EmailTemplateCourier[].
+Specify the email text or HTML as a api:email.template.TemplateBody[] to send a template.
+
+A bean of type api:email.template.TemplateBodyDecorator[] renders those templates.
 
 snippet::io.micronaut.email.docs.WelcomeWithTemplateService[]
 

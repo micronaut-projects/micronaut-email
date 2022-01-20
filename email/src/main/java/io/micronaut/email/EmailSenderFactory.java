@@ -42,12 +42,11 @@ public class EmailSenderFactory {
     /**
      *
      * @param sender Transactional Email Sender
-     * @param <R> Return type
      * @return Email sender
      */
     @EachBean(TransactionalEmailSender.class)
     @NonNull
-    public <R> EmailSender<R> createEmailSender(@NonNull TransactionalEmailSender<R> sender) {
+    public EmailSender<?, ?> createEmailSender(@NonNull TransactionalEmailSender<?, ?> sender) {
         return new DefaultEmailSender<>(sender, decorators);
     }
 }

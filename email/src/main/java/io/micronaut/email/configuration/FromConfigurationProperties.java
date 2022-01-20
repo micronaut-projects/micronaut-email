@@ -57,7 +57,7 @@ public class FromConfigurationProperties implements FromConfiguration {
     }
 
     /**
-     *
+     * Default from email address.
      * @param email From email address.
      */
     public void setEmail(@NonNull String email) {
@@ -65,7 +65,7 @@ public class FromConfigurationProperties implements FromConfiguration {
     }
 
     /**
-     *
+     * The name of the contact sending the email.
      * @return name of the contact sending the email.
      */
     @Nullable

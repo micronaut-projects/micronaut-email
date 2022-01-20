@@ -1,0 +1,93 @@
+/*
+ * Copyright 2017-2021 original authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.micronaut.email.postmark;
+
+import com.wildbit.java.postmark.client.data.model.message.Message;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.email.Attachment;
+import io.micronaut.email.Contact;
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailComposer;
+import io.micronaut.email.EmailException;
+import io.micronaut.email.TrackLinks;
+import jakarta.inject.Singleton;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+/**
+ * Composes a {@link Message} given an {@link io.micronaut.email.Email}.
+ * @author Sergio del Amo
+ * @since 1.0.0
+ */
+@Singleton
+public class PostmarkEmailComposer implements EmailComposer<Message> {
+    private final PostmarkConfiguration postmarkConfiguration;
+
+    /**
+     * @param postmarkConfiguration Postmark configuration
+     */
+    public PostmarkEmailComposer(PostmarkConfiguration postmarkConfiguration) {
+        this.postmarkConfiguration = postmarkConfiguration;
+    }
+
+    @Override
+    @NonNull
+    public Message compose(@NonNull @NotNull @Valid Email email) throws EmailException {
+        Message message = new Message();
+        if (email.getFrom().getName() != null) {
+            message.setFrom(email.getFrom().getName(), email.getFrom().getEmail());
+        } else {
+            message.setFrom(email.getFrom().getEmail());
+        }
+        if (email.getTo() != null) {
+            message.setTo(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
+        }
+        message.setSubject(email.getSubject());
+        if (email.getText() != null) {
+            message.setTextBody(email.getText());
+        }
+        if (email.getHtml() != null) {
+            message.setHtmlBody(email.getHtml());
+        }
+        message.setTrackOpens(postmarkConfiguration.getTrackOpens());
+        trackLinks(postmarkConfiguration.getTrackLinks()).ifPresent(message::setTrackLinks);
+
+        if (email.getAttachments() != null) {
+            for (Attachment att : email.getAttachments()) {
+                message.addAttachment(att.getFilename(), att.getContent(), att.getContentType(), att.getId());
+            }
+        }
+        return message;
+    }
+
+    @NonNull
+    private Optional<Message.TRACK_LINKS> trackLinks(@NonNull TrackLinks trackLinks) {
+        switch (trackLinks) {
+            case HTML:
+                return Optional.of(Message.TRACK_LINKS.Html);
+            case TEXT:
+                return Optional.of(Message.TRACK_LINKS.Text);
+            case HTML_AND_TEXT:
+                return Optional.of(Message.TRACK_LINKS.HtmlAndText);
+            case DO_NOT_TRACK:
+            default:
+                return Optional.empty();
+        }
+    }
+}

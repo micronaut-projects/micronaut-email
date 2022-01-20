@@ -15,7 +15,7 @@ class SendGridEmailSenderNamedSpec extends Specification {
     @Inject
     BeanContext beanContext
 
-    void "SendGridEmailCourier is annotated with @Named"() {
+    void "SendGridEmailSender is annotated with @Named"() {
         expect:
         beanContext.containsBean(EmailSender, Qualifiers.byName("sendgrid"))
     }

@@ -18,18 +18,19 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.NonNull;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Decorates with every {@link EmailDecorator} and send an email via a {@link TransactionalEmailSender}.
  *
  * @author Sergio del Amo
  * @since 1.0.0
- * @param <R> Response Object
+ * @param <I> Email Request
+ * @param <O> Email Response
  */
-public class DefaultEmailSender<R> implements EmailSender<R> {
+public class DefaultEmailSender<I, O> implements EmailSender<I, O> {
 
-    private final TransactionalEmailSender<R> transactionalEmailSender;
+    private final TransactionalEmailSender<I, O> transactionalEmailSender;
     private final List<EmailDecorator> decorators;
 
     /**
@@ -37,7 +38,7 @@ public class DefaultEmailSender<R> implements EmailSender<R> {
      * @param transactionalEmailSender Transactional Email Sender
      * @param decorators Email decorators
      */
-    public DefaultEmailSender(TransactionalEmailSender<R> transactionalEmailSender,
+    public DefaultEmailSender(TransactionalEmailSender<I, O> transactionalEmailSender,
                               List<EmailDecorator> decorators) {
         this.transactionalEmailSender = transactionalEmailSender;
         this.decorators = decorators;
@@ -45,34 +46,16 @@ public class DefaultEmailSender<R> implements EmailSender<R> {
 
     @Override
     @NonNull
-    public Optional<R> send(@NonNull @NotNull Email email) {
+    public O send(@NonNull @NotNull Email.Builder emailBuilder, @NonNull @NotNull Consumer<I> emailRequest) throws EmailException {
         for (EmailDecorator decorator : decorators) {
-            decorator.decorate(email);
+            decorator.decorate(emailBuilder);
         }
-        return transactionalEmailSender.send(email);
+        return transactionalEmailSender.send(emailBuilder.build(), emailRequest);
     }
 
     @Override
     @NonNull
     public String getName() {
         return transactionalEmailSender.getName();
-    }
-
-    /**
-     *
-     * @return Whether tracking links is supported.
-     */
-    @Override
-    public boolean isTrackingLinksSupported() {
-        return transactionalEmailSender.isTrackingLinksSupported();
-    }
-
-    /**
-     *
-     * @return Whether sending attachments is supported
-     */
-    @Override
-    public boolean isSendingAttachmentsSupported() {
-        return transactionalEmailSender.isSendingAttachmentsSupported();
     }
 }

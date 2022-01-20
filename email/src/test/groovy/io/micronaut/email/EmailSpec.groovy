@@ -3,7 +3,6 @@ package io.micronaut.email
 import io.micronaut.core.beans.BeanIntrospection
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
-import spock.lang.PendingFeature
 import spock.lang.Specification
 import javax.validation.Validator
 
@@ -40,12 +39,10 @@ class EmailSpec extends Specification {
                 .to("ecue@apple.com")
                 .subject("Apple Music")
                 .text("I love Apple Music")
-                .trackLinksInHtml()
                 .build()
 
         expect:
         !validator.validate(email)
-        email.trackLinks == TrackLinks.HTML
     }
 
     void "trackLinksInHtml sets TrackLinks.TEXT"() {
@@ -55,12 +52,10 @@ class EmailSpec extends Specification {
                 .to("ecue@apple.com")
                 .subject("Apple Music")
                 .text("I love Apple Music")
-                .trackLinksInText()
                 .build()
 
         expect:
         !validator.validate(email)
-        email.trackLinks == TrackLinks.TEXT
     }
 
     void "trackLinksInHtml sets TrackLinks.HTML_AND_TEXT"() {
@@ -70,12 +65,10 @@ class EmailSpec extends Specification {
                 .to("ecue@apple.com")
                 .subject("Apple Music")
                 .text("I love Apple Music")
-                .trackLinksInHtmlAndText()
                 .build()
 
         expect:
         !validator.validate(email)
-        email.trackLinks == TrackLinks.HTML_AND_TEXT
     }
 
     void "trackOpens accepts a boolean"() {
@@ -85,12 +78,10 @@ class EmailSpec extends Specification {
                 .to("ecue@apple.com")
                 .subject("Apple Music")
                 .text("Stream music to your device")
-                .trackOpens(true)
                 .build()
 
         expect:
         !validator.validate(email)
-        email.trackOpens
     }
 
     void "trackLinks accepts an enum"() {
@@ -100,12 +91,10 @@ class EmailSpec extends Specification {
                 .to("ecue@apple.com")
                 .subject("Apple Music")
                 .text("Stream music to your device")
-                .trackLinks(TrackLinks.HTML)
                 .build()
 
         expect:
         !validator.validate(email)
-        email.trackLinks == TrackLinks.HTML
     }
 
     void "from is required"() {

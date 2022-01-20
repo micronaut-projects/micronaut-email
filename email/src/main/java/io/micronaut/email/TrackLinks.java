@@ -32,5 +32,9 @@ public enum TrackLinks {
     /**
      * Whether to track links in HTML and Plain text emails.
      */
-    HTML_AND_TEXT
+    HTML_AND_TEXT,
+    /**
+     * Whether email links should not be tracked neither in HTML nor in plain text emails.
+     */
+    DO_NOT_TRACK;
 }

@@ -4,9 +4,10 @@ plugins {
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-validation")
-    api(project(":email-javamail"))
+    api(project(":email-javamail-composer"))
     api("io.micronaut.aws:micronaut-aws-sdk-v2")
     api("software.amazon.awssdk:ses")
+    implementation("io.micronaut.reactor:micronaut-reactor")
     implementation("io.micronaut:micronaut-validation")
     testImplementation(project(":test-suite-utils"))
     testImplementation("io.micronaut:micronaut-http")

@@ -15,7 +15,6 @@
  */
 package io.micronaut.email.validation;
 
-import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.Contact;
 import java.util.Collection;
@@ -47,13 +46,4 @@ public interface Recipients {
      */
     @Nullable
     Collection<Contact> getBcc();
-
-    /**
-     *
-     * @return Email recipients
-     */
-    @NonNull
-    default Recipients getRecipients() {
-        return RecipientsUtils.create(getTo(), getCc(), getBcc());
-    }
 }

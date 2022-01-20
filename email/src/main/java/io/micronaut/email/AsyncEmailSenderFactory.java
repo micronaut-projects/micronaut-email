@@ -15,55 +15,38 @@
  */
 package io.micronaut.email;
 
+import io.micronaut.context.annotation.EachBean;
+import io.micronaut.context.annotation.Factory;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
-import io.micronaut.email.validation.Recipients;
 
 import java.util.List;
 
 /**
+ * Creates beans of type {@link AsyncEmailSender} with each bean of type {@link AsyncTransactionalEmailSender}.
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public interface EmailWithoutContent extends Recipients {
+@Factory
+public class AsyncEmailSenderFactory {
+
+    private final List<EmailDecorator> decorators;
+
     /**
      *
+     * @param decorators Email decorators
+     */
+    public AsyncEmailSenderFactory(@NonNull List<EmailDecorator> decorators) {
+        this.decorators = decorators;
+    }
+
+    /**
+     *
+     * @param sender Transactional Email Sender
      * @return Email sender
      */
+    @EachBean(AsyncTransactionalEmailSender.class)
     @NonNull
-    Contact getFrom();
-
-    /**
-     *
-     * @return Email Reply-to
-     */
-    @Nullable
-    Contact getReplyTo();
-
-    /**
-     *
-     * @return Email's subject
-     */
-    @NonNull
-    String getSubject();
-
-    /**
-     *
-     * @return Whether to track if the email is opened
-     */
-    boolean getTrackOpens();
-
-    /**
-     *
-     * @return Whether to track the email's links
-     */
-    @Nullable
-    TrackLinks getTrackLinks();
-
-    /**
-     *
-     * @return Email attachments
-     */
-    @Nullable
-    List<Attachment> getAttachments();
+    public AsyncEmailSender<?, ?> createEmailSender(@NonNull AsyncTransactionalEmailSender<?, ?> sender) {
+        return new DefaultAsyncEmailSender<>(sender, decorators);
+    }
 }

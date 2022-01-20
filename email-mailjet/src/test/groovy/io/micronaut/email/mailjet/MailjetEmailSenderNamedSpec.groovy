@@ -16,7 +16,7 @@ class MailjetEmailSenderNamedSpec extends Specification {
     @Inject
     BeanContext beanContext
 
-    void "MailjetEmailCourier is annotated with @Named"() {
+    void "MailjetEmailSender is annotated with @Named"() {
         expect:
         beanContext.containsBean(EmailSender, Qualifiers.byName("mailjet"))
     }

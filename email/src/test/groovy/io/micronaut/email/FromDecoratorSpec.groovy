@@ -12,6 +12,7 @@ import spock.lang.Specification
 
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
+import java.util.function.Consumer
 
 @Property(name = 'spec.name', value = 'FromDecoratorSpec')
 @Property(name = 'micronaut.email.from.email', value = 'tcook@apple.com')
@@ -19,7 +20,7 @@ import javax.validation.constraints.NotNull
 class FromDecoratorSpec extends Specification {
 
     @Inject
-    EmailSender<Void> emailSender
+    EmailSender<?, ?> emailSender
 
     @Inject
     BeanContext beanContext
@@ -29,7 +30,7 @@ class FromDecoratorSpec extends Specification {
         emailSender.send(Email.builder()
                 .to("ecue@apple.com")
                 .subject("Hello World")
-                .text("I love Apple Music").build())
+                .text("I love Apple Music"))
 
         then:
         beanContext.getBean(MockEmailSender).getEmails()
@@ -39,13 +40,15 @@ class FromDecoratorSpec extends Specification {
     @Requires(property = 'spec.name', value = 'FromDecoratorSpec')
     @Named("mock")
     @Singleton
-    static class MockEmailSender implements TransactionalEmailSender<Void> {
+    static class MockEmailSender<I, O> implements TransactionalEmailSender<I, O> {
         List<Email> emails = []
 
         @Override
-        Optional<Void> send(@NonNull @NotNull @Valid Email email) {
+        @NonNull
+        O send(@NonNull @NotNull @Valid Email email,
+               @NonNull @NotNull Consumer<I> emailRequest) throws EmailException {
             emails << email
-            return null
+            email
         }
 
         @Override

@@ -15,13 +15,14 @@ import spock.lang.Unroll
 import javax.validation.ConstraintViolationException
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
+import java.util.function.Consumer
 
-@Property(name = 'spec.name', value = 'EmailValidatedSpec')
+@Property(name = 'spec.name', value = 'TransactionalEmailSenderSpec')
 @MicronautTest(startApplication = false)
-class EmailValidatedSpec extends Specification {
+class TransactionalEmailSenderSpec extends Specification {
 
     @Inject
-    EmailSender<Void> emailSender
+    TransactionalEmailSender<?, ?> emailSender
 
     @Inject
     BeanContext beanContext
@@ -43,16 +44,18 @@ class EmailValidatedSpec extends Specification {
         [EmailMessages.ANY_CONTENT_MESSAGE]    | Email.builder().from("tcook@apple.com").to("ecue@apple.com").subject("Hello World").build()        | 'text or html is required'
     }
 
-    @Requires(property = 'spec.name', value = 'EmailValidatedSpec')
+    @Requires(property = 'spec.name', value = 'TransactionalEmailSenderSpec')
     @Named("mock")
     @Singleton
-    static class MockEmailSender implements TransactionalEmailSender<Void> {
+    static class MockEmailSender<I, O> implements TransactionalEmailSender<I, O> {
         List<Email> emails = []
 
         @Override
-        Optional<Void> send(@NonNull @NotNull @Valid Email email) {
+        @NonNull
+        O send(@NonNull @NotNull @Valid Email email,
+               @NonNull @NotNull Consumer<I> emailRequest) throws EmailException {
             emails << email
-            return null
+            email
         }
 
         @Override

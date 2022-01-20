@@ -20,11 +20,11 @@ import io.micronaut.core.util.Toggleable;
 import java.util.Map;
 
 /**
- * Integration with Mailjet.
- * <a href="https://www.mailjet.com">Mailjet</a>
+ * Java Mail configuration.
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@FunctionalInterface
 public interface JavaMailConfiguration extends Toggleable {
 
     @Nullable

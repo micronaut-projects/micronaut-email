@@ -24,6 +24,7 @@ import io.micronaut.core.util.Toggleable;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@FunctionalInterface
 public interface SendGridConfiguration extends Toggleable {
 
     /**

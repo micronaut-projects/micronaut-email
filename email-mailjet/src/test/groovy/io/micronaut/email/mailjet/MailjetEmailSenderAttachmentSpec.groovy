@@ -34,9 +34,9 @@ class MailjetEmailSenderAttachmentSpec extends Specification {
                         .contentType(MediaType.MICROSOFT_EXCEL_OPEN_XML)
                         .content(SpreadsheetUtils.spreadsheet())
                         .build())
-                .build())
+                )
         then:
-        new PollingConditions(timeout: 30).eventually {
+        new PollingConditions(timeout: 60).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
         }
     }

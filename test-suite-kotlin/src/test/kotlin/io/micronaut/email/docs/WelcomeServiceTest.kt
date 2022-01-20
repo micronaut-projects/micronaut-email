@@ -13,7 +13,7 @@ class WelcomeServiceTest {
     lateinit var welcomeService: WelcomeService
 
     @Inject
-    lateinit var emailSender: MockEmailSender
+    lateinit var emailSender: MockEmailSender<Any, Any>
 
     @Test
     fun transactionalEmailIsCorrectlyBuilt() {

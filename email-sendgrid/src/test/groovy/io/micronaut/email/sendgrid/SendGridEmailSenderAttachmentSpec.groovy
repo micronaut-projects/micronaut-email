@@ -34,10 +34,9 @@ class SendGridEmailSenderAttachmentSpec extends Specification {
                         .filename("monthlyreports.xlsx")
                         .contentType(MediaType.MICROSOFT_EXCEL_OPEN_XML)
                         .content(SpreadsheetUtils.spreadsheet())
-                        .build())
-                .build())
+                        .build()))
         then:
-        new PollingConditions(timeout: 30).eventually {
+        new PollingConditions(initialDelay: 10, timeout: 180).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
         }
     }

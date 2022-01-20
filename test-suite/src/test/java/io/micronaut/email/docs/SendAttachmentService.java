@@ -13,9 +13,9 @@ import java.io.IOException;
 
 @Singleton
 public class SendAttachmentService {
-    private final EmailSender<?> emailSender;
+    private final EmailSender<?, ?> emailSender;
 
-    public SendAttachmentService(EmailSender<?> emailSender) {
+    public SendAttachmentService(EmailSender<?, ?> emailSender) {
         this.emailSender = emailSender;
     }
 
@@ -30,8 +30,7 @@ public class SendAttachmentService {
                         .filename("reports.xlsx")
                         .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                         .content(excel())
-                        .build())
-                .build());
+                        .build()));
     }
 
     private static byte[] excel() throws IOException {
