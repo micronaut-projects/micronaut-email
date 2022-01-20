@@ -75,7 +75,7 @@ public class AsyncSesEmailSender implements AsyncTransactionalEmailSender<SesReq
     /**
      * Sends an email.
      * @param email Email
-     * @return {@link import software.amazon.awssdk.services.ses.model.SendRawEmailResponse} or {@link software.amazon.awssdk.services.ses.model.SendEmailResponse} or empty optional if an error occurred
+     * @return {@link software.amazon.awssdk.services.ses.model.SendRawEmailResponse} or {@link software.amazon.awssdk.services.ses.model.SendEmailResponse} or empty optional if an error occurred
      */
     @Override
     @NonNull
