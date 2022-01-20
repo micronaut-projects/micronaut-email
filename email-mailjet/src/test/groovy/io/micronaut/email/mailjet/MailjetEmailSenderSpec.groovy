@@ -16,7 +16,7 @@ class MailjetEmailSenderSpec extends Specification {
     @Inject
     EmailSender emailSender
 
-    @Requires({env["MAILJET_API_KEY"] && env["MAILJET_API_SECRET"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
+    @Requires({env["MAILJET_API_KEY"] && env["MAILJET_API_SECRET"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
     void "Functional test of Mailjet integration"() {
         given:
         String subject = "[Mailjet] Test"

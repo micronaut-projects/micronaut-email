@@ -35,7 +35,7 @@ class JavaxMailEmailSenderSpec extends Specification {
     @Shared
     EmailSender emailSender = applicationContext.getBean(EmailSender)
 
-    @Requires({env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
+    @Requires({env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
     void "Functional test of SES integration"() {
         given:
         String subject = "[Javax Mail] Test"

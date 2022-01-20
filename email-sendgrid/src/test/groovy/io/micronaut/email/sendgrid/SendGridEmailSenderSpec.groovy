@@ -15,7 +15,7 @@ class SendGridEmailSenderSpec extends Specification {
     @Inject
     EmailSender emailSender
 
-    @Requires({env["SENDGRID_API_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"]})
+    @Requires({env["SENDGRID_API_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
     void "Functional test of SendGrid integration"() {
         given:
         String subject = "[Sendgrid] Test"
