@@ -15,6 +15,7 @@
  */
 package io.micronaut.email;
 
+import io.micronaut.context.annotation.EachBean;
 import io.micronaut.core.annotation.NonNull;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.function.Consumer;
  * @param <I> Email Request
  * @param <O> Email Response
  */
+@EachBean(TransactionalEmailSender.class)
 public class DefaultEmailSender<I, O> implements EmailSender<I, O> {
 
     private final TransactionalEmailSender<I, O> transactionalEmailSender;
