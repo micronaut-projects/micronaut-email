@@ -26,6 +26,7 @@ import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
+import io.micronaut.email.MultipartBody;
 import jakarta.inject.Singleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,10 +52,16 @@ public class MailjetEmailComposer implements EmailComposer<MailjetRequest> {
         message.put(Emailv31.Message.SUBJECT, email.getSubject());
         Body body = email.getBody();
         if (body != null) {
-            if (body.getType() == BodyType.HTML) {
+            if (body instanceof MultipartBody) {
                 message.put(Emailv31.Message.HTMLPART, body.get());
-            } else if (body.getType() == BodyType.TEXT) {
-                message.put(Emailv31.Message.TEXTPART, body.get());
+                String text = ((MultipartBody) body).getText().get();
+                message.put(Emailv31.Message.TEXTPART, text);
+            } else {
+                if (body.getType() == BodyType.HTML) {
+                    message.put(Emailv31.Message.HTMLPART, body.get());
+                } else if (body.getType() == BodyType.TEXT) {
+                    message.put(Emailv31.Message.TEXTPART, body.get());
+                }
             }
         }
         attachmentsAsJsonArray(email).ifPresent(arr -> message.put(Emailv31.Message.ATTACHMENTS, arr));

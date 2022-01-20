@@ -24,6 +24,7 @@ import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
+import io.micronaut.email.MultipartBody;
 import io.micronaut.email.TrackLinks;
 import jakarta.inject.Singleton;
 
@@ -64,10 +65,16 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
         message.setSubject(email.getSubject());
         Body body = email.getBody();
         if (body != null) {
-            if (body.getType() == BodyType.HTML) {
+            if (body instanceof MultipartBody) {
                 message.setHtmlBody(body.get());
-            } else if (body.getType() == BodyType.TEXT) {
-                message.setTextBody(body.get());
+                String text = ((MultipartBody) body).getText().get();
+                message.setTextBody(text);
+            } else {
+                if (body.getType() == BodyType.HTML) {
+                    message.setHtmlBody(body.get());
+                } else if (body.getType() == BodyType.TEXT) {
+                    message.setTextBody(body.get());
+                }
             }
         }
         message.setTrackOpens(postmarkConfiguration.getTrackOpens());

@@ -19,7 +19,7 @@ public class WelcomeServiceTest {
     @Test
     void transactionalHtmlEmailIsCorrectlyBuilt() {
         //when:
-        welcomeService.sendWelcomeEmailHtml();
+        welcomeService.sendWelcomeEmail();
         //then:
         assertEquals(1, emailSender.getEmails().size());
         Email email = emailSender.getEmails().get(0);
@@ -32,22 +32,5 @@ public class WelcomeServiceTest {
         assertNull(email.getBcc());
         assertEquals("Micronaut test", email.getSubject());
         assertEquals("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>", email.getBody().get());
-    }
-
-    @Test
-    void transactionalTextEmailIsCorrectlyBuilt() {
-        //when:
-        welcomeService.sendWelcomeEmailText();
-        //then:
-        assertEquals(1, emailSender.getEmails().size());
-        Email email = emailSender.getEmails().get(0);
-        assertEquals("sender@example.com", email.getFrom().getEmail());
-        assertNull(email.getFrom().getName());
-        assertEquals(1, email.getTo().size());
-        assertEquals("john@example.com", email.getTo().stream().findFirst().get().getEmail());
-        assertNull(email.getTo().stream().findFirst().get().getName());
-        assertNull(email.getCc());
-        assertNull(email.getBcc());
-        assertEquals("Hello dear Micronaut user", email.getBody().get());
     }
 }

@@ -22,6 +22,7 @@ import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
+import io.micronaut.email.MultipartBody;
 import io.micronaut.email.javamail.composer.MessageComposer;
 import jakarta.inject.Singleton;
 import software.amazon.awssdk.core.SdkBytes;
@@ -132,10 +133,16 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
         io.micronaut.email.Body body = email.getBody();
         if (body != null) {
             Content content = Content.builder().data(body.get()).build();
-            if (body.getType() == BodyType.HTML) {
+            if (body instanceof MultipartBody) {
                 bodyBuilder.html(content);
-            } else if (body.getType() == BodyType.TEXT) {
-                bodyBuilder.text(content);
+                String text = ((MultipartBody) body).getText().get();
+                bodyBuilder.text(Content.builder().data(text).build());
+            } else {
+                if (body.getType() == BodyType.HTML) {
+                    bodyBuilder.html(content);
+                } else if (body.getType() == BodyType.TEXT) {
+                    bodyBuilder.text(content);
+                }
             }
         }
         return bodyBuilder;

@@ -23,6 +23,7 @@ import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailDecorator;
+import io.micronaut.email.MultipartBody;
 import io.micronaut.views.ModelAndView;
 import io.micronaut.views.ViewsRenderer;
 import org.slf4j.Logger;
@@ -38,6 +39,7 @@ import java.util.Optional;
  */
 @DefaultImplementation(DefaultTemplateBodyDecorator.class)
 public interface TemplateBodyDecorator extends EmailDecorator {
+
     Logger getLogger();
 
     /**
@@ -54,18 +56,27 @@ public interface TemplateBodyDecorator extends EmailDecorator {
 
     @Override
     default void decorate(@NonNull @NotNull Email.Builder emailBuilder) {
-        Optional<TemplateBody<?>> body = emailBuilder.getBody()
-                .filter(b -> b instanceof TemplateBody)
-                .map(b -> (TemplateBody<?>) b);
-        body.ifPresent(this::renderBody);
+        Optional<Body> optionalBody = emailBuilder.getBody();
+        if (optionalBody.isPresent()) {
+            Body body = optionalBody.get();
+            if (body instanceof TemplateBody) {
+                renderBody((TemplateBody<?>) body);
+            } else if (body instanceof MultipartBody) {
+                MultipartBody multipartBody = (MultipartBody) body;
+                if (multipartBody.getHtml() instanceof TemplateBody) {
+                    renderBody((TemplateBody<?>) multipartBody.getHtml());
+                }
+                if (multipartBody.getText() instanceof TemplateBody) {
+                    renderBody((TemplateBody<?>) multipartBody.getText());
+                }
+            }
+        }
     }
 
     /**
-     * @param bodyType The Body Type
      * @param body Template Body
      * @return rendered template
      */
-    @NonNull
     default void renderBody(TemplateBody<?> body) {
         ModelAndView<?> modelAndView = body.getModelAndView();
         String viewName = modelAndView.getView().orElse(null);
