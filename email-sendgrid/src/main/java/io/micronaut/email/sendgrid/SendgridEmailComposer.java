@@ -23,6 +23,8 @@ import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
+import io.micronaut.email.Body;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
@@ -44,7 +46,6 @@ import java.util.Optional;
  */
 @Singleton
 public class SendgridEmailComposer implements EmailComposer<Request> {
-    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailComposer.class);
 
     @Override
     @NonNull
@@ -147,11 +148,16 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
 
     @NonNull
     private Optional<Content> contentOfEmail(@NonNull Email email) {
-        if (email.getText() != null) {
-            return Optional.of(new Content("text/plain", email.getText()));
-        }
-        if (email.getHtml() != null) {
-            return Optional.of(new Content("text/html", email.getHtml()));
+        Body body = email.getBody();
+        if (body != null) {
+            String contentType = null;
+            if (body.getType() == BodyType.HTML) {
+                contentType = "text/html";
+            } else if (body.getType() == BodyType.TEXT) {
+                contentType = "text/plain";
+            }
+            return Optional.ofNullable(contentType)
+                    .map(ct -> new Content(ct, body.get()));
         }
         return Optional.empty();
     }

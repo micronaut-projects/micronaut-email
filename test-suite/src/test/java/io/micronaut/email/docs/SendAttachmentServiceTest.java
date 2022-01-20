@@ -21,9 +21,9 @@ public class SendAttachmentServiceTest {
     MockEmailSender<?> emailSender;
 
     @Test
-    void transactionalEmailIsCorrectlyBuilt() throws IOException {
+    void transactionalTextEmailIsCorrectlyBuilt() throws IOException {
         //when:
-        sendAttachmentService.sendReport();
+        sendAttachmentService.sendReportText();
         //then:
         assertEquals(1, emailSender.getEmails().size());
         Email email = emailSender.getEmails().get(0);
@@ -35,8 +35,29 @@ public class SendAttachmentServiceTest {
         assertNull(email.getCc());
         assertNull(email.getBcc());
         assertEquals("Monthly reports", email.getSubject());
-        assertEquals("Attached Monthly reports", email.getText());
-        assertEquals("<html><body><strong>Attached Monthly reports</strong>.</body></html>", email.getHtml());
+        assertEquals("Attached Monthly reports", email.getBody().get());
+        assertNotNull(email.getAttachments());
+        assertEquals("reports.xlsx", email.getAttachments().get(0).getFilename());
+        assertEquals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", email.getAttachments().get(0).getContentType());
+        assertNotNull(email.getAttachments().get(0).getContent());
+    }
+
+    @Test
+    void transactionalHtmlEmailIsCorrectlyBuilt() throws IOException {
+        //when:
+        sendAttachmentService.sendReportHtml();
+        //then:
+        assertEquals(1, emailSender.getEmails().size());
+        Email email = emailSender.getEmails().get(0);
+        assertEquals("sender@example.com", email.getFrom().getEmail());
+        assertNull(email.getFrom().getName());
+        assertEquals(1, email.getTo().size());
+        assertEquals("john@example.com", email.getTo().stream().findFirst().get().getEmail());
+        assertNull(email.getTo().stream().findFirst().get().getName());
+        assertNull(email.getCc());
+        assertNull(email.getBcc());
+        assertEquals("Monthly reports", email.getSubject());
+        assertEquals("<html><body><strong>Attached Monthly reports</strong>.</body></html>", email.getBody().get());
         assertNotNull(email.getAttachments());
         assertEquals("reports.xlsx", email.getAttachments().get(0).getFilename());
         assertEquals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", email.getAttachments().get(0).getContentType());

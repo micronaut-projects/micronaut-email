@@ -20,6 +20,8 @@ import com.mailjet.client.resource.Emailv31;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
+import io.micronaut.email.Body;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
@@ -47,11 +49,13 @@ public class MailjetEmailComposer implements EmailComposer<MailjetRequest> {
         message.put(Emailv31.Message.FROM, createJsonObject(email.getFrom()));
         to(email).ifPresent(jsonArray -> message.put(Emailv31.Message.TO, jsonArray));
         message.put(Emailv31.Message.SUBJECT, email.getSubject());
-        if (email.getText() != null) {
-            message.put(Emailv31.Message.TEXTPART, email.getText());
-        }
-        if (email.getHtml() != null) {
-            message.put(Emailv31.Message.HTMLPART, email.getHtml());
+        Body body = email.getBody();
+        if (body != null) {
+            if (body.getType() == BodyType.HTML) {
+                message.put(Emailv31.Message.HTMLPART, body.get());
+            } else if (body.getType() == BodyType.TEXT) {
+                message.put(Emailv31.Message.TEXTPART, body.get());
+            }
         }
         attachmentsAsJsonArray(email).ifPresent(arr -> message.put(Emailv31.Message.ATTACHMENTS, arr));
         JSONArray messages = new JSONArray();

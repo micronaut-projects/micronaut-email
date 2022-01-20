@@ -31,10 +31,9 @@ class SendAttachmentServiceTest {
         assertNull(emailSender.getEmails()[0].cc)
         assertNull(emailSender.getEmails()[0].bcc)
         assertEquals("Monthly reports", emailSender.getEmails()[0].subject)
-        assertEquals("Attached Monthly reports", emailSender.getEmails()[0].text)
         assertEquals(
             "<html><body><strong>Attached Monthly reports</strong>.</body></html>",
-            emailSender.getEmails()[0].html
+            emailSender.getEmails()[0].body!!.get()
         )
         assertNotNull(emailSender.getEmails()[0].attachments)
         assertEquals(1, emailSender.getEmails()[0].attachments!!.size)

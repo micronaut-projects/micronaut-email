@@ -15,6 +15,7 @@
  */
 package io.micronaut.email;
 
+import io.micronaut.context.annotation.EachBean;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.async.annotation.SingleResult;
 import org.reactivestreams.Publisher;
@@ -31,6 +32,7 @@ import java.util.function.Consumer;
  * @param <I> Email Request
  * @param <O> Email Response
  */
+@EachBean(AsyncTransactionalEmailSender.class)
 public class DefaultAsyncEmailSender<I, O> implements AsyncEmailSender<I, O> {
 
     private final AsyncTransactionalEmailSender<I, O> transactionalEmailSender;

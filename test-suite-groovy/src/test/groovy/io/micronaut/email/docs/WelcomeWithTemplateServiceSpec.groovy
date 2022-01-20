@@ -31,13 +31,9 @@ class WelcomeWithTemplateServiceSpec extends Specification {
         !emailSender.emails[0].cc
         !emailSender.emails[0].bcc
         "Micronaut test" == emailSender.emails[0].subject
-        emailSender.emails[0].text
-        emailSender.emails[0].text.contains(message)
-        emailSender.emails[0].text.contains(copyright)
-        emailSender.emails[0].text.contains(address)
-        emailSender.emails[0].html
-        emailSender.emails[0].html.contains('<h2 class="cit">' + message + '</h2>')
-        emailSender.emails[0].html.contains('<div>' + copyright + '</div>')
-        emailSender.emails[0].html.contains('<div>' + address + '</div>')
+        emailSender.emails[0].body
+        emailSender.emails[0].body.get().contains('<h2 class="cit">' + message + '</h2>')
+        emailSender.emails[0].body.get().contains('<div>' + copyright + '</div>')
+        emailSender.emails[0].body.get().contains('<div>' + address + '</div>')
     }
 }

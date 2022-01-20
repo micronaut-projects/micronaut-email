@@ -26,7 +26,7 @@ class MailjetEmailSenderSpec extends Specification {
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)
-                .text("Hello world"))
+                .body("Hello world"))
         then:
         new PollingConditions(initialDelay: 20, timeout: 180).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)

@@ -70,10 +70,7 @@ public final class Email implements Recipients {
     private final List<Attachment> attachments;
 
     @Nullable
-    private final String html;
-
-    @Nullable
-    private final String text;
+    private final Body body;
 
     /**
      *
@@ -84,8 +81,7 @@ public final class Email implements Recipients {
      * @param bcc Blind Carbon Copy recipients
      * @param subject Subject
      * @param attachments Email attachments
-     * @param html Email HTML
-     * @param text Email Text
+     * @param body Email Body
      */
     private Email(@NonNull Contact from,
                  @Nullable Contact replyTo,
@@ -94,8 +90,7 @@ public final class Email implements Recipients {
                  @Nullable List<Contact> bcc,
                  @NonNull String subject,
                  @Nullable List<Attachment> attachments,
-                 @Nullable String html,
-                 @Nullable String text) {
+                 @Nullable Body body) {
         this.from = from;
         this.replyTo = replyTo;
         this.to = to;
@@ -103,8 +98,7 @@ public final class Email implements Recipients {
         this.bcc = bcc;
         this.subject = subject;
         this.attachments = attachments;
-        this.html = html;
-        this.text = text;
+        this.body = body;
     }
 
     @NonNull
@@ -145,22 +139,9 @@ public final class Email implements Recipients {
         return attachments;
     }
 
-    /**
-     *
-     * @return Email HTML
-     */
     @Nullable
-    public String getHtml() {
-        return html;
-    }
-
-    /**
-     *
-     * @return Email Text
-     */
-    @Nullable
-    public String getText() {
-        return text;
+    public Body getBody() {
+        return body;
     }
 
     /**
@@ -198,10 +179,7 @@ public final class Email implements Recipients {
         private List<Attachment> attachments;
 
         @Nullable
-        private Body<?> html;
-
-        @Nullable
-        private Body<?> text;
+        private Body body;
 
         /**
          *
@@ -380,16 +358,7 @@ public final class Email implements Recipients {
             return attachment(builder.build());
         }
 
-        /**
-         *
-         * @param html Email's html
-         * @return The Email Builder
-         */
-        @NonNull
-        public Builder html(@NonNull String html) {
-            this.html = new StringBody(html);
-            return this;
-        }
+
 
         /**
          *
@@ -397,30 +366,29 @@ public final class Email implements Recipients {
          * @return The Email Builder
          */
         @NonNull
-        public Builder text(@NonNull String text) {
-            this.text = new StringBody(text);
+        public Builder body(@NonNull Body body) {
+            this.body = body;
             return this;
         }
 
         /**
-         *
-         * @param text Email's text
+         * @param body Email body
+         * @param bodyType Email body type
          * @return The Email Builder
          */
         @NonNull
-        public Builder text(@NonNull Body<?> text) {
-            this.text = text;
+        public Builder body(@NonNull String body, BodyType bodyType) {
+            this.body = new StringBody(body, bodyType);
             return this;
         }
 
         /**
-         *
-         * @param html Email's html
+         * @param body Email body
          * @return The Email Builder
          */
         @NonNull
-        public Builder html(@NonNull Body<?> html) {
-            this.html = html;
+        public Builder body(@NonNull String body) {
+            this.body = new StringBody(body);
             return this;
         }
 
@@ -436,8 +404,7 @@ public final class Email implements Recipients {
                     bcc,
                     subject,
                     attachments,
-                    html != null ? html.get().toString() : null,
-                    text != null ? text.get().toString() : null);
+                    body);
         }
 
         /**
@@ -450,21 +417,11 @@ public final class Email implements Recipients {
         }
 
         /**
-         *
-         * @return Email Text
+         * @return Email Body
          */
         @NonNull
-        public Optional<Body<?>> getText() {
-            return Optional.ofNullable(this.text);
-        }
-
-        /**
-         *
-         * @return Email HTML
-         */
-        @NonNull
-        public Optional<Body<?>> getHtml() {
-            return Optional.ofNullable(this.html);
+        public Optional<Body> getBody() {
+            return Optional.ofNullable(this.body);
         }
 
         /**

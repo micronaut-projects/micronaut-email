@@ -8,6 +8,7 @@ import jakarta.inject.Singleton
 
 @Singleton
 class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>) {
+
     fun sendWelcomeEmail() {
         val model = mapOf(
             "message" to "Hello dear Micronaut user",
@@ -19,8 +20,8 @@ class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>)
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")
-                .text(TemplateBody(ModelAndView("texttemplate", model)))
-                .html(TemplateBody(ModelAndView("htmltemplate", model)))
+                .body(TemplateBody(ModelAndView("htmltemplate", model)))
         )
     }
+
 }

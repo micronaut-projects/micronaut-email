@@ -18,21 +18,35 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.NonNull;
 
 /**
- * Email's body backed by a String.
+ * Email body backed by a String.
+ *
  * @author Sergio del Amo
  * @since 1.0.0
  */
-public class StringBody implements Body<String> {
+public class StringBody implements Body {
+
     @NonNull
     private final String text;
+    private final BodyType bodyType;
 
     public StringBody(@NonNull String text) {
+        this(text, BodyType.TEXT);
+    }
+
+    public StringBody(@NonNull String text, BodyType bodyType) {
         this.text = text;
+        this.bodyType = bodyType;
     }
 
     @Override
     @NonNull
     public String get() {
         return text;
+    }
+
+    @NonNull
+    @Override
+    public BodyType getType() {
+        return bodyType;
     }
 }

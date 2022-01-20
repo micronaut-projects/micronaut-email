@@ -51,7 +51,7 @@ public class EmailFactory {
             if (value == null) {
                 return true;
             }
-            return StringUtils.isNotEmpty(value.getHtml()) || StringUtils.isNotEmpty(value.getText());
+            return value.getBody() != null;
         };
     }
 }

@@ -26,7 +26,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
         expect:
         !validator.validate(email)
@@ -38,7 +38,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("I love Apple Music")
+                .body("I love Apple Music")
                 .build()
 
         expect:
@@ -51,7 +51,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("I love Apple Music")
+                .body("I love Apple Music")
                 .build()
 
         expect:
@@ -64,7 +64,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("I love Apple Music")
+                .body("I love Apple Music")
                 .build()
 
         expect:
@@ -77,7 +77,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
 
         expect:
@@ -90,7 +90,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
 
         expect:
@@ -102,7 +102,7 @@ class EmailSpec extends Specification {
         Email email = Email.builder()
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
 
         then:
@@ -115,7 +115,7 @@ class EmailSpec extends Specification {
                 .from("tim")
                 .to("ecue@apple.com")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
 
         expect:
@@ -128,7 +128,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .to("ecue")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
 
         expect:
@@ -142,7 +142,7 @@ class EmailSpec extends Specification {
                 .to("ecue@apple.com")
                 .cc("lmaestri")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
 
         expect:
@@ -156,7 +156,7 @@ class EmailSpec extends Specification {
                 .to("ecue@apple.com")
                 .bcc("lmaestri")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
 
         expect:
@@ -168,7 +168,7 @@ class EmailSpec extends Specification {
         Email email = Email.builder()
                 .from("tcook@apple.com")
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
         then:
         validator.validate(email)
@@ -180,7 +180,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .cc('ecue@apple.com')
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
         then:
         !validator.validate(email)
@@ -192,7 +192,7 @@ class EmailSpec extends Specification {
                 .from("tcook@apple.com")
                 .bcc('ecue@apple.com')
                 .subject("Apple Music")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
         then:
         !validator.validate(email)
@@ -203,7 +203,7 @@ class EmailSpec extends Specification {
         Email email = Email.builder()
                 .from("tcook@apple.com")
                 .to("ecue@apple.com")
-                .text("Stream music to your device")
+                .body("Stream music to your device")
                 .build()
         then:
         validator.validate(email)

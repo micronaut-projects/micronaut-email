@@ -19,6 +19,8 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
+import io.micronaut.email.Body;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import jakarta.inject.Singleton;
@@ -91,31 +93,24 @@ public class DefaultMessageComposer implements MessageComposer {
     @NonNull
     private List<MimeBodyPart> bodyParts(@NonNull Email email) throws MessagingException {
         List<MimeBodyPart> parts = new ArrayList<>();
-        textBodyPart(email).ifPresent(parts::add);
-        htmlBodyPart(email).ifPresent(parts::add);
+        bodyPart(email).ifPresent(parts::add);
         parts.addAll(attachmentBodyParts(email));
         return parts;
     }
 
     @NonNull
-    private Optional<MimeBodyPart> textBodyPart(@NonNull Email email) throws MessagingException {
-        return bodyPart(TYPE_TEXT_PLAIN_CHARSET_UTF_8, email.getText());
-    }
-
-    @NonNull
-    private Optional<MimeBodyPart> htmlBodyPart(@NonNull Email email) throws MessagingException {
-        return bodyPart(TYPE_TEXT_HTML_CHARSET_UTF_8, email.getHtml());
-    }
-
-    @NonNull
-    private Optional<MimeBodyPart> bodyPart(@NonNull String type,
-                                            @Nullable String text) throws MessagingException {
-        if (text == null) {
-            return Optional.empty();
+    private Optional<MimeBodyPart> bodyPart(@NonNull Email email) throws MessagingException {
+        Body body = email.getBody();
+        if (body != null) {
+            MimeBodyPart bodyPart = new MimeBodyPart();
+            if (body.getType() == BodyType.HTML) {
+                bodyPart.setContent(body.get(), TYPE_TEXT_HTML_CHARSET_UTF_8);
+            } else if (body.getType() == BodyType.TEXT) {
+                bodyPart.setContent(body.get(), TYPE_TEXT_PLAIN_CHARSET_UTF_8);
+            }
+            return Optional.of(bodyPart);
         }
-        MimeBodyPart textPart = new MimeBodyPart();
-        textPart.setContent(text, type);
-        return Optional.of(textPart);
+        return Optional.empty();
     }
 
     @NonNull

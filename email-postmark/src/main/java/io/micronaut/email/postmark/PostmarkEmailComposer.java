@@ -18,6 +18,8 @@ package io.micronaut.email.postmark;
 import com.wildbit.java.postmark.client.data.model.message.Message;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
+import io.micronaut.email.Body;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
@@ -37,6 +39,7 @@ import java.util.stream.Collectors;
  */
 @Singleton
 public class PostmarkEmailComposer implements EmailComposer<Message> {
+
     private final PostmarkConfiguration postmarkConfiguration;
 
     /**
@@ -59,11 +62,13 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
             message.setTo(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
         }
         message.setSubject(email.getSubject());
-        if (email.getText() != null) {
-            message.setTextBody(email.getText());
-        }
-        if (email.getHtml() != null) {
-            message.setHtmlBody(email.getHtml());
+        Body body = email.getBody();
+        if (body != null) {
+            if (body.getType() == BodyType.HTML) {
+                message.setHtmlBody(body.get());
+            } else if (body.getType() == BodyType.TEXT) {
+                message.setTextBody(body.get());
+            }
         }
         message.setTrackOpens(postmarkConfiguration.getTrackOpens());
         trackLinks(postmarkConfiguration.getTrackLinks()).ifPresent(message::setTrackLinks);

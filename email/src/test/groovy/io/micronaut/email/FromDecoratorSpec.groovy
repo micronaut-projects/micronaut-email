@@ -30,7 +30,7 @@ class FromDecoratorSpec extends Specification {
         emailSender.send(Email.builder()
                 .to("ecue@apple.com")
                 .subject("Hello World")
-                .text("I love Apple Music"))
+                .body("I love Apple Music"))
 
         then:
         beanContext.getBean(MockEmailSender).getEmails()

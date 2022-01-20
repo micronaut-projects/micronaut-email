@@ -33,10 +33,9 @@ class WelcomeServiceTest {
         assertNull(emailSender.getEmails()[0].cc)
         assertNull(emailSender.getEmails()[0].bcc)
         assertEquals("Micronaut test", emailSender.getEmails()[0].subject)
-        assertEquals("Hello dear Micronaut user", emailSender.getEmails()[0].text)
         assertEquals(
             "<html><body><strong>Hello</strong> dear Micronaut user.</body></html>",
-            emailSender.getEmails()[0].html
+            emailSender.getEmails()[0].body!!.get()
         )
     }
 }

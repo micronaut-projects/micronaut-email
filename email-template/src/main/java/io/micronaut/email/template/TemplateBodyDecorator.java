@@ -54,8 +54,10 @@ public interface TemplateBodyDecorator extends EmailDecorator {
 
     @Override
     default void decorate(@NonNull @NotNull Email.Builder emailBuilder) {
-        renderBody(BodyType.TEXT, emailBuilder.getText().orElse(null)).ifPresent(emailBuilder::text);
-        renderBody(BodyType.HTML, emailBuilder.getHtml().orElse(null)).ifPresent(emailBuilder::html);
+        Optional<TemplateBody<?>> body = emailBuilder.getBody()
+                .filter(b -> b instanceof TemplateBody)
+                .map(b -> (TemplateBody<?>) b);
+        body.ifPresent(this::renderBody);
     }
 
     /**
@@ -64,33 +66,25 @@ public interface TemplateBodyDecorator extends EmailDecorator {
      * @return rendered template
      */
     @NonNull
-    default Optional<String> renderBody(@NonNull BodyType bodyType, @Nullable Body<?> body) {
-        if (body == null) {
-            return Optional.empty();
+    default void renderBody(TemplateBody<?> body) {
+        ModelAndView<?> modelAndView = body.getModelAndView();
+        String viewName = modelAndView.getView().orElse(null);
+        if (viewName == null) {
+            return;
         }
-        if (!(body instanceof TemplateBody)) {
-            return Optional.empty();
-        }
-        TemplateBody<?> templateTextBody = (TemplateBody<?>) body;
-        ModelAndView<?> modelAndView = templateTextBody.get();
-        if (!modelAndView.getView().isPresent()) {
-            return Optional.empty();
-        }
-        String viewName = modelAndView.getView().get();
-        Optional<ViewsRenderer> optionalViewsRenderer = resolveViewsRenderer(bodyType, viewName, modelAndView.getModel().orElse(null));
+        Optional<ViewsRenderer> optionalViewsRenderer = resolveViewsRenderer(body.getType(), viewName, modelAndView.getModel().orElse(null));
         if (!optionalViewsRenderer.isPresent()) {
-            return Optional.empty();
+            return;
         }
         Writable writable = optionalViewsRenderer.get().render(viewName, modelAndView.getModel().orElse(null), null);
         StringWriter stringWriter = new StringWriter();
         try {
             writable.writeTo(stringWriter);
-            return Optional.of(stringWriter.toString());
+            body.setBody(stringWriter.toString());
         } catch (IOException e) {
             if (getLogger().isErrorEnabled()) {
                 getLogger().error("IO exception writing template to String", e);
             }
         }
-        return Optional.empty();
     }
 }

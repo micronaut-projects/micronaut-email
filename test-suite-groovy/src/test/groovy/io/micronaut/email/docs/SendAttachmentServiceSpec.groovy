@@ -26,8 +26,7 @@ class SendAttachmentServiceSpec extends Specification {
         !emailSender.emails[0].cc
         !emailSender.emails[0].bcc
         "Monthly reports" == emailSender.emails[0].subject
-        "Attached Monthly reports" == emailSender.emails[0].text
-        "<html><body><strong>Attached Monthly reports</strong>.</body></html>" == emailSender.emails[0].html
+        "<html><body><strong>Attached Monthly reports</strong>.</body></html>" == emailSender.emails[0].body.get()
         emailSender.emails[0].attachments
         "reports.xlsx" == emailSender.emails[0].attachments.first().filename
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" == emailSender.emails[0].attachments.first().contentType

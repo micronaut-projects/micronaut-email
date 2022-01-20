@@ -1,6 +1,7 @@
 package io.micronaut.email.docs;
 
 import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.template.TemplateBody;
@@ -17,7 +18,7 @@ public class WelcomeWithTemplateService {
         this.emailSender = emailSender;
     }
 
-    public void sendWelcomeEmail() {
+    public void sendWelcomeEmailText() {
         Map<String, String> model = CollectionUtils.mapOf("message", "Hello dear Micronaut user",
                 "copyright", "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
                 "address", "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141");
@@ -25,7 +26,17 @@ public class WelcomeWithTemplateService {
                         .from("sender@example.com")
                         .to("john@example.com")
                         .subject("Micronaut test")
-                        .text(new TemplateBody<>(new ModelAndView<>("texttemplate", model)))
-                        .html(new TemplateBody<>(new ModelAndView<>("htmltemplate", model))));
+                        .body(new TemplateBody<>(new ModelAndView<>("texttemplate", model), BodyType.TEXT)));
+    }
+
+    public void sendWelcomeEmailHtml() {
+        Map<String, String> model = CollectionUtils.mapOf("message", "Hello dear Micronaut user",
+                "copyright", "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
+                "address", "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141");
+        emailSender.send(Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(new TemplateBody<>(new ModelAndView<>("htmltemplate", model))));
     }
 }

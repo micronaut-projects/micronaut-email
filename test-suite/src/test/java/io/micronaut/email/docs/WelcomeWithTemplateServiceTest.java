@@ -19,13 +19,13 @@ public class WelcomeWithTemplateServiceTest {
     MockEmailSender<?> emailSender;
 
     @Test
-    void transactionalEmailIsCorrectlyBuilt() {
+    void transactionalTextEmailIsCorrectlyBuilt() {
         //given
         String message = "Hello dear Micronaut user";
         String copyright =  "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED";
         String address = "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141";
         //when:
-        welcomeService.sendWelcomeEmail();
+        welcomeService.sendWelcomeEmailText();
         //then:
         assertEquals(1, emailSender.getEmails().size());
 
@@ -38,11 +38,33 @@ public class WelcomeWithTemplateServiceTest {
         assertNull(email.getCc());
         assertNull(email.getBcc());
         assertEquals("Micronaut test", email.getSubject());
-        assertTrue(email.getText().contains(message));
-        assertTrue(email.getText().contains(copyright));
-        assertTrue(email.getText().contains(address));
-        assertTrue(email.getHtml().contains("<h2 class=\"cit\">" + message + "</h2>"));
-        assertTrue(email.getHtml().contains("<div>" + copyright + "</div>"));
-        assertTrue(email.getHtml().contains("<div>" + address + "</div>"));
+        assertTrue(email.getBody().get().contains(message));
+        assertTrue(email.getBody().get().contains(copyright));
+        assertTrue(email.getBody().get().contains(address));
+    }
+
+    @Test
+    void transactionalHtmlEmailIsCorrectlyBuilt() {
+        //given
+        String message = "Hello dear Micronaut user";
+        String copyright =  "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED";
+        String address = "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141";
+        //when:
+        welcomeService.sendWelcomeEmailHtml();
+        //then:
+        assertEquals(1, emailSender.getEmails().size());
+
+        Email email = emailSender.getEmails().get(0);
+        assertEquals("sender@example.com", email.getFrom().getEmail());
+        assertNull(email.getFrom().getName());
+        assertEquals(1, email.getTo().size());
+        assertEquals("john@example.com", email.getTo().stream().findFirst().get().getEmail());
+        assertNull(email.getTo().stream().findFirst().get().getName());
+        assertNull(email.getCc());
+        assertNull(email.getBcc());
+        assertEquals("Micronaut test", email.getSubject());
+        assertTrue(email.getBody().get().contains("<h2 class=\"cit\">" + message + "</h2>"));
+        assertTrue(email.getBody().get().contains("<div>" + copyright + "</div>"));
+        assertTrue(email.getBody().get().contains("<div>" + address + "</div>"));
     }
 }

@@ -38,13 +38,9 @@ class WelcomeWithTemplateServiceTest {
         assertNull(emailSender.getEmails()[0].cc)
         assertNull(emailSender.getEmails()[0].bcc)
         assertEquals("Micronaut test", emailSender.getEmails()[0].subject)
-        assertNotNull(emailSender.getEmails()[0].text)
-        assertTrue(emailSender.getEmails()[0].text!!.contains(message))
-        assertTrue(emailSender.getEmails()[0].text!!.contains(copyright))
-        assertTrue(emailSender.getEmails()[0].text!!.contains(address))
-        assertNotNull(emailSender.getEmails()[0].html)
-        assertTrue(emailSender.getEmails()[0].html!!.contains("<h2 class=\"cit\">$message</h2>"))
-        assertTrue(emailSender.getEmails()[0].html!!.contains("<div>$copyright</div>"))
-        assertTrue(emailSender.getEmails()[0].html!!.contains("<div>$address</div>"))
+        assertNotNull(emailSender.getEmails()[0].body)
+        assertTrue(emailSender.getEmails()[0].body!!.get().contains("<h2 class=\"cit\">$message</h2>"))
+        assertTrue(emailSender.getEmails()[0].body!!.get().contains("<div>$copyright</div>"))
+        assertTrue(emailSender.getEmails()[0].body!!.get().contains("<div>$address</div>"))
     }
 }

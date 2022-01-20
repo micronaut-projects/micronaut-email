@@ -23,13 +23,15 @@ import io.micronaut.core.annotation.NonNull;
  * @since 1.0.0
  * @param <T> Body Type
  */
-@FunctionalInterface
-public interface Body<T> {
+public interface Body {
 
     /**
      *
      * @return The Email Body
      */
     @NonNull
-    T get();
+    String get();
+
+    @NonNull
+    BodyType getType();
 }

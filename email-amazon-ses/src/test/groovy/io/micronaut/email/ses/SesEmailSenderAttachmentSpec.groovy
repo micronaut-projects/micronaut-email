@@ -29,7 +29,7 @@ class SesEmailSenderAttachmentSpec extends Specification {
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)
-                .text("Hello world")
+                .body("Hello world")
                 .attachment(Attachment.builder()
                         .filename("monthlyreports.xlsx")
                         .contentType(MediaType.MICROSOFT_EXCEL_OPEN_XML)
