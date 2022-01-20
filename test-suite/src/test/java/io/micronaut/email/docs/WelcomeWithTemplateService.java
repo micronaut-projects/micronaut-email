@@ -19,7 +19,7 @@ public class WelcomeWithTemplateService {
         this.emailSender = emailSender;
     }
 
-    public void sendWelcomeEmailText() {
+    public void sendWelcomeEmail() {
         Map<String, String> model = CollectionUtils.mapOf("message", "Hello dear Micronaut user",
                 "copyright", "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
                 "address", "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141");
