@@ -75,7 +75,6 @@ public interface TemplateBodyDecorator extends EmailDecorator {
 
     /**
      * @param body Template Body
-     * @return rendered template
      */
     default void renderBody(TemplateBody<?> body) {
         ModelAndView<?> modelAndView = body.getModelAndView();

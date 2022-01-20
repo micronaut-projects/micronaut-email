@@ -30,8 +30,6 @@ import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
 import jakarta.inject.Singleton;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

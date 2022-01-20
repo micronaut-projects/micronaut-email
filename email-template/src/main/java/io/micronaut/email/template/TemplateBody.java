@@ -16,18 +16,10 @@
 package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.io.Writable;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
 import io.micronaut.views.ModelAndView;
-import io.micronaut.views.ViewsRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Optional;
 
 /**
  * Email HTML Body backed by a template.
@@ -37,8 +29,6 @@ import java.util.Optional;
  * @param <T> HTML model
  */
 public class TemplateBody<T> implements Body {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TemplateBody.class);
 
     @NonNull
     private final ModelAndView<T> modelAndView;
@@ -61,25 +51,34 @@ public class TemplateBody<T> implements Body {
     }
 
     /**
-     * @param view  view name to be rendered
+     * @param view  View name to be rendered
      * @param model Model to be rendered against the view
+     * @param bodyType The content type of the template
      */
     public TemplateBody(String view, T model, BodyType bodyType) {
-        this(new ModelAndView<>(view, model));
+        this(new ModelAndView<>(view, model), bodyType);
     }
 
     /**
      * @param modelAndView Emails Template's name and model for html
+     * @param bodyType The content type of the template
      */
     public TemplateBody(@NonNull ModelAndView<T> modelAndView, BodyType bodyType) {
         this.modelAndView = modelAndView;
         this.bodyType = bodyType;
     }
 
+    /**
+     * @return The model and view
+     */
+    @NonNull
     public ModelAndView<T> getModelAndView() {
         return modelAndView;
     }
 
+    /**
+     * @param body The result of the view being rendered
+     */
     public void setBody(String body) {
         this.body = body;
     }

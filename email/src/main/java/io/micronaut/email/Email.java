@@ -362,7 +362,7 @@ public final class Email implements Recipients {
 
         /**
          *
-         * @param text Email's text
+         * @param body Email's body
          * @return The Email Builder
          */
         @NonNull

@@ -18,10 +18,10 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.NonNull;
 
 /**
- * Email Body, the html or text, of the email.
+ * Represents the body of an email.
+ *
  * @author Sergio del Amo
  * @since 1.0.0
- * @param <T> Body Type
  */
 public interface Body {
 
