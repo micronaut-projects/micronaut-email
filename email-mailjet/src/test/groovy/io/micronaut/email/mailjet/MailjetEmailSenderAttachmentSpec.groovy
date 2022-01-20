@@ -36,7 +36,7 @@ class MailjetEmailSenderAttachmentSpec extends Specification {
                         .build())
                 )
         then:
-        new PollingConditions(timeout: 60).eventually {
+        new PollingConditions(initialDelay: 20, timeout: 240).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(gmail, System.getenv("GMAIL_PASSWORD"), subject)
         }
     }
