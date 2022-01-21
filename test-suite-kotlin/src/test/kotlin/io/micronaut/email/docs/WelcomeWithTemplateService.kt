@@ -23,8 +23,8 @@ class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>)
                 .to("john@example.com")
                 .subject("Micronaut test")
                 .body(MultipartBody(
-                    TemplateBody(ModelAndView("htmltemplate", model), BodyType.HTML),
-                    TemplateBody(ModelAndView("texttemplate", model), BodyType.TEXT)))
+                    TemplateBody(BodyType.HTML, ModelAndView("htmltemplate", model)),
+                    TemplateBody(BodyType.TEXT, ModelAndView("texttemplate", model))))
         )
     }
 

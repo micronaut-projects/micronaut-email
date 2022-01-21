@@ -55,7 +55,7 @@ public class TemplateBody<T> implements Body {
      * @param modelAndView Emails Template's name and model for html
      */
     public TemplateBody(@NonNull ModelAndView<T> modelAndView) {
-        this(modelAndView, BodyType.HTML);
+        this(BodyType.HTML, modelAndView);
     }
 
     /**
@@ -63,15 +63,17 @@ public class TemplateBody<T> implements Body {
      * @param model Model to be rendered against the view
      * @param bodyType The content type of the template
      */
-    public TemplateBody(@Nullable String view, T model,  @NonNull BodyType bodyType) {
-        this(new ModelAndView<>(view, model), bodyType);
+    public TemplateBody(@NonNull BodyType bodyType,
+                        @Nullable String view,
+                        @Nullable T model) {
+        this(bodyType, new ModelAndView<>(view, model));
     }
 
     /**
      * @param modelAndView Emails Template's name and model for html
      * @param bodyType The content type of the template
      */
-    public TemplateBody(@NonNull ModelAndView<T> modelAndView, @NonNull BodyType bodyType) {
+    public TemplateBody(@NonNull BodyType bodyType, @NonNull ModelAndView<T> modelAndView) {
         this.modelAndView = modelAndView;
         this.bodyType = bodyType;
     }
