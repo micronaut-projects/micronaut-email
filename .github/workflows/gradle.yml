@@ -51,6 +51,10 @@ jobs:
           if [ ${{ matrix.java }} == 16 ]; then export GRADLE_OPTS="-Dorg.gradle.jvmargs=--illegal-access=permit"; fi
           ./gradlew dependencyUpdates check --no-daemon --parallel --continue
         env:
+          SES_ENABLED: ${{ secrets.SES_ENABLED }}
+          SENDGRID_ENABLED: ${{ secrets.SENDGRID_ENABLED }}
+          MAILJET_ENABLED: ${{ secrets.MAILJET_ENABLED }}
+          POSTMARK_ENABLED: ${{ secrets.POSTMARK_ENABLED }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

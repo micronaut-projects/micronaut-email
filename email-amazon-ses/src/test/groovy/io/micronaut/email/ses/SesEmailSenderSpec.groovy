@@ -17,11 +17,14 @@ class SesEmailSenderSpec extends Specification {
     EmailSender<?, ?> emailSender
 
     @Requires({
-        env["AWS_REGION"] &&
+                env['SES_ENABLED'] &&
+                env["AWS_REGION"] &&
                 env["AWS_ACCESS_KEY_ID"] &&
                 env["AWS_SECRET_ACCESS_KEY"] &&
                 env["GMAIL_USERNAME"] &&
-                env["GMAIL_PASSWORD"] && (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11())) })
+                env["GMAIL_PASSWORD"] &&
+                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))
+    })
     void "Functional test of SES integration"() {
         given:
         String subject = "[SES] Test" + UUID.randomUUID().toString()

@@ -19,7 +19,13 @@ class SendGridEmailSenderAttachmentSpec extends Specification {
     @Inject
     EmailSender emailSender
 
-    @Requires({env["SENDGRID_API_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))})
+    @Requires({
+                env['SENDGRID_ENABLED'] &&
+                env["SENDGRID_API_KEY"] &&
+                env["GMAIL_USERNAME"] &&
+                env["GMAIL_PASSWORD"] &&
+                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))
+    })
     void "Functional test of Email with Attachment for SendGrid integration"() {
         given:
         String subject = "[Sendgrid] Attachment Test" + UUID.randomUUID().toString()
