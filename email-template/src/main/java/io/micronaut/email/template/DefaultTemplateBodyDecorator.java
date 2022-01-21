@@ -35,6 +35,7 @@ import java.util.Optional;
 @Requires(beans = ViewsRendererLocator.class)
 @Singleton
 public class DefaultTemplateBodyDecorator implements TemplateBodyDecorator {
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultTemplateBodyDecorator.class);
 
     private final ViewsRendererLocator viewsRendererLocator;

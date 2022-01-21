@@ -1,5 +1,6 @@
 package io.micronaut.email.docs
 
+import io.micronaut.email.BodyType
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -38,13 +39,18 @@ class WelcomeWithTemplateServiceTest {
         assertNull(emailSender.getEmails()[0].cc)
         assertNull(emailSender.getEmails()[0].bcc)
         assertEquals("Micronaut test", emailSender.getEmails()[0].subject)
-        assertNotNull(emailSender.getEmails()[0].text)
-        assertTrue(emailSender.getEmails()[0].text!!.contains(message))
-        assertTrue(emailSender.getEmails()[0].text!!.contains(copyright))
-        assertTrue(emailSender.getEmails()[0].text!!.contains(address))
-        assertNotNull(emailSender.getEmails()[0].html)
-        assertTrue(emailSender.getEmails()[0].html!!.contains("<h2 class=\"cit\">$message</h2>"))
-        assertTrue(emailSender.getEmails()[0].html!!.contains("<div>$copyright</div>"))
-        assertTrue(emailSender.getEmails()[0].html!!.contains("<div>$address</div>"))
+        assertNotNull(emailSender.getEmails()[0].body)
+
+        assertNotNull(emailSender.getEmails()[0].body)
+        assertTrue(emailSender.getEmails()[0].body!!.get(BodyType.TEXT).isPresent)
+        val text = emailSender.getEmails()[0].body!!.get(BodyType.TEXT).get()
+        assertTrue(text.contains(message))
+        assertTrue(text.contains(copyright))
+        assertTrue(text.contains(address))
+        assertTrue(emailSender.getEmails()[0].body!!.get(BodyType.HTML).isPresent)
+        val html = emailSender.getEmails()[0].body!!.get(BodyType.HTML).get()
+        assertTrue(html.contains("<h2 class=\"cit\">$message</h2>"))
+        assertTrue(html.contains("<div>$copyright</div>"))
+        assertTrue(html.contains("<div>$address</div>"))
     }
 }

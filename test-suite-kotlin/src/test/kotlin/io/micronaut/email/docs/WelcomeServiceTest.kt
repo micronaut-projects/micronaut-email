@@ -1,8 +1,10 @@
 package io.micronaut.email.docs
 
+import io.micronaut.email.BodyType
 import jakarta.inject.Inject
 import org.junit.jupiter.api.Test
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -33,10 +35,13 @@ class WelcomeServiceTest {
         assertNull(emailSender.getEmails()[0].cc)
         assertNull(emailSender.getEmails()[0].bcc)
         assertEquals("Micronaut test", emailSender.getEmails()[0].subject)
-        assertEquals("Hello dear Micronaut user", emailSender.getEmails()[0].text)
+        assertNotNull(emailSender.getEmails()[0].body)
+        Assertions.assertTrue(emailSender.getEmails()[0].body!!.get(BodyType.TEXT).isPresent)
+        assertEquals("Hello dear Micronaut user", emailSender.getEmails()[0].body!!.get(BodyType.TEXT).get())
+        Assertions.assertTrue(emailSender.getEmails()[0].body!!.get(BodyType.HTML).isPresent)
         assertEquals(
             "<html><body><strong>Hello</strong> dear Micronaut user.</body></html>",
-            emailSender.getEmails()[0].html
+            emailSender.getEmails()[0].body!!.get(BodyType.HTML).get()
         )
     }
 }

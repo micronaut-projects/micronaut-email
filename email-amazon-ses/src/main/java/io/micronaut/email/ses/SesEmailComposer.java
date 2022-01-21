@@ -17,6 +17,7 @@ package io.micronaut.email.ses;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
@@ -128,11 +129,10 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
     @NonNull
     private Body.Builder bodyBuilder(@NonNull Email email) {
         Body.Builder bodyBuilder = Body.builder();
-        if (email.getHtml() != null) {
-            bodyBuilder.html(Content.builder().data(email.getHtml()).build());
-        }
-        if (email.getText() != null) {
-            bodyBuilder.text(Content.builder().data(email.getText()).build());
+        io.micronaut.email.Body body = email.getBody();
+        if (body != null) {
+            body.get(BodyType.TEXT).map(it -> Content.builder().data(it).build()).ifPresent(bodyBuilder::text);
+            body.get(BodyType.HTML).map(it -> Content.builder().data(it).build()).ifPresent(bodyBuilder::html);
         }
         return bodyBuilder;
     }

@@ -16,7 +16,6 @@
 package io.micronaut.email.validation;
 
 import io.micronaut.context.annotation.Factory;
-import io.micronaut.core.util.StringUtils;
 import io.micronaut.email.Email;
 import jakarta.inject.Singleton;
 import io.micronaut.validation.validator.constraints.ConstraintValidator;
@@ -51,7 +50,7 @@ public class EmailFactory {
             if (value == null) {
                 return true;
             }
-            return StringUtils.isNotEmpty(value.getHtml()) || StringUtils.isNotEmpty(value.getText());
+            return value.getBody() != null;
         };
     }
 }

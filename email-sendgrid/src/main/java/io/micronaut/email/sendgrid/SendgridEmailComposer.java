@@ -23,13 +23,13 @@ import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
+import io.micronaut.email.Body;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
 import jakarta.inject.Singleton;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -44,7 +44,9 @@ import java.util.Optional;
  */
 @Singleton
 public class SendgridEmailComposer implements EmailComposer<Request> {
-    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailComposer.class);
+
+    private static final String CONTENT_TYPE_TEXT_HTML = "text/html";
+    private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
 
     @Override
     @NonNull
@@ -147,12 +149,15 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
 
     @NonNull
     private Optional<Content> contentOfEmail(@NonNull Email email) {
-        if (email.getText() != null) {
-            return Optional.of(new Content("text/plain", email.getText()));
+        Body body = email.getBody();
+        if (body == null) {
+            return Optional.empty();
         }
-        if (email.getHtml() != null) {
-            return Optional.of(new Content("text/html", email.getHtml()));
+        Optional<String> str = body.get(BodyType.HTML);
+        if (str.isPresent()) {
+            return Optional.of(new Content(CONTENT_TYPE_TEXT_HTML, str.get()));
         }
-        return Optional.empty();
+        str = body.get(BodyType.TEXT);
+        return str.map(s -> new Content(CONTENT_TYPE_TEXT_PLAIN, s));
     }
 }

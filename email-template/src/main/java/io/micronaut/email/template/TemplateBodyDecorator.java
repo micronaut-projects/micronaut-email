@@ -23,6 +23,7 @@ import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailDecorator;
+import io.micronaut.email.MultipartBody;
 import io.micronaut.views.ModelAndView;
 import io.micronaut.views.ViewsRenderer;
 import org.slf4j.Logger;
@@ -38,6 +39,7 @@ import java.util.Optional;
  */
 @DefaultImplementation(DefaultTemplateBodyDecorator.class)
 public interface TemplateBodyDecorator extends EmailDecorator {
+
     Logger getLogger();
 
     /**
@@ -54,43 +56,50 @@ public interface TemplateBodyDecorator extends EmailDecorator {
 
     @Override
     default void decorate(@NonNull @NotNull Email.Builder emailBuilder) {
-        renderBody(BodyType.TEXT, emailBuilder.getText().orElse(null)).ifPresent(emailBuilder::text);
-        renderBody(BodyType.HTML, emailBuilder.getHtml().orElse(null)).ifPresent(emailBuilder::html);
+        Optional<Body> optionalBody = emailBuilder.getBody();
+        if (optionalBody.isPresent()) {
+            Body body = optionalBody.get();
+            if (body instanceof TemplateBody) {
+                if (body.get(BodyType.HTML).isPresent()) {
+                    renderBody((TemplateBody<?>) body, BodyType.HTML);
+                } else if (body.get(BodyType.TEXT).isPresent()) {
+                    renderBody((TemplateBody<?>) body, BodyType.TEXT);
+                }
+            } else if (body instanceof MultipartBody) {
+                MultipartBody multipartBody = (MultipartBody) body;
+                if (multipartBody.getHtml() instanceof TemplateBody) {
+                    renderBody((TemplateBody<?>) multipartBody.getHtml(), BodyType.HTML);
+                }
+                if (multipartBody.getText() instanceof TemplateBody) {
+                    renderBody((TemplateBody<?>) multipartBody.getText(), BodyType.TEXT);
+                }
+            }
+        }
     }
 
     /**
-     * @param bodyType The Body Type
      * @param body Template Body
-     * @return rendered template
+     * @param bodyType Body Type
      */
-    @NonNull
-    default Optional<String> renderBody(@NonNull BodyType bodyType, @Nullable Body<?> body) {
-        if (body == null) {
-            return Optional.empty();
+    default void renderBody(@NonNull TemplateBody<?> body, @NonNull BodyType bodyType) {
+        ModelAndView<?> modelAndView = body.getModelAndView();
+        String viewName = modelAndView.getView().orElse(null);
+        if (viewName == null) {
+            return;
         }
-        if (!(body instanceof TemplateBody)) {
-            return Optional.empty();
-        }
-        TemplateBody<?> templateTextBody = (TemplateBody<?>) body;
-        ModelAndView<?> modelAndView = templateTextBody.get();
-        if (!modelAndView.getView().isPresent()) {
-            return Optional.empty();
-        }
-        String viewName = modelAndView.getView().get();
         Optional<ViewsRenderer> optionalViewsRenderer = resolveViewsRenderer(bodyType, viewName, modelAndView.getModel().orElse(null));
         if (!optionalViewsRenderer.isPresent()) {
-            return Optional.empty();
+            return;
         }
         Writable writable = optionalViewsRenderer.get().render(viewName, modelAndView.getModel().orElse(null), null);
         StringWriter stringWriter = new StringWriter();
         try {
             writable.writeTo(stringWriter);
-            return Optional.of(stringWriter.toString());
+            body.setBody(stringWriter.toString());
         } catch (IOException e) {
             if (getLogger().isErrorEnabled()) {
                 getLogger().error("IO exception writing template to String", e);
             }
         }
-        return Optional.empty();
     }
 }

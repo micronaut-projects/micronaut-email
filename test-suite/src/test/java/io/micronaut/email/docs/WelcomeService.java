@@ -1,7 +1,9 @@
 package io.micronaut.email.docs;
 
+import io.micronaut.email.BodyType;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.Email;
+import io.micronaut.email.MultipartBody;
 import jakarta.inject.Singleton;
 
 @Singleton
@@ -17,7 +19,6 @@ public class WelcomeService {
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")
-                .text("Hello dear Micronaut user")
-                .html("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>"));
+                .body(new MultipartBody("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>", "Hello dear Micronaut user")));
     }
 }

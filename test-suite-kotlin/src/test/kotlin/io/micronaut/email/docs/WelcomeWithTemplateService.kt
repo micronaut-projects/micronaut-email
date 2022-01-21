@@ -1,13 +1,16 @@
 package io.micronaut.email.docs
 
+import io.micronaut.email.BodyType
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
 import io.micronaut.email.template.TemplateBody
 import io.micronaut.views.ModelAndView
 import jakarta.inject.Singleton
 
 @Singleton
 class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>) {
+
     fun sendWelcomeEmail() {
         val model = mapOf(
             "message" to "Hello dear Micronaut user",
@@ -19,8 +22,10 @@ class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>)
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")
-                .text(TemplateBody(ModelAndView("texttemplate", model)))
-                .html(TemplateBody(ModelAndView("htmltemplate", model)))
+                .body(MultipartBody(
+                    TemplateBody(BodyType.HTML, ModelAndView("htmltemplate", model)),
+                    TemplateBody(BodyType.TEXT, ModelAndView("texttemplate", model))))
         )
     }
+
 }

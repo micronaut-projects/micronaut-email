@@ -26,7 +26,7 @@ class SendGridEmailSenderSpec extends Specification {
                 .from(gmail)
                 .to(gmail)
                 .subject(subject)
-                .text("Hello world"))
+                .body("Hello world"))
         then:
         new PollingConditions(initialDelay: 10, delay: 20, timeout: 300).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)

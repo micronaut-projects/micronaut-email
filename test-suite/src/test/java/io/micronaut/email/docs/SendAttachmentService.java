@@ -1,8 +1,10 @@
 package io.micronaut.email.docs;
 
 import io.micronaut.email.Attachment;
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailSender;
+import io.micronaut.email.MultipartBody;
 import io.micronaut.email.test.SpreadsheetUtils;
 import io.micronaut.http.MediaType;
 import jakarta.inject.Singleton;
@@ -24,8 +26,7 @@ public class SendAttachmentService {
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Monthly reports")
-                .text("Attached Monthly reports")
-                .html("<html><body><strong>Attached Monthly reports</strong>.</body></html>")
+                .body(new MultipartBody("<html><body><strong>Attached Monthly reports</strong>.</body></html>", "Attached Monthly reports"))
                 .attachment(Attachment.builder()
                         .filename("reports.xlsx")
                         .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
