@@ -36,7 +36,7 @@ class MailjetEmailSenderAttachmentSpec extends Specification {
                         .build())
                 )
         then:
-        new PollingConditions(initialDelay: 20, timeout: 240).eventually {
+        new PollingConditions(initialDelay: 10, delay: 20, timeout: 180).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)
         }
     }

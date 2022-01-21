@@ -57,7 +57,7 @@ class JavaxMailEmailSenderAttachmentSpec extends Specification {
                         .content(SpreadsheetUtils.spreadsheet())
                         .build()))
         then:
-        new PollingConditions(timeout: 30).eventually {
+        new PollingConditions(initialDelay: 10, delay: 20, timeout: 180).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)
         }
     }
