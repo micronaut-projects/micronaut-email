@@ -21,7 +21,7 @@ class SesEmailSenderAttachmentSpec extends Specification {
     @Requires({env["AWS_REGION"] && env["AWS_ACCESS_KEY_ID"] && env["AWS_SECRET_ACCESS_KEY"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
     void "Functional test of Email with Attachment for SES integration"() {
         given:
-        String subject = "[SES] Attachment Test"
+        String subject = "[SES] Attachment Test" + UUID.randomUUID().toString()
         String gmail = System.getenv("GMAIL_USERNAME")
 
         when:

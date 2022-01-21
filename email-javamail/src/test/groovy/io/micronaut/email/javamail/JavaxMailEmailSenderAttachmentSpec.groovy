@@ -42,7 +42,7 @@ class JavaxMailEmailSenderAttachmentSpec extends Specification {
     @Requires({env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
     void "Functional test of Email with Attachment for SES integration"() {
         given:
-        String subject = "[Javax Mail] Attachment Test"
+        String subject = "[Javax Mail] Attachment Test" + UUID.randomUUID().toString()
         String gmail = System.getenv("GMAIL_USERNAME")
 
         when:

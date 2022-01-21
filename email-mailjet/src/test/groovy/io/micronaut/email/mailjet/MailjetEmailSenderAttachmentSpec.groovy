@@ -21,7 +21,7 @@ class MailjetEmailSenderAttachmentSpec extends Specification {
     @Requires({env["MAILJET_API_KEY"] && env["MAILJET_API_SECRET"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
     void "Functional test of an Email with Attachment for Mailjet integration"() {
         given:
-        String subject = "[Mailjet Attachment] Test"
+        String subject = "[Mailjet Attachment] Test" + UUID.randomUUID().toString()
         String gmail = System.getenv("GMAIL_USERNAME")
         when:
         emailSender.send(Email.builder()

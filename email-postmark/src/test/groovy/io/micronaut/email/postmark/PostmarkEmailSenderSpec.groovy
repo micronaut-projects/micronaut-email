@@ -19,7 +19,7 @@ class PostmarkEmailSenderSpec extends Specification {
     @Requires({env["POSTMARK_API_TOKEN"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
     void "Functional test of postmark integration"() {
         given:
-        String subject = "[Postmark] Test"
+        String subject = "[Postmark] Test" + UUID.randomUUID().toString()
         String to = System.getenv("GMAIL_USERNAME")
         when:
         emailSender.send(Email.builder()
