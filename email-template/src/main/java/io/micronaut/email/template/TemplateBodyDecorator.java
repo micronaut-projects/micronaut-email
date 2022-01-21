@@ -60,14 +60,18 @@ public interface TemplateBodyDecorator extends EmailDecorator {
         if (optionalBody.isPresent()) {
             Body body = optionalBody.get();
             if (body instanceof TemplateBody) {
-                renderBody((TemplateBody<?>) body);
+                if (body.get(BodyType.HTML).isPresent()) {
+                    renderBody((TemplateBody<?>) body, BodyType.HTML);
+                } else if (body.get(BodyType.TEXT).isPresent()) {
+                    renderBody((TemplateBody<?>) body, BodyType.TEXT);
+                }
             } else if (body instanceof MultipartBody) {
                 MultipartBody multipartBody = (MultipartBody) body;
                 if (multipartBody.getHtml() instanceof TemplateBody) {
-                    renderBody((TemplateBody<?>) multipartBody.getHtml());
+                    renderBody((TemplateBody<?>) multipartBody.getHtml(), BodyType.HTML);
                 }
                 if (multipartBody.getText() instanceof TemplateBody) {
-                    renderBody((TemplateBody<?>) multipartBody.getText());
+                    renderBody((TemplateBody<?>) multipartBody.getText(), BodyType.TEXT);
                 }
             }
         }
@@ -75,14 +79,15 @@ public interface TemplateBodyDecorator extends EmailDecorator {
 
     /**
      * @param body Template Body
+     * @param bodyType Body Type
      */
-    default void renderBody(TemplateBody<?> body) {
+    default void renderBody(@NonNull TemplateBody<?> body, @NonNull BodyType bodyType) {
         ModelAndView<?> modelAndView = body.getModelAndView();
         String viewName = modelAndView.getView().orElse(null);
         if (viewName == null) {
             return;
         }
-        Optional<ViewsRenderer> optionalViewsRenderer = resolveViewsRenderer(body.getType(), viewName, modelAndView.getModel().orElse(null));
+        Optional<ViewsRenderer> optionalViewsRenderer = resolveViewsRenderer(bodyType, viewName, modelAndView.getModel().orElse(null));
         if (!optionalViewsRenderer.isPresent()) {
             return;
         }

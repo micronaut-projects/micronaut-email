@@ -1,13 +1,15 @@
 package io.micronaut.email.docs;
 
+import io.micronaut.email.BodyType;
 import io.micronaut.email.Email;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MicronautTest(startApplication = false)
 public class WelcomeWithTemplateServiceTest {
@@ -38,9 +40,19 @@ public class WelcomeWithTemplateServiceTest {
         assertNull(email.getCc());
         assertNull(email.getBcc());
         assertEquals("Micronaut test", email.getSubject());
-        assertTrue(email.getBody().get().contains(message));
-        assertTrue(email.getBody().get().contains(copyright));
-        assertTrue(email.getBody().get().contains(address));
+        assertNotNull(email.getBody());
+        assertTrue(email.getBody().get(BodyType.TEXT).isPresent());
+
+        String text = email.getBody().get(BodyType.TEXT).get();
+        assertTrue(text.contains(message));
+        assertTrue(text.contains(copyright));
+        assertTrue(text.contains(address));
+        assertTrue(email.getBody().get(BodyType.HTML).isPresent());
+
+        String html = email.getBody().get(BodyType.HTML).get();
+        assertTrue(html.contains("<h2 class=\"cit\">" + message + "</h2>"));
+        assertTrue(html.contains("<div>" + copyright + "</div>"));
+        assertTrue(html.contains("<div>" + address + "</div>"));
     }
 
 

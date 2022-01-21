@@ -1,8 +1,12 @@
 package io.micronaut.email.docs
 
+import io.micronaut.email.BodyType
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 @MicronautTest(startApplication = false)
@@ -31,9 +35,14 @@ class SendAttachmentServiceTest {
         assertNull(emailSender.getEmails()[0].cc)
         assertNull(emailSender.getEmails()[0].bcc)
         assertEquals("Monthly reports", emailSender.getEmails()[0].subject)
+
+        assertNotNull(emailSender.getEmails()[0].body)
+        assertTrue(emailSender.getEmails()[0].body!!.get(BodyType.TEXT).isPresent)
+        assertEquals("Attached Monthly reports", emailSender.getEmails()[0].body!!.get(BodyType.TEXT).get())
+        assertTrue(emailSender.getEmails()[0].body!!.get(BodyType.HTML).isPresent)
         assertEquals(
             "<html><body><strong>Attached Monthly reports</strong>.</body></html>",
-            emailSender.getEmails()[0].body!!.get()
+            emailSender.getEmails()[0].body!!.get(BodyType.HTML).get()
         )
         assertNotNull(emailSender.getEmails()[0].attachments)
         assertEquals(1, emailSender.getEmails()[0].attachments!!.size)

@@ -1,5 +1,6 @@
 package io.micronaut.email.docs
 
+import io.micronaut.email.BodyType
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
 import io.micronaut.email.MultipartBody
@@ -22,8 +23,8 @@ class WelcomeWithTemplateService(private val emailSender: EmailSender<Any, Any>)
                 .to("john@example.com")
                 .subject("Micronaut test")
                 .body(MultipartBody(
-                    TemplateBody(ModelAndView("htmltemplate", model)),
-                    TemplateBody(ModelAndView("texttemplate", model))))
+                    TemplateBody(ModelAndView("htmltemplate", model), BodyType.HTML),
+                    TemplateBody(ModelAndView("texttemplate", model), BodyType.TEXT)))
         )
     }
 

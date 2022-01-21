@@ -1,5 +1,6 @@
 package io.micronaut.email.docs
 
+import io.micronaut.email.BodyType
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
@@ -32,8 +33,23 @@ class WelcomeWithTemplateServiceSpec extends Specification {
         !emailSender.emails[0].bcc
         "Micronaut test" == emailSender.emails[0].subject
         emailSender.emails[0].body
-        emailSender.emails[0].body.get().contains('<h2 class="cit">' + message + '</h2>')
-        emailSender.emails[0].body.get().contains('<div>' + copyright + '</div>')
-        emailSender.emails[0].body.get().contains('<div>' + address + '</div>')
+        emailSender.emails[0].body.get(BodyType.TEXT).isPresent()
+        emailSender.emails[0].body.get(BodyType.HTML).isPresent()
+
+        when:
+        String text = emailSender.emails[0].body.get(BodyType.TEXT)
+
+        then:
+        text.contains(message)
+        text.contains(copyright)
+        text.contains(address)
+
+        when:
+        String html = emailSender.emails[0].body.get(BodyType.HTML)
+
+        then:
+        html.contains('<h2 class="cit">' + message + '</h2>')
+        html.contains('<div>' + copyright + '</div>')
+        html.contains('<div>' + address + '</div>')
     }
 }

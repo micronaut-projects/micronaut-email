@@ -1,5 +1,6 @@
 package io.micronaut.email.docs
 
+import io.micronaut.email.BodyType
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
@@ -26,7 +27,11 @@ class SendAttachmentServiceSpec extends Specification {
         !emailSender.emails[0].cc
         !emailSender.emails[0].bcc
         "Monthly reports" == emailSender.emails[0].subject
-        "<html><body><strong>Attached Monthly reports</strong>.</body></html>" == emailSender.emails[0].body.get()
+        emailSender.emails[0].body
+        emailSender.emails[0].body.get(BodyType.TEXT).isPresent()
+        "Attached Monthly reports" == emailSender.emails[0].body.get(BodyType.TEXT).get()
+        emailSender.emails[0].body.get(BodyType.HTML).isPresent()
+        "<html><body><strong>Attached Monthly reports</strong>.</body></html>" == emailSender.emails[0].body.get(BodyType.HTML).get()
         emailSender.emails[0].attachments
         "reports.xlsx" == emailSender.emails[0].attachments.first().filename
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" == emailSender.emails[0].attachments.first().contentType

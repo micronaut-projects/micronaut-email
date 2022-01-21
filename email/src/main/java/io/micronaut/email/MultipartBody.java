@@ -17,6 +17,8 @@ package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
 
+import java.util.Optional;
+
 /**
  * Multipart bodies represent an HTML and text version of the
  * same body content. For providers that support falling back
@@ -25,23 +27,35 @@ import io.micronaut.core.annotation.NonNull;
  * be sent.
  *
  * @author James Kleeh
+ * @author Sergio del Amo
  * @since 1.0.0
  */
 public class MultipartBody implements Body {
 
+    @NonNull
     private final Body html;
+
+    @NonNull
     private final Body text;
 
     /**
      * @param html The HTML content
      * @param text The text content
      */
+    public MultipartBody(@NonNull String html, @NonNull String text) {
+        this(new StringBody(html, BodyType.HTML), new StringBody(text, BodyType.TEXT));
+    }
+
+    /**
+     * @param html The HTML content
+     * @param text The text content
+     */
     public MultipartBody(@NonNull Body html, @NonNull Body text) {
-        if (html.getType() != BodyType.HTML) {
+        if (!html.get(BodyType.HTML).isPresent()) {
             throw new IllegalArgumentException("Setting the HTML part in a multipart email must have the HTML body type");
         }
-        if (text.getType() != BodyType.TEXT) {
-            throw new IllegalArgumentException("Setting the Text part in a multipart email must have the Text body type");
+        if (!text.get(BodyType.TEXT).isPresent()) {
+            throw new IllegalArgumentException("Setting the HTML part in a multipart email must have the HTML body type");
         }
         this.html = html;
         this.text = text;
@@ -51,16 +65,8 @@ public class MultipartBody implements Body {
      * @param html The HTML content
      * @param text The text content
      */
-    public MultipartBody(@NonNull String html, @NonNull String text) {
-        this(new StringBody(html), new StringBody(text));
-    }
-
-    /**
-     * @param html The HTML content
-     * @param text The text content
-     */
     public MultipartBody(@NonNull Body html, @NonNull String text) {
-        this(html, new StringBody(text));
+        this(html, new StringBody(text, BodyType.TEXT));
     }
 
     /**
@@ -68,31 +74,36 @@ public class MultipartBody implements Body {
      * @param text The text content
      */
     public MultipartBody(@NonNull String html, @NonNull Body text) {
-        this(new StringBody(html), text);
+        this(new StringBody(html, BodyType.HTML), text);
     }
 
-    @NonNull
     @Override
-    public String get() {
-        return html.get();
-    }
-
     @NonNull
-    @Override
-    public BodyType getType() {
-        return BodyType.HTML;
+    public Optional<String> get(@NonNull BodyType bodyType) {
+        switch (bodyType) {
+            case TEXT:
+                return text.get(bodyType);
+            case HTML:
+            default:
+                return html.get(bodyType);
+        }
     }
 
     /**
-     * @return The HTML content
+     *
+     * @return HTML Part
      */
+    @NonNull
     public Body getHtml() {
         return html;
     }
 
+
     /**
-     * @return The text content
+     *
+     * @return Text Part
      */
+    @NonNull
     public Body getText() {
         return text;
     }

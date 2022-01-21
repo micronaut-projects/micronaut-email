@@ -45,6 +45,9 @@ import java.util.Optional;
 @Singleton
 public class SendgridEmailComposer implements EmailComposer<Request> {
 
+    private static final String CONTENT_TYPE_TEXT_HTML = "text/html";
+    private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
+
     @Override
     @NonNull
     public Request compose(@NonNull @NotNull @Valid Email email) throws EmailException {
@@ -147,16 +150,14 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
     @NonNull
     private Optional<Content> contentOfEmail(@NonNull Email email) {
         Body body = email.getBody();
-        if (body != null) {
-            String contentType = null;
-            if (body.getType() == BodyType.HTML) {
-                contentType = "text/html";
-            } else if (body.getType() == BodyType.TEXT) {
-                contentType = "text/plain";
-            }
-            return Optional.ofNullable(contentType)
-                    .map(ct -> new Content(ct, body.get()));
+        if (body == null) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        Optional<String> str = body.get(BodyType.HTML);
+        if (str.isPresent()) {
+            return Optional.of(new Content(CONTENT_TYPE_TEXT_HTML, str.get()));
+        }
+        str = body.get(BodyType.TEXT);
+        return str.map(s -> new Content(CONTENT_TYPE_TEXT_PLAIN, s));
     }
 }

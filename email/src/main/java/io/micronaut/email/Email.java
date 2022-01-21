@@ -370,7 +370,7 @@ public final class Email implements Recipients {
             this.body = body;
             return this;
         }
-
+        
         /**
          * @param body Email body
          * @param bodyType Email body type
@@ -383,12 +383,23 @@ public final class Email implements Recipients {
         }
 
         /**
-         * @param body Email body
+         * @param text Email body text
          * @return The Email Builder
          */
         @NonNull
-        public Builder body(@NonNull String body) {
-            this.body = new StringBody(body);
+        public Builder body(@NonNull String text) {
+            this.body = new StringBody(text);
+            return this;
+        }
+
+        /**
+         * @param html Email body HTML
+         * @param text Email body Text
+         * @return The Email Builder
+         */
+        @NonNull
+        public Builder body(@NonNull String html, @NonNull String text) {
+            this.body = new MultipartBody(new StringBody(html, BodyType.HTML), new StringBody(text, BodyType.TEXT));
             return this;
         }
 

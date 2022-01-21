@@ -93,24 +93,24 @@ public class DefaultMessageComposer implements MessageComposer {
     @NonNull
     private List<MimeBodyPart> bodyParts(@NonNull Email email) throws MessagingException {
         List<MimeBodyPart> parts = new ArrayList<>();
-        bodyPart(email).ifPresent(parts::add);
+        Body body = email.getBody();
+        if (body != null) {
+            partForContent(TYPE_TEXT_PLAIN_CHARSET_UTF_8, body.get(BodyType.TEXT).orElse(null)).ifPresent(parts::add);
+            partForContent(TYPE_TEXT_HTML_CHARSET_UTF_8, body.get(BodyType.HTML).orElse(null)).ifPresent(parts::add);
+        }
         parts.addAll(attachmentBodyParts(email));
         return parts;
     }
 
     @NonNull
-    private Optional<MimeBodyPart> bodyPart(@NonNull Email email) throws MessagingException {
-        Body body = email.getBody();
-        if (body != null) {
-            MimeBodyPart bodyPart = new MimeBodyPart();
-            if (body.getType() == BodyType.HTML) {
-                bodyPart.setContent(body.get(), TYPE_TEXT_HTML_CHARSET_UTF_8);
-            } else if (body.getType() == BodyType.TEXT) {
-                bodyPart.setContent(body.get(), TYPE_TEXT_PLAIN_CHARSET_UTF_8);
-            }
-            return Optional.of(bodyPart);
+    private Optional<MimeBodyPart> partForContent(@NonNull String type,
+                                                  @Nullable String content) throws MessagingException {
+        if (content == null) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        MimeBodyPart part = new MimeBodyPart();
+        part.setContent(content, type);
+        return Optional.of(part);
     }
 
     @NonNull

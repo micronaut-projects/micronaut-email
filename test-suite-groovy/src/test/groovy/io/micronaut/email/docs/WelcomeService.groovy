@@ -18,6 +18,6 @@ class WelcomeService {
                 .from("sender@example.com")
                 .to("john@example.com")
                 .subject("Micronaut test")
-                .body("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>"))
+                .body("<html><body><strong>Hello</strong> dear Micronaut user.</body></html>", "Hello dear Micronaut user"))
     }
 }

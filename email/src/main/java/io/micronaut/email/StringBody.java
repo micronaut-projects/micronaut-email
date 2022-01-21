@@ -17,6 +17,8 @@ package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
 
+import java.util.Optional;
+
 /**
  * Email body backed by a String.
  *
@@ -40,13 +42,7 @@ public class StringBody implements Body {
 
     @Override
     @NonNull
-    public String get() {
-        return text;
-    }
-
-    @NonNull
-    @Override
-    public BodyType getType() {
-        return bodyType;
+    public Optional<String> get(@NonNull BodyType bodyType) {
+        return this.bodyType == bodyType ? Optional.of(text) : Optional.empty();
     }
 }

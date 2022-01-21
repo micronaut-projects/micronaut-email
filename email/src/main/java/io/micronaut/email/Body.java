@@ -17,21 +17,17 @@ package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
 
+import java.util.Optional;
+
 /**
  * Represents the body of an email.
  *
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@FunctionalInterface
 public interface Body {
 
-    /**
-     *
-     * @return The Email Body
-     */
     @NonNull
-    String get();
-
-    @NonNull
-    BodyType getType();
+    Optional<String> get(@NonNull BodyType bodyType);
 }

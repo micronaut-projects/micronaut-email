@@ -16,10 +16,13 @@
 package io.micronaut.email.template;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
 import io.micronaut.views.ModelAndView;
+
+import java.util.Optional;
 
 /**
  * Email HTML Body backed by a template.
@@ -32,14 +35,19 @@ public class TemplateBody<T> implements Body {
 
     @NonNull
     private final ModelAndView<T> modelAndView;
-    private String body;
+
+    @NonNull
+    private String body = StringUtils.EMPTY_STRING;
+
+    @NonNull
     private final BodyType bodyType;
 
     /**
+     * Body HTML with view name and model.
      * @param view  view name to be rendered
      * @param model Model to be rendered against the view
      */
-    public TemplateBody(String view, T model) {
+    public TemplateBody(@Nullable String view, @Nullable T model) {
         this(new ModelAndView<>(view, model));
     }
 
@@ -55,7 +63,7 @@ public class TemplateBody<T> implements Body {
      * @param model Model to be rendered against the view
      * @param bodyType The content type of the template
      */
-    public TemplateBody(String view, T model, BodyType bodyType) {
+    public TemplateBody(@Nullable String view, T model,  @NonNull BodyType bodyType) {
         this(new ModelAndView<>(view, model), bodyType);
     }
 
@@ -63,7 +71,7 @@ public class TemplateBody<T> implements Body {
      * @param modelAndView Emails Template's name and model for html
      * @param bodyType The content type of the template
      */
-    public TemplateBody(@NonNull ModelAndView<T> modelAndView, BodyType bodyType) {
+    public TemplateBody(@NonNull ModelAndView<T> modelAndView, @NonNull BodyType bodyType) {
         this.modelAndView = modelAndView;
         this.bodyType = bodyType;
     }
@@ -85,16 +93,7 @@ public class TemplateBody<T> implements Body {
 
     @Override
     @NonNull
-    public String get() {
-        if (body == null) {
-            return StringUtils.EMPTY_STRING;
-        }
-        return body;
-    }
-
-    @NonNull
-    @Override
-    public BodyType getType() {
-        return bodyType;
+    public Optional<String> get(@NonNull BodyType bodyType) {
+        return this.bodyType == bodyType ? Optional.of(body) : Optional.empty();
     }
 }
