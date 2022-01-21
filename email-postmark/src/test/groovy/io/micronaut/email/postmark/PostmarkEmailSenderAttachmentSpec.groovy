@@ -35,8 +35,8 @@ class PostmarkEmailSenderAttachmentSpec extends Specification {
                         .content(SpreadsheetUtils.spreadsheet())
                         .build()))
         then:
-        new PollingConditions(initialDelay: 10, delay: 20, timeout: 180).eventually {
-            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(to, System.getenv("GMAIL_PASSWORD"), subject)
+        new PollingConditions(initialDelay: 10, delay: 20, timeout: 300).eventually {
+            1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)
         }
     }
 }
