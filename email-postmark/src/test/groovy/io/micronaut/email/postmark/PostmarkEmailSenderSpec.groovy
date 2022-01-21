@@ -2,6 +2,7 @@ package io.micronaut.email.postmark
 
 
 import io.micronaut.email.Email
+import io.micronaut.email.test.CiUtils
 import io.micronaut.email.test.MailTestUtils
 import io.micronaut.email.EmailSender
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
@@ -16,7 +17,7 @@ class PostmarkEmailSenderSpec extends Specification {
     @Inject
     EmailSender emailSender
 
-    @Requires({env["POSTMARK_API_TOKEN"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
+    @Requires({env["POSTMARK_API_TOKEN"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))})
     void "Functional test of postmark integration"() {
         given:
         String subject = "[Postmark] Test" + UUID.randomUUID().toString()

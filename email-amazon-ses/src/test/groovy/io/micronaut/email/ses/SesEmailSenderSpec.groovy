@@ -2,6 +2,7 @@ package io.micronaut.email.ses
 
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
+import io.micronaut.email.test.CiUtils
 import io.micronaut.email.test.MailTestUtils
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -20,7 +21,7 @@ class SesEmailSenderSpec extends Specification {
                 env["AWS_ACCESS_KEY_ID"] &&
                 env["AWS_SECRET_ACCESS_KEY"] &&
                 env["GMAIL_USERNAME"] &&
-                env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11())) })
+                env["GMAIL_PASSWORD"] && (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11())) })
     void "Functional test of SES integration"() {
         given:
         String subject = "[SES] Test" + UUID.randomUUID().toString()

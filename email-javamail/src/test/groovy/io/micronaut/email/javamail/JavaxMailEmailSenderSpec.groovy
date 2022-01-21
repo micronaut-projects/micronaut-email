@@ -7,6 +7,7 @@ import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
 import io.micronaut.email.javamail.sender.MailPropertiesProvider
 import io.micronaut.email.javamail.sender.SessionProvider
+import io.micronaut.email.test.CiUtils
 import io.micronaut.email.test.MailTestUtils
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -35,7 +36,7 @@ class JavaxMailEmailSenderSpec extends Specification {
     @Shared
     EmailSender emailSender = applicationContext.getBean(EmailSender)
 
-    @Requires({env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
+    @Requires({env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))})
     void "Functional test of SES integration"() {
         given:
         String subject = "[Javax Mail] Test" + UUID.randomUUID().toString()

@@ -3,6 +3,7 @@ package io.micronaut.email.postmark
 import io.micronaut.email.Attachment
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
+import io.micronaut.email.test.CiUtils
 import io.micronaut.email.test.MailTestUtils
 import io.micronaut.email.test.SpreadsheetUtils
 import io.micronaut.http.MediaType
@@ -18,7 +19,7 @@ class PostmarkEmailSenderAttachmentSpec extends Specification {
     @Inject
     EmailSender emailSender
 
-    @Requires({env["POSTMARK_API_TOKEN"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && ((!(env['CI'] as boolean) == false) || ((env['CI'] as boolean) && jvm.isJava11()))})
+    @Requires({env["POSTMARK_API_TOKEN"] && env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] && (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))})
     void "Functional test for an Email with attachment and Postmark integration"() {
         given:
         String subject = "[Postmark] Attachment Test" + UUID.randomUUID().toString()
