@@ -1,0 +1,5 @@
+To use https://javaee.github.io/javamail/[JavaMail], add the following dependency to your application.
+
+dependency:micronaut-email-javamail[groupId="io.micronaut.email"]
+
+You need to provide beans of type api:io.micronaut.email.javamail.sender.MailPropertiesProvider[] and api:io.micronaut.email.javamail.sender.SessionProvider[] to match your configuration.

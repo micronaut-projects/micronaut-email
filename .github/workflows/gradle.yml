@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: ['8', '11', '16']
+        java: ['8', '11', '17']
     steps:
        # https://github.com/actions/virtual-environments/issues/709
       - name: Free disk space
@@ -51,8 +51,21 @@ jobs:
           if [ ${{ matrix.java }} == 16 ]; then export GRADLE_OPTS="-Dorg.gradle.jvmargs=--illegal-access=permit"; fi
           ./gradlew dependencyUpdates check --no-daemon --parallel --continue
         env:
-           TESTCONTAINERS_RYUK_DISABLED: true
-           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          SES_ENABLED: ${{ secrets.SES_ENABLED }}
+          SENDGRID_ENABLED: ${{ secrets.SENDGRID_ENABLED }}
+          MAILJET_ENABLED: ${{ secrets.MAILJET_ENABLED }}
+          POSTMARK_ENABLED: ${{ secrets.POSTMARK_ENABLED }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          POSTMARK_API_TOKEN: ${{ secrets.POSTMARK_API_TOKEN }}
+          MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
+          MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
+          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          TESTCONTAINERS_RYUK_DISABLED: true
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
       - name: Publish Test Report
         if: always()
         uses: mikepenz/action-junit-report@v2

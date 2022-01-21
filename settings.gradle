@@ -9,6 +9,19 @@ plugins {
     id 'io.micronaut.build.shared.settings' version '5.1.1'
 }
 
-rootProject.name = 'xxx-parent'
+rootProject.name = 'email-parent'
 
-include 'xxx'
+include 'email'
+include 'email-bom'
+include 'email-javamail'
+include 'email-javamail-composer'
+include 'email-bom'
+include 'email-sendgrid'
+include 'email-amazon-ses'
+include 'email-postmark'
+include 'email-mailjet'
+include 'email-template'
+include 'test-suite-utils'
+include 'test-suite'
+include 'test-suite-groovy'
+include 'test-suite-kotlin'

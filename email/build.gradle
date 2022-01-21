@@ -1,0 +1,10 @@
+plugins {
+    id("io.micronaut.build.internal.module")
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-validation")
+    implementation("io.micronaut:micronaut-validation")
+    api("io.micronaut:micronaut-context")
+    implementation("io.micronaut.reactor:micronaut-reactor")
+}

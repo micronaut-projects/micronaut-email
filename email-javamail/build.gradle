@@ -1,0 +1,12 @@
+plugins {
+    id("io.micronaut.build.internal.module")
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-validation")
+    api(project(":email-javamail-composer"))
+    implementation("io.micronaut:micronaut-validation")
+    testImplementation(project(":test-suite-utils"))
+    testImplementation("io.micronaut:micronaut-http")
+    testCompileOnly("io.micronaut:micronaut-inject-groovy:$micronautVersion")
+}

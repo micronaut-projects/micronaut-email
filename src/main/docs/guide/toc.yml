@@ -3,5 +3,18 @@ introduction:
 releaseHistory: Release History
 quickStart:
   title: Quick Start
+attachments:
+  title: Attachments
+decorators:
+  title: Decorators
+template:
+  title: Templates
+integrations:
+  title: Integrations
+  ses: SES
+  postmark: Postmark
+  sendgrid: SendGrid
+  mailjet: Mailjet
+  javamail: JavaMail
 repository: Repository
 
