@@ -78,25 +78,21 @@
 </dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/email/AbstractTransactionalEmailSender.html#AbstractTransactionalEmailSender-java.util.concurrent.ExecutorService-">AbstractTransactionalEmailSender(ExecutorService)</a></span> - Constructor for class io.micronaut.email.<a href="io/micronaut/email/AbstractTransactionalEmailSender.html" title="class in io.micronaut.email">AbstractTransactionalEmailSender</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/email/validation/EmailMessages.html#ANY_CONTENT_MESSAGE">ANY_CONTENT_MESSAGE</a></span> - Static variable in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/EmailMessages.html" title="class in io.micronaut.email.validation">EmailMessages</a></dt>
-<dd>
-<div class="block"><a href="io/micronaut/email/validation/AnyContent.html" title="annotation in io.micronaut.email.validation"><code>AnyContent</code></a> message.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/email/validation/EmailMessages.html#ANY_RECIPIENT_MESSAGE">ANY_RECIPIENT_MESSAGE</a></span> - Static variable in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/EmailMessages.html" title="class in io.micronaut.email.validation">EmailMessages</a></dt>
 <dd>
 <div class="block"><a href="io/micronaut/email/validation/AnyRecipient.html" title="annotation in io.micronaut.email.validation"><code>AnyRecipient</code></a> message.</div>
 </dd>
-<dt><a href="io/micronaut/email/validation/AnyContent.html" title="annotation in io.micronaut.email.validation"><span class="typeNameLink">AnyContent</span></a> - Annotation Type in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
-<dd>
-<div class="block">The annotated type must have content.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/email/validation/EmailFactory.html#anyContentEmailConstraintValidator--">anyContentEmailConstraintValidator()</a></span> - Method in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/EmailFactory.html" title="class in io.micronaut.email.validation">EmailFactory</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/validation/AnyRecipient.html" title="annotation in io.micronaut.email.validation"><span class="typeNameLink">AnyRecipient</span></a> - Annotation Type in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
 <dd>
 <div class="block">The annotated type must have a recipient.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/email/validation/EmailFactory.html#anyRecipientEmailConstraintValidator--">anyRecipientEmailConstraintValidator()</a></span> - Method in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/EmailFactory.html" title="class in io.micronaut.email.validation">EmailFactory</a></dt>
+<dt><a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html" title="class in io.micronaut.email.validation"><span class="typeNameLink">AnyRecipientConstraintValidatorFactory</span></a> - Class in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
+<dd>
+<div class="block">Builds <code>ConstraintValidator</code> for <a href="io/micronaut/email/validation/AnyRecipient.html" title="annotation in io.micronaut.email.validation"><code>AnyRecipient</code></a> for <a href="io/micronaut/email/Email.html" title="class in io.micronaut.email"><code>Email</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html#AnyRecipientConstraintValidatorFactory--">AnyRecipientConstraintValidatorFactory()</a></span> - Constructor for class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidatorFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html#anyRecipientEmailConstraintValidator--">anyRecipientEmailConstraintValidator()</a></span> - Method in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidatorFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/AsyncEmailSender.html" title="interface in io.micronaut.email"><span class="typeNameLink">AsyncEmailSender</span></a>&lt;<a href="io/micronaut/email/AsyncEmailSender.html" title="type parameter in AsyncEmailSender">I</a>,<a href="io/micronaut/email/AsyncEmailSender.html" title="type parameter in AsyncEmailSender">O</a>&gt; - Interface in <a href="io/micronaut/email/package-summary.html">io.micronaut.email</a></dt>
 <dd>
@@ -309,12 +305,6 @@
 <dt><span class="memberNameLink"><a href="io/micronaut/email/EmailException.html#EmailException-java.lang.Throwable-">EmailException(Throwable)</a></span> - Constructor for exception io.micronaut.email.<a href="io/micronaut/email/EmailException.html" title="class in io.micronaut.email">EmailException</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/email/EmailException.html#EmailException-java.lang.String-">EmailException(String)</a></span> - Constructor for exception io.micronaut.email.<a href="io/micronaut/email/EmailException.html" title="class in io.micronaut.email">EmailException</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/micronaut/email/validation/EmailFactory.html" title="class in io.micronaut.email.validation"><span class="typeNameLink">EmailFactory</span></a> - Class in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
-<dd>
-<div class="block">Builds <code>ConstraintValidator</code> for <a href="io/micronaut/email/validation/AnyContent.html" title="annotation in io.micronaut.email.validation"><code>AnyContent</code></a>, <a href="io/micronaut/email/validation/AnyRecipient.html" title="annotation in io.micronaut.email.validation"><code>AnyRecipient</code></a> for <a href="io/micronaut/email/Email.html" title="class in io.micronaut.email"><code>Email</code></a>.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/email/validation/EmailFactory.html#EmailFactory--">EmailFactory()</a></span> - Constructor for class io.micronaut.email.validation.<a href="io/micronaut/email/validation/EmailFactory.html" title="class in io.micronaut.email.validation">EmailFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/validation/EmailMessages.html" title="class in io.micronaut.email.validation"><span class="typeNameLink">EmailMessages</span></a> - Class in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
 <dd>
@@ -618,10 +608,6 @@
 </dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/email/javamail/sender/MailPropertiesProviderFactory.html#MailPropertiesProviderFactory--">MailPropertiesProviderFactory()</a></span> - Constructor for class io.micronaut.email.javamail.sender.<a href="io/micronaut/email/javamail/sender/MailPropertiesProviderFactory.html" title="class in io.micronaut.email.javamail.sender">MailPropertiesProviderFactory</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/email/validation/AnyContent.html#MESSAGE">MESSAGE</a></span> - Static variable in annotation type io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyContent.html" title="annotation in io.micronaut.email.validation">AnyContent</a></dt>
-<dd>
-<div class="block">AnyContent message.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/email/validation/AnyRecipient.html#MESSAGE">MESSAGE</a></span> - Static variable in annotation type io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipient.html" title="annotation in io.micronaut.email.validation">AnyRecipient</a></dt>
 <dd>
 <div class="block">AnyRecipient message.</div>
