@@ -41,7 +41,7 @@ class TransactionalEmailSenderSpec extends Specification {
         [EmailMessages.ANY_RECIPIENT_MESSAGE]  | Email.builder().from("tcook@apple.com").subject("Hello World").body("I love Apple Music").build()  | 'any recipient is validated'
         ["must not be blank"]                  | Email.builder().from("tcook@apple.com").to("ecue@apple.com").body("I love Apple Music").build()    | 'subject is validated'
         ["must not be null"]                   | Email.builder().subject("Hello World").to("ecue@apple.com").body("I love Apple Music").build()     | 'from is validated'
-        [EmailMessages.ANY_CONTENT_MESSAGE]    | Email.builder().from("tcook@apple.com").to("ecue@apple.com").subject("Hello World").build()        | 'text or html is required'
+        ["must not be null"]                   | Email.builder().from("tcook@apple.com").to("ecue@apple.com").subject("Hello World").build()        | 'body is required'
     }
 
     @Requires(property = 'spec.name', value = 'TransactionalEmailSenderSpec')
