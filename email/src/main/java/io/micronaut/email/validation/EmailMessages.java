@@ -33,11 +33,6 @@ public class EmailMessages extends StaticMessageSource {
     public static final String ANY_RECIPIENT_MESSAGE = "You have to specify to, cc or a bcc recipient";
 
     /**
-     * {@link AnyContent} message.
-     */
-    @SuppressWarnings("WeakerAccess")
-    public static final String ANY_CONTENT_MESSAGE = "You have to specify text, html or both";
-    /**
      * The message suffix to use.
      */
     private static final String MESSAGE_SUFFIX = ".message";
@@ -48,6 +43,5 @@ public class EmailMessages extends StaticMessageSource {
      */
     public EmailMessages() {
         addMessage(AnyRecipient.class.getName() + MESSAGE_SUFFIX, ANY_RECIPIENT_MESSAGE);
-        addMessage(AnyContent.class.getName() + MESSAGE_SUFFIX, ANY_CONTENT_MESSAGE);
     }
 }

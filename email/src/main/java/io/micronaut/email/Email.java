@@ -18,7 +18,6 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.email.validation.AnyContent;
 import io.micronaut.email.validation.AnyRecipient;
 import io.micronaut.email.validation.Recipients;
 
@@ -36,7 +35,6 @@ import java.util.function.Consumer;
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@AnyContent
 @AnyRecipient
 @Introspected
 public final class Email implements Recipients {
@@ -69,7 +67,8 @@ public final class Email implements Recipients {
     @Nullable
     private final List<Attachment> attachments;
 
-    @Nullable
+    @NonNull
+    @NotNull
     private final Body body;
 
     /**

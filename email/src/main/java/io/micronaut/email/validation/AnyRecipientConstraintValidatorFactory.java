@@ -21,13 +21,13 @@ import jakarta.inject.Singleton;
 import io.micronaut.validation.validator.constraints.ConstraintValidator;
 
 /**
- * Builds {@link ConstraintValidator} for {@link AnyContent}, {@link io.micronaut.email.validation.AnyRecipient} for {@link Email}.
+ * Builds {@link ConstraintValidator} for {@link io.micronaut.email.validation.AnyRecipient} for {@link Email}.
  *
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Factory
-public class EmailFactory {
+public class AnyRecipientConstraintValidatorFactory {
     /**
      * @return A {@link ConstraintValidator} implementation of a {@link AnyRecipient} validator for type {@link Email}
      */
@@ -38,19 +38,6 @@ public class EmailFactory {
                 return true;
             }
             return RecipientsUtils.isValid(value);
-        };
-    }
-
-    /**
-     * @return A {@link ConstraintValidator} implementation of a {@link AnyContent} validator for type {@link Email}
-     */
-    @Singleton
-    public ConstraintValidator<AnyContent, Email> anyContentEmailConstraintValidator() {
-        return (value, annotationMetadata, context) -> {
-            if (value == null) {
-                return true;
-            }
-            return value.getBody() != null;
         };
     }
 }
