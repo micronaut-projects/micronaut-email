@@ -20,6 +20,7 @@ import com.wildbit.java.postmark.client.ApiClient;
 import com.wildbit.java.postmark.client.data.model.message.Message;
 import com.wildbit.java.postmark.client.data.model.message.MessageResponse;
 import com.wildbit.java.postmark.client.exception.PostmarkException;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.AbstractTransactionalEmailSender;
 import io.micronaut.email.Email;
@@ -43,6 +44,7 @@ import java.util.function.Consumer;
  * @since 1.0.0
  */
 @Named(PostmarkEmailSender.NAME)
+@Requires(beans = { PostmarkConfiguration.class, PostmarkEmailComposer.class })
 @Singleton
 public class PostmarkEmailSender extends AbstractTransactionalEmailSender<Message, MessageResponse> {
     /**

@@ -19,6 +19,7 @@ import com.sendgrid.APICallback;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.AsyncTransactionalEmailSender;
 import io.micronaut.email.Email;
@@ -42,6 +43,7 @@ import java.util.stream.Collectors;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@Requires(beans = { SendGridConfiguration.class, SendgridEmailComposer.class })
 @Named(SendgridEmailSender.NAME)
 @Singleton
 public class SendgridEmailSender implements TransactionalEmailSender<Request, Response>,
