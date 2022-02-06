@@ -88,6 +88,6 @@ public class AsyncSesEmailSender implements AsyncTransactionalEmailSender<SesReq
         } else if (sesRequest instanceof SendEmailRequest) {
             return Mono.fromFuture(ses.sendEmail((SendEmailRequest) sesRequest));
         }
-        throw new EmailException("SesRequest returned by SesEmailComposer should be either SendRawEmailRequest or SendEmailRequest");
+        return Mono.error(new EmailException("SesRequest returned by SesEmailComposer should be either SendRawEmailRequest or SendEmailRequest"));
     }
 }
