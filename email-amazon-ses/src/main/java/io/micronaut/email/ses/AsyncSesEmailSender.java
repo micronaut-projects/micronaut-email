@@ -82,7 +82,15 @@ public class AsyncSesEmailSender implements AsyncTransactionalEmailSender<SesReq
     @SingleResult
     public Publisher<SesResponse> sendAsync(@NonNull @NotNull @Valid Email email,
                                             @NonNull @NotNull Consumer<SesRequest> emailRequest) throws EmailException {
-        SesRequest sesRequest = messageComposer.compose(email, emailRequest);
+        try {
+            return sendAsync(messageComposer.compose(email, emailRequest));
+        } catch (EmailException e) {
+            return Mono.error(e);
+        }
+    }
+
+    @NonNull
+    private Publisher<SesResponse> sendAsync(@NonNull SesRequest sesRequest) {
         if (sesRequest instanceof SendRawEmailRequest) {
             return Mono.fromFuture(ses.sendRawEmail((SendRawEmailRequest) sesRequest));
         } else if (sesRequest instanceof SendEmailRequest) {
