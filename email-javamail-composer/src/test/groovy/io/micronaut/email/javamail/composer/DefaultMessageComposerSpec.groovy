@@ -88,4 +88,29 @@ class DefaultMessageComposerSpec extends Specification {
         subject == message.getSubject()
         !message.getRecipients(Message.RecipientType.CC)
     }
+
+    void "from, to, reply to and subject are put to the mime message"() {
+        given:
+        def from = "sender@example.com"
+        def to = "receiver@example.com"
+        def replyTo = "sender.reply.to@example.com"
+        def subject = "Apple Music"
+
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .replyTo(replyTo)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .build()
+        when:
+        def message = defaultMessageComposer.compose(email, null)
+
+        then:
+        [from] == message.from.toList().collect {it.address }
+        [to] == message.getRecipients(Message.RecipientType.TO).toList().collect{it.address}
+        [replyTo] == message.replyTo.toList().collect {it.address }
+        subject == message.getSubject()
+        !message.getRecipients(Message.RecipientType.CC)
+    }
 }
