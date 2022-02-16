@@ -69,7 +69,7 @@ public class DefaultMessageComposer implements MessageComposer {
             message.setRecipients(Message.RecipientType.CC, contactAddresses(email.getCc()));
         }
         if (CollectionUtils.isNotEmpty(email.getBcc())) {
-            message.setRecipients(Message.RecipientType.CC, contactAddresses(email.getBcc()));
+            message.setRecipients(Message.RecipientType.BCC, contactAddresses(email.getBcc()));
         }
         MimeMultipart multipart = new MimeMultipart();
         for (MimeBodyPart bodyPart : bodyParts(email)) {

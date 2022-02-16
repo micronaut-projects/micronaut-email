@@ -63,4 +63,29 @@ class DefaultMessageComposerSpec extends Specification {
         subject == message.getSubject()
         !message.getRecipients(Message.RecipientType.BCC)
     }
+
+    void "from, to, bcc and subject are put to the mime message"() {
+        given:
+        def from = "sender@example.com"
+        def to = "receiver@example.com"
+        def bcc = "receiver.bcc@example.com"
+        def subject = "Apple Music"
+
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .bcc(bcc)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .build()
+        when:
+        def message = defaultMessageComposer.compose(email, null)
+
+        then:
+        [from] == message.from.toList().collect {it.address }
+        [to] == message.getRecipients(Message.RecipientType.TO).toList().collect{it.address}
+        [bcc] == message.getRecipients(Message.RecipientType.BCC).toList().collect{it.address}
+        subject == message.getSubject()
+        !message.getRecipients(Message.RecipientType.CC)
+    }
 }
