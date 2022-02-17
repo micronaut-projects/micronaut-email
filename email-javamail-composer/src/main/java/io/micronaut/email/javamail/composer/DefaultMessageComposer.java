@@ -43,6 +43,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * {@link io.micronaut.context.annotation.DefaultImplementation} of {@link MessageComposer}.
@@ -69,7 +71,10 @@ public class DefaultMessageComposer implements MessageComposer {
             message.setRecipients(Message.RecipientType.CC, contactAddresses(email.getCc()));
         }
         if (CollectionUtils.isNotEmpty(email.getBcc())) {
-            message.setRecipients(Message.RecipientType.CC, contactAddresses(email.getBcc()));
+            message.setRecipients(Message.RecipientType.BCC, contactAddresses(email.getBcc()));
+        }
+        if (null != email.getReplyTo()) {
+            message.setReplyTo(contactAddresses(Stream.of(email.getReplyTo()).collect(Collectors.toList())));
         }
         MimeMultipart multipart = new MimeMultipart();
         for (MimeBodyPart bodyPart : bodyParts(email)) {
