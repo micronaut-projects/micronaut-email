@@ -45,7 +45,7 @@ class SesEmailSenderAttachmentSpec extends Specification {
                         .content(SpreadsheetUtils.spreadsheet())
                         .build()))
         then:
-        new PollingConditions(initialDelay: 10, delay: 20, timeout: 180).eventually {
+        new PollingConditions(initialDelay: 10, delay: 20, timeout: 600, factor: 1.25).eventually {
             1 == MailTestUtils.countAndDeleteInboxEmailsBySubject(subject)
         }
     }
