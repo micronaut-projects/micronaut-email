@@ -43,6 +43,8 @@ jobs:
       - name: Optional setup step
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
+          GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
         run: |
           [ -f ./setup.sh ] && ./setup.sh || true
       - name: Build with Gradle
@@ -51,24 +53,13 @@ jobs:
           if [ ${{ matrix.java }} == 16 ]; then export GRADLE_OPTS="-Dorg.gradle.jvmargs=--illegal-access=permit"; fi
           ./gradlew dependencyUpdates check --no-daemon --parallel --continue
         env:
-          SES_ENABLED: ${{ secrets.SES_ENABLED }}
-          SENDGRID_ENABLED: ${{ secrets.SENDGRID_ENABLED }}
-          MAILJET_ENABLED: ${{ secrets.MAILJET_ENABLED }}
-          POSTMARK_ENABLED: ${{ secrets.POSTMARK_ENABLED }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          POSTMARK_API_TOKEN: ${{ secrets.POSTMARK_API_TOKEN }}
-          MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
-          MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
-          GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
-          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          TESTCONTAINERS_RYUK_DISABLED: true
-          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+           TESTCONTAINERS_RYUK_DISABLED: true
+           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+           GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
+           GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
       - name: Publish Test Report
         if: always()
-        uses: mikepenz/action-junit-report@v2
+        uses: mikepenz/action-junit-report@v2.9.1
         with:
           check_name: Java CI / Test Report (${{ matrix.java }})
           report_paths: '**/build/test-results/test/TEST-*.xml'
@@ -78,6 +69,8 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
+          GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
         run: ./gradlew publishToSonatype docs --no-daemon
       - name: Determine docs target repository
         uses: haya14busa/action-cond@v1
