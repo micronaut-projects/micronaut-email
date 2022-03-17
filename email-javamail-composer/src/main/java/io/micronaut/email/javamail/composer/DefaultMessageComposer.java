@@ -30,6 +30,7 @@ import javax.activation.DataSource;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -42,12 +43,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * {@link io.micronaut.context.annotation.DefaultImplementation} of {@link MessageComposer}.
+ *
  * @author Sergio del Amo
  * @since 1.0.0
  */
@@ -77,11 +78,28 @@ public class DefaultMessageComposer implements MessageComposer {
             message.setReplyTo(contactAddresses(Stream.of(email.getReplyTo()).collect(Collectors.toList())));
         }
         MimeMultipart multipart = new MimeMultipart();
-        for (MimeBodyPart bodyPart : bodyParts(email)) {
+
+        Body body = email.getBody();
+        if (body != null) {
+            // First add the body in an alternative body part
+            Multipart alternativeBody = alternativePart(multipart);
+            partForContent(alternativeBody, TYPE_TEXT_PLAIN_CHARSET_UTF_8, body.get(BodyType.TEXT).orElse(null));
+            partForContent(alternativeBody, TYPE_TEXT_HTML_CHARSET_UTF_8, body.get(BodyType.HTML).orElse(null));
+        }
+        for (MimeBodyPart bodyPart : attachmentBodyParts(email)) {
             multipart.addBodyPart(bodyPart);
         }
         message.setContent(multipart);
         return message;
+    }
+
+    @NonNull
+    private Multipart alternativePart(Multipart parent) throws MessagingException {
+        MimeMultipart child = new MimeMultipart("alternative");
+        final MimeBodyPart mbp = new MimeBodyPart();
+        parent.addBodyPart(mbp);
+        mbp.setContent(child);
+        return child;
     }
 
     @NonNull
@@ -95,27 +113,14 @@ public class DefaultMessageComposer implements MessageComposer {
         return array;
     }
 
-    @NonNull
-    private List<MimeBodyPart> bodyParts(@NonNull Email email) throws MessagingException {
-        List<MimeBodyPart> parts = new ArrayList<>();
-        Body body = email.getBody();
-        if (body != null) {
-            partForContent(TYPE_TEXT_PLAIN_CHARSET_UTF_8, body.get(BodyType.TEXT).orElse(null)).ifPresent(parts::add);
-            partForContent(TYPE_TEXT_HTML_CHARSET_UTF_8, body.get(BodyType.HTML).orElse(null)).ifPresent(parts::add);
+    private void partForContent(@NonNull Multipart parent,
+                                @NonNull String type,
+                                @Nullable String content) throws MessagingException {
+        if (content != null) {
+            MimeBodyPart part = new MimeBodyPart();
+            part.setContent(content, type);
+            parent.addBodyPart(part);
         }
-        parts.addAll(attachmentBodyParts(email));
-        return parts;
-    }
-
-    @NonNull
-    private Optional<MimeBodyPart> partForContent(@NonNull String type,
-                                                  @Nullable String content) throws MessagingException {
-        if (content == null) {
-            return Optional.empty();
-        }
-        MimeBodyPart part = new MimeBodyPart();
-        part.setContent(content, type);
-        return Optional.of(part);
     }
 
     @NonNull
