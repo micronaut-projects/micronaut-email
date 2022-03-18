@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -60,13 +60,13 @@ public class DefaultMessageComposer implements MessageComposer {
     public static final String TYPE_TEXT_HTML_CHARSET_UTF_8 = "text/html; charset=UTF-8";
     private static final Logger LOG = LoggerFactory.getLogger(DefaultMessageComposer.class);
     private static final String SUBTYPE_ALTERNATIVE = "alternative";
-    private static final Map<BodyType, String> BODY_TYPES;
+    private static final EnumMap<BodyType, String> BODY_TYPES;
 
     static {
-        Map<BodyType, String> m = new HashMap<>(2);
+        EnumMap<BodyType, String> m = new EnumMap<>(BodyType.class);
         m.put(BodyType.TEXT, TYPE_TEXT_PLAIN_CHARSET_UTF_8);
         m.put(BodyType.HTML, TYPE_TEXT_HTML_CHARSET_UTF_8);
-        BODY_TYPES = Collections.unmodifiableMap(m);
+        BODY_TYPES = m;
     }
 
     @Override
