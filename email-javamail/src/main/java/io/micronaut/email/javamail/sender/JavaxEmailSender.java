@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 original authors
+ * Copyright 2017-2022 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,13 +38,14 @@ import java.util.function.Consumer;
 
 /**
  * Java Mail implementation of {@link io.micronaut.email.TransactionalEmailSender} and {@link io.micronaut.email.AsyncTransactionalEmailSender}.
+ *
  * @author Sergio del Amo
  * @since 1.0.0
  */
 @Named(JavaxEmailSender.NAME)
 @Secondary
 @Singleton
-@Requires(beans = { SessionProvider.class, MessageComposer.class })
+@Requires(beans = {SessionProvider.class, MessageComposer.class})
 public class JavaxEmailSender extends AbstractTransactionalEmailSender<Message, Void> {
     /**
      * {@link JavaxEmailSender} name.
@@ -57,7 +58,7 @@ public class JavaxEmailSender extends AbstractTransactionalEmailSender<Message, 
     private final JavaxEmailComposer javaxEmailComposer;
 
     /**
-     * @param executorService Executor service
+     * @param executorService    Executor service
      * @param javaxEmailComposer Message Composer
      */
     public JavaxEmailSender(@Named(TaskExecutors.IO) ExecutorService executorService,
