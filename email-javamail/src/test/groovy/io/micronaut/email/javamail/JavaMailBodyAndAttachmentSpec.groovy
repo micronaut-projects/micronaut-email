@@ -9,6 +9,7 @@ import io.micronaut.email.Attachment
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
 import io.micronaut.email.test.SpreadsheetUtils
+import io.micronaut.http.HttpHeaders
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.client.annotation.Client
@@ -135,7 +136,7 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
         String body
 
         MimeMultipart decoded() {
-            new MimeMultipart(new ByteArrayDataSource(body, headers.'Content-Type'))
+            new MimeMultipart(new ByteArrayDataSource(body, headers[HttpHeaders.CONTENT_TYPE]))
         }
     }
 }
