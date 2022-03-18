@@ -115,10 +115,6 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
     @Introspected
     @ToString
     static class MessageResponse {
-
-        int total
-        int count
-        int start
         List<Item> items
     }
 
