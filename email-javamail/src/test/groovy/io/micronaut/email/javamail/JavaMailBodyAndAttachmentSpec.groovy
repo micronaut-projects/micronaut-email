@@ -113,7 +113,6 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
     }
 
     @Introspected
-    @JsonIgnoreProperties(ignoreUnknown = true)
     @ToString
     static class MessageResponse {
 
@@ -125,7 +124,6 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
 
     @Introspected
     @ToString
-    @JsonIgnoreProperties(ignoreUnknown = true)
     static class Item {
         @JsonProperty("Content")
         Content content
@@ -133,7 +131,6 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
 
     @Introspected
     @ToString
-    @JsonIgnoreProperties(ignoreUnknown = true)
     static class Content {
         @JsonProperty("Headers")
         Map<String, String> headers
