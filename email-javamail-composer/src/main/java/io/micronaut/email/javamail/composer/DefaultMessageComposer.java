@@ -107,13 +107,9 @@ public class DefaultMessageComposer implements MessageComposer {
         final MimeBodyPart mbp = new MimeBodyPart();
         MimeMultipart alternativeBody = new MimeMultipart(SUBTYPE_ALTERNATIVE);
         mbp.setContent(alternativeBody);
-        bodyParts(body).forEach(part -> {
-            try {
-                alternativeBody.addBodyPart(part);
-            } catch (MessagingException e) {
-
-            }
-        });
+        for (MimeBodyPart part : bodyParts(body)) {
+            alternativeBody.addBodyPart(part);
+        }
         return mbp;
     }
 
