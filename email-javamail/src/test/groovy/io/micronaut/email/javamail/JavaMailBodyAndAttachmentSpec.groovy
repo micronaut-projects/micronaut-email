@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.ToString
 import io.micronaut.context.ApplicationContext
+import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.email.Attachment
 import io.micronaut.email.Email
@@ -106,6 +107,7 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
                 .build()
     }
 
+    @Requires(property = "spec.name", value = "JavaxMailEmailSenderAttachmentSpec")
     @Client('${mailhog.uri}')
     static interface MailhogClient {
 
