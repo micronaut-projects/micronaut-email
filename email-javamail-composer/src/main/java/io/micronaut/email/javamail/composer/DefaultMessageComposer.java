@@ -40,7 +40,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -118,7 +117,7 @@ public class DefaultMessageComposer implements MessageComposer {
     private Address[] contactAddresses(@NonNull Collection<Contact> contacts) throws AddressException {
         List<Address> addressList = new ArrayList<>();
         for (Contact contact : contacts) {
-            addressList.addAll(Arrays.asList(contactToAddress(contact)));
+            addressList.add(contactToAddress(contact));
         }
         Address[] array = new Address[addressList.size()];
         addressList.toArray(array);
