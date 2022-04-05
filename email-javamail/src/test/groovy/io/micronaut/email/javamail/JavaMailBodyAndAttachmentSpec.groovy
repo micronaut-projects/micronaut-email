@@ -19,6 +19,7 @@ import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.DockerImageName
 import spock.lang.AutoCleanup
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
@@ -27,6 +28,7 @@ import javax.mail.util.ByteArrayDataSource
 
 class JavaMailBodyAndAttachmentSpec extends Specification {
 
+    @Shared
     @AutoCleanup
     GenericContainer<?> mailHog = new GenericContainer<>(DockerImageName.parse("mailhog/mailhog"))
             .withExposedPorts(1025, 8025)
@@ -44,6 +46,44 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
                 "mailhog.uri"        : "http://${mailHog.getContainerIpAddress()}:${mailHog.getMappedPort(8025)}/",
                 'javamail.properties': ['mail.smtp.host': mailHog.getContainerIpAddress(),
                                         "mail.smtp.port": mailHog.getMappedPort(1025)]])
+    }
+
+    def "can send an email from #desc contact details"() {
+        given:
+        EmailSender emailSender = applicationContext.getBean(EmailSender)
+        MailhogClient client = applicationContext.getBean(MailhogClient)
+
+        and:
+        Contact namedContact = new Contact("receiver@here.com", "Kif")
+        Contact unnamedContact = new Contact("noname@here.com")
+        String stringContact = "someone@here.com"
+        String subject = "[Javax Mail] Test" + UUID.randomUUID().toString()
+
+        when:
+        emailSender.send(
+                Email.builder()
+                        .from(from)
+                        .to(namedContact).to(unnamedContact).to(stringContact)
+                        .cc(unnamedContact).cc(stringContact).cc(namedContact)
+                        .subject(subject)
+                        .body("Hiya!")
+        )
+
+        then:
+        conditions.eventually {
+            with(client.messages().items[0]) {
+                content.headers.Subject == subject
+                content.headers.From == expectedFrom
+                content.headers.To == 'Kif <receiver@here.com>, noname@here.com, someone@here.com'
+                content.headers.Cc == 'noname@here.com, someone@here.com, Kif <receiver@here.com>'
+            }
+        }
+
+        where:
+        from                                   | expectedFrom             | desc
+        new Contact("sarah@here.com", "Sarah") | 'Sarah <sarah@here.com>' | 'named'
+        new Contact("tim@here.com")            | 'tim@here.com'           | 'unnamed'
+        "plain@email.com"                      | 'plain@email.com'        | 'string'
     }
 
     def "Can send an email with alternate bodies and attachments"() {
