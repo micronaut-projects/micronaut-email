@@ -1,0 +1,10 @@
+io.micronaut.email
+io.micronaut.email.configuration
+io.micronaut.email.javamail.composer
+io.micronaut.email.javamail.sender
+io.micronaut.email.mailjet
+io.micronaut.email.postmark
+io.micronaut.email.sendgrid
+io.micronaut.email.ses
+io.micronaut.email.template
+io.micronaut.email.validation
