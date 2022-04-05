@@ -6,6 +6,7 @@ import io.micronaut.context.ApplicationContext
 import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.email.Attachment
+import io.micronaut.email.Contact
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
 import io.micronaut.email.test.SpreadsheetUtils
@@ -51,8 +52,8 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
         MailhogClient client = applicationContext.getBean(MailhogClient)
 
         and:
-        String from = "sender@here.com"
-        String to = "receiver@here.com"
+        Contact from = new Contact("sender@here.com", "Zapp Brannigan")
+        Contact to = new Contact("receiver@here.com", "Kif")
         String subject = "[Javax Mail] Attachment Test" + UUID.randomUUID().toString()
         String html = "<h1>Hola Mundo</h1>"
         String text = "Hello world"
@@ -74,8 +75,8 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
         conditions.eventually {
             with(client.messages().items[0]) {
                 content.headers.Subject == subject
-                content.headers.From == from
-                content.headers.To == to
+                content.headers.From == "$from.name <$from.email>"
+                content.headers.To == "$to.name <$to.email>"
 
                 with(content.decoded()) {
                     // Alternative body messages come first

@@ -17,6 +17,7 @@ package io.micronaut.email.javamail.composer;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
@@ -75,7 +76,7 @@ public class DefaultMessageComposer implements MessageComposer {
                            @NonNull Session session) throws MessagingException {
         MimeMessage message = new MimeMessage(session);
         message.setSubject(email.getSubject(), "UTF-8");
-        message.setFrom(new InternetAddress(email.getFrom().getEmail()));
+        message.setFrom(contactToAddress(email.getFrom()));
         if (CollectionUtils.isNotEmpty(email.getTo())) {
             message.setRecipients(Message.RecipientType.TO, contactAddresses(email.getTo()));
         }
@@ -117,7 +118,7 @@ public class DefaultMessageComposer implements MessageComposer {
     private Address[] contactAddresses(@NonNull Collection<Contact> contacts) throws AddressException {
         List<Address> addressList = new ArrayList<>();
         for (Contact contact : contacts) {
-            addressList.addAll(Arrays.asList(InternetAddress.parse(contact.getEmail())));
+            addressList.addAll(Arrays.asList(contactToAddress(contact)));
         }
         Address[] array = new Address[addressList.size()];
         addressList.toArray(array);
@@ -168,5 +169,13 @@ public class DefaultMessageComposer implements MessageComposer {
         String reportName = attachment.getFilename();
         att.setFileName(reportName);
         return att;
+    }
+
+    private InternetAddress contactToAddress(Contact contact) throws AddressException {
+        if (StringUtils.isNotEmpty(contact.getName())) {
+            return InternetAddress.parse(contact.getName() + " <" + contact.getEmail() + ">")[0];
+        } else {
+            return InternetAddress.parse(contact.getEmail())[0];
+        }
     }
 }
