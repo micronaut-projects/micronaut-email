@@ -3,9 +3,9 @@ plugins {
 }
 dependencies {
     constraints {
-        api("com.wildbit.java:postmark:$postmarkVersion")
-        api("com.sendgrid:sendgrid-java:$sendgridVersion")
-        api("com.sun.mail:javax.mail:$javaxmailVersion")
-        api("com.mailjet:mailjet-client:$mailjetVersion")
+        api(libs.postmark)
+        api(libs.sendgrid.java)
+        api(libs.javax.mail)
+        api(libs.mailjet.client)
     }
 }

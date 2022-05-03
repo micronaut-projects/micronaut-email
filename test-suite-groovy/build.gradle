@@ -5,18 +5,18 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    testCompileOnly("io.micronaut:micronaut-inject-groovy:$micronautVersion")
+    testCompileOnly(libs.micronaut.inject.groovy)
 
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    testImplementation("io.micronaut:micronaut-validation")
+    testImplementation(platform(libs.boms.micronaut))
+    testImplementation(libs.micronaut.validation)
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
         exclude module: 'groovy-all'
     }
     testImplementation(project(":test-suite-utils"))
     testImplementation(project(":email"))
     testImplementation(project(":email-template"))
-    testImplementation "io.micronaut.test:micronaut-test-spock"
-    testImplementation("io.micronaut.views:micronaut-views-velocity")
+    testImplementation(libs.micronaut.test.spock)
+    testImplementation(libs.micronaut.views.velocity)
 }
 
 tasks.named('test') {
