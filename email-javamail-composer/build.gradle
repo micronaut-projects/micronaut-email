@@ -5,7 +5,7 @@ plugins {
 dependencies {
     annotationProcessor(libs.micronaut.validation)
     api(project(":email"))
-    api(libs.javax.mail)
+    api(libs.managed.javax.mail)
     implementation(libs.micronaut.validation)
     testImplementation(project(":test-suite-utils"))
     testImplementation(libs.micronaut.http)

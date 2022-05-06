@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     annotationProcessor(libs.micronaut.validation)
-    api(libs.mailjet.client)
+    api(libs.managed.mailjet.client)
     api(project(":email"))
     implementation(libs.micronaut.reactor)
     implementation(libs.micronaut.validation)

@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    api(libs.javax.mail)
+    api(libs.managed.javax.mail)
     api(libs.poi.ooxml)
 }
 

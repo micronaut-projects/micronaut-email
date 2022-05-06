@@ -1,11 +1,3 @@
 plugins {
     id "io.micronaut.build.internal.bom"
 }
-dependencies {
-    constraints {
-        api(libs.postmark)
-        api(libs.sendgrid.java)
-        api(libs.javax.mail)
-        api(libs.mailjet.client)
-    }
-}

@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     annotationProcessor(libs.micronaut.validation)
-    api(libs.sendgrid.java)
+    api(libs.managed.sendgrid.java)
     api(project(":email"))
     implementation(libs.micronaut.reactor)
     implementation(libs.micronaut.validation)

@@ -5,11 +5,11 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    testAnnotationProcessor(platform(libs.boms.micronaut))
+    testAnnotationProcessor(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
     testAnnotationProcessor(libs.micronaut.inject.java)
     testAnnotationProcessor(libs.micronaut.validation)
 
-    testImplementation(platform(libs.boms.micronaut))
+    testImplementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
     testImplementation(libs.micronaut.validation)
 
     testImplementation(libs.junit.jupiter.api)

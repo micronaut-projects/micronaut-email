@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     annotationProcessor(libs.micronaut.validation)
-    api(libs.postmark)
+    api(libs.managed.postmark)
     api(project(":email"))
     implementation(libs.micronaut.validation)
     testImplementation(libs.micronaut.http)
