@@ -4,8 +4,8 @@ plugins {
 group = "io.micronaut.email"
 
 dependencies {
-    annotationProcessor("io.micronaut:micronaut-validation")
-    implementation("io.micronaut:micronaut-validation")
-    api("io.micronaut.views:micronaut-views-core")
+    annotationProcessor(libs.micronaut.validation)
+    implementation(libs.micronaut.validation)
+    api(libs.micronaut.views.core)
     api(project(":email"))
 }

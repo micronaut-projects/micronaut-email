@@ -3,12 +3,12 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut:micronaut-validation")
+    annotationProcessor(libs.micronaut.validation)
     api(project(":email-javamail-composer"))
-    implementation("io.micronaut:micronaut-validation")
+    implementation(libs.micronaut.validation)
     testImplementation(project(":test-suite-utils"))
-    testImplementation("io.micronaut:micronaut-http")
-    testImplementation("org.testcontainers:testcontainers")
-    testImplementation("io.micronaut:micronaut-http-client")
-    testCompileOnly("io.micronaut:micronaut-inject-groovy:$micronautVersion")
+    testImplementation(libs.micronaut.http)
+    testImplementation(libs.testcontainers)
+    testImplementation(libs.micronaut.http.client)
+    testCompileOnly(libs.micronaut.inject.groovy)
 }

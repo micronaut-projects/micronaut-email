@@ -3,8 +3,8 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut:micronaut-validation")
-    implementation("io.micronaut:micronaut-validation")
-    api("io.micronaut:micronaut-context")
-    implementation("io.micronaut.reactor:micronaut-reactor")
+    annotationProcessor(libs.micronaut.validation)
+    implementation(libs.micronaut.validation)
+    api(libs.micronaut.context)
+    implementation(libs.micronaut.reactor)
 }
