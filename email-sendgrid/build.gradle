@@ -3,11 +3,11 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut:micronaut-validation")
-    api("com.sendgrid:sendgrid-java:$sendgridVersion")
+    annotationProcessor(libs.micronaut.validation)
+    api(libs.managed.sendgrid.java)
     api(project(":email"))
-    implementation("io.micronaut.reactor:micronaut-reactor")
-    implementation("io.micronaut:micronaut-validation")
-    testImplementation("io.micronaut:micronaut-http")
+    implementation(libs.micronaut.reactor)
+    implementation(libs.micronaut.validation)
+    testImplementation(libs.micronaut.http)
     testImplementation(project(":test-suite-utils"))
 }

@@ -3,10 +3,10 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut:micronaut-validation")
-    api("com.wildbit.java:postmark:$postmarkVersion")
+    annotationProcessor(libs.micronaut.validation)
+    api(libs.managed.postmark)
     api(project(":email"))
-    implementation("io.micronaut:micronaut-validation")
-    testImplementation("io.micronaut:micronaut-http")
+    implementation(libs.micronaut.validation)
+    testImplementation(libs.micronaut.http)
     testImplementation project(":test-suite-utils")
 }

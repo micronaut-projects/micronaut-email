@@ -1,0 +1,36 @@
+[versions]
+managed-postmark = "1.8.0"
+managed-sendgrid = "4.9.1"
+managed-javax-mail = "1.6.2"
+managed-mailjet = "5.2.0"
+
+poi-ooxml = "5.2.0"
+kotlin = "1.6.20"
+
+[libraries]
+# Managed dependencies
+managed-postmark = { module = "com.wildbit.java:postmark", version.ref = "managed-postmark" }
+managed-sendgrid-java = { module = "com.sendgrid:sendgrid-java", version.ref = "managed-sendgrid" }
+managed-javax-mail = { module = "com.sun.mail:javax.mail", version.ref = "managed-javax-mail" }
+managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
+
+# Micronaut
+micronaut-aws-sdk-v2 = { module = "io.micronaut.aws:micronaut-aws-sdk-v2" }
+micronaut-context = { module = "io.micronaut:micronaut-context" }
+micronaut-http = { module = "io.micronaut:micronaut-http" }
+micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
+micronaut-inject-groovy = { module = "io.micronaut:micronaut-inject-groovy" }
+micronaut-inject-java = { module = "io.micronaut:micronaut-inject-java" }
+micronaut-reactor = { module = "io.micronaut.reactor:micronaut-reactor" }
+micronaut-test-junit5 = { module = "io.micronaut.test:micronaut-test-junit5" }
+micronaut-test-spock = { module = "io.micronaut.test:micronaut-test-spock" }
+micronaut-validation = { module = "io.micronaut:micronaut-validation" }
+micronaut-views-core = { module = "io.micronaut.views:micronaut-views-core" }
+micronaut-views-velocity = { module = "io.micronaut.views:micronaut-views-velocity" }
+
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi-ooxml" }
+ses = { module = "software.amazon.awssdk:ses" }
+testcontainers = { module = "org.testcontainers:testcontainers" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
