@@ -17,8 +17,12 @@ package io.micronaut.email.javamail.sender;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.annotation.Secondary;
+import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import jakarta.inject.Singleton;
+
+import javax.mail.Authenticator;
 import javax.mail.Session;
 
 /**
@@ -29,19 +33,33 @@ import javax.mail.Session;
 @Secondary
 @Singleton
 public class DefaultSessionProvider implements SessionProvider {
+    @NonNull
     private final MailPropertiesProvider mailPropertiesProvider;
 
+    @Nullable
+    private final Authenticator authenticator;
+
     /**
-     *
      * @param mailPropertiesProvider Mail Properties Provider
      */
+    @Deprecated
     public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider) {
+        this(mailPropertiesProvider, null);
+    }
+
+    /**
+     * @param mailPropertiesProvider Mail Properties Provider
+     * @param authenticator          Authenticator
+     */
+    @Creator
+    public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider, @Nullable Authenticator authenticator) {
         this.mailPropertiesProvider = mailPropertiesProvider;
+        this.authenticator = authenticator;
     }
 
     @Override
     @NonNull
     public Session session() {
-        return Session.getDefaultInstance(mailPropertiesProvider.mailProperties());
+        return Session.getDefaultInstance(mailPropertiesProvider.mailProperties(), authenticator);
     }
 }
