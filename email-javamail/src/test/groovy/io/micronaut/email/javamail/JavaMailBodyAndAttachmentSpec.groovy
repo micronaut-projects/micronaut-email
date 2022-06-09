@@ -86,7 +86,7 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
         "plain@email.com"                      | 'plain@email.com'        | 'string'
     }
 
-    def "Can send an email with alternate bodies and attachments"() {
+    def "Can send an email with alternate bodies and attachments and a custom header"() {
         given:
         EmailSender emailSender = applicationContext.getBean(EmailSender)
         MailhogClient client = applicationContext.getBean(MailhogClient)
@@ -107,6 +107,7 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
                         .to(to)
                         .subject(subject)
                         .body(html, text)
+                        .customHeader("foo", "foovalue")
                         .attachment(createSpreadsheetAttachment(filename, MediaType.MICROSOFT_EXCEL_OPEN_XML))
                         .attachment(createSpreadsheetAttachment(filename2, MediaType.APPLICATION_OCTET_STREAM))
         )
@@ -117,6 +118,7 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
                 content.headers.Subject == subject
                 content.headers.From == "$from.name <$from.email>"
                 content.headers.To == "$to.name <$to.email>"
+                content.headers.foo == "foovalue"
 
                 with(content.decoded()) {
                     // Alternative body messages come first

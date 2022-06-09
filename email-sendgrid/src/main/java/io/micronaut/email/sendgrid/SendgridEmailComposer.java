@@ -35,6 +35,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 /**
@@ -62,6 +65,15 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         createReplyTo(email).ifPresent(mail::setReplyTo);
         mail.addPersonalization(createPersonalization(email));
         contentOfEmail(email).ifPresent(mail::addContent);
+
+        Map<String, List<String>> headers = email.getCustomHeaders();
+        if (null != headers) {
+            for (Entry<String, List<String>> entry : headers.entrySet()) {
+                for (String value : entry.getValue()) {
+                    mail.addHeader(entry.getKey(), value);
+                }
+            }
+        }
 
         if (email.getAttachments() != null) {
             for (Attachment att : email.getAttachments()) {

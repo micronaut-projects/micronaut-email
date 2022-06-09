@@ -29,6 +29,8 @@ import jakarta.inject.Singleton;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -62,6 +64,16 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
             message.setTo(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
         }
         message.setSubject(email.getSubject());
+
+        Map<String, List<String>> headers = email.getCustomHeaders();
+        if (null != headers) {
+            for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
+                for (String value : entry.getValue()) {
+                    message.addHeader(entry.getKey(), value);
+                }
+            }
+        }
+
         Body body = email.getBody();
         if (body != null) {
             body.get(BodyType.HTML).ifPresent(message::setHtmlBody);

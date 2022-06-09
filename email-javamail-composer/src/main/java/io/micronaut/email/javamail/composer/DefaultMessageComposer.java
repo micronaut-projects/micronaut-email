@@ -74,6 +74,16 @@ public class DefaultMessageComposer implements MessageComposer {
     public Message compose(@NonNull Email email,
                            @NonNull Session session) throws MessagingException {
         MimeMessage message = new MimeMessage(session);
+
+        Map<String, List<String>> headers = email.getCustomHeaders();
+        if (null != headers) {
+            for (Map.Entry<String, List<String>> entry: headers.entrySet()) {
+                for (String value : entry.getValue()) {
+                    message.addHeader(entry.getKey(), value);
+                }
+            }
+        }
+
         message.setSubject(email.getSubject(), "UTF-8");
         message.setFrom(contactToAddress(email.getFrom()));
         if (CollectionUtils.isNotEmpty(email.getTo())) {

@@ -24,10 +24,7 @@ import io.micronaut.email.validation.Recipients;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -71,6 +68,18 @@ public final class Email implements Recipients {
     @NotNull
     private final Body body;
 
+    @Nullable
+    private final Map<String, List<String>> customHeaders;
+
+    /**
+     * Lowercase names of header names, that have special handling.
+     *
+     * If a user tries to manually set header with such a name an IllegalArgumentException is thrown.
+     */
+    private static final Set<String> SPECIAL_HEADER_NAMES = Collections.unmodifiableSet(
+            new HashSet<>(Arrays.asList("to", "from", "cc", "bcc", "reply-to", "subject", "body"))
+    );
+
     /**
      *
      * @param from Sender of the Email
@@ -80,6 +89,7 @@ public final class Email implements Recipients {
      * @param bcc Blind Carbon Copy recipients
      * @param subject Subject
      * @param attachments Email attachments
+     * @param customHeaders other email customHeaders
      * @param body Email Body
      */
     private Email(@NonNull Contact from,
@@ -89,6 +99,7 @@ public final class Email implements Recipients {
                  @Nullable List<Contact> bcc,
                  @NonNull String subject,
                  @Nullable List<Attachment> attachments,
+                 @Nullable Map<String, List<String>> customHeaders,
                  @Nullable Body body) {
         this.from = from;
         this.replyTo = replyTo;
@@ -97,7 +108,16 @@ public final class Email implements Recipients {
         this.bcc = bcc;
         this.subject = subject;
         this.attachments = attachments;
+        this.customHeaders = customHeaders;
         this.body = body;
+
+        if (null != customHeaders) {
+            for (String headerName : customHeaders.keySet()) {
+                if (SPECIAL_HEADER_NAMES.contains(headerName.toLowerCase())) {
+                    throw new IllegalArgumentException("Header name '" + headerName + "' can't be set as a custom header. [" + SPECIAL_HEADER_NAMES + "] are handled in a special way.");
+                }
+            }
+        }
     }
 
     @NonNull
@@ -139,6 +159,11 @@ public final class Email implements Recipients {
     }
 
     @Nullable
+    public Map<String, List<String>> getCustomHeaders() {
+        return customHeaders;
+    }
+
+    @Nullable
     public Body getBody() {
         return body;
     }
@@ -173,6 +198,9 @@ public final class Email implements Recipients {
 
         @Nullable
         private List<Contact> bcc;
+
+        @Nullable
+        private Map<String, List<String>> customHeaders;
 
         @Nullable
         private List<Attachment> attachments;
@@ -357,7 +385,28 @@ public final class Email implements Recipients {
             return attachment(builder.build());
         }
 
-
+        /**
+         * Adds a custom header to the email.
+         * If a header with given name already exists a new instance is added (e.g. the email will contain more headers
+         * with the same name).
+         *
+         * If a header name has a special handling ('to', 'bcc' etc.) and InvalidArgumentException is thrown when
+         * the Email is built.
+         *
+         * @param name name of the header
+         * @param value it's value
+         * @return Email Builder
+         */
+        public Email.Builder customHeader(String name, String value) {
+            if (null == customHeaders) {
+                customHeaders = new HashMap<>();
+            }
+            if (!customHeaders.containsKey(name)) {
+                customHeaders.put(name, new ArrayList<>());
+            }
+            customHeaders.get(name).add(value);
+            return this;
+        }
 
         /**
          *
@@ -414,6 +463,7 @@ public final class Email implements Recipients {
                     bcc,
                     subject,
                     attachments,
+                    customHeaders,
                     body);
         }
 
@@ -486,6 +536,14 @@ public final class Email implements Recipients {
         @NonNull
         public Optional<List<Attachment>> getAttachments() {
             return Optional.ofNullable(attachments);
+        }
+
+        /**
+         * @return custom email headers
+         */
+        @NonNull
+        public Optional<Map<String, List<String>>> getCustomHeaders() {
+            return Optional.ofNullable(customHeaders);
         }
     }
 }

@@ -37,6 +37,7 @@ class PostmarkEmailSenderAttachmentSpec extends Specification {
                 .to(to)
                 .subject(subject)
                 .body("Hello world")
+                .customHeader("foo", "fooval")
                 .attachment(Attachment.builder()
                         .filename("monthlyreports.xlsx")
                         .contentType(MediaType.MICROSOFT_EXCEL_OPEN_XML)
