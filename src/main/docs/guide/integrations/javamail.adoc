@@ -3,3 +3,15 @@ To use https://javaee.github.io/javamail/[JavaMail], add the following dependenc
 dependency:micronaut-email-javamail[groupId="io.micronaut.email"]
 
 You need to provide beans of type api:io.micronaut.email.javamail.sender.MailPropertiesProvider[] and api:io.micronaut.email.javamail.sender.SessionProvider[] to match your configuration.
+
+### Authentication via configuration
+
+As an alternative to providing your own api:io.micronaut.email.javamail.sender.SessionProvider[] for authentication, you can configure password based authentication via configuration:
+
+[source, yaml]
+----
+javamail:
+  authentication:
+    username: 'my.username'
+    password: 'my.password'
+----
