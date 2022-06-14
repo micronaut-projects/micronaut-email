@@ -31,8 +31,5 @@ class AuthenticationPropertiesProviderViaConfigurationSpec extends Specification
         then:
         config.username == 'my.username'
         config.password == 'my.password'
-
-        cleanup:
-        applicationContext.stop()
     }
 }
