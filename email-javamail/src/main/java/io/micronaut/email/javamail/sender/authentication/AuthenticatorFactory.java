@@ -30,7 +30,7 @@ import javax.mail.PasswordAuthentication;
  * @since 1.3.0
  */
 @Factory
-@Requires(beans = {JavaMailAuthenticationConfiguration.class})
+@Requires(beans = JavaMailAuthenticationConfiguration.class)
 public class AuthenticatorFactory {
 
     /**

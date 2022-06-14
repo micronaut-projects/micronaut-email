@@ -24,6 +24,7 @@ import jakarta.inject.Singleton;
 
 import javax.mail.Authenticator;
 import javax.mail.Session;
+import java.util.Properties;
 
 /**
  * @author Sergio del Amo
@@ -41,6 +42,7 @@ public class DefaultSessionProvider implements SessionProvider {
 
     /**
      * @param mailPropertiesProvider Mail Properties Provider
+     * @deprecated Deprecated since 1.3.0, please use {@link #DefaultSessionProvider(MailPropertiesProvider, Authenticator)} instead.
      */
     @Deprecated
     public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider) {
@@ -50,6 +52,7 @@ public class DefaultSessionProvider implements SessionProvider {
     /**
      * @param mailPropertiesProvider Mail Properties Provider
      * @param authenticator          Authenticator
+     * @since 1.3.0
      */
     @Creator
     public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider, @Nullable Authenticator authenticator) {
@@ -60,6 +63,10 @@ public class DefaultSessionProvider implements SessionProvider {
     @Override
     @NonNull
     public Session session() {
-        return Session.getDefaultInstance(mailPropertiesProvider.mailProperties(), authenticator);
+        Properties props = mailPropertiesProvider.mailProperties();
+        if (authenticator != null && !props.containsKey("mail.smtp.auth")) {
+            props.setProperty("mail.smtp.auth", "true");
+        }
+        return Session.getDefaultInstance(props, authenticator);
     }
 }

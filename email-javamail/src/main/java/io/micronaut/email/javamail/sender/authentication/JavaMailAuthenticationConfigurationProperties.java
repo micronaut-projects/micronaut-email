@@ -16,9 +16,7 @@
 package io.micronaut.email.javamail.sender.authentication;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
-import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.util.StringUtils;
 import io.micronaut.email.javamail.sender.JavaMailConfigurationProperties;
 
 import javax.validation.constraints.NotBlank;
@@ -29,8 +27,6 @@ import javax.validation.constraints.NotBlank;
  * @author Lukáš Moravec
  * @since 1.3.0
  */
-@Requires(property = JavaMailAuthenticationConfigurationProperties.PREFIX)
-@Requires(property = JavaMailAuthenticationConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE)
 @ConfigurationProperties(JavaMailAuthenticationConfigurationProperties.PREFIX)
 public class JavaMailAuthenticationConfigurationProperties implements JavaMailAuthenticationConfiguration {
 
