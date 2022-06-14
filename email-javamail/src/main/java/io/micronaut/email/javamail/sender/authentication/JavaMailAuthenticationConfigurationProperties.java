@@ -40,7 +40,7 @@ public class JavaMailAuthenticationConfigurationProperties implements JavaMailAu
      * The default enable value.
      */
     @SuppressWarnings("WeakerAccess")
-    public static final boolean DEFAULT_ENABLED = false;
+    public static final boolean DEFAULT_ENABLED = true;
 
     private boolean enabled = DEFAULT_ENABLED;
 
