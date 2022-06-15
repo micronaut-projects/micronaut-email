@@ -53,11 +53,13 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#decorators"><strong>5</strong><span>Decorators</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#template"><strong>6</strong><span>Templates</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#customization"><strong>6</strong><span>Customizing Emails</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#integrations"><strong>7</strong><span>Integrations</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#template"><strong>7</strong><span>Templates</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#integrations"><strong>8</strong><span>Integrations</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -98,21 +100,23 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-decorators"><a href="#decorators"><strong>5</strong><span>Decorators</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-template"><a href="#template"><strong>6</strong><span>Templates</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-customization"><a href="#customization"><strong>6</strong><span>Customizing Emails</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-integrations"><a href="#integrations"><strong>7</strong><span>Integrations</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-template"><a href="#template"><strong>7</strong><span>Templates</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-ses"><a href="#ses"><strong>7.1</strong><span>SES</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-integrations"><a href="#integrations"><strong>8</strong><span>Integrations</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-postmark"><a href="#postmark"><strong>7.2</strong><span>Postmark</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-ses"><a href="#ses"><strong>8.1</strong><span>SES</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-sendgrid"><a href="#sendgrid"><strong>7.3</strong><span>SendGrid</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-postmark"><a href="#postmark"><strong>8.2</strong><span>Postmark</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-mailjet"><a href="#mailjet"><strong>7.4</strong><span>Mailjet</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-sendgrid"><a href="#sendgrid"><strong>8.3</strong><span>SendGrid</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-javamail"><a href="#javamail"><strong>7.5</strong><span>JavaMail</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-mailjet"><a href="#mailjet"><strong>8.4</strong><span>Mailjet</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-javamail"><a href="#javamail"><strong>8.5</strong><span>JavaMail</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -445,7 +449,174 @@ class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;
 <p>Moreover, if you have a custom need (e.g. always bcc an email address, adding a prefix to the email subject in a particular environment), you can register a bean of type <a href="../api/io/micronaut/email/EmailDecorator.html">EmailDecorator</a>.</p>
 </div>
 
-<h1 id="template"><a class="anchor" href="#template"></a>6 Templates</h1>
+<h1 id="customization"><a class="anchor" href="#customization"></a>6 Customizing Emails</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/customization.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>If you have a requirement to customize the email being sent&#8201;&#8212;&#8201;for example adding headers to the email&#8201;&#8212;&#8201;then you can use the Consumer variant of <a href="../api/io/micronaut/email/EmailSender.html">EmailSender</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here we show an example for JavaMail using the javax.mail.Message class, but this can be altered to the Mail platform request class you are using.</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.docs;
+
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.MultipartBody;
+import jakarta.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+
+/**
+ * An example of customization for JavaMail messages
+ */
+@Singleton
+public class CustomizedJavaMailService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CustomizedJavaMailService.class);
+
+    private final EmailSender&lt;Message, ?&gt; emailSender;
+
+    public CustomizedJavaMailService(EmailSender&lt;Message, ?&gt; emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    public void sendCustomizedEmail() {
+        Email.Builder email = Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(
+                        new MultipartBody(
+                                "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                                "Hello dear Micronaut user"
+                        )
+                );
+
+        // Customize the message with a header prior to sending
+        emailSender.send(email, message -&gt; {
+            try {
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;");
+            } catch (MessagingException e) {
+                LOG.error("Failed to add header", e);
+            }
+        });
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+import javax.mail.Message
+import javax.mail.MessagingException
+
+/**
+ * An example of customization for JavaMail messages
+ */
+@Singleton
+class CustomizedJavaMailService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CustomizedJavaMailService.class);
+
+    private final EmailSender&lt;Message, ?&gt; emailSender
+
+    CustomizedJavaMailService(EmailSender&lt;Message, ?&gt; emailSender) {
+        this.emailSender = emailSender
+    }
+
+    void sendCustomizedEmail() {
+        def email = Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(
+                        new MultipartBody(
+                                "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                                "Hello dear Micronaut user"
+                        )
+                )
+
+        // Customize the message with a header prior to sending
+        emailSender.send(email, message -&gt; {
+            try {
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;");
+            } catch (MessagingException e) {
+                LOG.error("Failed to add header", e);
+            }
+        })
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+import org.slf4j.LoggerFactory
+
+import javax.mail.Message
+import javax.mail.MessagingException
+
+/**
+ * An example of customization for JavaMail messages
+ */
+@Singleton
+class CustomizedJavaMailService(private val emailSender: EmailSender&lt;Message, *&gt;) {
+
+    fun sendCustomizedEmail() {
+        val email = Email.builder()
+            .from("sender@example.com")
+            .to("john@example.com")
+            .subject("Micronaut test")
+            .body(
+                MultipartBody(
+                    "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                    "Hello dear Micronaut user"
+                )
+            )
+
+        // Customize the message with a header prior to sending
+        emailSender.send(email) { message: Message -&gt;
+            try {
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;")
+            } catch (e: MessagingException) {
+                LOG.error("Failed to add header", e)
+            }
+        }
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(CustomizedJavaMailService::class.java)
+    }
+}</code></pre>
+</div>
+</div>
+
+<h1 id="template"><a class="anchor" href="#template"></a>7 Templates</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/template.adoc"'>
@@ -631,7 +802,7 @@ $copyright</code></pre>
 </div>
 </div>
 
-<h1 id="integrations"><a class="anchor" href="#integrations"></a>7 Integrations</h1>
+<h1 id="integrations"><a class="anchor" href="#integrations"></a>8 Integrations</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations.adoc"'>
@@ -642,7 +813,7 @@ $copyright</code></pre>
 
 
 
-<h2 id="ses"><a class="anchor" href="#ses"></a>7.1 SES</h2>
+<h2 id="ses"><a class="anchor" href="#ses"></a>8.1 SES</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/ses.adoc"'>
@@ -690,7 +861,7 @@ $copyright</code></pre>
 </ul>
 </div>
 
-<h2 id="postmark"><a class="anchor" href="#postmark"></a>7.2 Postmark</h2>
+<h2 id="postmark"><a class="anchor" href="#postmark"></a>8.2 Postmark</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/postmark.adoc"'>
@@ -760,7 +931,7 @@ $copyright</code></pre>
 </tbody>
 </table>
 
-<h2 id="sendgrid"><a class="anchor" href="#sendgrid"></a>7.3 SendGrid</h2>
+<h2 id="sendgrid"><a class="anchor" href="#sendgrid"></a>8.3 SendGrid</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/sendgrid.adoc"'>
@@ -820,7 +991,7 @@ $copyright</code></pre>
 </tbody>
 </table>
 
-<h2 id="mailjet"><a class="anchor" href="#mailjet"></a>7.4 Mailjet</h2>
+<h2 id="mailjet"><a class="anchor" href="#mailjet"></a>8.4 Mailjet</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/mailjet.adoc"'>
@@ -890,7 +1061,7 @@ $copyright</code></pre>
 </tbody>
 </table>
 
-<h2 id="javamail"><a class="anchor" href="#javamail"></a>7.5 JavaMail</h2>
+<h2 id="javamail"><a class="anchor" href="#javamail"></a>8.5 JavaMail</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/javamail.adoc"'>
@@ -922,7 +1093,7 @@ $copyright</code></pre>
 <p>You need to provide beans of type <a href="../api/io/micronaut/email/javamail/sender/MailPropertiesProvider.html">MailPropertiesProvider</a> and <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> to match your configuration.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>8 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>9 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/repository.adoc"'>
