@@ -43,8 +43,8 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
         mailHog.start()
         applicationContext = ApplicationContext.run([
                 "spec.name"          : "JavaxMailEmailSenderAttachmentSpec",
-                "mailhog.uri"        : "http://${mailHog.getContainerIpAddress()}:${mailHog.getMappedPort(8025)}/",
-                'javamail.properties': ['mail.smtp.host': mailHog.getContainerIpAddress(),
+                "mailhog.uri"        : "http://${mailHog.getHost()}:${mailHog.getMappedPort(8025)}/",
+                'javamail.properties': ['mail.smtp.host': mailHog.getHost(),
                                         "mail.smtp.port": mailHog.getMappedPort(1025)]])
     }
 

@@ -15,10 +15,16 @@ import java.util.function.Consumer;
 @Named("mock")
 @Singleton
 public class MockEmailSender<I> implements TransactionalEmailSender<I, Email> {
-    private List<Email> emails = new ArrayList<>();
+
+    private final List<Email> emails = new ArrayList<>();
+    private final List<Consumer<I>> requests = new ArrayList<>();
 
     public List<Email> getEmails() {
         return emails;
+    }
+
+    public List<Consumer<I>> getRequests() {
+        return requests;
     }
 
     @Override
@@ -27,12 +33,12 @@ public class MockEmailSender<I> implements TransactionalEmailSender<I, Email> {
         return "mock";
     }
 
-
     @NonNull
     @Override
     public Email send(@NonNull @NotNull @Valid Email email,
                       @NonNull @NotNull Consumer<I> emailRequest) throws EmailException {
         emails.add(email);
+        requests.add(emailRequest);
         return email;
     }
 }

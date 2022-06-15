@@ -1,11 +1,11 @@
 [versions]
 managed-postmark = "1.8.0"
-managed-sendgrid = "4.9.1"
+managed-sendgrid = "4.9.2"
 managed-javax-mail = "1.6.2"
 managed-mailjet = "5.2.0"
 
-poi-ooxml = "5.2.0"
-kotlin = "1.6.20"
+poi-ooxml = "5.2.2"
+kotlin = "1.7.0"
 
 [libraries]
 # Managed dependencies
