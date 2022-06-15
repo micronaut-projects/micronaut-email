@@ -17,9 +17,14 @@ package io.micronaut.email.javamail.sender;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.annotation.Secondary;
+import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import jakarta.inject.Singleton;
+
+import javax.mail.Authenticator;
 import javax.mail.Session;
+import java.util.Properties;
 
 /**
  * @author Sergio del Amo
@@ -29,19 +34,39 @@ import javax.mail.Session;
 @Secondary
 @Singleton
 public class DefaultSessionProvider implements SessionProvider {
+    @NonNull
     private final MailPropertiesProvider mailPropertiesProvider;
 
+    @Nullable
+    private final Authenticator authenticator;
+
     /**
-     *
      * @param mailPropertiesProvider Mail Properties Provider
+     * @deprecated Deprecated since 1.3.0, please use {@link #DefaultSessionProvider(MailPropertiesProvider, Authenticator)} instead.
      */
+    @Deprecated
     public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider) {
+        this(mailPropertiesProvider, null);
+    }
+
+    /**
+     * @param mailPropertiesProvider Mail Properties Provider
+     * @param authenticator          Authenticator
+     * @since 1.3.0
+     */
+    @Creator
+    public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider, @Nullable Authenticator authenticator) {
         this.mailPropertiesProvider = mailPropertiesProvider;
+        this.authenticator = authenticator;
     }
 
     @Override
     @NonNull
     public Session session() {
-        return Session.getDefaultInstance(mailPropertiesProvider.mailProperties());
+        Properties props = mailPropertiesProvider.mailProperties();
+        if (authenticator != null && !props.containsKey("mail.smtp.auth")) {
+            props.setProperty("mail.smtp.auth", "true");
+        }
+        return Session.getDefaultInstance(props, authenticator);
     }
 }
