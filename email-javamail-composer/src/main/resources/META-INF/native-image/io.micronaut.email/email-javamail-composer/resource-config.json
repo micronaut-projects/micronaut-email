@@ -1,0 +1,18 @@
+{
+  "resources" : {
+    "includes" : [
+      {
+        "pattern":".*META-INF/javamail.charset.map$"
+      },
+      {
+        "pattern":".*META-INF/javamail.default.address.map$"
+      },
+      {
+        "pattern":".*META-INF/javamail.default.providers$"
+      },
+      {
+        "pattern":".*META-INF/mailcap$"
+      }
+    ]
+  }
+}
