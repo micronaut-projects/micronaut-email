@@ -95,7 +95,7 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
     private SendEmailRequest sendEmailRequest(@NonNull Email email) {
         SendEmailRequest.Builder requestBuilder = SendEmailRequest.builder()
                 .destination(destinationBuilder(email).build())
-                .source(email.getFrom().getEmail())
+                .source(sourceFormatter(email))
                 .message(message(email));
         if (email.getReplyTo() != null) {
             requestBuilder = requestBuilder.replyToAddresses(email.getReplyTo().getEmail());
@@ -135,5 +135,16 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
             body.get(BodyType.HTML).map(it -> Content.builder().data(it).build()).ifPresent(bodyBuilder::html);
         }
         return bodyBuilder;
+    }
+
+    @NonNull
+    private String sourceFormatter(@NonNull Email email) {
+        io.micronaut.email.Contact from = email.getFrom();
+        if (from.getName() != null) {
+            return String.format("%s <%s>", from.getName(), from.getEmail());
+        }
+        else {
+            return from.getEmail();
+        }
     }
 }
