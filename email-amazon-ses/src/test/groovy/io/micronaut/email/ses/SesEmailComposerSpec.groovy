@@ -111,7 +111,7 @@ class SesEmailComposerSpec extends Specification {
         !request.destination().ccAddresses()
     }
 
-    void "from field should allow to include the sender name"() {
+    void "from field should allow including the sender name"() {
         given:
         def from = new Contact("sender@example.com", "John Doe")
         def formattedFrom = "${from.getName()} <${from.getEmail()}>"
