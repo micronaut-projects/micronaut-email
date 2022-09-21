@@ -140,10 +140,9 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
     @NonNull
     private String sourceFormatter(@NonNull Email email) {
         io.micronaut.email.Contact from = email.getFrom();
-        if (from.getName() != null) {
+        if (from.getName() != null && !from.getName().isEmpty()) {
             return String.format("%s <%s>", from.getName(), from.getEmail());
-        }
-        else {
+        } else {
             return from.getEmail();
         }
     }
