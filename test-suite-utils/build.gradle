@@ -7,8 +7,3 @@ dependencies {
     api(libs.managed.javax.mail)
     api(libs.poi.ooxml)
 }
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("1.8")
-    targetCompatibility = JavaVersion.toVersion("1.8")
-}
