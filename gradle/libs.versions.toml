@@ -5,7 +5,7 @@ managed-javax-mail = "1.6.2"
 managed-mailjet = "5.2.1"
 
 poi-ooxml = "5.2.2"
-kotlin = "1.7.10"
+kotlin = "1.7.20"
 
 [libraries]
 # Managed dependencies
