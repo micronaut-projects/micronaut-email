@@ -17,6 +17,7 @@ package io.micronaut.email.ses;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
@@ -95,7 +96,7 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
     private SendEmailRequest sendEmailRequest(@NonNull Email email) {
         SendEmailRequest.Builder requestBuilder = SendEmailRequest.builder()
                 .destination(destinationBuilder(email).build())
-                .source(email.getFrom().getEmail())
+                .source(sourceFormatter(email))
                 .message(message(email));
         if (email.getReplyTo() != null) {
             requestBuilder = requestBuilder.replyToAddresses(email.getReplyTo().getEmail());
@@ -135,5 +136,22 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
             body.get(BodyType.HTML).map(it -> Content.builder().data(it).build()).ifPresent(bodyBuilder::html);
         }
         return bodyBuilder;
+    }
+
+    /**
+     * Formats the FROM address of an email to display both the contact's sender name (also known as the <i>friendly name</i>)
+     * and the address itself.
+     *
+     * @param email Email
+     * @return the formatted FROM address with the preceding sender name if present, or just the address if not.
+     */
+    @NonNull
+    protected String sourceFormatter(@NonNull Email email) {
+        io.micronaut.email.Contact from = email.getFrom();
+        if (StringUtils.isNotEmpty(from.getName())) {
+            return String.format("%s <%s>", from.getName(), from.getEmail());
+        } else {
+            return from.getEmail();
+        }
     }
 }

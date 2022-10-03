@@ -1,6 +1,6 @@
 package io.micronaut.email.ses
 
-
+import io.micronaut.email.Contact
 import io.micronaut.email.Email
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -109,5 +109,29 @@ class SesEmailComposerSpec extends Specification {
         [replyTo] == request.replyToAddresses()
         subject == request.message().subject().data()
         !request.destination().ccAddresses()
+    }
+
+    void "from field should allow including the sender name"() {
+        given:
+        Contact from = new Contact("sender@example.com", "John Doe")
+        String formattedFrom = "${from.getName()} <${from.getEmail()}>"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .build()
+        when:
+        SendEmailRequest request = sesEmailComposer.compose(email) as SendEmailRequest
+
+        then:
+        formattedFrom == request.source()
+        [to] == request.destination().toAddresses().toList()
+        subject == request.message().subject().data()
+        !request.destination().ccAddresses()
+        !request.destination().bccAddresses()
     }
 }
