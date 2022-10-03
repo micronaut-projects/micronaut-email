@@ -1,0 +1,7 @@
+[
+  {
+    "type": "io.micronaut.email.javamail.sender.DefaultSessionProvider",
+    "member": "Constructor io.micronaut.email.javamail.sender.DefaultSessionProvider(io.micronaut.email.javamail.sender.MailPropertiesProvider)",
+    "reason": "Removed deprecated constructor for Micronaut 4"
+  }
+]

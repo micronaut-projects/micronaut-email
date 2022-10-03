@@ -1,9 +1,8 @@
 plugins {
     id 'groovy'
+    id "io.micronaut.build.internal.email-tests"
 }
-repositories {
-    mavenCentral()
-}
+
 dependencies {
     testCompileOnly(libs.micronaut.inject.groovy)
 
