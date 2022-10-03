@@ -113,10 +113,10 @@ class SesEmailComposerSpec extends Specification {
 
     void "from field should allow including the sender name"() {
         given:
-        def from = new Contact("sender@example.com", "John Doe")
-        def formattedFrom = "${from.getName()} <${from.getEmail()}>"
-        def to = "receiver@example.com"
-        def subject = "Apple Music"
+        Contact from = new Contact("sender@example.com", "John Doe")
+        String formattedFrom = "${from.getName()} <${from.getEmail()}>"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -125,7 +125,7 @@ class SesEmailComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def request = sesEmailComposer.compose(email) as SendEmailRequest
+        SendEmailRequest request = sesEmailComposer.compose(email) as SendEmailRequest
 
         then:
         formattedFrom == request.source()
