@@ -17,7 +17,6 @@ package io.micronaut.email.javamail.sender;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.annotation.Secondary;
-import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import jakarta.inject.Singleton;
@@ -42,19 +41,9 @@ public class DefaultSessionProvider implements SessionProvider {
 
     /**
      * @param mailPropertiesProvider Mail Properties Provider
-     * @deprecated Deprecated since 1.3.0, please use {@link #DefaultSessionProvider(MailPropertiesProvider, Authenticator)} instead.
-     */
-    @Deprecated
-    public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider) {
-        this(mailPropertiesProvider, null);
-    }
-
-    /**
-     * @param mailPropertiesProvider Mail Properties Provider
      * @param authenticator          Authenticator
      * @since 1.3.0
      */
-    @Creator
     public DefaultSessionProvider(MailPropertiesProvider mailPropertiesProvider, @Nullable Authenticator authenticator) {
         this.mailPropertiesProvider = mailPropertiesProvider;
         this.authenticator = authenticator;

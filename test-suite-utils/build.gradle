@@ -1,17 +1,9 @@
 plugins {
     id 'java-library'
-}
-
-repositories {
-    mavenCentral()
+    id "io.micronaut.build.internal.email-tests"
 }
 
 dependencies {
     api(libs.managed.javax.mail)
     api(libs.poi.ooxml)
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("1.8")
-    targetCompatibility = JavaVersion.toVersion("1.8")
 }

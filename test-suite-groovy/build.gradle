@@ -1,9 +1,8 @@
 plugins {
     id 'groovy'
+    id "io.micronaut.build.internal.email-tests"
 }
-repositories {
-    mavenCentral()
-}
+
 dependencies {
     testCompileOnly(libs.micronaut.inject.groovy)
 
@@ -21,9 +20,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("1.8")
-    targetCompatibility = JavaVersion.toVersion("1.8")
 }
