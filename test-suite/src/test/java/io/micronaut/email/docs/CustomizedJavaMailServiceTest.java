@@ -1,17 +1,14 @@
 package io.micronaut.email.docs;
 
-import com.sun.mail.imap.DefaultFolder;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Email;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
 import org.junit.jupiter.api.Test;
-
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
 
 import java.util.function.Consumer;
 

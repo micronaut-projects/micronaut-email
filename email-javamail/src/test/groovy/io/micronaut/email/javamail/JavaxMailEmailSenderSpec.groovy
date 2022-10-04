@@ -1,7 +1,6 @@
 package io.micronaut.email.javamail
 
 import io.micronaut.context.ApplicationContext
-import io.micronaut.context.annotation.Property
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
@@ -9,18 +8,13 @@ import io.micronaut.email.javamail.sender.MailPropertiesProvider
 import io.micronaut.email.javamail.sender.SessionProvider
 import io.micronaut.email.test.CiUtils
 import io.micronaut.email.test.MailTestUtils
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import jakarta.mail.Session
 import spock.lang.AutoCleanup
 import spock.lang.Requires
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
-
-import javax.mail.Authenticator
-import javax.mail.PasswordAuthentication
-import javax.mail.Session
 
 class JavaxMailEmailSenderSpec extends Specification {
     @AutoCleanup

@@ -1,14 +1,10 @@
 package io.micronaut.email.javamail.composer
 
-
-import io.micronaut.email.DefaultEmailSender
 import io.micronaut.email.Email
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
+import jakarta.mail.Message
 import spock.lang.Specification
-
-import javax.mail.Message
-import javax.mail.internet.InternetAddress
 
 @MicronautTest(startApplication = false)
 class DefaultMessageComposerSpec extends Specification {

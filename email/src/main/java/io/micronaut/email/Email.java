@@ -369,7 +369,7 @@ public final class Email implements Recipients {
             this.body = body;
             return this;
         }
-        
+
         /**
          * @param body Email body
          * @param bodyType Email body type

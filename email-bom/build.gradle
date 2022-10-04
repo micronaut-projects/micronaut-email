@@ -1,3 +1,7 @@
 plugins {
     id "io.micronaut.build.internal.bom"
 }
+
+checkVersionCatalogCompatibility {
+    enabled = false
+}

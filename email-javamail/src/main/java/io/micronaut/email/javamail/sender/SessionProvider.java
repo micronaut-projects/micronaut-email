@@ -16,8 +16,7 @@
 package io.micronaut.email.javamail.sender;
 
 import io.micronaut.core.annotation.NonNull;
-
-import javax.mail.Session;
+import jakarta.mail.Session;
 
 /**
  * Provides a Session.

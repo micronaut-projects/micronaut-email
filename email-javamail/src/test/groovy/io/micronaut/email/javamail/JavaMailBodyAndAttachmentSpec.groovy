@@ -15,6 +15,8 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.client.annotation.Client
 import io.netty.handler.codec.http.HttpHeaderNames
+import jakarta.mail.internet.MimeMultipart
+import jakarta.mail.util.ByteArrayDataSource
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.DockerImageName
@@ -22,9 +24,6 @@ import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
-
-import javax.mail.internet.MimeMultipart
-import javax.mail.util.ByteArrayDataSource
 
 class JavaMailBodyAndAttachmentSpec extends Specification {
 

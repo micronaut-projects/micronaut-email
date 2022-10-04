@@ -1,6 +1,5 @@
 package io.micronaut.email.docs
 
-import groovy.transform.CompileStatic
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.email.Email
 import io.micronaut.email.EmailException

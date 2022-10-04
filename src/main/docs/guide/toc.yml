@@ -18,5 +18,6 @@ integrations:
   sendgrid: SendGrid
   mailjet: Mailjet
   javamail: JavaMail
+breaks: Breaking Changes
 repository: Repository
 
