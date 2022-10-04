@@ -17,7 +17,7 @@ integrations:
   postmark: Postmark
   sendgrid: SendGrid
   mailjet: Mailjet
-  javamail: JavaMail
+  javamail: Jakarta Mail
 breaks: Breaking Changes
 repository: Repository
 
