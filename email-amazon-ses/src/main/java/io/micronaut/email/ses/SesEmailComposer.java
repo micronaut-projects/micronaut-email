@@ -42,7 +42,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * @author Sergio del Amo
