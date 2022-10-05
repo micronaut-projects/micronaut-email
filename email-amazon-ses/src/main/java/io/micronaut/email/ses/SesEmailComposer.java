@@ -107,13 +107,13 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
     private Destination.Builder destinationBuilder(@NonNull Email email) {
         Destination.Builder destinationBuilder = Destination.builder();
         if (email.getTo() != null) {
-            destinationBuilder.toAddresses(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
+            destinationBuilder.toAddresses(email.getTo().stream().map(Contact::getEmail).toList());
         }
         if (email.getCc() != null) {
-            destinationBuilder.ccAddresses(email.getCc().stream().map(Contact::getEmail).collect(Collectors.toList()));
+            destinationBuilder.ccAddresses(email.getCc().stream().map(Contact::getEmail).toList());
         }
         if (email.getBcc() != null) {
-            destinationBuilder.bccAddresses(email.getBcc().stream().map(Contact::getEmail).collect(Collectors.toList()));
+            destinationBuilder.bccAddresses(email.getBcc().stream().map(Contact::getEmail).toList());
         }
         return destinationBuilder;
     }

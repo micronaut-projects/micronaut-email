@@ -86,7 +86,7 @@ public class DefaultMessageComposer implements MessageComposer {
             message.setRecipients(Message.RecipientType.BCC, contactAddresses(email.getBcc()));
         }
         if (null != email.getReplyTo()) {
-            message.setReplyTo(contactAddresses(Stream.of(email.getReplyTo()).collect(Collectors.toList())));
+            message.setReplyTo(contactAddresses(Stream.of(email.getReplyTo()).toList()));
         }
 
         MimeMultipart multipart = new MimeMultipart();
