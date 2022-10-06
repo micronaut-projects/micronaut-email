@@ -1,9 +1,3 @@
-This section documents breaking changes between versions:
+=== Micronaut Email 2
 
-=== Micronaut Email {version}
-
-Micronaut Email's modules are based on Jakarta Email 2.0.x, which has breaking changes from Java Mail 1.6.x used by previous versions of Micronaut Email. With the migration to Jakarta Mail package namespaces changed from `javax.mail` to `jakarta.mail`. In addition, the dependency coordinate changed from `com.sun.mail:javax.mail` to `com.sun.mail:jakarta.mail`.
-
-For more information, refer to the following Jakarta Mail guide:
-
-- https://eclipse-ee4j.github.io/mail/[Jakarta EE - Jakarta Mail]
+Micronaut Email 2 migrates to https://eclipse-ee4j.github.io/mail/[Jakarta Mail] package namespaces from `javax.mail` to `jakarta.mail`. Moreover, it uses transitive dependency `com.sun.mail:jakarta.mail` instead of `com.sun.mail:javax.mail`.
