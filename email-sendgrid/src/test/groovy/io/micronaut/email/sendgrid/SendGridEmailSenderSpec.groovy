@@ -21,7 +21,7 @@ class SendGridEmailSenderSpec extends Specification {
                 env["SENDGRID_API_KEY"] &&
                 env["GMAIL_USERNAME"] &&
                 env["GMAIL_PASSWORD"] &&
-                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))
+                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava17()))
     })
     void "Functional test of SendGrid integration"() {
         given:

@@ -22,7 +22,7 @@ class PostmarkEmailSenderSpec extends Specification {
                 env["POSTMARK_API_TOKEN"] &&
                 env["GMAIL_USERNAME"] &&
                 env["GMAIL_PASSWORD"] &&
-                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))
+                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava17()))
     })
     void "Functional test of postmark integration"() {
         given:

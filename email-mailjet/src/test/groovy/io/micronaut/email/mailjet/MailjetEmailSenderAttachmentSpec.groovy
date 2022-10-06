@@ -25,7 +25,7 @@ class MailjetEmailSenderAttachmentSpec extends Specification {
                 env["MAILJET_API_SECRET"] &&
                 env["GMAIL_USERNAME"] &&
                 env["GMAIL_PASSWORD"] &&
-                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))
+                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava17()))
     })
     void "Functional test of an Email with Attachment for Mailjet integration"() {
         given:
