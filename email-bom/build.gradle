@@ -2,6 +2,9 @@ plugins {
     id "io.micronaut.build.internal.bom"
 }
 
-checkVersionCatalogCompatibility {
-    enabled = false
+micronautBom {
+    suppressions {
+        acceptedLibraryRegressions.add("javax-mail")
+        acceptedVersionRegressions.add("javax-mail")
+    }
 }
