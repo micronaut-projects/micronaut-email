@@ -18,6 +18,8 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.core.util.StringUtils;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -71,6 +73,36 @@ public class Contact {
     @Nullable
     public String getName() {
         return name;
+    }
+
+    /**
+     * returns name-addr for a Contact.
+     * Given:
+     * Contact(email: 'johnsnow@example.com, name: John Snow)
+     *
+     * When:
+     * Contact::getNameAddress()
+     *
+     * Then:
+     * John Snow <johnsnow@example.com>
+     *
+     * Given:
+     * Contact(email: 'johnsnow@example.com, name: null)
+     *
+     * When:
+     * Contact::getNameAddress()
+     *
+     * Then:
+     * <johnsnow@example.com>
+     *
+     * @see <a href="https://www.rfc-editor.org/rfc/rfc5322#section-3.4">Address Specification</a>
+     * @return An optional name that indicates the name of the recipient that could be displayed to the user of a mail application, and the email address enclosed in angle brackets
+     */
+    @NonNull
+    public String getNameAddress() {
+        return StringUtils.isNotEmpty(getName()) ?
+            String.format("%s <%s>", name, email) :
+            "<" + email + ">";
     }
 
     @Override
