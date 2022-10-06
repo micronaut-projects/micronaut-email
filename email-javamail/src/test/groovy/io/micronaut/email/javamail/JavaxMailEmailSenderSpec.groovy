@@ -33,7 +33,7 @@ class JavaxMailEmailSenderSpec extends Specification {
     @Requires({
                 env["GMAIL_USERNAME"] &&
                 env["GMAIL_PASSWORD"] &&
-                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))
+                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava17()))
     })
     void "Functional test of SES integration"() {
         given:

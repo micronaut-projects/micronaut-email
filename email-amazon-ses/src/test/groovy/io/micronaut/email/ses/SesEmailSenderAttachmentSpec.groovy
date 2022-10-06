@@ -26,7 +26,7 @@ class SesEmailSenderAttachmentSpec extends Specification {
                 env["AWS_SECRET_ACCESS_KEY"] &&
                 env["GMAIL_USERNAME"] &&
                 env["GMAIL_PASSWORD"] &&
-                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava11()))
+                (!CiUtils.runningOnCI() || (CiUtils.runningOnCI() && jvm.isJava17()))
     })
     void "Functional test of Email with Attachment for SES integration"() {
         given:
