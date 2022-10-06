@@ -6,6 +6,7 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import software.amazon.awssdk.services.ses.model.SendEmailRequest
 import spock.lang.Specification
+import spock.lang.Unroll
 
 @MicronautTest(startApplication = false)
 class SesEmailComposerSpec extends Specification {
@@ -111,27 +112,32 @@ class SesEmailComposerSpec extends Specification {
         !request.destination().ccAddresses()
     }
 
-    void "from field should allow including the sender name"() {
+    @Unroll
+    void "from field should allow including the sender name"(String name, String email, String expected) {
         given:
-        Contact from = new Contact("sender@example.com", "John Doe")
-        String formattedFrom = "${from.getName()} <${from.getEmail()}>"
+        Contact from = new Contact(email, name)
         String to = "receiver@example.com"
         String subject = "Apple Music"
 
-        Email email = Email.builder()
+        when:
+        SendEmailRequest request = sesEmailComposer.compose(Email.builder()
                 .from(from)
                 .to(to)
                 .subject(subject)
                 .body("Lore ipsum body")
-                .build()
-        when:
-        SendEmailRequest request = sesEmailComposer.compose(email) as SendEmailRequest
+                .build()) as SendEmailRequest
 
         then:
-        formattedFrom == request.source()
+        expected == request.source()
         [to] == request.destination().toAddresses().toList()
         subject == request.message().subject().data()
         !request.destination().ccAddresses()
         !request.destination().bccAddresses()
+
+        where:
+        name       | email                | expected
+        "John Doe" | "sender@example.com" | "John Doe <sender@example.com>"
+        ""         | "sender@example.com" | "sender@example.com"
+        null       | "sender@example.com" | "sender@example.com"
     }
 }
