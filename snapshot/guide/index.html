@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Micronaut Email</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
     <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
@@ -46,23 +45,21 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#breaks"><strong>2</strong><span>Breaking Changes</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>3</strong><span>Release History</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#quickStart"><strong>4</strong><span>Quick Start</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#attachments"><strong>4</strong><span>Attachments</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#attachments"><strong>5</strong><span>Attachments</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#decorators"><strong>5</strong><span>Decorators</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#decorators"><strong>6</strong><span>Decorators</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#customization"><strong>6</strong><span>Customizing Emails</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#customization"><strong>7</strong><span>Customizing Emails</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#template"><strong>7</strong><span>Templates</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#template"><strong>8</strong><span>Templates</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#integrations"><strong>8</strong><span>Integrations</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#integrations"><strong>9</strong><span>Integrations</span></a></div>
-                                
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -95,33 +92,31 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-breaks"><a href="#breaks"><strong>2</strong><span>Breaking Changes</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>3</strong><span>Release History</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-quickStart"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-quickStart"><a href="#quickStart"><strong>4</strong><span>Quick Start</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-attachments"><a href="#attachments"><strong>4</strong><span>Attachments</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-attachments"><a href="#attachments"><strong>5</strong><span>Attachments</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-decorators"><a href="#decorators"><strong>5</strong><span>Decorators</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-decorators"><a href="#decorators"><strong>6</strong><span>Decorators</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-customization"><a href="#customization"><strong>6</strong><span>Customizing Emails</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-customization"><a href="#customization"><strong>7</strong><span>Customizing Emails</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-template"><a href="#template"><strong>7</strong><span>Templates</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-template"><a href="#template"><strong>8</strong><span>Templates</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-integrations"><a href="#integrations"><strong>8</strong><span>Integrations</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-integrations"><a href="#integrations"><strong>9</strong><span>Integrations</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-ses"><a href="#ses"><strong>8.1</strong><span>SES</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-ses"><a href="#ses"><strong>9.1</strong><span>SES</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-postmark"><a href="#postmark"><strong>8.2</strong><span>Postmark</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-postmark"><a href="#postmark"><strong>9.2</strong><span>Postmark</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-sendgrid"><a href="#sendgrid"><strong>8.3</strong><span>SendGrid</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-sendgrid"><a href="#sendgrid"><strong>9.3</strong><span>SendGrid</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-mailjet"><a href="#mailjet"><strong>8.4</strong><span>Mailjet</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-mailjet"><a href="#mailjet"><strong>9.4</strong><span>Mailjet</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-javamail"><a href="#javamail"><strong>8.5</strong><span>JavaMail</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-javamail"><a href="#javamail"><strong>9.5</strong><span>Jakarta Mail</span></a></div>
-        
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>9</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -137,7 +132,7 @@
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -147,26 +142,10 @@
 <p>The Micronaut Email module provides integration with Transactional email providers such as <a href="https://aws.amazon.com/ses/">Amazon Simple Email Service</a>, <a href="https://postmarkapp.com">Postmark</a>, <a href="https://www.mailjet.com">Mailjet</a> or <a href="https://sendgrid.com">SendGrid</a>.</p>
 </div>
 
-<h1 id="breaks"><a class="anchor" href="#breaks"></a>2 Breaking Changes</h1>
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/breaks.adoc"'>
-        <i class='fa fa-pencil-square-o'></i> Improve this doc
-    </button>
-</div>
-
-
-<div class="sect2">
-<h3 id="_micronaut_email_2">Micronaut Email 2</h3>
-<div class="paragraph">
-<p>Micronaut Email 2 migrates to <a href="https://eclipse-ee4j.github.io/mail/">Jakarta Mail</a> package namespaces from <code>javax.mail</code> to <code>jakarta.mail</code>. Moreover, it uses transitive dependency <code>com.sun.mail:jakarta.mail</code> instead of <code>com.sun.mail:javax.mail</code>.</p>
-</div>
-</div>
-
-<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>3 Release History</h1>
-
-<div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -179,10 +158,10 @@
 <p><a href="https://github.com/micronaut-projects/micronaut-email/releases">https://github.com/micronaut-projects/micronaut-email/releases</a></p>
 </div>
 
-<h1 id="quickStart"><a class="anchor" href="#quickStart"></a>4 Quick Start</h1>
+<h1 id="quickStart"><a class="anchor" href="#quickStart"></a>3 Quick Start</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/quickStart.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/quickStart.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -273,10 +252,10 @@ class WelcomeService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
 </div>
 </div>
 
-<h1 id="attachments"><a class="anchor" href="#attachments"></a>5 Attachments</h1>
+<h1 id="attachments"><a class="anchor" href="#attachments"></a>4 Attachments</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/attachments.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/attachments.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -423,10 +402,10 @@ class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;
 </div>
 </div>
 
-<h1 id="decorators"><a class="anchor" href="#decorators"></a>6 Decorators</h1>
+<h1 id="decorators"><a class="anchor" href="#decorators"></a>5 Decorators</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/decorators.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/decorators.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -470,10 +449,10 @@ class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;
 <p>Moreover, if you have a custom need (e.g. always bcc an email address, adding a prefix to the email subject in a particular environment), you can register a bean of type <a href="../api/io/micronaut/email/EmailDecorator.html">EmailDecorator</a>.</p>
 </div>
 
-<h1 id="customization"><a class="anchor" href="#customization"></a>7 Customizing Emails</h1>
+<h1 id="customization"><a class="anchor" href="#customization"></a>6 Customizing Emails</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/customization.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/customization.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -483,7 +462,7 @@ class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;
 <p>If you have a requirement to customize the email being sent&#8201;&#8212;&#8201;for example adding headers to the email&#8201;&#8212;&#8201;then you can use the Consumer variant of <a href="../api/io/micronaut/email/EmailSender.html">EmailSender</a>.</p>
 </div>
 <div class="paragraph">
-<p>Here we show an example for JavaMail using the jakarta.mail.Message class, but this can be altered to the Mail platform request class you are using.</p>
+<p>Here we show an example for JavaMail using the javax.mail.Message class, but this can be altered to the Mail platform request class you are using.</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
@@ -493,10 +472,11 @@ import io.micronaut.email.Email;
 import io.micronaut.email.EmailSender;
 import io.micronaut.email.MultipartBody;
 import jakarta.inject.Singleton;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
 
 /**
  * An example of customization for JavaMail messages
@@ -544,10 +524,11 @@ import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
 import io.micronaut.email.MultipartBody
 import jakarta.inject.Singleton
-import jakarta.mail.Message
-import jakarta.mail.MessagingException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+
+import javax.mail.Message
+import javax.mail.MessagingException
 
 /**
  * An example of customization for JavaMail messages
@@ -595,9 +576,10 @@ import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
 import io.micronaut.email.MultipartBody
 import jakarta.inject.Singleton
-import jakarta.mail.Message
-import jakarta.mail.MessagingException
 import org.slf4j.LoggerFactory
+
+import javax.mail.Message
+import javax.mail.MessagingException
 
 /**
  * An example of customization for JavaMail messages
@@ -634,10 +616,10 @@ class CustomizedJavaMailService(private val emailSender: EmailSender&lt;Message,
 </div>
 </div>
 
-<h1 id="template"><a class="anchor" href="#template"></a>8 Templates</h1>
+<h1 id="template"><a class="anchor" href="#template"></a>7 Templates</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/template.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/template.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -820,10 +802,10 @@ $copyright</code></pre>
 </div>
 </div>
 
-<h1 id="integrations"><a class="anchor" href="#integrations"></a>9 Integrations</h1>
+<h1 id="integrations"><a class="anchor" href="#integrations"></a>8 Integrations</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/integrations.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -831,10 +813,10 @@ $copyright</code></pre>
 
 
 
-<h2 id="ses"><a class="anchor" href="#ses"></a>9.1 SES</h2>
+<h2 id="ses"><a class="anchor" href="#ses"></a>8.1 SES</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/ses.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/integrations/ses.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -879,10 +861,10 @@ $copyright</code></pre>
 </ul>
 </div>
 
-<h2 id="postmark"><a class="anchor" href="#postmark"></a>9.2 Postmark</h2>
+<h2 id="postmark"><a class="anchor" href="#postmark"></a>8.2 Postmark</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/postmark.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/integrations/postmark.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -949,10 +931,10 @@ $copyright</code></pre>
 </tbody>
 </table>
 
-<h2 id="sendgrid"><a class="anchor" href="#sendgrid"></a>9.3 SendGrid</h2>
+<h2 id="sendgrid"><a class="anchor" href="#sendgrid"></a>8.3 SendGrid</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/sendgrid.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/integrations/sendgrid.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1009,10 +991,10 @@ $copyright</code></pre>
 </tbody>
 </table>
 
-<h2 id="mailjet"><a class="anchor" href="#mailjet"></a>9.4 Mailjet</h2>
+<h2 id="mailjet"><a class="anchor" href="#mailjet"></a>8.4 Mailjet</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/mailjet.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/integrations/mailjet.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1079,17 +1061,17 @@ $copyright</code></pre>
 </tbody>
 </table>
 
-<h2 id="javamail"><a class="anchor" href="#javamail"></a>9.5 Jakarta Mail</h2>
+<h2 id="javamail"><a class="anchor" href="#javamail"></a>8.5 JavaMail</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/javamail.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/integrations/javamail.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
 
 
 <div class="paragraph">
-<p>To use <a href="https://eclipse-ee4j.github.io/mail/">Jakarta Mail</a>, add the following dependency to your application.</p>
+<p>To use <a href="https://javaee.github.io/javamail/">JavaMail</a>, add the following dependency to your application.</p>
 </div>
 <div class="paragraph">
 <p>        <div class="listingblock multi-language-sample">
@@ -1125,10 +1107,10 @@ $copyright</code></pre>
 </div>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>10 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>9 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/1.4.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
