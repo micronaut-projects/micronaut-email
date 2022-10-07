@@ -20,9 +20,9 @@ import io.micronaut.context.annotation.Secondary;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import jakarta.inject.Singleton;
+import jakarta.mail.Authenticator;
+import jakarta.mail.Session;
 
-import javax.mail.Authenticator;
-import javax.mail.Session;
 import java.util.Properties;
 
 /**

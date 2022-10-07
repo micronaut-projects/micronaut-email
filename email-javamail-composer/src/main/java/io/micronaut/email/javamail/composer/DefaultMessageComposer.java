@@ -23,29 +23,28 @@ import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
 import jakarta.inject.Singleton;
+import jakarta.mail.Address;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.util.ByteArrayDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -86,7 +85,7 @@ public class DefaultMessageComposer implements MessageComposer {
             message.setRecipients(Message.RecipientType.BCC, contactAddresses(email.getBcc()));
         }
         if (null != email.getReplyTo()) {
-            message.setReplyTo(contactAddresses(Stream.of(email.getReplyTo()).collect(Collectors.toList())));
+            message.setReplyTo(contactAddresses(Stream.of(email.getReplyTo()).toList()));
         }
 
         MimeMultipart multipart = new MimeMultipart();

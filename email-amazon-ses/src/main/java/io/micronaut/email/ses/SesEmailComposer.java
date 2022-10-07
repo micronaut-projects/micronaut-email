@@ -24,6 +24,9 @@ import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
 import io.micronaut.email.javamail.composer.MessageComposer;
 import jakarta.inject.Singleton;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.ses.model.Body;
 import software.amazon.awssdk.services.ses.model.Content;
@@ -33,16 +36,12 @@ import software.amazon.awssdk.services.ses.model.SendEmailRequest;
 import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
 import software.amazon.awssdk.services.ses.model.SesRequest;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * @author Sergio del Amo
@@ -107,13 +106,13 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
     private Destination.Builder destinationBuilder(@NonNull Email email) {
         Destination.Builder destinationBuilder = Destination.builder();
         if (email.getTo() != null) {
-            destinationBuilder.toAddresses(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
+            destinationBuilder.toAddresses(email.getTo().stream().map(Contact::getEmail).toList());
         }
         if (email.getCc() != null) {
-            destinationBuilder.ccAddresses(email.getCc().stream().map(Contact::getEmail).collect(Collectors.toList()));
+            destinationBuilder.ccAddresses(email.getCc().stream().map(Contact::getEmail).toList());
         }
         if (email.getBcc() != null) {
-            destinationBuilder.bccAddresses(email.getBcc().stream().map(Contact::getEmail).collect(Collectors.toList()));
+            destinationBuilder.bccAddresses(email.getBcc().stream().map(Contact::getEmail).toList());
         }
         return destinationBuilder;
     }

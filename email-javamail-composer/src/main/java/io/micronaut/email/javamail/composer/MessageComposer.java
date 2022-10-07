@@ -18,10 +18,9 @@ package io.micronaut.email.javamail.composer;
 import io.micronaut.context.annotation.DefaultImplementation;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Email;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 
 /**
  * Creates a {@link Message} for the given {@link Email}.

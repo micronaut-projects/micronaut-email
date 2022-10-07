@@ -9,8 +9,6 @@ import spock.lang.Requires
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
-import javax.mail.Authenticator
-
 @Requires({ env["GMAIL_USERNAME"] && env["GMAIL_PASSWORD"] })
 class AuthenticationViaConfigurationSpec extends Specification {
 

@@ -21,12 +21,12 @@ import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
 import io.micronaut.email.javamail.composer.MessageComposer;
 import jakarta.inject.Singleton;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 

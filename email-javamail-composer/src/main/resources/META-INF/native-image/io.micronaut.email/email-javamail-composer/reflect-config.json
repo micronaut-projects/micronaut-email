@@ -7,7 +7,7 @@
     "allDeclaredClasses": true
   },
   {
-    "name": "javax.mail.internet.MimeMultipart",
+    "name": "jakarta.mail.internet.MimeMultipart",
     "allDeclaredFields": true,
     "allDeclaredConstructors": true,
     "allDeclaredMethods": true,

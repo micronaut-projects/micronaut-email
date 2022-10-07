@@ -1,3 +1,10 @@
 plugins {
     id "io.micronaut.build.internal.bom"
 }
+
+micronautBom {
+    suppressions {
+        acceptedLibraryRegressions.add("javax-mail")
+        acceptedVersionRegressions.add("javax-mail")
+    }
+}

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Classes related with the composing of {@link javax.mail.Message}.
+ * Classes related with the composing of {@link jakarta.mail.Message}.
  * @author Sergio del Amo
  * @since 1.0.0
  */

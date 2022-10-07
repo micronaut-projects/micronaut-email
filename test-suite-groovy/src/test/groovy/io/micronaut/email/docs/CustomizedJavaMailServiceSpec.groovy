@@ -3,12 +3,10 @@ package io.micronaut.email.docs
 import io.micronaut.email.BodyType
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
+import jakarta.mail.MessagingException
+import jakarta.mail.Session
+import jakarta.mail.internet.MimeMessage
 import spock.lang.Specification
-
-import javax.mail.Message
-import javax.mail.MessagingException
-import javax.mail.Session
-import javax.mail.internet.MimeMessage
 
 @MicronautTest(startApplication = false)
 class CustomizedJavaMailServiceSpec extends Specification {

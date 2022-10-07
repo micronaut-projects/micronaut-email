@@ -4,6 +4,6 @@ plugins {
 }
 
 dependencies {
-    api(libs.managed.javax.mail)
+    api(libs.managed.jakarta.mail)
     api(libs.poi.ooxml)
 }

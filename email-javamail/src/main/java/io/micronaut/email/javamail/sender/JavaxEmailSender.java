@@ -25,12 +25,12 @@ import io.micronaut.email.javamail.composer.MessageComposer;
 import io.micronaut.scheduling.TaskExecutors;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Transport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Transport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.ExecutorService;

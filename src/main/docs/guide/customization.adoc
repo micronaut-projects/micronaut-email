@@ -1,5 +1,5 @@
 If you have a requirement to customize the email being sent -- for example adding headers to the email -- then you can use the Consumer variant of api:io.micronaut.email.EmailSender[].
 
-Here we show an example for JavaMail using the javax.mail.Message class, but this can be altered to the Mail platform request class you are using.
+Here we show an example for JavaMail using the jakarta.mail.Message class, but this can be altered to the Mail platform request class you are using.
 
 snippet::io.micronaut.email.docs.CustomizedJavaMailService[]

@@ -4,10 +4,9 @@ import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
 import io.micronaut.email.MultipartBody
 import jakarta.inject.Singleton
+import jakarta.mail.Message
+import jakarta.mail.MessagingException
 import org.slf4j.LoggerFactory
-
-import javax.mail.Message
-import javax.mail.MessagingException
 
 /**
  * An example of customization for JavaMail messages
