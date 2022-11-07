@@ -45,7 +45,7 @@ public abstract class AbstractTransactionalEmailSender<I, O> implements AsyncTra
      *
      * @param executorService Executor service
      */
-    public AbstractTransactionalEmailSender(@Named(TaskExecutors.IO) ExecutorService executorService) {
+    protected AbstractTransactionalEmailSender(@Named(TaskExecutors.IO) ExecutorService executorService) {
         this.scheduler = Schedulers.fromExecutorService(executorService);
     }
 
