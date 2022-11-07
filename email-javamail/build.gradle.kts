@@ -6,6 +6,7 @@ dependencies {
     annotationProcessor(libs.micronaut.validation)
     api(projects.emailJavamailComposer)
     implementation(mn.micronaut.validation)
+    implementation(mn.reactor)
     testImplementation(project(":test-suite-utils"))
     testImplementation(mn.micronaut.http)
     testImplementation(libs.testcontainers)

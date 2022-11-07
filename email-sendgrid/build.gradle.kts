@@ -6,6 +6,7 @@ dependencies {
     annotationProcessor(mn.micronaut.validation)
     api(libs.managed.sendgrid.java)
     api(projects.email)
+    implementation(mn.micronaut.reactor)
     implementation(mn.micronaut.validation)
     testImplementation(mn.micronaut.http)
     testImplementation(projects.testSuiteUtils)
