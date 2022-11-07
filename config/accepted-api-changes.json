@@ -8,5 +8,160 @@
     "type": "io.micronaut.email.javamail.sender.DefaultSessionProvider",
     "member": "Constructor io.micronaut.email.javamail.sender.DefaultSessionProvider(io.micronaut.email.javamail.sender.MailPropertiesProvider,javax.mail.Authenticator)",
     "reason": "Argument migrated to jakarta.email.Authenticator"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Constructor io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference()",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanContextConditional",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.AdvisedBeanType",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanType",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference",
+    "member": "Constructor io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference()",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanContextConditional",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanType",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.postmark.$PostmarkEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Constructor io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference()",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanContextConditional",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.AdvisedBeanType",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanType",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Intercepted$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
+    "member": "Constructor io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference()",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanContextConditional",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanType",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
+    "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.AbstractTransactionalEmailSender",
+    "member": "Constructor io.micronaut.email.AbstractTransactionalEmailSender(java.util.concurrent.ExecutorService)",
+    "reason": "make constructor of abstract class protected in the next mayor version of Micronaut Email"
   }
 ]
