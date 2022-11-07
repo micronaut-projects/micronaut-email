@@ -158,5 +158,10 @@
     "type": "io.micronaut.email.javamail.sender.$JavaxEmailSender$Definition$Reference",
     "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
     "reason": "Micronaut 4.0.0 BeanDefinition changes"
+  },
+  {
+    "type": "io.micronaut.email.AbstractTransactionalEmailSender",
+    "member": "Constructor io.micronaut.email.AbstractTransactionalEmailSender(java.util.concurrent.ExecutorService)",
+    "reason": "make constructor of abstract class protected in the next mayor version of Micronaut Email"
   }
 ]
