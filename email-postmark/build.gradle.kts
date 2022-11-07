@@ -7,6 +7,7 @@ dependencies {
     api(libs.managed.postmark)
     api(projects.email)
     implementation(mn.micronaut.validation)
+    implementation(mn.reactor)
     testImplementation(mn.micronaut.http)
     testImplementation(projects.testSuiteUtils)
 }
