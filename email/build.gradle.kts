@@ -6,5 +6,5 @@ dependencies {
     annotationProcessor(mn.micronaut.validation)
     implementation(mn.micronaut.validation)
     api(libs.micronaut.context)
-    implementation(mn.micronaut.reactor)
+    api(mn.micronaut.reactor)
 }
