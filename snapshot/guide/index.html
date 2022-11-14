@@ -454,13 +454,12 @@ class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@return email address of the contact sending the email.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the contact sending the email.
- @return name of the contact sending the email.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the contact sending the email.</p></td>
 </tr>
 </tbody>
 </table>
@@ -930,22 +929,22 @@ $copyright</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If Postmark integration is enabled. Default value: ``</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.api-token</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@return Postmark API token.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.track-opens</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to track if the email is opened. Default value: ``</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.track-links</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../api/io/micronaut/email/TrackLinks.html">TrackLinks</a></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to track the email&#8217;s links. Default value DO_NOT_TRACK.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1000,12 +999,12 @@ $copyright</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If SendGrid integration is enabled. Default value</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.api-key</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@return The API (Application Programming Interface) keys to authenticate access to SendGrid service.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1060,22 +1059,22 @@ $copyright</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If Mailjet integration is enabled. Default value: ``</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.version</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Version. Default value: ``</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.api-key</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Key.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.api-secret</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Secret.</p></td>
 </tr>
 </tbody>
 </table>
