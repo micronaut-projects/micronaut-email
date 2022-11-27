@@ -84,7 +84,7 @@ public class Contact {
      * Contact::getNameAddress()
      *
      * Then:
-     * John Snow <johnsnow@example.com>
+     * {@literal John Snow <johnsnow@example.com>}
      *
      * Given:
      * Contact(email: 'johnsnow@example.com, name: null)
@@ -93,7 +93,7 @@ public class Contact {
      * Contact::getNameAddress()
      *
      * Then:
-     * <johnsnow@example.com>
+     * {@literal <johnsnow@example.com>}
      *
      * @see <a href="https://www.rfc-editor.org/rfc/rfc5322#section-3.4">Address Specification</a>
      * @return An optional name that indicates the name of the recipient that could be displayed to the user of a mail application, and the email address enclosed in angle brackets
