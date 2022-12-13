@@ -15,7 +15,7 @@
  */
 package io.micronaut.email.postmark;
 
-import com.wildbit.java.postmark.client.data.model.message.Message;
+import com.postmarkapp.postmark.client.data.model.message.Message;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Body;

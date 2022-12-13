@@ -1,3 +1,5 @@
 === Micronaut Email 2
 
-Micronaut Email 2 migrates to https://eclipse-ee4j.github.io/mail/[Jakarta Mail] package namespaces from `javax.mail` to `jakarta.mail`. Moreover, it uses transitive dependency `com.sun.mail:jakarta.mail` instead of `com.sun.mail:javax.mail`.
+Micronaut Email 2 migrates to https://eclipse-ee4j.github.io/mail/[Jakarta Mail] package namespaces, from `javax.mail` to `jakarta.mail`. Moreover, it uses transitive dependency `com.sun.mail:jakarta.mail` instead of `com.sun.mail:javax.mail`.
+
+This release also updates the ActiveCampaign Postmark library from 1.8.x to 1.9.0. Although it's a minor revision otherwise it refactors package names and the dependency groupId from `com.wildbit.java` to `com.postmarkapp`.
