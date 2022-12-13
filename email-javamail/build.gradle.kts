@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(libs.micronaut.validation)
+    annotationProcessor(mn.micronaut.validation)
     api(projects.emailJavamailComposer)
     implementation(mn.micronaut.validation)
     implementation(mn.reactor)
@@ -12,5 +12,5 @@ dependencies {
     testImplementation(libs.testcontainers)
     testImplementation(mn.micronaut.http.client)
     testCompileOnly(mn.micronaut.inject.groovy)
-    testImplementation(mn.micronaut.serde.jackson)
+    testImplementation(mnSerde.micronaut.serde.jackson)
 }
