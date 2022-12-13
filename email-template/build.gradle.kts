@@ -4,6 +4,6 @@ plugins {
 dependencies {
     annotationProcessor(mn.micronaut.validation)
     implementation(mn.micronaut.validation)
-    api(mn.micronaut.views.core)
+    api(mnViews.micronaut.views.core)
     api(projects.email)
 }
