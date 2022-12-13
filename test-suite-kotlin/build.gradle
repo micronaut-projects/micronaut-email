@@ -1,26 +1,24 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.7.21"
-    id("org.jetbrains.kotlin.kapt") version "1.7.21"
-    id "io.micronaut.build.internal.email-tests"
+    id "org.jetbrains.kotlin.jvm"
+    id("org.jetbrains.kotlin.kapt")
+    id("io.micronaut.build.internal.email-tests")
 }
 
 dependencies {
     testImplementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
-    testImplementation(libs.micronaut.validation)
+    testImplementation(mn.micronaut.validation)
 
-    testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.micronaut.test.junit5)
+    testImplementation(mnTest.micronaut.test.junit5)
     testRuntimeOnly(libs.junit.jupiter.engine)
 
     testImplementation(libs.kotlin.stdlib.jdk8)
 
-    kaptTest(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
-    kaptTest(libs.micronaut.inject.java)
+    kaptTest(mn.micronaut.inject.java)
 
     testImplementation project(":email")
     testImplementation project(":email-template")
     testImplementation(project(":test-suite-utils"))
-    testImplementation(libs.micronaut.views.velocity)
+    testImplementation(mnViews.micronaut.views.velocity)
 }
 
 tasks.named('test') {
