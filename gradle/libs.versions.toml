@@ -1,5 +1,5 @@
 [versions]
-managed-postmark = "1.8.4"
+managed-postmark = "1.9.1"
 managed-sendgrid = "4.9.3"
 managed-jakarta-mail = "2.0.1"
 managed-mailjet = "5.2.1"
@@ -16,7 +16,7 @@ micronaut-views = "3.7.2"
 
 [libraries]
 # Managed dependencies
-managed-postmark = { module = "com.wildbit.java:postmark", version.ref = "managed-postmark" }
+managed-postmark = { module = "com.postmarkapp:postmark", version.ref = "managed-postmark" }
 managed-sendgrid-java = { module = "com.sendgrid:sendgrid-java", version.ref = "managed-sendgrid" }
 managed-jakarta-mail = { module = "com.sun.mail:jakarta.mail", version.ref = "managed-jakarta-mail" }
 managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
