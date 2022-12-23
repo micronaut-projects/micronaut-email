@@ -71,21 +71,21 @@ loadScripts(document, 'script');</script>
 <h1 title="Class PostmarkEmailSender" class="title">Class PostmarkEmailSender</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="../AbstractTransactionalEmailSender.html" title="class in io.micronaut.email">io.micronaut.email.AbstractTransactionalEmailSender</a>&lt;com.wildbit.java.postmark.client.data.model.message.Message,<wbr>com.wildbit.java.postmark.client.data.model.message.MessageResponse&gt;
+<div class="inheritance"><a href="../AbstractTransactionalEmailSender.html" title="class in io.micronaut.email">io.micronaut.email.AbstractTransactionalEmailSender</a>&lt;com.postmarkapp.postmark.client.data.model.message.Message,<wbr>com.postmarkapp.postmark.client.data.model.message.MessageResponse&gt;
 <div class="inheritance">io.micronaut.email.postmark.PostmarkEmailSender</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code>io.micronaut.core.naming.Named</code>, <code><a href="../AsyncTransactionalEmailSender.html" title="interface in io.micronaut.email">AsyncTransactionalEmailSender</a>&lt;com.wildbit.java.postmark.client.data.model.message.Message,<wbr>com.wildbit.java.postmark.client.data.model.message.MessageResponse&gt;</code>, <code><a href="../TransactionalEmailSender.html" title="interface in io.micronaut.email">TransactionalEmailSender</a>&lt;com.wildbit.java.postmark.client.data.model.message.Message,<wbr>com.wildbit.java.postmark.client.data.model.message.MessageResponse&gt;</code></dd>
+<dd><code>io.micronaut.core.naming.Named</code>, <code><a href="../AsyncTransactionalEmailSender.html" title="interface in io.micronaut.email">AsyncTransactionalEmailSender</a>&lt;com.postmarkapp.postmark.client.data.model.message.Message,<wbr>com.postmarkapp.postmark.client.data.model.message.MessageResponse&gt;</code>, <code><a href="../TransactionalEmailSender.html" title="interface in io.micronaut.email">TransactionalEmailSender</a>&lt;com.postmarkapp.postmark.client.data.model.message.Message,<wbr>com.postmarkapp.postmark.client.data.model.message.MessageResponse&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="annotations">@Named("postmark")
 @Requires(beans={<a href="PostmarkConfiguration.html" title="interface in io.micronaut.email.postmark">PostmarkConfiguration.class</a>,<a href="PostmarkEmailComposer.html" title="class in io.micronaut.email.postmark">PostmarkEmailComposer.class</a>})
 @Singleton
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">PostmarkEmailSender</span>
-<span class="extends-implements">extends <a href="../AbstractTransactionalEmailSender.html" title="class in io.micronaut.email">AbstractTransactionalEmailSender</a>&lt;com.wildbit.java.postmark.client.data.model.message.Message,<wbr>com.wildbit.java.postmark.client.data.model.message.MessageResponse&gt;</span></div>
+<span class="extends-implements">extends <a href="../AbstractTransactionalEmailSender.html" title="class in io.micronaut.email">AbstractTransactionalEmailSender</a>&lt;com.postmarkapp.postmark.client.data.model.message.Message,<wbr>com.postmarkapp.postmark.client.data.model.message.MessageResponse&gt;</span></div>
 <div class="block"><a href="https://postmarkapp.com">Postmark</a> implementation of <a href="../TransactionalEmailSender.html" title="interface in io.micronaut.email"><code>TransactionalEmailSender</code></a> and <a href="../AsyncTransactionalEmailSender.html" title="interface in io.micronaut.email"><code>AsyncTransactionalEmailSender</code></a>.</div>
 <dl class="notes">
 <dt>Since:</dt>
@@ -142,9 +142,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.wildbit.java.postmark.client.data.model.message.MessageResponse</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.postmarkapp.postmark.client.data.model.message.MessageResponse</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#send(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">send</a><wbr>(@NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.wildbit.java.postmark.client.data.model.message.Message&gt;&nbsp;emailRequest)</code></div>
+ @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.postmarkapp.postmark.client.data.model.message.Message&gt;&nbsp;emailRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends an email.</div>
 </div>
@@ -231,11 +231,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="send(io.micronaut.email.Email,java.util.function.Consumer)">
 <h3>send</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.wildbit.java.postmark.client.data.model.message.MessageResponse</span>&nbsp;<span class="element-name">send</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.postmarkapp.postmark.client.data.model.message.MessageResponse</span>&nbsp;<span class="element-name">send</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
  @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
  @NonNull @NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.wildbit.java.postmark.client.data.model.message.Message&gt;&nbsp;emailRequest)</span>
-                                                                         throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
+ @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.postmarkapp.postmark.client.data.model.message.Message&gt;&nbsp;emailRequest)</span>
+                                                                        throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TransactionalEmailSender.html#send(io.micronaut.email.Email,java.util.function.Consumer)">TransactionalEmailSender</a></code></span></div>
 <div class="block">Sends an email.</div>
 <dl class="notes">
