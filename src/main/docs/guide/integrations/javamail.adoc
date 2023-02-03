@@ -8,7 +8,7 @@ You need to provide beans of type api:io.micronaut.email.javamail.sender.MailPro
 
 As an alternative to providing your own api:io.micronaut.email.javamail.sender.SessionProvider[] for authentication, you can configure password based authentication via configuration:
 
-[source, yaml]
+[configuration]
 ----
 javamail:
   authentication:
