@@ -3,10 +3,10 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.validation)
-    api(projects.email)
+    annotationProcessor(mnValidation.micronaut.validation.processor)
+    api(projects.micronautEmail)
     api(libs.managed.jakarta.mail)
-    implementation(mn.micronaut.validation)
+    implementation(mnValidation.micronaut.validation)
     testImplementation(projects.testSuiteUtils)
     testImplementation(mn.micronaut.http)
     testCompileOnly(mn.micronaut.inject.groovy)

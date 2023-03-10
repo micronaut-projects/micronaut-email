@@ -18,7 +18,7 @@ package io.micronaut.email.sendgrid;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * {@link ConfigurationProperties} implementation of {@link SendGridConfiguration}.

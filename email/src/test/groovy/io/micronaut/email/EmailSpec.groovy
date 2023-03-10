@@ -4,7 +4,7 @@ import io.micronaut.core.beans.BeanIntrospection
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
-import javax.validation.Validator
+import jakarta.validation.Validator
 
 @MicronautTest(startApplication = false)
 class EmailSpec extends Specification {

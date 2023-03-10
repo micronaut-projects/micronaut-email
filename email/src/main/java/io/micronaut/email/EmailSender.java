@@ -17,7 +17,7 @@ package io.micronaut.email;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.naming.Named;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.function.Consumer;
 
 /**

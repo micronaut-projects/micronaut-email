@@ -12,9 +12,9 @@ import jakarta.inject.Singleton
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import javax.validation.ConstraintViolationException
-import javax.validation.Valid
-import javax.validation.constraints.NotNull
+import jakarta.validation.ConstraintViolationException
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
 import java.util.function.Consumer
 
 @Property(name = 'spec.name', value = 'TransactionalEmailSenderSpec')

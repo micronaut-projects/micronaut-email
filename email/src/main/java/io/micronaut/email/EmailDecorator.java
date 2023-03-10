@@ -18,7 +18,7 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.order.Ordered;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Decorates every Email send by an {@link EmailSender} or an {@link AsyncEmailSender}.

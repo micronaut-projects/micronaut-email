@@ -3,8 +3,11 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.validation)
-    implementation(mn.micronaut.validation)
+    annotationProcessor(mnValidation.micronaut.validation.processor)
+    implementation(mnValidation.micronaut.validation)
     api(mn.micronaut.context)
     implementation(mnReactor.micronaut.reactor)
+
+    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
+    testImplementation(mnValidation.micronaut.validation)
 }

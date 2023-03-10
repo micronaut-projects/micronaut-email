@@ -20,7 +20,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.configuration.FromConfiguration;
 import jakarta.inject.Singleton;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Decorates an email by setting the from field if not specified with the value provided by {@link FromConfiguration}.

@@ -20,7 +20,7 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.TrackLinks;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * {@link ConfigurationProperties} implementation of {@link PostmarkConfiguration}.

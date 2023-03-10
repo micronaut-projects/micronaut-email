@@ -27,8 +27,8 @@ import io.micronaut.email.EmailException;
 import io.micronaut.email.TrackLinks;
 import jakarta.inject.Singleton;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

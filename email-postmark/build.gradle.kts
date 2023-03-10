@@ -3,10 +3,10 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.validation)
+    annotationProcessor(mnValidation.micronaut.validation.processor)
     api(libs.managed.postmark)
-    api(projects.email)
-    implementation(mn.micronaut.validation)
+    api(projects.micronautEmail)
+    implementation(mnValidation.micronaut.validation)
     implementation(mn.reactor)
     testImplementation(mn.micronaut.http)
     testImplementation(projects.testSuiteUtils)

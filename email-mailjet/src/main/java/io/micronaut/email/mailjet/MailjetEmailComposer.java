@@ -30,8 +30,8 @@ import jakarta.inject.Singleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.Base64;
 import java.util.Optional;
 
