@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
+    testCompileOnly(mnValidation.micronaut.validation.processor)
     testCompileOnly(mn.micronaut.inject.groovy)
 
     testImplementation(platform(mn.micronaut.core.bom))
