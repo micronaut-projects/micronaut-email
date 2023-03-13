@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    testImplementation(platform("io.micronaut:micronaut-bom:${micronautVersion}"))
-    testImplementation(mn.micronaut.validation)
+    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
+    testImplementation(mnValidation.micronaut.validation)
 
     testImplementation(mnTest.micronaut.test.junit5)
     testRuntimeOnly(libs.junit.jupiter.engine)
@@ -15,9 +15,9 @@ dependencies {
 
     kaptTest(mn.micronaut.inject.java)
 
-    testImplementation project(":email")
-    testImplementation project(":email-template")
-    testImplementation(project(":test-suite-utils"))
+    testImplementation(projects.testSuiteUtils)
+    testImplementation(projects.micronautEmail)
+    testImplementation(projects.micronautEmailTemplate)
     testImplementation(mnViews.micronaut.views.velocity)
 }
 

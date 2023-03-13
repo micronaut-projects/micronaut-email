@@ -3,14 +3,14 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.validation)
+    annotationProcessor(mnValidation.micronaut.validation.processor)
 
-    api(projects.emailJavamailComposer)
+    api(projects.micronautEmailJavamailComposer)
     api(mnAws.micronaut.aws.sdk.v2)
     api(libs.ses)
 
     implementation(mnReactor.micronaut.reactor)
-    implementation(mn.micronaut.validation)
+    implementation(mnValidation.micronaut.validation)
 
     testImplementation(projects.testSuiteUtils)
     testImplementation(mn.micronaut.http)

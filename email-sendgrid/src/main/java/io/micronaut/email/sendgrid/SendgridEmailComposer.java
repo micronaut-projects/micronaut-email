@@ -31,8 +31,8 @@ import io.micronaut.email.EmailComposer;
 import io.micronaut.email.EmailException;
 import jakarta.inject.Singleton;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Optional;

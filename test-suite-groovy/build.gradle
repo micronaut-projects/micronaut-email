@@ -4,17 +4,18 @@ plugins {
 }
 
 dependencies {
+    testCompileOnly(mnValidation.micronaut.validation.processor)
     testCompileOnly(mn.micronaut.inject.groovy)
 
     testImplementation(platform(mn.micronaut.core.bom))
-    testImplementation(mn.micronaut.validation)
+    testImplementation(mnValidation.micronaut.validation)
 
     testImplementation(libs.spock.core) {
         exclude module: 'groovy-all'
     }
     testImplementation(projects.testSuiteUtils)
-    testImplementation(projects.email)
-    testImplementation(projects.emailTemplate)
+    testImplementation(projects.micronautEmail)
+    testImplementation(projects.micronautEmailTemplate)
     testImplementation(mnTest.micronaut.test.spock)
     testImplementation(mnViews.micronaut.views.velocity)
 }

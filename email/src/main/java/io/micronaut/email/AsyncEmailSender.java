@@ -20,7 +20,7 @@ import io.micronaut.core.async.annotation.SingleResult;
 import io.micronaut.core.naming.Named;
 import org.reactivestreams.Publisher;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.function.Consumer;
 
 /**

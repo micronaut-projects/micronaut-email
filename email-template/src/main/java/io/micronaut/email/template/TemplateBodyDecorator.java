@@ -28,7 +28,7 @@ import io.micronaut.http.context.ServerRequestContext;
 import io.micronaut.views.ModelAndView;
 import io.micronaut.views.ViewsRenderer;
 import org.slf4j.Logger;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Optional;

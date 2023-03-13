@@ -2,8 +2,8 @@ plugins {
     id("io.micronaut.build.internal.email-module")
 }
 dependencies {
-    annotationProcessor(mn.micronaut.validation)
-    implementation(mn.micronaut.validation)
+    annotationProcessor(mnValidation.micronaut.validation.processor)
+    implementation(mnValidation.micronaut.validation)
     api(mnViews.micronaut.views.core)
-    api(projects.email)
+    api(projects.micronautEmail)
 }

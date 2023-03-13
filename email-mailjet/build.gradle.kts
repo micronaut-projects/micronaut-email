@@ -3,11 +3,11 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.validation)
+    annotationProcessor(mnValidation.micronaut.validation.processor)
     api(libs.managed.mailjet.client)
-    api(projects.email)
+    api(projects.micronautEmail)
     implementation(mnReactor.micronaut.reactor)
-    implementation(mn.micronaut.validation)
+    implementation(mnValidation.micronaut.validation)
     testImplementation(projects.testSuiteUtils)
     testImplementation(mn.micronaut.http)
 }
