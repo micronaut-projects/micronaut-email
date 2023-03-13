@@ -8,6 +8,5 @@ dependencies {
     api(mn.micronaut.context)
     implementation(mnReactor.micronaut.reactor)
 
-    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
-    testImplementation(mnValidation.micronaut.validation)
+    testCompileOnly(mnValidation.micronaut.validation.processor)
 }
