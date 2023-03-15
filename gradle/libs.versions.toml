@@ -7,7 +7,7 @@ groovy = "4.0.9"
 managed-postmark = "1.9.1"
 managed-sendgrid = "4.9.3"
 managed-jakarta-mail = "2.0.1"
-managed-mailjet = "5.2.1"
+managed-mailjet = "5.2.2"
 
 poi-ooxml = "5.2.3"
 kotlin = "1.7.21"
