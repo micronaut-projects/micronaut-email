@@ -15,9 +15,9 @@ spock = "2.3-groovy-4.0"
 testcontainers = "1.17.6"
 
 micronaut-aws = "4.0.0-SNAPSHOT"
-micronaut-validation = "4.0.0-SNAPSHOT"
 micronaut-reactor = "3.0.0-M1"
 micronaut-serde = "2.0.0-M1"
+micronaut-validation = "4.0.0-M1"
 micronaut-views = "4.0.0-SNAPSHOT"
 
 [libraries]
