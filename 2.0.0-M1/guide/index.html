@@ -1,0 +1,1154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Micronaut Email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <link rel="stylesheet" href="../css/highlight/agate.css">
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/guide.js"></script>
+    <script src="../js/multi-language-sample.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="../css/multi-language-sample.css"/>
+    <script src="../js/docs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+    <script type="text/javascript">
+        function addJsClass(el) {
+            var classes = document.body.className.split(" ");
+            classes.push("js");
+            document.body.className = classes.join(" ");
+        }
+    </script>
+
+</head>
+
+<body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
+
+<div id="table-of-content-nav-link" class="desktop">
+    <a id="theme-switcher" title="Switch to dark theme" href="javascript:switchTheme(true)"><i class="fa fa-moon-o"></i></a>
+    <a title="Collapse/Open Table of contents" title="Hide Table of Contents" href="javascript:hideTableOfContents();" class="button">[ + ]</a>
+</div>
+
+<div id="main">
+    <div id="navigation" class="no-print">
+        <div class="navTitle">
+            <span id="logo"><a href="http://micronaut.io" title="Go to Micronaut Website"><img src="../img/micronaut-logo-white.svg" alt="Micronaut"/></a></span>
+        </div>
+        <div class="navLinks">
+            <ul>
+                    <li><div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)" class="desktop">
+                            <a href="../guide/index.html" class="button">Table of contents</a>
+                            <div id="nav-summary-childs" style="display:none;">
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#breaks"><strong>2</strong><span>Breaking Changes</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>3</strong><span>Release History</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#quickStart"><strong>4</strong><span>Quick Start</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#attachments"><strong>5</strong><span>Attachments</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#decorators"><strong>6</strong><span>Decorators</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#customization"><strong>7</strong><span>Customizing Emails</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#template"><strong>8</strong><span>Templates</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#integrations"><strong>9</strong><span>Integrations</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
+                                
+                            </div>
+                        </div>
+                    </li>
+
+                <li id="table-of-content-nav-link-mobile" class="mobile">
+                    <a title="Scroll to Table of contents" href="javascript:scrollToTop();" class="button">Toc</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Configuration Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Conf</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <div id="table-of-content">
+        <div class="toc-content">
+
+        <h2>Table of Contents</h2>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-breaks"><a href="#breaks"><strong>2</strong><span>Breaking Changes</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>3</strong><span>Release History</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-quickStart"><a href="#quickStart"><strong>4</strong><span>Quick Start</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-attachments"><a href="#attachments"><strong>5</strong><span>Attachments</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-decorators"><a href="#decorators"><strong>6</strong><span>Decorators</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-customization"><a href="#customization"><strong>7</strong><span>Customizing Emails</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-template"><a href="#template"><strong>8</strong><span>Templates</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-integrations"><a href="#integrations"><strong>9</strong><span>Integrations</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-ses"><a href="#ses"><strong>9.1</strong><span>SES</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-postmark"><a href="#postmark"><strong>9.2</strong><span>Postmark</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-sendgrid"><a href="#sendgrid"><strong>9.3</strong><span>SendGrid</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-mailjet"><a href="#mailjet"><strong>9.4</strong><span>Mailjet</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-javamail"><a href="#javamail"><strong>9.5</strong><span>Jakarta Mail</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
+        
+        </div>
+    </div>
+    
+    <div class="docs-content">
+    <div class="project">
+        <h1>Micronaut Email</h1>
+        <p></p>
+        <p>Integration with Transaction Email Providers</p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-email/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-email/latest/guide/index.html'>LATEST</option><option selected='selected' value='https://micronaut-projects.github.io/micronaut-email/2.0.0-M1/guide/index.html'>2.0.0-M1</option><option value='https://micronaut-projects.github.io/micronaut-email/1.5.0/guide/index.html'>1.5.0</option><option value='https://micronaut-projects.github.io/micronaut-email/1.4.0/guide/index.html'>1.4.0</option><option value='https://micronaut-projects.github.io/micronaut-email/1.3.2/guide/index.html'>1.3.2</option><option value='https://micronaut-projects.github.io/micronaut-email/1.3.1/guide/index.html'>1.3.1</option><option value='https://micronaut-projects.github.io/micronaut-email/1.3.0/guide/index.html'>1.3.0</option><option value='https://micronaut-projects.github.io/micronaut-email/1.2.3/guide/index.html'>1.2.3</option><option value='https://micronaut-projects.github.io/micronaut-email/1.2.2/guide/index.html'>1.2.2</option><option value='https://micronaut-projects.github.io/micronaut-email/1.2.1/guide/index.html'>1.2.1</option><option value='https://micronaut-projects.github.io/micronaut-email/1.2.0/guide/index.html'>1.2.0</option><option value='https://micronaut-projects.github.io/micronaut-email/1.1.2/guide/index.html'>1.1.2</option><option value='https://micronaut-projects.github.io/micronaut-email/1.1.1/guide/index.html'>1.1.1</option><option value='https://micronaut-projects.github.io/micronaut-email/1.1.0/guide/index.html'>1.1.0</option><option value='https://micronaut-projects.github.io/micronaut-email/1.0.1/guide/index.html'>1.0.1</option><option value='https://micronaut-projects.github.io/micronaut-email/1.0.0/guide/index.html'>1.0.0</option></select> </p>
+    </div>
+    
+<h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/introduction.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The Micronaut Email module provides integration with Transactional email providers such as <a href="https://aws.amazon.com/ses/">Amazon Simple Email Service</a>, <a href="https://postmarkapp.com">Postmark</a>, <a href="https://www.mailjet.com">Mailjet</a> or <a href="https://sendgrid.com">SendGrid</a>.</p>
+</div>
+
+<h1 id="breaks"><a class="anchor" href="#breaks"></a>2 Breaking Changes</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/breaks.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect2">
+<h3 id="_micronaut_email_2">Micronaut Email 2</h3>
+<div class="paragraph">
+<p>Micronaut Email 2 migrates to <a href="https://eclipse-ee4j.github.io/mail/">Jakarta Mail</a> package namespaces, from <code>javax.mail</code> to <code>jakarta.mail</code>. Moreover, it uses transitive dependency <code>com.sun.mail:jakarta.mail</code> instead of <code>com.sun.mail:javax.mail</code>.</p>
+</div>
+<div class="paragraph">
+<p>This release also updates the ActiveCampaign Postmark library from 1.8.x to 1.9.0. Although it&#8217;s a minor revision otherwise it refactors package names and the dependency groupId from <code>com.wildbit.java</code> to <code>com.postmarkapp</code>.</p>
+</div>
+</div>
+
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>3 Release History</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>For this project, you can find a list of releases (with release notes) here:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-email/releases">https://github.com/micronaut-projects/micronaut-email/releases</a></p>
+</div>
+
+<h1 id="quickStart"><a class="anchor" href="#quickStart"></a>4 Quick Start</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/quickStart.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>First, you need to <a href="#integrations">install the dependency and add configuration</a> for your transactional email provider.</p>
+</div>
+<div class="paragraph">
+<p>Then, you can send an email by injecting a bean of type <a href="../api/io/micronaut/email/EmailSender.html">EmailSender</a>.</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.docs;
+
+import io.micronaut.email.BodyType;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.Email;
+import io.micronaut.email.MultipartBody;
+import jakarta.inject.Singleton;
+
+@Singleton
+public class WelcomeService {
+    private final EmailSender&lt;?, ?&gt; emailSender;
+
+    public WelcomeService(EmailSender&lt;?, ?&gt; emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    public void sendWelcomeEmail() {
+        emailSender.send(Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(new MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;", "Hello dear Micronaut user")));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
+
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import jakarta.inject.Singleton
+
+@Singleton
+class WelcomeService {
+    private final EmailSender&lt;?, ?&gt; emailSender
+
+    WelcomeService(EmailSender&lt;?, ?&gt; emailSender) {
+        this.emailSender = emailSender
+    }
+
+    void sendWelcomeEmail() {
+        emailSender.send(Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;", "Hello dear Micronaut user"))
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.EmailSender
+import io.micronaut.email.Email
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+
+@Singleton
+class WelcomeService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
+    fun sendWelcomeEmail() {
+        emailSender.send(
+            Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;", "Hello dear Micronaut user"))
+        )
+    }
+}</code></pre>
+</div>
+</div>
+
+<h1 id="attachments"><a class="anchor" href="#attachments"></a>5 Attachments</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/attachments.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To send attachment use the <a href="../api/io/micronaut/email/Attachment.html">Attachment</a> builder.</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.docs;
+
+import io.micronaut.email.Attachment;
+import io.micronaut.email.BodyType;
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.MultipartBody;
+import io.micronaut.email.test.SpreadsheetUtils;
+import io.micronaut.http.MediaType;
+import jakarta.inject.Singleton;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+@Singleton
+public class SendAttachmentService {
+    private final EmailSender&lt;?, ?&gt; emailSender;
+
+    public SendAttachmentService(EmailSender&lt;?, ?&gt; emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    public void sendReport() throws IOException {
+        emailSender.send(Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Monthly reports")
+                .body(new MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Attached Monthly reports&lt;/strong&gt;.&lt;/body&gt;&lt;/html&gt;", "Attached Monthly reports"))
+                .attachment(Attachment.builder()
+                        .filename("reports.xlsx")
+                        .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                        .content(excel())
+                        .build()));
+    }
+
+    private static byte[] excel() throws IOException {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        wb.createSheet("Reports");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            wb.write(bos);
+        } finally {
+            bos.close();
+        }
+        return bos.toByteArray();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
+
+import io.micronaut.email.Attachment
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
+@Singleton
+class SendAttachmentService {
+    private final EmailSender&lt;?, ?&gt; emailSender;
+
+    SendAttachmentService(EmailSender&lt;?, ?&gt; emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    void sendReport() throws IOException {
+        emailSender.send(Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Monthly reports")
+                .body(new MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Attached Monthly reports&lt;/strong&gt;.&lt;/body&gt;&lt;/html&gt;", "Attached Monthly reports"))
+                .attachment(Attachment.builder()
+                        .filename("reports.xlsx")
+                        .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                        .content(excel())
+                        .build()))
+    }
+
+    private static byte[] excel() throws IOException {
+        XSSFWorkbook wb = new XSSFWorkbook()
+        wb.createSheet("Reports")
+        ByteArrayOutputStream bos = new ByteArrayOutputStream()
+        try {
+            wb.write(bos)
+        } finally {
+            bos.close()
+        }
+        bos.toByteArray()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.*
+import jakarta.inject.Singleton
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import java.io.ByteArrayOutputStream
+
+@Singleton
+class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
+
+    fun sendWelcomeEmail() {
+        emailSender.send(
+            Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Monthly reports")
+                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Attached Monthly reports&lt;/strong&gt;.&lt;/body&gt;&lt;/html&gt;", "Attached Monthly reports"))
+                .attachment(
+                    Attachment.builder()
+                    .filename("reports.xlsx")
+                    .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .content(excel())
+                    .build()))
+    }
+
+    private fun excel(): ByteArray {
+        val wb = XSSFWorkbook()
+        wb.createSheet("Reports")
+        val bos = ByteArrayOutputStream()
+        bos.use { byteArrayOutputStream -&gt;
+            wb.write(byteArrayOutputStream)
+        }
+        return bos.toByteArray()
+    }
+}</code></pre>
+</div>
+</div>
+
+<h1 id="decorators"><a class="anchor" href="#decorators"></a>6 Decorators</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/decorators.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>If you send emails always from the same email address you can specify it via configuration and skip populating the <code>from</code> field when you build the <a href="../api/io/micronaut/email/Email.html">Email</a>.</p>
+</div>
+<a id="io.micronaut.email.configuration.FromConfigurationProperties" href="#io.micronaut.email.configuration.FromConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/configuration/FromConfigurationProperties.html">FromConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the contact sending the email.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>By setting <code>micronaut.email.from.email</code>, Micronaut Email registers a bean of type <a href="../api/io/micronaut/email/FromDecorator.html">FromDecorator</a> which populates the <code>from</code> field if not specified in the construction of the <a href="../api/io/micronaut/email/Email.html">Email</a>.</p>
+</div>
+<div class="paragraph">
+<p>Moreover, if you have a custom need (e.g. always bcc an email address, adding a prefix to the email subject in a particular environment), you can register a bean of type <a href="../api/io/micronaut/email/EmailDecorator.html">EmailDecorator</a>.</p>
+</div>
+
+<h1 id="customization"><a class="anchor" href="#customization"></a>7 Customizing Emails</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/customization.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>If you have a requirement to customize the email being sent&#8201;&#8212;&#8201;for example adding headers to the email&#8201;&#8212;&#8201;then you can use the Consumer variant of <a href="../api/io/micronaut/email/EmailSender.html">EmailSender</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here we show an example for JavaMail using the jakarta.mail.Message class, but this can be altered to the Mail platform request class you are using.</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.docs;
+
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.MultipartBody;
+import jakarta.inject.Singleton;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * An example of customization for JavaMail messages
+ */
+@Singleton
+public class CustomizedJavaMailService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CustomizedJavaMailService.class);
+
+    private final EmailSender&lt;Message, ?&gt; emailSender;
+
+    public CustomizedJavaMailService(EmailSender&lt;Message, ?&gt; emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    public void sendCustomizedEmail() {
+        Email.Builder email = Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(
+                        new MultipartBody(
+                                "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                                "Hello dear Micronaut user"
+                        )
+                );
+
+        // Customize the message with a header prior to sending
+        emailSender.send(email, message -&gt; {
+            try {
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;");
+            } catch (MessagingException e) {
+                LOG.error("Failed to add header", e);
+            }
+        });
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+import jakarta.mail.Message
+import jakarta.mail.MessagingException
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+/**
+ * An example of customization for JavaMail messages
+ */
+@Singleton
+class CustomizedJavaMailService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CustomizedJavaMailService.class);
+
+    private final EmailSender&lt;Message, ?&gt; emailSender
+
+    CustomizedJavaMailService(EmailSender&lt;Message, ?&gt; emailSender) {
+        this.emailSender = emailSender
+    }
+
+    void sendCustomizedEmail() {
+        def email = Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(
+                        new MultipartBody(
+                                "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                                "Hello dear Micronaut user"
+                        )
+                )
+
+        // Customize the message with a header prior to sending
+        emailSender.send(email, message -&gt; {
+            try {
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;");
+            } catch (MessagingException e) {
+                LOG.error("Failed to add header", e);
+            }
+        })
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+import jakarta.mail.Message
+import jakarta.mail.MessagingException
+import org.slf4j.LoggerFactory
+
+/**
+ * An example of customization for JavaMail messages
+ */
+@Singleton
+class CustomizedJavaMailService(private val emailSender: EmailSender&lt;Message, *&gt;) {
+
+    fun sendCustomizedEmail() {
+        val email = Email.builder()
+            .from("sender@example.com")
+            .to("john@example.com")
+            .subject("Micronaut test")
+            .body(
+                MultipartBody(
+                    "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                    "Hello dear Micronaut user"
+                )
+            )
+
+        // Customize the message with a header prior to sending
+        emailSender.send(email) { message: Message -&gt;
+            try {
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;")
+            } catch (e: MessagingException) {
+                LOG.error("Failed to add header", e)
+            }
+        }
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(CustomizedJavaMailService::class.java)
+    }
+}</code></pre>
+</div>
+</div>
+
+<h1 id="template"><a class="anchor" href="#template"></a>8 Templates</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/template.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>If you want to send Emails using templates, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.email:micronaut-email-template")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-email-template&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>You can use any Template Engines supported by <a href="https://micronaut-projects.github.io/micronaut-views/latest/guide/">Micronaut Views</a>.</p>
+</div>
+<div class="paragraph">
+<p>For example, you can use velocity templates for your emails if you include the following dependency:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.views:micronaut-views-velocity")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.views&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-views-velocity&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>Specify the email text or HTML as a <a href="../api/io/micronaut/email/template/TemplateBody.html">TemplateBody</a> to send a template.</p>
+</div>
+<div class="paragraph">
+<p>A bean of type <a href="../api/io/micronaut/email/template/TemplateBodyDecorator.html">TemplateBodyDecorator</a> renders those templates.</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.docs;
+
+import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.email.BodyType;
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailSender;
+import io.micronaut.email.MultipartBody;
+import io.micronaut.email.template.TemplateBody;
+import io.micronaut.views.ModelAndView;
+import jakarta.inject.Singleton;
+
+import java.util.Map;
+
+@Singleton
+public class WelcomeWithTemplateService {
+    private final EmailSender&lt;?, ?&gt; emailSender;
+
+    public WelcomeWithTemplateService(EmailSender&lt;?, ?&gt; emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    public void sendWelcomeEmail() {
+        Map&lt;String, String&gt; model = CollectionUtils.mapOf("message", "Hello dear Micronaut user",
+                "copyright", "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
+                "address", "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141");
+        emailSender.send(Email.builder()
+                        .from("sender@example.com")
+                        .to("john@example.com")
+                        .subject("Micronaut test")
+                        .body(new MultipartBody(
+                                new TemplateBody&lt;&gt;(BodyType.HTML, new ModelAndView&lt;&gt;("htmltemplate", model)),
+                                new TemplateBody&lt;&gt;(BodyType.TEXT, new ModelAndView&lt;&gt;("texttemplate", model)))));
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
+
+import io.micronaut.email.BodyType
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import io.micronaut.email.template.TemplateBody
+import io.micronaut.views.ModelAndView
+import jakarta.inject.Singleton
+
+@Singleton
+class WelcomeWithTemplateService {
+    private final EmailSender&lt;?, ?&gt; emailSender
+
+    WelcomeWithTemplateService(EmailSender&lt;?, ?&gt; emailSender) {
+        this.emailSender = emailSender
+    }
+
+    void sendWelcomeEmail() {
+        Map&lt;String, String&gt; model = [message: "Hello dear Micronaut user",
+                copyright: "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
+                address: "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141"]
+        emailSender.send(Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(new MultipartBody(
+                        new TemplateBody(BodyType.HTML, new ModelAndView&lt;&gt;("htmltemplate", model)),
+                        new TemplateBody(BodyType.TEXT, new ModelAndView&lt;&gt;("texttemplate", model)))))
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.BodyType
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import io.micronaut.email.template.TemplateBody
+import io.micronaut.views.ModelAndView
+import jakarta.inject.Singleton
+
+@Singleton
+class WelcomeWithTemplateService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
+
+    fun sendWelcomeEmail() {
+        val model = mapOf(
+            "message" to "Hello dear Micronaut user",
+            "copyright" to "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
+            "address" to "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141"
+        )
+        emailSender.send(
+            Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(MultipartBody(
+                    TemplateBody(BodyType.HTML, ModelAndView("htmltemplate", model)),
+                    TemplateBody(BodyType.TEXT, ModelAndView("texttemplate", model))))
+        )
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the previous example, you could have a Velocity template such as:</p>
+</div>
+<div class="paragraph">
+<p><em>src/main/resources/views/texttemplate.vm</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Hello
+
+$message
+
+thanks,
+Micronaut Framework
+
+$address
+
+$copyright</code></pre>
+</div>
+</div>
+
+<h1 id="integrations"><a class="anchor" href="#integrations"></a>9 Integrations</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+
+
+<h2 id="ses"><a class="anchor" href="#ses"></a>9.1 SES</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/ses.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To integrate with <a href="https://aws.amazon.com/ses/">Amazon Simple Email Service</a>, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.email:micronaut-email-amazon-ses")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-email-amazon-ses&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>This integration uses <a href="https://micronaut-projects.github.io/micronaut-aws/latest/guide/#sdkv2">Micronaut AWS SDK v2 integration</a>.</p>
+</div>
+<div class="paragraph">
+<p>Read about:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://micronaut-projects.github.io/micronaut-aws/latest/guide/#awsCredentials">Supplying AWS Credentials</a>.</p>
+</li>
+<li>
+<p>Select <a href="https://micronaut-projects.github.io/micronaut-aws/latest/guide/#awsRegionSelection">AWS Region Selection</a></p>
+</li>
+<li>
+<p><a href="https://micronaut-projects.github.io/micronaut-aws/latest/guide/#ses">SES beans</a></p>
+</li>
+</ul>
+</div>
+
+<h2 id="postmark"><a class="anchor" href="#postmark"></a>9.2 Postmark</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/postmark.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To integrate with <a href="https://postmarkapp.com">Postmark</a>, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.email:micronaut-email-postmark")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-email-postmark&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>You need to supply your Postmark&#8217;s <em>API token</em> via configuration:</p>
+</div>
+<a id="io.micronaut.email.postmark.PostmarkConfigurationProperties" href="#io.micronaut.email.postmark.PostmarkConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/postmark/PostmarkConfigurationProperties.html">PostmarkConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If Postmark integration is enabled. Default value: ``</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.api-token</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.track-opens</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to track if the email is opened. Default value: ``</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.track-links</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../api/io/micronaut/email/TrackLinks.html">TrackLinks</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to track the email&#8217;s links. Default value DO_NOT_TRACK.</p></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="sendgrid"><a class="anchor" href="#sendgrid"></a>9.3 SendGrid</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/sendgrid.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To integrate with <a href="https://sendgrid.com">SendGrid</a>, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.email:micronaut-email-sendgrid")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-email-sendgrid&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>You need to supply your SendGrid&#8217;s <em>API key and secret</em> via configuration:</p>
+</div>
+<a id="io.micronaut.email.sendgrid.SendGridConfigurationProperties" href="#io.micronaut.email.sendgrid.SendGridConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/sendgrid/SendGridConfigurationProperties.html">SendGridConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If SendGrid integration is enabled. Default value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.api-key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="mailjet"><a class="anchor" href="#mailjet"></a>9.4 Mailjet</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/mailjet.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To integrate with <a href="https://www.mailjet.com">Mailjet</a>, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.email:micronaut-email-mailjet")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-email-mailjet&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>You need to supply your Mailjet&#8217;s <em>API key and secret</em> via configuration:</p>
+</div>
+<a id="io.micronaut.email.mailjet.MailjetConfigurationProperties" href="#io.micronaut.email.mailjet.MailjetConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/mailjet/MailjetConfigurationProperties.html">MailjetConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If Mailjet integration is enabled. Default value: ``</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Version. Default value: ``</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.api-key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Key.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.api-secret</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Secret.</p></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="javamail"><a class="anchor" href="#javamail"></a>9.5 Jakarta Mail</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/integrations/javamail.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To use <a href="https://eclipse-ee4j.github.io/mail/">Jakarta Mail</a>, add the following dependency to your application.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.email:micronaut-email-javamail")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-email-javamail&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>You need to provide beans of type <a href="../api/io/micronaut/email/javamail/sender/MailPropertiesProvider.html">MailPropertiesProvider</a> and <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> to match your configuration.</p>
+</div>
+<div class="sect2">
+<h3 id="_authentication_via_configuration">Authentication via configuration</h3>
+<div class="paragraph">
+<p>As an alternative to providing your own <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> for authentication, you can configure password based authentication via configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">javamail:
+  authentication:
+    username: 'my.username'
+    password: 'my.password'</code></pre>
+</div>
+</div>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>10 Repository</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/master/src/main/docs/guide/repository.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can find the source code of this project in this repository:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-email">https://github.com/micronaut-projects/micronaut-email</a></p>
+</div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
