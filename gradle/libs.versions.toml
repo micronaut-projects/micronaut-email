@@ -16,8 +16,8 @@ testcontainers = "1.18.0"
 
 micronaut-aws = "4.0.0-M3"
 micronaut-reactor = "3.0.0-M1"
-micronaut-serde = "2.0.0-M3"
 micronaut-validation = "4.0.0-M4"
+micronaut-serde = "2.0.0-M5"
 micronaut-views = "4.0.0-M1"
 
 [libraries]
