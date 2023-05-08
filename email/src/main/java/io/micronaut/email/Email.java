@@ -49,16 +49,13 @@ public final class Email implements Recipients {
     private final Contact replyTo;
 
     @Nullable
-    @Valid
-    private final Collection<Contact> to;
+    private final Collection<@Valid Contact> to;
 
     @Nullable
-    @Valid
-    private final Collection<Contact> cc;
+    private final Collection<@Valid Contact> cc;
 
     @Nullable
-    @Valid
-    private final Collection<Contact> bcc;
+    private final Collection<@Valid Contact> bcc;
 
     @NotBlank
     @NonNull
