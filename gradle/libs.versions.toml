@@ -1,7 +1,7 @@
 [versions]
 micronaut-docs = "2.0.0"
 micronaut = "4.0.0-M2"
-micronaut-test = "4.0.0-M2"
+micronaut-test = "4.0.0-M3"
 groovy = "4.0.11"
 
 managed-postmark = "1.10.21"
