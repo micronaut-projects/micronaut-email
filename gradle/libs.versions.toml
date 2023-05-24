@@ -21,6 +21,9 @@ micronaut-validation = "4.0.0-M4"
 micronaut-views = "4.0.0-M1"
 
 [libraries]
+# Core
+micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
+
 # Managed dependencies
 managed-postmark = { module = "com.postmarkapp:postmark", version.ref = "managed-postmark" }
 managed-sendgrid-java = { module = "com.sendgrid:sendgrid-java", version.ref = "managed-sendgrid" }
