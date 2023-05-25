@@ -28,7 +28,7 @@ managed-jakarta-mail = { module = "com.sun.mail:jakarta.mail", version.ref = "ma
 managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
 
 # Micronaut
-
+micronaut-core = {group = "io.micronaut", name = "micronaut-core-bom", version.ref = "micronaut" }
 micronaut-aws = {group = "io.micronaut.aws", name = "micronaut-aws-bom", version.ref = "micronaut-aws" }
 micronaut-reactor = { module = 'io.micronaut.reactor:micronaut-reactor-bom', version.ref = "micronaut-reactor" }
 micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
