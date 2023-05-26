@@ -24,7 +24,6 @@ import io.micronaut.email.BodyType;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailDecorator;
 import io.micronaut.email.MultipartBody;
-import io.micronaut.http.context.ServerRequestContext;
 import io.micronaut.views.ModelAndView;
 import io.micronaut.views.ViewsRenderer;
 import org.slf4j.Logger;
@@ -94,7 +93,7 @@ public interface TemplateBodyDecorator extends EmailDecorator {
         }
         Writable writable = optionalViewsRenderer.get().render(viewName,
                 modelAndView.getModel().orElse(null),
-                ServerRequestContext.currentRequest().orElse(null));
+                null);
         StringWriter stringWriter = new StringWriter();
         try {
             writable.writeTo(stringWriter);
