@@ -18,7 +18,7 @@ micronaut-aws = "4.0.0-M3"
 micronaut-reactor = "3.0.0-M2"
 micronaut-serde = "2.0.0-M8"
 micronaut-validation = "4.0.0-M7"
-micronaut-views = "4.0.0-M2"
+micronaut-views = "4.0.0-M3"
 
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
 [libraries]
