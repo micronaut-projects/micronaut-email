@@ -17,6 +17,7 @@ import io.micronaut.http.client.annotation.Client
 import io.netty.handler.codec.http.HttpHeaderNames
 import jakarta.mail.internet.MimeMultipart
 import jakarta.mail.util.ByteArrayDataSource
+import org.testcontainers.DockerClientFactory
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.DockerImageName
@@ -47,7 +48,8 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
                                         "mail.smtp.port": mailHog.getMappedPort(1025)]])
     }
 
-    def "can send an email from #desc contact details"() {
+    @spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
+    def "can send an email from #desc contact details"(Object from, String expectedFrom, String desc) {
         given:
         EmailSender emailSender = applicationContext.getBean(EmailSender)
         MailhogClient client = applicationContext.getBean(MailhogClient)
@@ -58,10 +60,16 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
         String stringContact = "someone@here.com"
         String subject = "[Javax Mail] Test" + UUID.randomUUID().toString()
 
+
         when:
+        Email.Builder emailBuilder = Email.builder()
+        if (from instanceof String) {
+            emailBuilder.from((String) from)
+        } else if (from instanceof Contact) {
+            emailBuilder.from((Contact) from)
+        }
         emailSender.send(
-                Email.builder()
-                        .from(from)
+                emailBuilder
                         .to(namedContact).to(unnamedContact).to(stringContact)
                         .cc(unnamedContact).cc(stringContact).cc(namedContact)
                         .subject(subject)
@@ -85,6 +93,7 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
         "plain@email.com"                      | 'plain@email.com'        | 'string'
     }
 
+    @spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
     def "Can send an email with alternate bodies and attachments"() {
         given:
         EmailSender emailSender = applicationContext.getBean(EmailSender)
