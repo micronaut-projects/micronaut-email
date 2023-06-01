@@ -9,6 +9,6 @@ dependencies {
     implementation(mn.reactor)
     testImplementation(projects.testSuiteUtils)
     testImplementation(libs.testcontainers)
-    testImplementation(mn.micronaut.http.client)
     testImplementation(mnSerde.micronaut.serde.jackson)
+    testImplementation(mn.micronaut.http.client.jdk)
 }
