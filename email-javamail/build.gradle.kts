@@ -10,6 +10,5 @@ dependencies {
     testImplementation(projects.testSuiteUtils)
     testImplementation(libs.testcontainers)
     testImplementation(mn.micronaut.http.client)
-    testCompileOnly(mn.micronaut.inject.groovy)
     testImplementation(mnSerde.micronaut.serde.jackson)
 }
