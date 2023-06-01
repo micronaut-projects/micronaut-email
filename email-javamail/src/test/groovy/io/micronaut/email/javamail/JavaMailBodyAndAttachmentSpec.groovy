@@ -14,7 +14,6 @@ import io.micronaut.http.HttpHeaders
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.client.annotation.Client
-import io.netty.handler.codec.http.HttpHeaderNames
 import jakarta.mail.internet.MimeMultipart
 import jakarta.mail.util.ByteArrayDataSource
 import org.testcontainers.DockerClientFactory
@@ -136,11 +135,11 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
                     // Then the attachment(s)
                     with(getBodyPart(1)) {
                         contentType.startsWith(MediaType.MICROSOFT_EXCEL_OPEN_XML)
-                        getHeader(HttpHeaderNames.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename"
+                        getHeader(HttpHeaders.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename"
                     }
                     with(getBodyPart(2)) {
                         contentType.startsWith(MediaType.APPLICATION_OCTET_STREAM)
-                        getHeader(HttpHeaderNames.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename2"
+                        getHeader(HttpHeaders.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename2"
                     }
                 }
             }
