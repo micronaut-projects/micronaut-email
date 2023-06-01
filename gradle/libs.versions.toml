@@ -20,7 +20,6 @@ micronaut-serde = "2.0.0-M8"
 micronaut-validation = "4.0.0-M8"
 micronaut-views = "4.0.0-M3"
 
-micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
 [libraries]
 # Managed dependencies
 managed-postmark = { module = "com.postmarkapp:postmark", version.ref = "managed-postmark" }
@@ -29,12 +28,12 @@ managed-jakarta-mail = { module = "com.sun.mail:jakarta.mail", version.ref = "ma
 managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
 
 # Micronaut
-micronaut-core = {group = "io.micronaut", name = "micronaut-core-bom", version.ref = "micronaut" }
-micronaut-aws = {group = "io.micronaut.aws", name = "micronaut-aws-bom", version.ref = "micronaut-aws" }
+micronaut-core = {module = "io.micronaut:micronaut-core-bom", version.ref = "micronaut" }
+micronaut-aws = {module = "io.micronaut.aws:micronaut-aws-bom", version.ref = "micronaut-aws" }
 micronaut-reactor = { module = 'io.micronaut.reactor:micronaut-reactor-bom', version.ref = "micronaut-reactor" }
 micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
-micronaut-views = {group = "io.micronaut.views", name = "micronaut-views-bom", version.ref = "micronaut-views" }
+micronaut-views = {module = "io.micronaut.views:micronaut-views-bom", version.ref = "micronaut-views" }
 
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
