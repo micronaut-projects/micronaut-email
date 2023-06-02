@@ -10,7 +10,6 @@ import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Singleton
 import spock.lang.Issue
-import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -30,7 +29,6 @@ class TransactionalEmailSenderSpec extends Specification {
     BeanContext beanContext
 
     @Issue("https://github.com/micronaut-projects/micronaut-validation/issues/101")
-    @PendingFeature
     void "default message of AnyRecipient annotation is used"(List<String> messages, Email email, String description) {
         when: 'without a from address'
         emailSender.send(email)

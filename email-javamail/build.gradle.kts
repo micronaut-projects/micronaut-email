@@ -8,9 +8,7 @@ dependencies {
     implementation(mnValidation.micronaut.validation)
     implementation(mn.reactor)
     testImplementation(projects.testSuiteUtils)
-    testImplementation(mn.micronaut.http)
     testImplementation(libs.testcontainers)
-    testImplementation(mn.micronaut.http.client)
-    testCompileOnly(mn.micronaut.inject.groovy)
     testImplementation(mnSerde.micronaut.serde.jackson)
+    testImplementation(mn.micronaut.http.client.jdk)
 }

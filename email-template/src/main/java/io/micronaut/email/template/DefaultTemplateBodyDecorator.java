@@ -19,7 +19,6 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.BodyType;
-import io.micronaut.http.MediaType;
 import io.micronaut.views.ViewsRenderer;
 import io.micronaut.views.ViewsRendererLocator;
 import jakarta.inject.Singleton;
@@ -37,6 +36,8 @@ import java.util.Optional;
 public class DefaultTemplateBodyDecorator implements TemplateBodyDecorator {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultTemplateBodyDecorator.class);
+    private static final String TEXT_HTML = "text/html";
+    private static final String TEXT_PLAIN = "text/plain";
 
     private final ViewsRendererLocator viewsRendererLocator;
 
@@ -62,13 +63,14 @@ public class DefaultTemplateBodyDecorator implements TemplateBodyDecorator {
     }
 
     @NonNull
-    private MediaType mediaTypeForBodyType(@NonNull BodyType bodyType) {
+    private String mediaTypeForBodyType(@NonNull BodyType bodyType) {
         switch (bodyType) {
             case TEXT:
-                return MediaType.TEXT_PLAIN_TYPE;
+                return TEXT_PLAIN;
             case HTML:
             default:
-                return MediaType.TEXT_HTML_TYPE;
+
+                return TEXT_HTML;
         }
     }
 }
