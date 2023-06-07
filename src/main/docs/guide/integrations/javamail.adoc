@@ -1,4 +1,4 @@
-To use https://eclipse-ee4j.github.io/mail/[Jakarta Mail], add the following dependency to your application.
+To use https://jakartaee.github.io/mail-api/[Jakarta Mail], add the following dependency to your application.
 
 dependency:micronaut-email-javamail[groupId="io.micronaut.email"]
 

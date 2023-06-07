@@ -6,7 +6,8 @@ groovy = "4.0.12"
 
 managed-postmark = "1.10.21"
 managed-sendgrid = "4.9.3"
-managed-jakarta-mail = "2.0.1"
+managed-jakarta-mail = "2.1.2"
+managed-eclipse-angus = "2.0.2"
 managed-mailjet = "5.2.3"
 
 poi-ooxml = "5.2.3"
@@ -20,11 +21,13 @@ micronaut-serde = "2.0.0-M9"
 micronaut-validation = "4.0.0-M9"
 micronaut-views = "4.0.0-M4"
 
+
 [libraries]
 # Managed dependencies
 managed-postmark = { module = "com.postmarkapp:postmark", version.ref = "managed-postmark" }
 managed-sendgrid-java = { module = "com.sendgrid:sendgrid-java", version.ref = "managed-sendgrid" }
-managed-jakarta-mail = { module = "com.sun.mail:jakarta.mail", version.ref = "managed-jakarta-mail" }
+managed-jakarta-mail = { module = "jakarta.mail:jakarta.mail-api", version.ref = "managed-jakarta-mail" }
+managed-eclipse-angus = { module = "org.eclipse.angus:angus-mail", version.ref = "managed-eclipse-angus" }
 managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
 
 # Micronaut
