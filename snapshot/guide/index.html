@@ -159,7 +159,7 @@
 <div class="sect2">
 <h3 id="_micronaut_email_2">Micronaut Email 2</h3>
 <div class="paragraph">
-<p>Micronaut Email 2 migrates to <a href="https://eclipse-ee4j.github.io/mail/">Jakarta Mail</a> package namespaces, from <code>javax.mail</code> to <code>jakarta.mail</code>. Moreover, it uses transitive dependency <code>com.sun.mail:jakarta.mail</code> instead of <code>com.sun.mail:javax.mail</code>.</p>
+<p>Micronaut Email 2 migrates to <a href="https://jakartaee.github.io/mail-api/">Jakarta Mail</a> package namespaces, from <code>javax.mail</code> to <code>jakarta.mail</code>. Moreover, it uses transitive dependency <code>jakarta.mail:jakarta.mail-api</code> instead of <code>com.sun.mail:javax.mail</code>. Jakarta Mail also separates API and Implementation. Previous implementation sources are now part of the <a href="https://eclipse-ee4j.github.io/angus-mail/">Eclipse Angus</a> project, the direct successor to JavaMail/JakartaMail. In addition to <code>jakarta-mail-api</code> an additional dependency on <code>org.eclipse.angus:angus-mail</code> is required. Note that for Eclipse Angus, modeule and package prefixes changed from <code>com.sun.mail</code> to <code>org.eclipse.angus.mail</code>.</p>
 </div>
 <div class="paragraph">
 <p>This release also updates the ActiveCampaign Postmark library from 1.8.x to 1.9.0. Although it&#8217;s a minor revision otherwise it refactors package names and the dependency groupId from <code>com.wildbit.java</code> to <code>com.postmarkapp</code>.</p>
@@ -1092,7 +1092,7 @@ $copyright</code></pre>
 
 
 <div class="paragraph">
-<p>To use <a href="https://eclipse-ee4j.github.io/mail/">Jakarta Mail</a>, add the following dependency to your application.</p>
+<p>To use <a href="https://jakartaee.github.io/mail-api/">Jakarta Mail</a>, add the following dependency to your application.</p>
 </div>
 <div class="paragraph">
 <p>        <div class="listingblock multi-language-sample">
@@ -1106,6 +1106,26 @@ $copyright</code></pre>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-email-javamail&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>In addition, you will need to provide a runtime dependency on an implementation of the Jakarta Mail api. <a href="https://eclipse-ee4j.github.io/angus-mail/">Eclipse Angus</a> is the direct successor to prior versions of JavaMail/JakartaMail.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"org.eclipse.angus:angus-mail")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;org.eclipse.angus&lt;/groupId&gt;
+    &lt;artifactId&gt;angus-mail&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
