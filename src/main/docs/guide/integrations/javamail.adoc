@@ -1,6 +1,10 @@
-To use https://eclipse-ee4j.github.io/mail/[Jakarta Mail], add the following dependency to your application.
+To use https://jakartaee.github.io/mail-api/[Jakarta Mail], add the following dependency to your application.
 
 dependency:micronaut-email-javamail[groupId="io.micronaut.email"]
+
+In addition, you will need to provide a runtime dependency on an implementation of the Jakarta Mail api. https://eclipse-ee4j.github.io/angus-mail/[Eclipse Angus] is the direct successor to prior versions of JavaMail/JakartaMail.
+
+dependency:angus-mail[groupId="org.eclipse.angus",scope="runtime"]
 
 You need to provide beans of type api:io.micronaut.email.javamail.sender.MailPropertiesProvider[] and api:io.micronaut.email.javamail.sender.SessionProvider[] to match your configuration.
 

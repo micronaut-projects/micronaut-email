@@ -11,4 +11,5 @@ dependencies {
     testImplementation(libs.testcontainers)
     testImplementation(mnSerde.micronaut.serde.jackson)
     testImplementation(mn.micronaut.http.client.jdk)
+    testRuntimeOnly(libs.managed.eclipse.angus)
 }
