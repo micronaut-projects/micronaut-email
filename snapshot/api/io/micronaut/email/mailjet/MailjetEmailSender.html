@@ -137,18 +137,18 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.mailjet.client.MailjetResponse</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#send(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">send</a><wbr>(@NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull com.mailjet.client.MailjetResponse</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#send(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">send</a><wbr>(@NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends an email.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.reactivestreams.Publisher&lt;com.mailjet.client.MailjetResponse&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sendAsync(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">sendAsync</a><wbr>(@NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull org.reactivestreams.Publisher&lt;com.mailjet.client.MailjetResponse&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sendAsync(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">sendAsync</a><wbr>(@NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends an email.</div>
 </div>
@@ -222,7 +222,7 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <section class="detail" id="getName()">
 <h3>getName</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getName</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getName</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>getName</code>&nbsp;in interface&nbsp;<code>io.micronaut.core.naming.Named</code></dd>
@@ -233,11 +233,11 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <section class="detail" id="send(io.micronaut.email.Email,java.util.function.Consumer)">
 <h3>send</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.mailjet.client.MailjetResponse</span>&nbsp;<span class="element-name">send</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
- @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull com.mailjet.client.MailjetResponse</span>&nbsp;<span class="element-name">send</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
+ @NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
  @NonNull @NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</span>
-                                        throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</span>
+                                                 throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TransactionalEmailSender.html#send(io.micronaut.email.Email,java.util.function.Consumer)">TransactionalEmailSender</a></code></span></div>
 <div class="block">Sends an email.</div>
 <dl class="notes">
@@ -257,11 +257,11 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <section class="detail" id="sendAsync(io.micronaut.email.Email,java.util.function.Consumer)">
 <h3>sendAsync</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.reactivestreams.Publisher&lt;com.mailjet.client.MailjetResponse&gt;</span>&nbsp;<span class="element-name">sendAsync</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
- @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull org.reactivestreams.Publisher&lt;com.mailjet.client.MailjetResponse&gt;</span>&nbsp;<span class="element-name">sendAsync</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
+ @NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
  @NonNull @NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</span>
-                                                                            throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.mailjet.client.MailjetRequest&gt;&nbsp;emailRequest)</span>
+                                                                                     throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../AsyncTransactionalEmailSender.html#sendAsync(io.micronaut.email.Email,java.util.function.Consumer)">AsyncTransactionalEmailSender</a></code></span></div>
 <div class="block">Sends an email.</div>
 <dl class="notes">

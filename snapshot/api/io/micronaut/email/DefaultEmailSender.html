@@ -123,12 +123,12 @@ implements <a href="EmailSender.html" title="interface in io.micronaut.email">Em
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="DefaultEmailSender.html" title="type parameter in DefaultEmailSender">O</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#send(io.micronaut.email.Email.Builder,java.util.function.Consumer)" class="member-name-link">send</a><wbr>(<a href="Email.Builder.html" title="class in io.micronaut.email">Email.Builder</a>&nbsp;emailBuilder,
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="DefaultEmailSender.html" title="type parameter in DefaultEmailSender">I</a>&gt;&nbsp;emailRequest)</code></div>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="DefaultEmailSender.html" title="type parameter in DefaultEmailSender">I</a>&gt;&nbsp;emailRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends an email.</div>
 </div>
@@ -179,7 +179,7 @@ implements <a href="EmailSender.html" title="interface in io.micronaut.email">Em
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="DefaultEmailSender.html" title="type parameter in DefaultEmailSender">O</a></span>&nbsp;<span class="element-name">send</span><wbr><span class="parameters">(@NonNull @NotNull
  <a href="Email.Builder.html" title="class in io.micronaut.email">Email.Builder</a>&nbsp;emailBuilder,
  @NonNull @NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="DefaultEmailSender.html" title="type parameter in DefaultEmailSender">I</a>&gt;&nbsp;emailRequest)</span>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="DefaultEmailSender.html" title="type parameter in DefaultEmailSender">I</a>&gt;&nbsp;emailRequest)</span>
        throws <span class="exceptions"><a href="EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="EmailSender.html#send(io.micronaut.email.Email.Builder,java.util.function.Consumer)">EmailSender</a></code></span></div>
 <div class="block">Sends an email.</div>
@@ -200,7 +200,7 @@ implements <a href="EmailSender.html" title="interface in io.micronaut.email">Em
 <section class="detail" id="getName()">
 <h3>getName</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getName</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getName</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>getName</code>&nbsp;in interface&nbsp;<code>io.micronaut.core.naming.Named</code></dd>

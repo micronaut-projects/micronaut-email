@@ -116,8 +116,8 @@ implements <a href="../EmailComposer.html" title="interface in io.micronaut.emai
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>software.amazon.awssdk.services.ses.model.SesRequest</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#compose(io.micronaut.email.Email)" class="member-name-link">compose</a><wbr>(@NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull software.amazon.awssdk.services.ses.model.SesRequest</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#compose(io.micronaut.email.Email)" class="member-name-link">compose</a><wbr>(@NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -161,9 +161,9 @@ implements <a href="../EmailComposer.html" title="interface in io.micronaut.emai
 <section class="detail" id="compose(io.micronaut.email.Email)">
 <h3>compose</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">software.amazon.awssdk.services.ses.model.SesRequest</span>&nbsp;<span class="element-name">compose</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
- @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</span>
-                                                             throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull software.amazon.awssdk.services.ses.model.SesRequest</span>&nbsp;<span class="element-name">compose</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
+ @NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</span>
+                                                                      throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../EmailComposer.html#compose(io.micronaut.email.Email)">compose</a></code>&nbsp;in interface&nbsp;<code><a href="../EmailComposer.html" title="interface in io.micronaut.email">EmailComposer</a>&lt;software.amazon.awssdk.services.ses.model.SesRequest&gt;</code></dd>

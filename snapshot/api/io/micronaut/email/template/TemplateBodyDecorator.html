@@ -122,13 +122,13 @@ extends <a href="../EmailDecorator.html" title="interface in io.micronaut.email"
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getLogger()" class="member-name-link">getLogger</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#renderBody(io.micronaut.email.template.TemplateBody,io.micronaut.email.BodyType)" class="member-name-link">renderBody</a><wbr>(<a href="TemplateBody.html" title="class in io.micronaut.email.template">TemplateBody</a>&lt;?&gt;&nbsp;body,
- <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#renderBody(io.micronaut.email.template.TemplateBody,io.micronaut.email.BodyType)" class="member-name-link">renderBody</a><wbr>(@NonNull <a href="TemplateBody.html" title="class in io.micronaut.email.template">TemplateBody</a>&lt;?&gt;&nbsp;body,
+ @NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)" class="member-name-link">resolveViewsRenderer</a><wbr>(<a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)" class="member-name-link">resolveViewsRenderer</a><wbr>(@NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+ @NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
+ @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
 </div>
 </div>
@@ -157,12 +157,12 @@ extends <a href="../EmailDecorator.html" title="interface in io.micronaut.email"
 <section class="detail" id="resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)">
 <h3>resolveViewsRenderer</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</span>&nbsp;<span class="element-name">resolveViewsRenderer</span><wbr><span class="parameters">(@NonNull
- <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+</span><span class="return-type">@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</span>&nbsp;<span class="element-name">resolveViewsRenderer</span><wbr><span class="parameters">(@NonNull
+ @NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
  @NonNull
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
+ @NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
  @Nullable
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</span></div>
+ @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>bodyType</code> - Emails Body type</dd>
@@ -192,9 +192,9 @@ extends <a href="../EmailDecorator.html" title="interface in io.micronaut.email"
 <section class="detail" id="renderBody(io.micronaut.email.template.TemplateBody,io.micronaut.email.BodyType)">
 <h3>renderBody</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">renderBody</span><wbr><span class="parameters">(@NonNull
- <a href="TemplateBody.html" title="class in io.micronaut.email.template">TemplateBody</a>&lt;?&gt;&nbsp;body,
+ @NonNull <a href="TemplateBody.html" title="class in io.micronaut.email.template">TemplateBody</a>&lt;?&gt;&nbsp;body,
  @NonNull
- <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</span></div>
+ @NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>body</code> - Template Body</dd>

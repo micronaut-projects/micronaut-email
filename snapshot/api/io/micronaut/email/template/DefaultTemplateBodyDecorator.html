@@ -130,10 +130,10 @@ implements <a href="TemplateBodyDecorator.html" title="interface in io.micronaut
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.slf4j.Logger</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLogger()" class="member-name-link">getLogger</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)" class="member-name-link">resolveViewsRenderer</a><wbr>(<a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)" class="member-name-link">resolveViewsRenderer</a><wbr>(@NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+ @NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
+ @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -190,12 +190,12 @@ implements <a href="TemplateBodyDecorator.html" title="interface in io.micronaut
 <section class="detail" id="resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)">
 <h3>resolveViewsRenderer</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</span>&nbsp;<span class="element-name">resolveViewsRenderer</span><wbr><span class="parameters">(@NonNull
- <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;io.micronaut.views.ViewsRenderer&gt;</span>&nbsp;<span class="element-name">resolveViewsRenderer</span><wbr><span class="parameters">(@NonNull
+ @NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
  @NonNull
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
+ @NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;viewName,
  @Nullable
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</span></div>
+ @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;data)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="TemplateBodyDecorator.html#resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)">resolveViewsRenderer</a></code>&nbsp;in interface&nbsp;<code><a href="TemplateBodyDecorator.html" title="interface in io.micronaut.email.template">TemplateBodyDecorator</a></code></dd>

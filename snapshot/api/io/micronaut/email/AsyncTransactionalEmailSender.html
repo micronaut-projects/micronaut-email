@@ -109,14 +109,14 @@ extends io.micronaut.core.naming.Named</span></div>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#sendAsync(io.micronaut.email.Email)" class="member-name-link">sendAsync</a><wbr>(@NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default @NonNull org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#sendAsync(io.micronaut.email.Email)" class="member-name-link">sendAsync</a><wbr>(@NonNull @NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Sends an email.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#sendAsync(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">sendAsync</a><wbr>(@NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">I</a>&gt;&nbsp;emailRequest)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>@NonNull org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#sendAsync(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">sendAsync</a><wbr>(@NonNull @NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">I</a>&gt;&nbsp;emailRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Sends an email.</div>
 </div>
@@ -142,9 +142,9 @@ extends io.micronaut.core.naming.Named</span></div>
 <h3>sendAsync</h3>
 <div class="member-signature"><span class="annotations">@NonNull
 @SingleResult
-</span><span class="modifiers">default</span>&nbsp;<span class="return-type">org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</span>&nbsp;<span class="element-name">sendAsync</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
- @NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</span>
-                                            throws <span class="exceptions"><a href="EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
+</span><span class="modifiers">default</span>&nbsp;<span class="return-type">@NonNull org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</span>&nbsp;<span class="element-name">sendAsync</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
+ @NonNull @NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email)</span>
+                                                     throws <span class="exceptions"><a href="EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block">Sends an email.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -161,11 +161,11 @@ extends io.micronaut.core.naming.Named</span></div>
 <h3>sendAsync</h3>
 <div class="member-signature"><span class="annotations">@NonNull
 @SingleResult
-</span><span class="return-type">org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</span>&nbsp;<span class="element-name">sendAsync</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
- @NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
+</span><span class="return-type">@NonNull org.reactivestreams.Publisher&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">O</a>&gt;</span>&nbsp;<span class="element-name">sendAsync</span><wbr><span class="parameters">(@NonNull @NotNull @Valid
+ @NonNull @NotNull @Valid <a href="Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
  @NonNull @NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">I</a>&gt;&nbsp;emailRequest)</span>
-                                    throws <span class="exceptions"><a href="EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="AsyncTransactionalEmailSender.html" title="type parameter in AsyncTransactionalEmailSender">I</a>&gt;&nbsp;emailRequest)</span>
+                                             throws <span class="exceptions"><a href="EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block">Sends an email.</div>
 <dl class="notes">
 <dt>Parameters:</dt>

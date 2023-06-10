@@ -104,16 +104,16 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.micronaut.email.BodyType,io.micronaut.views.ModelAndView)" class="member-name-link">TemplateBody</a><wbr>(<a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
- io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.micronaut.email.BodyType,io.micronaut.views.ModelAndView)" class="member-name-link">TemplateBody</a><wbr>(@NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+ @NonNull io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(io.micronaut.email.BodyType,java.lang.String,T)" class="member-name-link">TemplateBody</a><wbr>(<a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(io.micronaut.email.BodyType,java.lang.String,T)" class="member-name-link">TemplateBody</a><wbr>(@NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+ @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
  <a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&nbsp;model)</code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.micronaut.views.ModelAndView)" class="member-name-link">TemplateBody</a><wbr>(io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.micronaut.views.ModelAndView)" class="member-name-link">TemplateBody</a><wbr>(@NonNull io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String,T)" class="member-name-link">TemplateBody</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String,T)" class="member-name-link">TemplateBody</a><wbr>(@Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
  <a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&nbsp;model)</code></div>
 <div class="col-last odd-row-color">
 <div class="block">Body HTML with view name and model.</div>
@@ -132,10 +132,10 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get(io.micronaut.email.BodyType)" class="member-name-link">get</a><wbr>(<a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get(io.micronaut.email.BodyType)" class="member-name-link">get</a><wbr>(@NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getModelAndView()" class="member-name-link">getModelAndView</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
@@ -162,7 +162,7 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <section class="detail" id="&lt;init&gt;(java.lang.String,T)">
 <h3 id="&lt;init&gt;(java.lang.String,java.lang.Object)">TemplateBody</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TemplateBody</span><wbr><span class="parameters">(@Nullable
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
+ @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
  @Nullable
  <a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&nbsp;model)</span></div>
 <div class="block">Body HTML with view name and model.</div>
@@ -177,7 +177,7 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <section class="detail" id="&lt;init&gt;(io.micronaut.views.ModelAndView)">
 <h3>TemplateBody</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TemplateBody</span><wbr><span class="parameters">(@NonNull
- io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</span></div>
+ @NonNull io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>modelAndView</code> - Emails Template's name and model for html</dd>
@@ -188,9 +188,9 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <section class="detail" id="&lt;init&gt;(io.micronaut.email.BodyType,java.lang.String,T)">
 <h3 id="&lt;init&gt;(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)">TemplateBody</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TemplateBody</span><wbr><span class="parameters">(@NonNull
- <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+ @NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
  @Nullable
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
+ @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;view,
  @Nullable
  <a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&nbsp;model)</span></div>
 <dl class="notes">
@@ -205,9 +205,9 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <section class="detail" id="&lt;init&gt;(io.micronaut.email.BodyType,io.micronaut.views.ModelAndView)">
 <h3>TemplateBody</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TemplateBody</span><wbr><span class="parameters">(@NonNull
- <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
+ @NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType,
  @NonNull
- io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</span></div>
+ @NonNull io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;&nbsp;modelAndView)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>modelAndView</code> - Emails Template's name and model for html</dd>
@@ -227,7 +227,7 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <section class="detail" id="getModelAndView()">
 <h3>getModelAndView</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;</span>&nbsp;<span class="element-name">getModelAndView</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull io.micronaut.views.ModelAndView&lt;<a href="TemplateBody.html" title="type parameter in TemplateBody">T</a>&gt;</span>&nbsp;<span class="element-name">getModelAndView</span>()</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>The model and view</dd>
@@ -248,8 +248,8 @@ implements <a href="../Body.html" title="interface in io.micronaut.email">Body</
 <section class="detail" id="get(io.micronaut.email.BodyType)">
 <h3>get</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">get</span><wbr><span class="parameters">(@NonNull
- <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">get</span><wbr><span class="parameters">(@NonNull
+ @NonNull <a href="../BodyType.html" title="enum class in io.micronaut.email">BodyType</a>&nbsp;bodyType)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Body.html#get(io.micronaut.email.BodyType)">get</a></code>&nbsp;in interface&nbsp;<code><a href="../Body.html" title="interface in io.micronaut.email">Body</a></code></dd>

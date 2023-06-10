@@ -103,7 +103,7 @@ implements <a href="SessionProvider.html" title="interface in io.micronaut.email
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(io.micronaut.email.javamail.sender.MailPropertiesProvider,jakarta.mail.Authenticator)" class="member-name-link">DefaultSessionProvider</a><wbr>(<a href="MailPropertiesProvider.html" title="interface in io.micronaut.email.javamail.sender">MailPropertiesProvider</a>&nbsp;mailPropertiesProvider,
- jakarta.mail.Authenticator&nbsp;authenticator)</code></div>
+ @Nullable jakarta.mail.Authenticator&nbsp;authenticator)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -119,7 +119,7 @@ implements <a href="SessionProvider.html" title="interface in io.micronaut.email
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>jakarta.mail.Session</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull jakarta.mail.Session</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#session()" class="member-name-link">session</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
@@ -144,7 +144,7 @@ implements <a href="SessionProvider.html" title="interface in io.micronaut.email
 <h3>DefaultSessionProvider</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">DefaultSessionProvider</span><wbr><span class="parameters">(<a href="MailPropertiesProvider.html" title="interface in io.micronaut.email.javamail.sender">MailPropertiesProvider</a>&nbsp;mailPropertiesProvider,
  @Nullable
- jakarta.mail.Authenticator&nbsp;authenticator)</span></div>
+ @Nullable jakarta.mail.Authenticator&nbsp;authenticator)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>mailPropertiesProvider</code> - Mail Properties Provider</dd>
@@ -166,7 +166,7 @@ implements <a href="SessionProvider.html" title="interface in io.micronaut.email
 <section class="detail" id="session()">
 <h3>session</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">jakarta.mail.Session</span>&nbsp;<span class="element-name">session</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull jakarta.mail.Session</span>&nbsp;<span class="element-name">session</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SessionProvider.html#session()">session</a></code>&nbsp;in interface&nbsp;<code><a href="SessionProvider.html" title="interface in io.micronaut.email.javamail.sender">SessionProvider</a></code></dd>
