@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @MicronautTest(startApplication = false)
-public class SesEmailComposerServiceTest {
+public class SesEmailComposerTest {
 
     @Inject
     SesEmailComposer composer;
