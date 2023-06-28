@@ -2,6 +2,7 @@
 micronaut-docs = "2.0.0"
 micronaut = "4.0.0-RC1"
 micronaut-test = "4.0.0-M6"
+micronaut-gradle-plugin = "4.0.0-M6"
 groovy = "4.0.12"
 
 managed-postmark = "1.10.21"
@@ -49,3 +50,4 @@ testcontainers = { module = "org.testcontainers:testcontainers", version.ref = "
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradle-kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 gradle-kotlin-noarg = { module = "org.jetbrains.kotlin:kotlin-noarg", version.ref = "kotlin" }
+micronaut-gradle-plugin = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref="micronaut-gradle-plugin" }
