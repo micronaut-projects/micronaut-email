@@ -1,0 +1,9 @@
+plugins {
+    id "io.micronaut.build.internal.email-native-tests"
+}
+
+dependencies {
+    testImplementation(projects.micronautEmailAmazonSes)
+    testImplementation(mnTest.micronaut.test.junit5)
+    testRuntimeOnly(libs.managed.eclipse.angus)
+}
