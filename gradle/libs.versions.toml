@@ -12,7 +12,7 @@ managed-eclipse-angus = "2.0.2"
 managed-mailjet = "5.2.3"
 
 poi-ooxml = "5.2.3"
-kotlin = "1.8.21"
+kotlin = "1.8.22"
 spock = "2.3-groovy-4.0"
 testcontainers = "1.18.3"
 
