@@ -20,7 +20,7 @@ micronaut-aws = "4.0.0-M11"
 micronaut-reactor = "3.0.0-M10"
 micronaut-serde = "2.0.0-M13"
 micronaut-validation = "4.0.0-M12"
-micronaut-views = "4.0.0-M6"
+micronaut-views = "4.0.0-M7"
 
 
 [libraries]
