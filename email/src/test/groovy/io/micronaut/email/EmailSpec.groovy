@@ -3,6 +3,7 @@ package io.micronaut.email
 import io.micronaut.core.beans.BeanIntrospection
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
+import jakarta.validation.ConstraintViolation
 import spock.lang.Specification
 import jakarta.validation.Validator
 
@@ -164,14 +165,21 @@ class EmailSpec extends Specification {
     }
 
     void "At least a recipient (to, cc or bcc) is required"() {
-        when:
+        given:
         Email email = Email.builder()
                 .from("tcook@apple.com")
                 .subject("Apple Music")
                 .body("Stream music to your device")
                 .build()
+        when:
+        Set<ConstraintViolation> violations = validator.validate(email)
+
         then:
-        validator.validate(email)
+        violations
+
+        and:
+        violations.any { it.message.contains('You have to specify to, cc or a bcc recipient')}
+
     }
 
     void "to is not required if you provide a cc"() {
