@@ -15,14 +15,10 @@
  */
 package io.micronaut.email.validation;
 
-import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.AnnotationValue;
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.email.Email;
-import io.micronaut.validation.validator.constraints.ConstraintValidatorContext;
-import jakarta.inject.Singleton;
-import io.micronaut.validation.validator.constraints.ConstraintValidator;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Builds {@link ConstraintValidator} for {@link io.micronaut.email.validation.AnyRecipient} for {@link Email}.
@@ -30,12 +26,11 @@ import io.micronaut.validation.validator.constraints.ConstraintValidator;
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Requires(classes = ConstraintValidator.class)
-@Singleton
+@Introspected
 public class AnyRecipientValidator implements ConstraintValidator<AnyRecipient, Email> {
 
     @Override
-    public boolean isValid(@Nullable Email value, @NonNull AnnotationValue<AnyRecipient> annotationMetadata, @NonNull ConstraintValidatorContext context) {
+    public boolean isValid(Email value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }
