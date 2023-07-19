@@ -16,6 +16,7 @@
 package io.micronaut.email.validation;
 
 import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.email.Email;
 import jakarta.inject.Singleton;
 import io.micronaut.validation.validator.constraints.ConstraintValidator;
@@ -26,6 +27,7 @@ import io.micronaut.validation.validator.constraints.ConstraintValidator;
  * @author Sergio del Amo
  * @since 1.0.0
  */
+@Requires(classes = ConstraintValidator.class)
 @Factory
 public class AnyRecipientConstraintValidatorFactory {
     /**
