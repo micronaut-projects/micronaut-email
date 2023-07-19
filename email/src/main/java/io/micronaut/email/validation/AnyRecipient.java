@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = AnyRecipientValidator.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AnyRecipient {

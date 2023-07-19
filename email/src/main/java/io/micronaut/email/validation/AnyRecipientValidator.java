@@ -15,9 +15,12 @@
  */
 package io.micronaut.email.validation;
 
-import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.AnnotationValue;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.Email;
+import io.micronaut.validation.validator.constraints.ConstraintValidatorContext;
 import jakarta.inject.Singleton;
 import io.micronaut.validation.validator.constraints.ConstraintValidator;
 
@@ -28,18 +31,14 @@ import io.micronaut.validation.validator.constraints.ConstraintValidator;
  * @since 1.0.0
  */
 @Requires(classes = ConstraintValidator.class)
-@Factory
-public class AnyRecipientConstraintValidatorFactory {
-    /**
-     * @return A {@link ConstraintValidator} implementation of a {@link AnyRecipient} validator for type {@link Email}
-     */
-    @Singleton
-    public ConstraintValidator<AnyRecipient, Email> anyRecipientEmailConstraintValidator() {
-        return (value, annotationMetadata, context) -> {
-            if (value == null) {
-                return true;
-            }
-            return RecipientsUtils.isValid(value);
-        };
+@Singleton
+public class AnyRecipientValidator implements ConstraintValidator<AnyRecipient, Email> {
+
+    @Override
+    public boolean isValid(@Nullable Email value, @NonNull AnnotationValue<AnyRecipient> annotationMetadata, @NonNull ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
+        return RecipientsUtils.isValid(value);
     }
 }
