@@ -208,4 +208,51 @@ class EmailSpec extends Specification {
         then:
         validator.validate(email)
     }
+
+    void "if provided, replyTo must be a valid email address"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .body("Stream music to your device")
+                .replyTo("poppenheimer")
+                .build()
+        expect:
+        validator.validate(email)
+    }
+
+    void "replyToCollection can contain multiple addresses"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .body("Stream music to your device")
+                .replyTo("poppenheimer@apple.com")
+                .replyTo("mmorehouse@apple.com")
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.replyToCollection.size() == 2
+        email.replyToCollection[0].email == "poppenheimer@apple.com"
+        email.replyToCollection[1].email == "mmorehouse@apple.com"
+    }
+
+    void "replyTo returns the last address for backward compatibility"() {
+        given:
+        Email email = Email.builder()
+                .from("tcook@apple.com")
+                .to("ecue@apple.com")
+                .subject("Apple Music")
+                .body("Stream music to your device")
+                .replyTo("poppenheimer@apple.com")
+                .replyTo("mmorehouse@apple.com")
+                .build()
+
+        expect:
+        !validator.validate(email)
+        email.replyTo.email == 'mmorehouse@apple.com'
+    }
 }
