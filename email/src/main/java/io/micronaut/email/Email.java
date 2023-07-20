@@ -18,6 +18,7 @@ package io.micronaut.email;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.validation.AnyRecipient;
 import io.micronaut.email.validation.Recipients;
 
@@ -45,8 +46,7 @@ public final class Email implements Recipients {
     private final Contact from;
 
     @Nullable
-    @Valid
-    private final Contact replyTo;
+    private final Collection<@Valid Contact> replyTo;
 
     @Nullable
     private final Collection<@Valid Contact> to;
@@ -80,7 +80,7 @@ public final class Email implements Recipients {
      * @param body Email Body
      */
     private Email(@NonNull Contact from,
-                 @Nullable Contact replyTo,
+                 @Nullable List<Contact> replyTo,
                  @Nullable List<Contact> to,
                  @Nullable List<Contact> cc,
                  @Nullable List<Contact> bcc,
@@ -104,6 +104,11 @@ public final class Email implements Recipients {
 
     @Nullable
     public Contact getReplyTo() {
+        return CollectionUtils.isEmpty(replyTo) ? null : CollectionUtils.last(replyTo);
+    }
+
+    @Nullable
+    public Collection<@Valid Contact> getReplyToCollection() {
         return replyTo;
     }
 
@@ -163,7 +168,7 @@ public final class Email implements Recipients {
         private String subject;
 
         @Nullable
-        private Contact replyTo;
+        private List<Contact> replyTo;
 
         @Nullable
         private List<Contact> cc;
@@ -206,7 +211,7 @@ public final class Email implements Recipients {
          */
         @NonNull
         public Email.Builder replyTo(@NonNull String replyTo) {
-            this.replyTo = new Contact(replyTo);
+            addReplyTo(new Contact(replyTo));
             return this;
         }
 
@@ -217,8 +222,15 @@ public final class Email implements Recipients {
          */
         @NonNull
         public Email.Builder replyTo(@NonNull Contact replyTo) {
-            this.replyTo = replyTo;
+            addReplyTo(replyTo);
             return this;
+        }
+
+        private void addReplyTo(@NonNull Contact replyTo) {
+            if (this.replyTo == null) {
+                this.replyTo = new ArrayList<>();
+            }
+            this.replyTo.add(replyTo);
         }
 
         /**
@@ -455,6 +467,15 @@ public final class Email implements Recipients {
          */
         @NonNull
         public Optional<Contact> getReplyTo() {
+            return CollectionUtils.isEmpty(replyTo) ? Optional.empty() : Optional.of(CollectionUtils.last(replyTo));
+        }
+
+        /**
+         *
+         * @return Email Reply-to
+         */
+        @NonNull
+        public Optional<List<Contact>> getReplyToList() {
             return Optional.ofNullable(replyTo);
         }
 
