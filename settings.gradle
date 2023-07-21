@@ -22,6 +22,7 @@ include 'email-mailjet'
 include 'email-template'
 include 'test-suite-utils'
 include 'test-suite'
+include 'test-suite-hibernate-validator'
 include 'test-suite-groovy'
 include 'test-suite-kotlin'
 include 'test-suite-graal'
@@ -33,6 +34,7 @@ micronautBuild {
     importMicronautCatalog()
     importMicronautCatalog("micronaut-aws")
     importMicronautCatalog("micronaut-reactor")
+    importMicronautCatalog("micronaut-hibernate-validator")
     importMicronautCatalog("micronaut-serde")
     importMicronautCatalog("micronaut-views")
     importMicronautCatalog("micronaut-validation")
