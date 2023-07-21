@@ -53,10 +53,8 @@ public class MailjetEmailComposer implements EmailComposer<MailjetRequest> {
         JSONObject message = new JSONObject();
         message.put(Emailv31.Message.FROM, createJsonObject(email.getFrom()));
         if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
-            if (email.getReplyToCollection().size() > 1) {
-                if (LOG.isWarnEnabled()) {
-                    LOG.warn("Mailjet does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
-                }
+            if (email.getReplyToCollection().size() > 1 && LOG.isWarnEnabled()) {
+                LOG.warn("Mailjet does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
             }
             message.put(Emailv31.Message.REPLYTO, createJsonObject(CollectionUtils.last(email.getReplyToCollection())));
         }

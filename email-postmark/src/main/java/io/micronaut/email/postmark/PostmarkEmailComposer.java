@@ -66,10 +66,8 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
             message.setTo(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
         }
         if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
-            if (email.getReplyToCollection().size() > 1) {
-                if (LOG.isWarnEnabled()) {
-                    LOG.warn("Postmark does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
-                }
+            if (email.getReplyToCollection().size() > 1 && LOG.isWarnEnabled()) {
+                LOG.warn("Postmark does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
             }
             message.setReplyTo(CollectionUtils.last(email.getReplyToCollection()).getEmail());
         }

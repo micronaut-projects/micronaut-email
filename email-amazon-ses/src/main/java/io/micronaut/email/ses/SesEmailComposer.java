@@ -43,8 +43,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Properties;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * @author Sergio del Amo
  * @since 1.0.0
@@ -100,7 +98,7 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
                 .message(message(email));
         if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
             requestBuilder = requestBuilder.replyToAddresses(
-                email.getReplyToCollection().stream().map(Contact::getEmail).collect(toList()));
+                email.getReplyToCollection().stream().map(Contact::getEmail).toList());
         }
         return requestBuilder.build();
     }

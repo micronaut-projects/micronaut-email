@@ -82,10 +82,8 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
     private Optional<com.sendgrid.helpers.mail.objects.Email> createReplyTo(@NonNull Email email) {
         if (CollectionUtils.isEmpty(email.getReplyToCollection())) {
             return Optional.empty();
-        } else if (email.getReplyToCollection().size() > 1) {
-            if (LOG.isWarnEnabled()) {
-                LOG.warn("Sendgrid does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
-            }
+        } else if (email.getReplyToCollection().size() > 1 && LOG.isWarnEnabled()) {
+            LOG.warn("Sendgrid does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
         }
         final Contact contact = CollectionUtils.last(email.getReplyToCollection());
         com.sendgrid.helpers.mail.objects.Email replyTo = new com.sendgrid.helpers.mail.objects.Email();
