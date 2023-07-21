@@ -1,6 +1,6 @@
 package io.micronaut.email.sendgrid
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.json.JsonMapper
 import com.sendgrid.Request
 import io.micronaut.email.Email
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
@@ -32,7 +32,7 @@ class SendgridEmailComposerSpec extends Specification {
                 .build()
         when:
         Request request = sendgridEmailComposer.compose(email)
-        Map map = new ObjectMapper().readValue(request.body, Map)
+        Map map = new JsonMapper().readValue(request.body, Map)
 
         then:
         map["from"]["email"] == from
