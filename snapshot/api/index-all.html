@@ -31,6 +31,7 @@ loadScripts(document, 'script');</script>
 <li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
+<li><a href="deprecated-list.html">Deprecated</a></li>
 <li class="nav-bar-cell1-rev">Index</li>
 <li><a href="help-doc.html#index">Help</a></li>
 </ul>
@@ -66,13 +67,25 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The annotated type must have a recipient.</div>
 </dd>
-<dt><a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html" class="type-name-link" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidatorFactory</a> - Class in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
+<dt><a href="io/micronaut/email/validation/AnyRecipientConstraintValidationFactory.html" class="type-name-link" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidationFactory</a> - Class in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span>
+<div class="deprecation-comment"><a href="io/micronaut/email/validation/AnyRecipientValidator.html" title="class in io.micronaut.email.validation"><code>AnyRecipientValidator</code></a> is used instead. The {@link @Factory} annotation was intentionally removed. Thus, this class does nothing.</div>
+</div>
+</dd>
+<dt><a href="io/micronaut/email/validation/AnyRecipientConstraintValidationFactory.html#%3Cinit%3E()" class="member-name-link">AnyRecipientConstraintValidationFactory()</a> - Constructor for class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientConstraintValidationFactory.html" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidationFactory</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
+<dt><a href="io/micronaut/email/validation/AnyRecipientConstraintValidationFactory.html#anyRecipientEmailConstraintValidator()" class="member-name-link">anyRecipientEmailConstraintValidator()</a> - Method in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientConstraintValidationFactory.html" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidationFactory</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
+<dt><a href="io/micronaut/email/validation/AnyRecipientValidator.html" class="type-name-link" title="class in io.micronaut.email.validation">AnyRecipientValidator</a> - Class in <a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a></dt>
 <dd>
 <div class="block">Builds <code>ConstraintValidator</code> for <a href="io/micronaut/email/validation/AnyRecipient.html" title="annotation interface in io.micronaut.email.validation"><code>AnyRecipient</code></a> for <a href="io/micronaut/email/Email.html" title="class in io.micronaut.email"><code>Email</code></a>.</div>
 </dd>
-<dt><a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html#%3Cinit%3E()" class="member-name-link">AnyRecipientConstraintValidatorFactory()</a> - Constructor for class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidatorFactory</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html#anyRecipientEmailConstraintValidator()" class="member-name-link">anyRecipientEmailConstraintValidator()</a> - Method in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientConstraintValidatorFactory.html" title="class in io.micronaut.email.validation">AnyRecipientConstraintValidatorFactory</a></dt>
+<dt><a href="io/micronaut/email/validation/AnyRecipientValidator.html#%3Cinit%3E()" class="member-name-link">AnyRecipientValidator()</a> - Constructor for class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientValidator.html" title="class in io.micronaut.email.validation">AnyRecipientValidator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/AsyncEmailSender.html" class="type-name-link" title="interface in io.micronaut.email">AsyncEmailSender</a>&lt;<a href="io/micronaut/email/AsyncEmailSender.html" title="type parameter in AsyncEmailSender">I</a>,<wbr><a href="io/micronaut/email/AsyncEmailSender.html" title="type parameter in AsyncEmailSender">O</a>&gt; - Interface in <a href="io/micronaut/email/package-summary.html">io.micronaut.email</a></dt>
 <dd>
@@ -537,6 +550,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/micronaut/email/ses/SesConfigurationProperties.html#isEnabled()" class="member-name-link">isEnabled()</a> - Method in class io.micronaut.email.ses.<a href="io/micronaut/email/ses/SesConfigurationProperties.html" title="class in io.micronaut.email.ses">SesConfigurationProperties</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/validation/RecipientsUtils.html#isValid(io.micronaut.email.validation.Recipients)" class="member-name-link">isValid(Recipients)</a> - Static method in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/RecipientsUtils.html" title="class in io.micronaut.email.validation">RecipientsUtils</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/validation/AnyRecipientValidator.html#isValid(io.micronaut.email.Email,jakarta.validation.ConstraintValidatorContext)" class="member-name-link">isValid(Email, ConstraintValidatorContext)</a> - Method in class io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipientValidator.html" title="class in io.micronaut.email.validation">AnyRecipientValidator</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:J">J</h2>
