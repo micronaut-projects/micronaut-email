@@ -24,7 +24,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * Builds {@link ConstraintValidator} for {@link io.micronaut.email.validation.AnyRecipient} for {@link Email}.
  *
  * @author Sergio del Amo
- * @since 4.0.2
+ * @since 2.0.2
  */
 @Introspected
 public class AnyRecipientValidator implements ConstraintValidator<AnyRecipient, Email> {
