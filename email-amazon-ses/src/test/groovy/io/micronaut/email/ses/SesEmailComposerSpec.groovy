@@ -15,9 +15,9 @@ class SesEmailComposerSpec extends Specification {
 
     void "from, to and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -26,7 +26,7 @@ class SesEmailComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def request = sesEmailComposer.compose(email) as SendEmailRequest
+        SendEmailRequest request = sesEmailComposer.compose(email)
 
         then:
         from == request.source()
@@ -38,10 +38,10 @@ class SesEmailComposerSpec extends Specification {
 
     void "from, to, cc and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def cc = "receiver.cc@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String cc = "receiver.cc@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -51,7 +51,7 @@ class SesEmailComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def request = sesEmailComposer.compose(email) as SendEmailRequest
+        SendEmailRequest request = sesEmailComposer.compose(email)
 
         then:
         from == request.source()
@@ -63,10 +63,10 @@ class SesEmailComposerSpec extends Specification {
 
     void "from, to, bcc and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def bcc = "receiver.bcc@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String bcc = "receiver.bcc@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -76,7 +76,7 @@ class SesEmailComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def request = sesEmailComposer.compose(email) as SendEmailRequest
+        SendEmailRequest request = sesEmailComposer.compose(email)
 
         then:
         from == request.source()
@@ -88,10 +88,10 @@ class SesEmailComposerSpec extends Specification {
 
     void "from, to, reply to and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def replyTo = "sender.reply.to@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String replyTo = "sender.reply.to@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -101,7 +101,7 @@ class SesEmailComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def request = sesEmailComposer.compose(email) as SendEmailRequest
+        SendEmailRequest request = sesEmailComposer.compose(email)
 
         then:
         from == request.source()
@@ -128,7 +128,7 @@ class SesEmailComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def request = sesEmailComposer.compose(email) as SendEmailRequest
+        SendEmailRequest request = sesEmailComposer.compose(email)
 
         then:
         from == request.source()

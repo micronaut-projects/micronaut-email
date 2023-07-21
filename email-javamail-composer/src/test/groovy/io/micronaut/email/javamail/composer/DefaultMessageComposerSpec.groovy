@@ -14,9 +14,9 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -25,7 +25,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
@@ -37,10 +37,10 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to, cc and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def cc = "receiver.cc@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String cc = "receiver.cc@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -50,7 +50,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
@@ -62,10 +62,10 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to, bcc and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def bcc = "receiver.bcc@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String bcc = "receiver.bcc@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -75,7 +75,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
@@ -87,10 +87,10 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to, reply to and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def replyTo = "sender.reply.to@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String replyTo = "sender.reply.to@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -100,7 +100,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
@@ -127,7 +127,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
