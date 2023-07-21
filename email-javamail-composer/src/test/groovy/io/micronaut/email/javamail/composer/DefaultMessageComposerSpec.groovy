@@ -112,11 +112,11 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to, multiple reply to and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def replyTo1 = "sender.reply.to.one@example.com"
-        def replyTo2 = "sender.reply.to.two@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String replyTo1 = "sender.reply.to.one@example.com"
+        String replyTo2 = "sender.reply.to.two@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
