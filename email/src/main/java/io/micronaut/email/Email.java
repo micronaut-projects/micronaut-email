@@ -97,49 +97,96 @@ public final class Email implements Recipients {
         this.body = body;
     }
 
+    /**
+     * Returns this email "From" address.
+     *
+     * @return this email "From" address.
+     */
     @NonNull
     public Contact getFrom() {
         return from;
     }
 
+    /**
+     * Returns this email's "Reply-To" address.
+     *
+     * <p>Note: If this email has more than one, this method will return the last one added.
+     *
+     * @return this email's "Reply-To" address.
+     */
     @Nullable
     public Contact getReplyTo() {
         return CollectionUtils.isEmpty(replyTo) ? null : CollectionUtils.last(replyTo);
     }
 
+    /**
+     * Returns this email's "Reply-To" addresses.
+     *
+     * @return this email's "Reply-To" addresses.
+     */
     @Nullable
     public Collection<@Valid Contact> getReplyToCollection() {
         return replyTo;
     }
 
+    /**
+     * Returns this email's "To" addresses.
+     *
+     * @return this email's "To" addresses.
+     */
     @Override
     @Nullable
     public Collection<Contact> getTo() {
         return to;
     }
 
+    /**
+     * Returns this email's "CC" addresses.
+     *
+     * @return this email's "CC" addresses.
+     */
     @Override
     @Nullable
     public Collection<Contact> getCc() {
         return cc;
     }
 
+    /**
+     * Returns this email's "BCC" addresses.
+     *
+     * @return this email's "BCC" addresses.
+     */
     @Override
     @Nullable
     public Collection<Contact> getBcc() {
         return bcc;
     }
 
+    /**
+     * Returns this email's subject.
+     *
+     * @return this email's subject.
+     */
     @NonNull
     public String getSubject() {
         return subject;
     }
 
+    /**
+     * Returns this email's attachments.
+     *
+     * @return this email's attachments.
+     */
     @Nullable
     public List<Attachment> getAttachments() {
         return attachments;
     }
 
+    /**
+     * Returns this email's body.
+     *
+     * @return this email's body.
+     */
     @Nullable
     public Body getBody() {
         return body;
