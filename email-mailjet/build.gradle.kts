@@ -10,5 +10,5 @@ dependencies {
     implementation(mnValidation.micronaut.validation)
     testImplementation(projects.testSuiteUtils)
     testImplementation(mn.micronaut.http)
-    testImplementation(mn.jackson.databind)
+    testImplementation(mnSerde.micronaut.serde.jackson)
 }

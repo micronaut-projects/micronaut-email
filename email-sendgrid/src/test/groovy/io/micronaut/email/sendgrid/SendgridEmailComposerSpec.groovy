@@ -1,7 +1,7 @@
 package io.micronaut.email.sendgrid
 
-import com.fasterxml.jackson.databind.json.JsonMapper
 import com.sendgrid.Request
+import io.micronaut.json.JsonMapper
 import io.micronaut.email.Email
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -12,6 +12,9 @@ class SendgridEmailComposerSpec extends Specification {
 
     @Inject
     SendgridEmailComposer sendgridEmailComposer
+
+    @Inject
+    JsonMapper jsonMapper
 
     void "from, to, only the last reply to and subject are put to the mime message"() {
         given:
@@ -32,7 +35,7 @@ class SendgridEmailComposerSpec extends Specification {
                 .build()
         when:
         Request request = sendgridEmailComposer.compose(email)
-        Map map = new JsonMapper().readValue(request.body, Map)
+        Map map = jsonMapper.readValue(request.body, Map)
 
         then:
         map["from"]["email"] == from

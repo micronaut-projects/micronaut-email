@@ -1,8 +1,8 @@
 package io.micronaut.email.mailjet
 
-import com.fasterxml.jackson.databind.json.JsonMapper
 import com.mailjet.client.MailjetRequest
 import io.micronaut.email.Email
+import io.micronaut.json.JsonMapper
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
@@ -12,6 +12,9 @@ class MailjetEmailComposerSpec extends Specification {
 
     @Inject
     MailjetEmailComposer mailjetEmailComposer
+
+    @Inject
+    JsonMapper jsonMapper
 
     void "from, to, only the last reply to and subject are put to the request"() {
         given:
@@ -32,7 +35,7 @@ class MailjetEmailComposerSpec extends Specification {
                 .build()
         when:
         MailjetRequest request = mailjetEmailComposer.compose(email)
-        Map map = new JsonMapper().readValue(request.body, Map)
+        Map map = jsonMapper.readValue(request.body, Map)
 
         then:
         map["Messages"][0]["ReplyTo"]["Email"] == replyTo2
