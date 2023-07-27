@@ -14,4 +14,5 @@ dependencies {
 
     testImplementation(projects.testSuiteUtils)
     testImplementation(mn.micronaut.http)
+    testImplementation(libs.managed.eclipse.angus)
 }

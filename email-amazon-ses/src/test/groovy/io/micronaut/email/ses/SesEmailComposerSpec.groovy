@@ -5,13 +5,54 @@ import io.micronaut.email.Email
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import software.amazon.awssdk.services.ses.model.SendEmailRequest
+import software.amazon.awssdk.services.ses.model.SendRawEmailRequest
 import spock.lang.Specification
+import spock.lang.Unroll
 
 @MicronautTest(startApplication = false)
 class SesEmailComposerSpec extends Specification {
 
     @Inject
     SesEmailComposer sesEmailComposer
+
+    @Unroll
+    void "test attachments with id: #contentId and disposition: #disposition"(String contentId, String disposition) {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+        String body = "Lore ipsum body"
+        String filename = "my-file.txt"
+        String contentType = "text/markdown"
+        String content = "hello"
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body(body)
+                .attachment { it.filename(filename).id(contentId).disposition(disposition).contentType(contentType).content(content.bytes) }
+                .build()
+        when:
+        SendRawEmailRequest request = sesEmailComposer.compose(email)
+        String raw = new String(request.rawMessage.data.asByteArray())
+        then:
+        raw.contains("From: $from")
+        raw.contains("To: $to")
+        raw.contains("Subject: $subject")
+        raw.contains(body)
+        !contentId || raw.contains("Content-ID: $contentId")
+        raw.contains("Content-Disposition: $expectedDisposition; filename=$filename")
+        raw.contains("Content-Type: $contentType")
+        raw.contains(content)
+        where:
+        contentId     | disposition  | expectedDisposition
+        null          | null         | "attachment"
+        "my-file"     | null         | "attachment"
+        "my-file"     | "inline"     | "inline"
+        "my-file"     | "attachment" | "attachment"
+        null          | "inline"     | "inline"
+        null          | "attachment" | "attachment"
+    }
 
     void "from, to and subject are put to the mime message"() {
         given:
