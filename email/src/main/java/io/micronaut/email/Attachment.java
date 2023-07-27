@@ -53,6 +53,29 @@ public class Attachment {
     @Nullable
     private final String id;
 
+    @Nullable
+    private final String disposition;
+
+    /**
+     *
+     * @param filename filename to show up in email
+     * @param content file content
+     * @param contentType file content type
+     * @param id content identifier
+     * @param disposition content disposition
+     */
+    public Attachment(@NonNull String filename,
+                      @NonNull String contentType,
+                      @NonNull byte[] content,
+                      @Nullable String id,
+                      @Nullable String disposition) {
+        this.filename = filename;
+        this.content = content;
+        this.contentType = contentType;
+        this.id = id;
+        this.disposition = disposition;
+    }
+
     /**
      *
      * @param filename filename to show up in email
@@ -64,10 +87,7 @@ public class Attachment {
                       @NonNull String contentType,
                       @NonNull byte[] content,
                       @Nullable String id) {
-        this.filename = filename;
-        this.content = content;
-        this.contentType = contentType;
-        this.id = id;
+        this(filename, contentType, content, id, null);
     }
 
     /**
@@ -116,6 +136,15 @@ public class Attachment {
     }
 
     /**
+     *
+     * @return Content Disposition
+     */
+    @Nullable
+    public String getDisposition() {
+        return this.disposition;
+    }
+
+    /**
      * Attachment's builder.
      */
     public static class Builder {
@@ -123,6 +152,7 @@ public class Attachment {
         private byte[] content;
         private String contentType;
         private String id;
+        private String disposition;
 
         /**
          *
@@ -219,6 +249,17 @@ public class Attachment {
 
         /**
          *
+         * @param disposition content disposition
+         * @return Attachment's builder
+         */
+        @NonNull
+        public Builder disposition(@NonNull String disposition) {
+            this.disposition = disposition;
+            return this;
+        }
+
+        /**
+         *
          * @return an Attachment.
          */
         @NonNull
@@ -226,7 +267,8 @@ public class Attachment {
             return new Attachment(Objects.requireNonNull(filename),
                     Objects.requireNonNull(contentType),
                     Objects.requireNonNull(content),
-                    id);
+                    id,
+                    disposition);
         }
     }
 }
