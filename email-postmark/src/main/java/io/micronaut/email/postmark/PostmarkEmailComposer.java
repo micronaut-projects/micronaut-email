@@ -31,6 +31,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Composes a {@link Message} given an {@link io.micronaut.email.Email}.
@@ -39,6 +41,8 @@ import java.util.stream.Collectors;
  */
 @Singleton
 public class PostmarkEmailComposer implements EmailComposer<Message> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailComposer.class);
 
     private final PostmarkConfiguration postmarkConfiguration;
 
@@ -71,8 +75,15 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
         trackLinks(postmarkConfiguration.getTrackLinks()).ifPresent(message::setTrackLinks);
 
         if (email.getAttachments() != null) {
+            boolean missingContentId = false;
             for (Attachment att : email.getAttachments()) {
+                if ("inline".equals(att.getDisposition()) && att.getId() == null) {
+                    missingContentId = true;
+                }
                 message.addAttachment(att.getFilename(), att.getContent(), att.getContentType(), att.getId());
+            }
+            if (missingContentId && LOG.isWarnEnabled()) {
+                LOG.warn("Content ID is required for Postmark inlined attachments");
             }
         }
         return message;
