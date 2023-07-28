@@ -22,6 +22,7 @@ import com.sendgrid.helpers.mail.objects.Attachments;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
@@ -36,6 +37,8 @@ import jakarta.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Composes {@link Request} for {@link io.micronaut.email.Email}.
@@ -45,6 +48,7 @@ import java.util.Optional;
 @Singleton
 public class SendgridEmailComposer implements EmailComposer<Request> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailComposer.class);
     private static final String CONTENT_TYPE_TEXT_HTML = "text/html";
     private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
 
@@ -77,13 +81,16 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
 
     @NonNull
     private Optional<com.sendgrid.helpers.mail.objects.Email> createReplyTo(@NonNull Email email) {
-        if (email.getReplyTo() == null) {
+        if (CollectionUtils.isEmpty(email.getReplyToCollection())) {
             return Optional.empty();
+        } else if (email.getReplyToCollection().size() > 1 && LOG.isWarnEnabled()) {
+            LOG.warn("Sendgrid does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
         }
+        final Contact contact = CollectionUtils.last(email.getReplyToCollection());
         com.sendgrid.helpers.mail.objects.Email replyTo = new com.sendgrid.helpers.mail.objects.Email();
-        replyTo.setEmail(email.getReplyTo().getEmail());
-        if (email.getReplyTo().getName() != null) {
-            replyTo.setName(email.getReplyTo().getName());
+        replyTo.setEmail(contact.getEmail());
+        if (contact.getName() != null) {
+            replyTo.setName(contact.getName());
         }
         return Optional.of(replyTo);
     }

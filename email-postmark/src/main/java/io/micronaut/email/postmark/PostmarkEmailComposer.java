@@ -17,6 +17,7 @@ package io.micronaut.email.postmark;
 
 import com.postmarkapp.postmark.client.data.model.message.Message;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
@@ -28,6 +29,7 @@ import jakarta.inject.Singleton;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -66,8 +68,8 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
             cc -> message.setCc(cc.stream().map(Contact::getEmail).toList()));
         ifNotNull(email.getBcc(),
             bcc -> message.setBcc(bcc.stream().map(Contact::getEmail).toList()));
-        ifNotNull(email.getReplyTo(),
-            replyTo -> message.setReplyTo(replyTo.getEmail()));
+        ifNotNull(email.getReplyToCollection(), validateReplyTo().andThen(
+            replyTo -> message.setReplyTo(CollectionUtils.last(replyTo).getEmail())));
         message.setSubject(email.getSubject());
         ifNotNull(email.getBody(), body -> {
             body.get(BodyType.HTML).ifPresent(message::setHtmlBody);
@@ -94,6 +96,14 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
             default:
                 return Optional.empty();
         }
+    }
+
+    private static Consumer<Collection<Contact>> validateReplyTo() {
+        return replyTo -> {
+            if (replyTo.size() > 1 && LOG.isWarnEnabled()) {
+                LOG.warn("Postmark does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", replyTo.size());
+            }
+        };
     }
 
     private static Consumer<List<Attachment>> validateAttachments() {

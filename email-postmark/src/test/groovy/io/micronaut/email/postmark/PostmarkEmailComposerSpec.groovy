@@ -20,7 +20,7 @@ class PostmarkEmailComposerSpec extends Specification {
         getTrackLinks() >> TrackLinks.DO_NOT_TRACK
     }
 
-    void "from, to, cc, bcc, reply to, subject and body are populated"() {
+    void "from, to, cc, bcc, only the last reply to, subject and body are populated"() {
         given:
         String from = "sender@example.com"
         String to1 = "to1@example.com"
@@ -29,7 +29,8 @@ class PostmarkEmailComposerSpec extends Specification {
         String cc2 = "cc2@example.com"
         String bcc1 = "bcc1@example.com"
         String bcc2 = "bcc2@example.com"
-        String replyTo = "sender.reply.to@example.com"
+        String replyTo1 = "sender.reply.to.one@example.com"
+        String replyTo2 = "sender.reply.to.two@example.com"
         String subject = "Apple Music"
         String body = "Lore ipsum body"
 
@@ -41,7 +42,8 @@ class PostmarkEmailComposerSpec extends Specification {
                 .cc(cc2)
                 .bcc(bcc1)
                 .bcc(bcc2)
-                .replyTo(replyTo)
+                .replyTo(replyTo1)
+                .replyTo(replyTo2)
                 .subject(subject)
                 .body(body)
                 .build()
@@ -53,7 +55,7 @@ class PostmarkEmailComposerSpec extends Specification {
         message.to == "\"$to1\",\"$to2\""
         message.cc == "\"$cc1\",\"$cc2\""
         message.bcc == "\"$bcc1\",\"$bcc2\""
-        message.replyTo == replyTo
+        message.replyTo == replyTo2
         message.subject == subject
         message.textBody == body
     }
