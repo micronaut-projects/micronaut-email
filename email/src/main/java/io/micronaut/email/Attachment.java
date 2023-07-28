@@ -82,7 +82,9 @@ public class Attachment {
      * @param content file content
      * @param contentType file content type
      * @param id content identifier
+     * @deprecated Use {@link Attachment#Attachment(String, String, byte[], String, String)}
      */
+    @Deprecated(since = "2.1.0", forRemoval = true)
     public Attachment(@NonNull String filename,
                       @NonNull String contentType,
                       @NonNull byte[] content,
