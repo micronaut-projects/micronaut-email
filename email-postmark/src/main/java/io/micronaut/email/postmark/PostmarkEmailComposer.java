@@ -31,7 +31,6 @@ import jakarta.inject.Singleton;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +62,13 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
             message.setFrom(email.getFrom().getEmail());
         }
         if (email.getTo() != null) {
-            message.setTo(email.getTo().stream().map(Contact::getEmail).collect(Collectors.toList()));
+            message.setTo(email.getTo().stream().map(Contact::getEmail).toList());
+        }
+        if (email.getCc() != null) {
+            message.setCc(email.getCc().stream().map(Contact::getEmail).toList());
+        }
+        if (email.getBcc() != null) {
+            message.setBcc(email.getBcc().stream().map(Contact::getEmail).toList());
         }
         if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
             if (email.getReplyToCollection().size() > 1 && LOG.isWarnEnabled()) {

@@ -1,6 +1,6 @@
 [versions]
 micronaut-docs = "2.0.0"
-micronaut = "4.0.0"
+micronaut = "4.0.1"
 micronaut-test = "4.0.0"
 micronaut-gradle-plugin = "4.0.1"
 groovy = "4.0.13"
@@ -19,9 +19,10 @@ testcontainers = "1.18.3"
 micronaut-aws = "4.0.1"
 micronaut-reactor = "3.0.1"
 micronaut-serde = "2.0.0"
-micronaut-validation = "4.0.0"
-micronaut-views = "4.0.0"
-
+micronaut-validation = "4.0.1"
+micronaut-views = "4.0.1"
+micronaut-hibernate-validator = "4.0.2"
+micronaut-logging = "1.0.0"
 
 [libraries]
 # Managed dependencies
@@ -32,8 +33,10 @@ managed-eclipse-angus = { module = "org.eclipse.angus:angus-mail", version.ref =
 managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
 
 # Micronaut
+micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
 micronaut-aws = {module = "io.micronaut.aws:micronaut-aws-bom", version.ref = "micronaut-aws" }
+micronaut-hibernate-validator = {module = "io.micronaut.beanvalidation:micronaut-hibernate-validator-bom", version.ref = "micronaut-hibernate-validator" }
 micronaut-reactor = { module = 'io.micronaut.reactor:micronaut-reactor-bom', version.ref = "micronaut-reactor" }
 micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }

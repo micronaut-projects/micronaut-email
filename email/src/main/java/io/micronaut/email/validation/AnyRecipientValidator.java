@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,29 +15,25 @@
  */
 package io.micronaut.email.validation;
 
-import io.micronaut.context.annotation.Factory;
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.email.Email;
-import jakarta.inject.Singleton;
-import io.micronaut.validation.validator.constraints.ConstraintValidator;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Builds {@link ConstraintValidator} for {@link io.micronaut.email.validation.AnyRecipient} for {@link Email}.
  *
  * @author Sergio del Amo
- * @since 1.0.0
+ * @since 2.0.2
  */
-@Factory
-public class AnyRecipientConstraintValidatorFactory {
-    /**
-     * @return A {@link ConstraintValidator} implementation of a {@link AnyRecipient} validator for type {@link Email}
-     */
-    @Singleton
-    public ConstraintValidator<AnyRecipient, Email> anyRecipientEmailConstraintValidator() {
-        return (value, annotationMetadata, context) -> {
-            if (value == null) {
-                return true;
-            }
-            return RecipientsUtils.isValid(value);
-        };
+@Introspected
+public class AnyRecipientValidator implements ConstraintValidator<AnyRecipient, Email> {
+
+    @Override
+    public boolean isValid(Email value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
+        return RecipientsUtils.isValid(value);
     }
 }
