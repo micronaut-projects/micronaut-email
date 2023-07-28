@@ -15,6 +15,7 @@
  */
 package io.micronaut.email;
 
+import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
@@ -64,6 +65,7 @@ public class Attachment {
      * @param id content identifier
      * @param disposition content disposition
      */
+    @Creator
     public Attachment(@NonNull String filename,
                       @NonNull String contentType,
                       @NonNull byte[] content,
