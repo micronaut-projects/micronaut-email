@@ -14,9 +14,9 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -25,7 +25,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
@@ -37,10 +37,10 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to, cc and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def cc = "receiver.cc@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String cc = "receiver.cc@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -50,7 +50,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
@@ -62,10 +62,10 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to, bcc and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def bcc = "receiver.bcc@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String bcc = "receiver.bcc@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -75,7 +75,7 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
@@ -87,10 +87,10 @@ class DefaultMessageComposerSpec extends Specification {
 
     void "from, to, reply to and subject are put to the mime message"() {
         given:
-        def from = "sender@example.com"
-        def to = "receiver@example.com"
-        def replyTo = "sender.reply.to@example.com"
-        def subject = "Apple Music"
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String replyTo = "sender.reply.to@example.com"
+        String subject = "Apple Music"
 
         Email email = Email.builder()
                 .from(from)
@@ -100,12 +100,39 @@ class DefaultMessageComposerSpec extends Specification {
                 .body("Lore ipsum body")
                 .build()
         when:
-        def message = defaultMessageComposer.compose(email, null)
+        Message message = defaultMessageComposer.compose(email, null)
 
         then:
         [from] == message.from.toList().collect {it.address }
         [to] == message.getRecipients(Message.RecipientType.TO).toList().collect{it.address}
         [replyTo] == message.replyTo.toList().collect {it.address }
+        subject == message.getSubject()
+        !message.getRecipients(Message.RecipientType.CC)
+    }
+
+    void "from, to, multiple reply to and subject are put to the mime message"() {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String replyTo1 = "sender.reply.to.one@example.com"
+        String replyTo2 = "sender.reply.to.two@example.com"
+        String subject = "Apple Music"
+
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .replyTo(replyTo1)
+                .replyTo(replyTo2)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .build()
+        when:
+        Message message = defaultMessageComposer.compose(email, null)
+
+        then:
+        [from] == message.from.toList().collect {it.address }
+        [to] == message.getRecipients(Message.RecipientType.TO).toList().collect{it.address}
+        [replyTo1, replyTo2] == message.replyTo.toList().collect {it.address }
         subject == message.getSubject()
         !message.getRecipients(Message.RecipientType.CC)
     }

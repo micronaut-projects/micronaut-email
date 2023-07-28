@@ -96,8 +96,9 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
                 .destination(destinationBuilder(email).build())
                 .source(email.getFrom().getEmail())
                 .message(message(email));
-        if (email.getReplyTo() != null) {
-            requestBuilder = requestBuilder.replyToAddresses(email.getReplyTo().getEmail());
+        if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
+            requestBuilder = requestBuilder.replyToAddresses(
+                email.getReplyToCollection().stream().map(Contact::getEmail).toList());
         }
         return requestBuilder.build();
     }

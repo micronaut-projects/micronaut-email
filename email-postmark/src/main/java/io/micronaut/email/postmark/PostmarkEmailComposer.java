@@ -17,6 +17,7 @@ package io.micronaut.email.postmark;
 
 import com.postmarkapp.postmark.client.data.model.message.Message;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
@@ -30,6 +31,8 @@ import jakarta.inject.Singleton;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Composes a {@link Message} given an {@link io.micronaut.email.Email}.
@@ -39,6 +42,7 @@ import java.util.Optional;
 @Singleton
 public class PostmarkEmailComposer implements EmailComposer<Message> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(PostmarkEmailComposer.class);
     private final PostmarkConfiguration postmarkConfiguration;
 
     /**
@@ -66,8 +70,11 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
         if (email.getBcc() != null) {
             message.setBcc(email.getBcc().stream().map(Contact::getEmail).toList());
         }
-        if (email.getReplyTo() != null) {
-            message.setReplyTo(email.getReplyTo().getEmail());
+        if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
+            if (email.getReplyToCollection().size() > 1 && LOG.isWarnEnabled()) {
+                LOG.warn("Postmark does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
+            }
+            message.setReplyTo(CollectionUtils.last(email.getReplyToCollection()).getEmail());
         }
         message.setSubject(email.getSubject());
         Body body = email.getBody();

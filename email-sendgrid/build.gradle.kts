@@ -8,4 +8,5 @@ dependencies {
     implementation(mnReactor.micronaut.reactor)
     testImplementation(mn.micronaut.http)
     testImplementation(projects.testSuiteUtils)
+    testImplementation(mnSerde.micronaut.serde.jackson)
 }

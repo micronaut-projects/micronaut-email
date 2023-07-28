@@ -29,6 +29,8 @@ import io.micronaut.email.EmailException;
 import jakarta.inject.Singleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -42,11 +44,20 @@ import java.util.Optional;
  */
 @Singleton
 public class MailjetEmailComposer implements EmailComposer<MailjetRequest> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MailjetEmailComposer.class);
+
     @Override
     @NonNull
     public MailjetRequest compose(@NonNull @NotNull @Valid Email email) throws EmailException {
         JSONObject message = new JSONObject();
         message.put(Emailv31.Message.FROM, createJsonObject(email.getFrom()));
+        if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
+            if (email.getReplyToCollection().size() > 1 && LOG.isWarnEnabled()) {
+                LOG.warn("Mailjet does not support multiple 'replyTo' addresses (Email has {} replyTo addresses)", email.getReplyToCollection().size());
+            }
+            message.put(Emailv31.Message.REPLYTO, createJsonObject(CollectionUtils.last(email.getReplyToCollection())));
+        }
         to(email).ifPresent(jsonArray -> message.put(Emailv31.Message.TO, jsonArray));
         message.put(Emailv31.Message.SUBJECT, email.getSubject());
         Body body = email.getBody();

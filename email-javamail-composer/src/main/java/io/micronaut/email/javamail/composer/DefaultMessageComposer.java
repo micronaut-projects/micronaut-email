@@ -45,7 +45,6 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * {@link io.micronaut.context.annotation.DefaultImplementation} of {@link MessageComposer}.
@@ -84,8 +83,8 @@ public class DefaultMessageComposer implements MessageComposer {
         if (CollectionUtils.isNotEmpty(email.getBcc())) {
             message.setRecipients(Message.RecipientType.BCC, contactAddresses(email.getBcc()));
         }
-        if (null != email.getReplyTo()) {
-            message.setReplyTo(contactAddresses(Stream.of(email.getReplyTo()).toList()));
+        if (CollectionUtils.isNotEmpty(email.getReplyToCollection())) {
+            message.setReplyTo(contactAddresses(email.getReplyToCollection()));
         }
 
         MimeMultipart multipart = new MimeMultipart();
