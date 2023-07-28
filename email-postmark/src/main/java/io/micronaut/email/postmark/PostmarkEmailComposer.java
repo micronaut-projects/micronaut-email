@@ -18,7 +18,6 @@ package io.micronaut.email.postmark;
 import com.postmarkapp.postmark.client.data.model.message.Message;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Attachment;
-import io.micronaut.email.Body;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
@@ -29,7 +28,9 @@ import jakarta.inject.Singleton;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,45 +56,28 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
     @Override
     @NonNull
     public Message compose(@NonNull @NotNull @Valid Email email) throws EmailException {
-        Message message = new Message();
-        if (email.getFrom().getName() != null) {
-            message.setFrom(email.getFrom().getName(), email.getFrom().getEmail());
-        } else {
-            message.setFrom(email.getFrom().getEmail());
-        }
-        if (email.getTo() != null) {
-            message.setTo(email.getTo().stream().map(Contact::getEmail).toList());
-        }
-        if (email.getCc() != null) {
-            message.setCc(email.getCc().stream().map(Contact::getEmail).toList());
-        }
-        if (email.getBcc() != null) {
-            message.setBcc(email.getBcc().stream().map(Contact::getEmail).toList());
-        }
-        if (email.getReplyTo() != null) {
-            message.setReplyTo(email.getReplyTo().getEmail());
-        }
+        final Message message = new Message();
+        ifNotNullOrElse(email.getFrom().getName(),
+            name -> message.setFrom(name, email.getFrom().getEmail()),
+            () -> message.setFrom(email.getFrom().getEmail()));
+        ifNotNull(email.getTo(),
+            to -> message.setTo(to.stream().map(Contact::getEmail).toList()));
+        ifNotNull(email.getCc(),
+            cc -> message.setCc(cc.stream().map(Contact::getEmail).toList()));
+        ifNotNull(email.getBcc(),
+            bcc -> message.setBcc(bcc.stream().map(Contact::getEmail).toList()));
+        ifNotNull(email.getReplyTo(),
+            replyTo -> message.setReplyTo(replyTo.getEmail()));
         message.setSubject(email.getSubject());
-        Body body = email.getBody();
-        if (body != null) {
+        ifNotNull(email.getBody(), body -> {
             body.get(BodyType.HTML).ifPresent(message::setHtmlBody);
             body.get(BodyType.TEXT).ifPresent(message::setTextBody);
-        }
+        });
         message.setTrackOpens(postmarkConfiguration.getTrackOpens());
         trackLinks(postmarkConfiguration.getTrackLinks()).ifPresent(message::setTrackLinks);
 
-        if (email.getAttachments() != null) {
-            boolean missingContentId = false;
-            for (Attachment att : email.getAttachments()) {
-                if ("inline".equals(att.getDisposition()) && att.getId() == null) {
-                    missingContentId = true;
-                }
-                message.addAttachment(att.getFilename(), att.getContent(), att.getContentType(), att.getId());
-            }
-            if (missingContentId && LOG.isWarnEnabled()) {
-                LOG.warn("Content ID is required for Postmark inlined attachments");
-            }
-        }
+        ifNotNull(email.getAttachments(), validateAttachments().andThen(
+            list -> list.forEach(att -> message.addAttachment(att.getFilename(), att.getContent(), att.getContentType(), att.getId()))));
         return message;
     }
 
@@ -110,5 +94,24 @@ public class PostmarkEmailComposer implements EmailComposer<Message> {
             default:
                 return Optional.empty();
         }
+    }
+
+    private static Consumer<List<Attachment>> validateAttachments() {
+        return attachments -> {
+            if (LOG.isWarnEnabled()) {
+                attachments.stream()
+                    .filter(att -> "inline".equals(att.getDisposition()) && att.getId() == null)
+                    .findAny().ifPresent(
+                        x -> LOG.warn("Content ID is required for Postmark inlined attachments"));
+            }
+        };
+    }
+
+    private static <T> void ifNotNull(T value, Consumer<T> action) {
+        Optional.ofNullable(value).ifPresent(action);
+    }
+
+    private static <T> void ifNotNullOrElse(T value, Consumer<T> action, Runnable emptyAction) {
+        Optional.ofNullable(value).ifPresentOrElse(action, emptyAction);
     }
 }
