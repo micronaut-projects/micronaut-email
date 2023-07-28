@@ -64,6 +64,7 @@ public class Attachment {
      * @param contentType file content type
      * @param id content identifier
      * @param disposition content disposition
+     * @since 2.1.0
      */
     @Creator
     public Attachment(@NonNull String filename,
@@ -142,6 +143,7 @@ public class Attachment {
     /**
      *
      * @return Content Disposition
+     * @since 2.1.0
      */
     @Nullable
     public String getDisposition() {
