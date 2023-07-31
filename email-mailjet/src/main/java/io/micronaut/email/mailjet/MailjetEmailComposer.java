@@ -65,7 +65,8 @@ public class MailjetEmailComposer implements EmailComposer<MailjetRequest> {
             body.get(BodyType.HTML).ifPresent(html -> message.put(Emailv31.Message.HTMLPART, html));
             body.get(BodyType.TEXT).ifPresent(text -> message.put(Emailv31.Message.TEXTPART, text));
         }
-        attachmentsAsJsonArray(email).ifPresent(arr -> message.put(Emailv31.Message.ATTACHMENTS, arr));
+        attachmentsAsJsonArray(email, false).ifPresent(arr -> message.put(Emailv31.Message.ATTACHMENTS, arr));
+        attachmentsAsJsonArray(email, true).ifPresent(arr -> message.put(Emailv31.Message.INLINEDATTACHMENTS, arr));
         JSONArray messages = new JSONArray();
         messages.put(message);
         return new MailjetRequest(Emailv31.resource)
@@ -73,18 +74,20 @@ public class MailjetEmailComposer implements EmailComposer<MailjetRequest> {
     }
 
     @NonNull
-    private static Optional<JSONArray> attachmentsAsJsonArray(@NonNull Email email) {
+    private static Optional<JSONArray> attachmentsAsJsonArray(@NonNull Email email, boolean inline) {
         if (CollectionUtils.isEmpty(email.getAttachments())) {
             return Optional.empty();
         }
         JSONArray arr = new JSONArray();
-        email.getAttachments().forEach(att -> arr.put(attachmentAsJsonObject(att)));
+        email.getAttachments().stream().filter(att -> "inline".equals(att.getDisposition()) == inline)
+            .forEach(att -> arr.put(attachmentAsJsonObject(att)));
         return Optional.of(arr);
     }
 
     @NonNull
     private static JSONObject attachmentAsJsonObject(@NonNull Attachment attachment) {
         return new JSONObject().put("ContentType", attachment.getContentType())
+                .put("ContentID", attachment.getId())
                 .put("Filename", attachment.getFilename())
                 .put("Base64Content", Base64.getEncoder().encodeToString(attachment.getContent()));
     }

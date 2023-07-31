@@ -4,13 +4,54 @@ import io.micronaut.email.Email
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import jakarta.mail.Message
+import jakarta.mail.internet.MimeMultipart
 import spock.lang.Specification
+import spock.lang.Unroll
 
 @MicronautTest(startApplication = false)
 class DefaultMessageComposerSpec extends Specification {
 
     @Inject
     DefaultMessageComposer defaultMessageComposer
+
+    @Unroll
+    void "test attachments with id: #contentId and disposition: #disposition"(String contentId, String disposition) {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+        String filename = "my-file.txt"
+        String contentType = "text/markdown"
+        String content = "hello"
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .attachment {it.filename(filename).id(contentId).disposition(disposition).contentType(contentType).content(content.bytes) }
+                .build()
+        when:
+        Message message = defaultMessageComposer.compose(email, null)
+        then:
+        with(message.content as MimeMultipart) {
+            it.contentType.startsWith("multipart/mixed")
+            parts.size() == 2
+            (parts[1].content as InputStream).text == content
+            parts[1].contentType == "text/markdown"
+            parts[1].disposition == expectedDisposition
+            parts[1].fileName == filename
+            parts[1].contentType == contentType
+            parts[1].getHeader('Content-ID') == expectedContentId
+        }
+        where:
+        contentId     | disposition  | expectedContentId    | expectedDisposition
+        null          | null         | null                 | "attachment"
+        "my-file"     | null         | ["my-file"]          | "attachment"
+        "my-file"     | "inline"     | ["my-file"]          | "inline"
+        "my-file"     | "attachment" | ["my-file"]          | "attachment"
+        null          | "inline"     | null                 | "inline"
+        null          | "attachment" | null                 | "attachment"
+    }
 
     void "from, to and subject are put to the mime message"() {
         given:

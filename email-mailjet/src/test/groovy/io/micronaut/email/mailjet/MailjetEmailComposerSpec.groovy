@@ -6,6 +6,7 @@ import io.micronaut.json.JsonMapper
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
+import spock.lang.Unroll
 
 @MicronautTest(startApplication = false)
 class MailjetEmailComposerSpec extends Specification {
@@ -43,5 +44,44 @@ class MailjetEmailComposerSpec extends Specification {
         map["Messages"][0]["From"]["Email"] == from
         map["Messages"][0]["To"][0]["Email"] == to
         map["Messages"][0]["Subject"] == subject
+    }
+
+    @Unroll
+    void "test attachments with id: #contentId and disposition: #disposition"(String contentId, String disposition) {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+        String body = "Lore ipsum body"
+        String filename = "my-file.txt"
+        String contentType = "text/markdown"
+        String content = "hello"
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body(body)
+                .attachment { it.filename(filename).id(contentId).disposition(disposition).contentType(contentType).content(content.bytes) }
+                .build()
+        when:
+        MailjetRequest request = mailjetEmailComposer.compose(email)
+        Map map = jsonMapper.readValue(request.body, Map)
+        then:
+        map["Messages"][0]["TextPart"] == body
+        map["Messages"][0]["From"]["Email"] == from
+        map["Messages"][0]["To"][0]["Email"] == to
+        map["Messages"][0]["Subject"] == subject
+        map["Messages"][0][expectedDisposition][0]["Base64Content"] == new String(Base64.encoder.encode(content.bytes))
+        map["Messages"][0][expectedDisposition][0]["ContentType"] == contentType
+        map["Messages"][0][expectedDisposition][0]["Filename"] == filename
+        !contentId || map["Messages"][0][expectedDisposition][0]["ContentID"] == contentId
+        where:
+        contentId     | disposition  | expectedDisposition
+        null          | null         | "Attachments"
+        "my-file"     | null         | "Attachments"
+        "my-file"     | "inline"     | "InlinedAttachments"
+        "my-file"     | "attachment" | "Attachments"
+        null          | "inline"     | "InlinedAttachments"
+        null          | "attachment" | "Attachments"
     }
 }

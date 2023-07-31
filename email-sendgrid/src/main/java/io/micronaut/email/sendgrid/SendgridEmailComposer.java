@@ -72,6 +72,7 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
                 mail.addAttachments(new Attachments.Builder(att.getFilename(), new ByteArrayInputStream(att.getContent()))
                         .withType(att.getContentType())
                         .withContentId(att.getId())
+                        .withDisposition(att.getDisposition())
                         .build());
             }
         }

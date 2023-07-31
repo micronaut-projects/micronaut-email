@@ -15,6 +15,7 @@
  */
 package io.micronaut.email;
 
+import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
@@ -53,21 +54,45 @@ public class Attachment {
     @Nullable
     private final String id;
 
+    @Nullable
+    private final String disposition;
+
     /**
      *
      * @param filename filename to show up in email
      * @param content file content
      * @param contentType file content type
      * @param id content identifier
+     * @param disposition content disposition
+     * @since 2.1.0
      */
+    @Creator
     public Attachment(@NonNull String filename,
                       @NonNull String contentType,
                       @NonNull byte[] content,
-                      @Nullable String id) {
+                      @Nullable String id,
+                      @Nullable String disposition) {
         this.filename = filename;
         this.content = content;
         this.contentType = contentType;
         this.id = id;
+        this.disposition = disposition;
+    }
+
+    /**
+     *
+     * @param filename filename to show up in email
+     * @param content file content
+     * @param contentType file content type
+     * @param id content identifier
+     * @deprecated Use {@link Attachment#Attachment(String, String, byte[], String, String)}
+     */
+    @Deprecated(since = "2.1.0", forRemoval = true)
+    public Attachment(@NonNull String filename,
+                      @NonNull String contentType,
+                      @NonNull byte[] content,
+                      @Nullable String id) {
+        this(filename, contentType, content, id, null);
     }
 
     /**
@@ -116,6 +141,16 @@ public class Attachment {
     }
 
     /**
+     *
+     * @return Content Disposition
+     * @since 2.1.0
+     */
+    @Nullable
+    public String getDisposition() {
+        return this.disposition;
+    }
+
+    /**
      * Attachment's builder.
      */
     public static class Builder {
@@ -123,6 +158,7 @@ public class Attachment {
         private byte[] content;
         private String contentType;
         private String id;
+        private String disposition;
 
         /**
          *
@@ -219,6 +255,17 @@ public class Attachment {
 
         /**
          *
+         * @param disposition content disposition
+         * @return Attachment's builder
+         */
+        @NonNull
+        public Builder disposition(@NonNull String disposition) {
+            this.disposition = disposition;
+            return this;
+        }
+
+        /**
+         *
          * @return an Attachment.
          */
         @NonNull
@@ -226,7 +273,8 @@ public class Attachment {
             return new Attachment(Objects.requireNonNull(filename),
                     Objects.requireNonNull(contentType),
                     Objects.requireNonNull(content),
-                    id);
+                    id,
+                    disposition);
         }
     }
 }

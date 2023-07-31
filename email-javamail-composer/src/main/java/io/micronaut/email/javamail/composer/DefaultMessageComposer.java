@@ -165,6 +165,13 @@ public class DefaultMessageComposer implements MessageComposer {
         att.setDataHandler(new DataHandler(fds));
         String reportName = attachment.getFilename();
         att.setFileName(reportName);
+        att.setHeader("Content-Type", attachment.getContentType());
+        if (attachment.getId() != null) {
+            att.setContentID(attachment.getId());
+        }
+        if (attachment.getDisposition() != null) {
+            att.setDisposition(attachment.getDisposition());
+        }
         return att;
     }
 
