@@ -16,7 +16,7 @@ kotlin = "1.9.10"
 spock = "2.3-groovy-4.0"
 testcontainers = "1.19.0"
 
-micronaut-aws = "4.0.2"
+micronaut-aws = "4.0.5"
 micronaut-reactor = "3.0.2"
 micronaut-serde = "2.2.0"
 micronaut-validation = "4.0.1"
