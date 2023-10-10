@@ -17,6 +17,7 @@ package io.micronaut.email.ses;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.CollectionUtils;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.email.BodyType;
 import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
@@ -94,7 +95,9 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
     private SendEmailRequest sendEmailRequest(@NonNull Email email) {
         SendEmailRequest.Builder requestBuilder = SendEmailRequest.builder()
                 .destination(destinationBuilder(email).build())
-                .source(email.getFrom().getEmail())
+                .source(StringUtils.isNotEmpty(email.getFrom().getName()) ?
+                    email.getFrom().getNameAddress() :
+                    email.getFrom().getEmail())
                 .message(message(email));
         if (email.getReplyTo() != null) {
             requestBuilder = requestBuilder.replyToAddresses(email.getReplyTo().getEmail());
