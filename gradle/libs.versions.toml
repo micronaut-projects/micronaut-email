@@ -33,7 +33,6 @@ managed-eclipse-angus = { module = "org.eclipse.angus:angus-mail", version.ref =
 managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
 
 # Micronaut
-micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
 micronaut-aws = {module = "io.micronaut.aws:micronaut-aws-bom", version.ref = "micronaut-aws" }
 micronaut-hibernate-validator = {module = "io.micronaut.beanvalidation:micronaut-hibernate-validator-bom", version.ref = "micronaut-hibernate-validator" }
