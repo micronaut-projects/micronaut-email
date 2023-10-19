@@ -3,7 +3,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.micronaut.email/micronaut-email.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.micronaut.email%22%20AND%20a:%22micronaut-email%22)
 [![Build Status](https://github.com/micronaut-projects/micronaut-email/workflows/Java%20CI/badge.svg)](https://github.com/micronaut-projects/micronaut-email/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=micronaut-projects_micronaut-email&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=micronaut-projects_micronaut-email)
-
+[![Revved up by Develocity](https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A)](https://ge.micronaut.io/scans)
 
 Micronaut Email ease the integration with transactional email providers.
 
