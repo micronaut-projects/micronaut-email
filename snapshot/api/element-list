@@ -8,4 +8,5 @@ io.micronaut.email.postmark
 io.micronaut.email.sendgrid
 io.micronaut.email.ses
 io.micronaut.email.template
+io.micronaut.email.test
 io.micronaut.email.validation

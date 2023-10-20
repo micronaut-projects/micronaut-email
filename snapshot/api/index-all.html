@@ -173,6 +173,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/Email.Builder.html#cc(java.lang.String)" class="member-name-link">cc(String)</a> - Method in class io.micronaut.email.<a href="io/micronaut/email/Email.Builder.html" title="class in io.micronaut.email">Email.Builder</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/CiUtils.html" class="type-name-link" title="class in io.micronaut.email.test">CiUtils</a> - Class in <a href="io/micronaut/email/test/package-summary.html">io.micronaut.email.test</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/CiUtils.html#%3Cinit%3E()" class="member-name-link">CiUtils()</a> - Constructor for class io.micronaut.email.test.<a href="io/micronaut/email/test/CiUtils.html" title="class in io.micronaut.email.test">CiUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/EmailComposer.html#compose(io.micronaut.email.Email)" class="member-name-link">compose(Email)</a> - Method in interface io.micronaut.email.<a href="io/micronaut/email/EmailComposer.html" title="interface in io.micronaut.email">EmailComposer</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/javamail/sender/JavaxEmailComposer.html#compose(io.micronaut.email.Email)" class="member-name-link">compose(Email)</a> - Method in class io.micronaut.email.javamail.sender.<a href="io/micronaut/email/javamail/sender/JavaxEmailComposer.html" title="class in io.micronaut.email.javamail.sender">JavaxEmailComposer</a></dt>
@@ -206,6 +210,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/micronaut/email/Attachment.Builder.html#content(java.io.InputStream)" class="member-name-link">content(InputStream)</a> - Method in class io.micronaut.email.<a href="io/micronaut/email/Attachment.Builder.html" title="class in io.micronaut.email">Attachment.Builder</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/Attachment.Builder.html#contentType(java.lang.String)" class="member-name-link">contentType(String)</a> - Method in class io.micronaut.email.<a href="io/micronaut/email/Attachment.Builder.html" title="class in io.micronaut.email">Attachment.Builder</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/MailTestUtils.html#countAndDeleteInboxEmailsBySubject(java.lang.String)" class="member-name-link">countAndDeleteInboxEmailsBySubject(String)</a> - Static method in class io.micronaut.email.test.<a href="io/micronaut/email/test/MailTestUtils.html" title="class in io.micronaut.email.test">MailTestUtils</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/MailTestUtils.html#countAndDeleteInboxEmailsBySubject(java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">countAndDeleteInboxEmailsBySubject(String, String, String)</a> - Static method in class io.micronaut.email.test.<a href="io/micronaut/email/test/MailTestUtils.html" title="class in io.micronaut.email.test">MailTestUtils</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
@@ -323,6 +331,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">API to send transactional emails synchronously.</div>
 </dd>
+<dt><a href="io/micronaut/email/test/CiUtils.html#ENV_CI" class="member-name-link">ENV_CI</a> - Static variable in class io.micronaut.email.test.<a href="io/micronaut/email/test/CiUtils.html" title="class in io.micronaut.email.test">CiUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/Contact.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in class io.micronaut.email.<a href="io/micronaut/email/Contact.html" title="class in io.micronaut.email">Contact</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -571,6 +581,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/micronaut/email/template/package-summary.html">io.micronaut.email.template</a> - package io.micronaut.email.template</dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/package-summary.html">io.micronaut.email.test</a> - package io.micronaut.email.test</dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/validation/package-summary.html">io.micronaut.email.validation</a> - package io.micronaut.email.validation</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/javamail/sender/authentication/JavaMailAuthenticationConfigurationProperties.html#isEnabled()" class="member-name-link">isEnabled()</a> - Method in class io.micronaut.email.javamail.sender.authentication.<a href="io/micronaut/email/javamail/sender/authentication/JavaMailAuthenticationConfigurationProperties.html" title="class in io.micronaut.email.javamail.sender.authentication">JavaMailAuthenticationConfigurationProperties</a></dt>
@@ -660,6 +672,12 @@ loadScripts(document, 'script');</script>
 <div class="block">Builds a <a href="io/micronaut/email/javamail/sender/MailPropertiesProvider.html" title="interface in io.micronaut.email.javamail.sender"><code>MailPropertiesProvider</code></a> if the properties are set at <a href="io/micronaut/email/javamail/sender/JavaMailConfiguration.html" title="interface in io.micronaut.email.javamail.sender"><code>JavaMailConfiguration</code></a>.</div>
 </dd>
 <dt><a href="io/micronaut/email/javamail/sender/MailPropertiesProviderFactory.html#%3Cinit%3E()" class="member-name-link">MailPropertiesProviderFactory()</a> - Constructor for class io.micronaut.email.javamail.sender.<a href="io/micronaut/email/javamail/sender/MailPropertiesProviderFactory.html" title="class in io.micronaut.email.javamail.sender">MailPropertiesProviderFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/MailTestUtils.html" class="type-name-link" title="class in io.micronaut.email.test">MailTestUtils</a> - Class in <a href="io/micronaut/email/test/package-summary.html">io.micronaut.email.test</a></dt>
+<dd>
+<div class="block">Utility to read and delete emails from a Gmail inbox.</div>
+</dd>
+<dt><a href="io/micronaut/email/test/MailTestUtils.html#%3Cinit%3E()" class="member-name-link">MailTestUtils()</a> - Constructor for class io.micronaut.email.test.<a href="io/micronaut/email/test/MailTestUtils.html" title="class in io.micronaut.email.test">MailTestUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/validation/AnyRecipient.html#message()" class="member-name-link">message()</a> - Element in annotation interface io.micronaut.email.validation.<a href="io/micronaut/email/validation/AnyRecipient.html" title="annotation interface in io.micronaut.email.validation">AnyRecipient</a></dt>
 <dd>&nbsp;</dd>
@@ -788,6 +806,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/micronaut/email/template/DefaultTemplateBodyDecorator.html#resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)" class="member-name-link">resolveViewsRenderer(BodyType, String, Object)</a> - Method in class io.micronaut.email.template.<a href="io/micronaut/email/template/DefaultTemplateBodyDecorator.html" title="class in io.micronaut.email.template">DefaultTemplateBodyDecorator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/template/TemplateBodyDecorator.html#resolveViewsRenderer(io.micronaut.email.BodyType,java.lang.String,java.lang.Object)" class="member-name-link">resolveViewsRenderer(BodyType, String, Object)</a> - Method in interface io.micronaut.email.template.<a href="io/micronaut/email/template/TemplateBodyDecorator.html" title="interface in io.micronaut.email.template">TemplateBodyDecorator</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/CiUtils.html#runningOnCI()" class="member-name-link">runningOnCI()</a> - Static method in class io.micronaut.email.test.<a href="io/micronaut/email/test/CiUtils.html" title="class in io.micronaut.email.test">CiUtils</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
@@ -970,6 +990,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Mailjet API Version.</div>
 </dd>
+<dt><a href="io/micronaut/email/test/SpreadsheetUtils.html#spreadsheet()" class="member-name-link">spreadsheet()</a> - Static method in class io.micronaut.email.test.<a href="io/micronaut/email/test/SpreadsheetUtils.html" title="class in io.micronaut.email.test">SpreadsheetUtils</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/SpreadsheetUtils.html" class="type-name-link" title="class in io.micronaut.email.test">SpreadsheetUtils</a> - Class in <a href="io/micronaut/email/test/package-summary.html">io.micronaut.email.test</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/micronaut/email/test/SpreadsheetUtils.html#%3Cinit%3E()" class="member-name-link">SpreadsheetUtils()</a> - Constructor for class io.micronaut.email.test.<a href="io/micronaut/email/test/SpreadsheetUtils.html" title="class in io.micronaut.email.test">SpreadsheetUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/email/StringBody.html" class="type-name-link" title="class in io.micronaut.email">StringBody</a> - Class in <a href="io/micronaut/email/package-summary.html">io.micronaut.email</a></dt>
 <dd>
 <div class="block">Email body backed by a String.</div>
