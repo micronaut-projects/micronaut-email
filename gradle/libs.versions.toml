@@ -9,7 +9,7 @@ managed-postmark = "1.11.0"
 managed-sendgrid = "4.9.3"
 managed-jakarta-mail = "2.1.2"
 managed-eclipse-angus = "2.0.2"
-managed-mailjet = "5.2.4"
+managed-mailjet = "5.2.5"
 
 poi-ooxml = "5.2.4"
 kotlin = "1.9.10"
