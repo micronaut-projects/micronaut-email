@@ -19,5 +19,6 @@ integrations:
   sendgrid: SendGrid
   mailjet: Mailjet
   javamail: Jakarta Mail
+emailGuides: Guides
 repository: Repository
 

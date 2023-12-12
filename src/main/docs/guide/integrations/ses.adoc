@@ -9,3 +9,6 @@ Read about:
 * https://micronaut-projects.github.io/micronaut-aws/latest/guide/#awsCredentials[Supplying AWS Credentials].
 * Select https://micronaut-projects.github.io/micronaut-aws/latest/guide/#awsRegionSelection[AWS Region Selection]
 * https://micronaut-projects.github.io/micronaut-aws/latest/guide/#ses[SES beans]
+
+TIP: See the guide for https://guides.micronaut.io/latest/micronaut-email-amazon-ses.html[Send Emails with Amazon SES from the Micronaut Framework] to learn more.
+

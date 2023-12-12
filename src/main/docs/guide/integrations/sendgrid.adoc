@@ -5,3 +5,5 @@ dependency:micronaut-email-sendgrid[groupId="io.micronaut.email"]
 You need to supply your SendGrid's _API key and secret_ via configuration:
 
 include::{includedir}configurationProperties/io.micronaut.email.sendgrid.SendGridConfigurationProperties.adoc[]
+
+TIP: See the guide for https://guides.micronaut.io/latest/micronaut-email-sendgrid.html[Send Emails with SendGrid from the Micronaut Framework] to learn more.
