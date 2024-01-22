@@ -1,12 +1,12 @@
 [versions]
 micronaut-docs = "2.0.0"
 micronaut = "4.2.3"
-micronaut-test = "4.0.0"
+micronaut-test = "4.2.0"
 micronaut-gradle-plugin = "4.2.1"
-groovy = "4.0.13"
+groovy = "4.0.18"
 
 managed-postmark = "1.11.1"
-managed-sendgrid = "4.9.3"
+managed-sendgrid = "4.10.1"
 managed-jakarta-mail = "2.1.2"
 managed-eclipse-angus = "2.0.2"
 managed-mailjet = "5.2.5"
@@ -16,13 +16,13 @@ kotlin = "1.9.22"
 spock = "2.3-groovy-4.0"
 testcontainers = "1.19.3"
 
-micronaut-aws = "4.1.1"
-micronaut-reactor = "3.1.0"
+micronaut-aws = "4.3.0"
+micronaut-reactor = "3.2.1"
 micronaut-serde = "2.7.0"
-micronaut-validation = "4.0.3"
-micronaut-views = "4.1.0"
+micronaut-validation = "4.2.0"
+micronaut-views = "5.1.0"
 micronaut-hibernate-validator = "4.2.0"
-micronaut-logging = "1.1.2"
+micronaut-logging = "1.2.1"
 
 [libraries]
 # Managed dependencies
