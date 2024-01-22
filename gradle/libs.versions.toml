@@ -5,7 +5,7 @@ micronaut-test = "4.0.0"
 micronaut-gradle-plugin = "4.2.1"
 groovy = "4.0.13"
 
-managed-postmark = "1.11.0"
+managed-postmark = "1.11.1"
 managed-sendgrid = "4.9.3"
 managed-jakarta-mail = "2.1.2"
 managed-eclipse-angus = "2.0.2"
