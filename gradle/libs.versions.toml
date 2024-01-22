@@ -22,7 +22,7 @@ micronaut-serde = "2.7.0"
 micronaut-validation = "4.2.0"
 micronaut-views = "5.1.0"
 micronaut-hibernate-validator = "4.2.0"
-micronaut-logging = "1.1.2"
+micronaut-logging = "1.2.1"
 
 [libraries]
 # Managed dependencies
