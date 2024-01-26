@@ -14,7 +14,7 @@ managed-mailjet = "5.2.5"
 poi-ooxml = "5.2.5"
 kotlin = "1.9.22"
 spock = "2.3-groovy-4.0"
-testcontainers = "1.19.3"
+testcontainers = "1.19.4"
 
 micronaut-aws = "4.3.0"
 micronaut-reactor = "3.2.1"
