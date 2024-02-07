@@ -7,7 +7,7 @@ dependencies {
     api(projects.micronautEmailJavamailComposer)
     implementation(mn.reactor)
     testImplementation(projects.testSuiteUtils)
-    testImplementation(libs.testcontainers)
+    testImplementation(mnTestResources.testcontainers.core)
     testImplementation(mnSerde.micronaut.serde.jackson)
     testImplementation(mn.micronaut.http.client.jdk)
     testRuntimeOnly(libs.managed.eclipse.angus)
