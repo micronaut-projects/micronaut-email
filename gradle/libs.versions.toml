@@ -7,7 +7,7 @@ groovy = "4.0.18"
 
 managed-postmark = "1.11.1"
 managed-sendgrid = "4.10.2"
-managed-jakarta-mail = "2.1.2"
+managed-jakarta-mail = "2.1.3"
 managed-eclipse-angus = "2.0.2"
 managed-mailjet = "5.2.5"
 
