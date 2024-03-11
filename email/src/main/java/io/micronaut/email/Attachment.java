@@ -15,13 +15,12 @@
  */
 package io.micronaut.email;
 
-import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -66,7 +65,6 @@ public class Attachment {
      * @param disposition content disposition
      * @since 2.1.0
      */
-    @Creator
     public Attachment(@NonNull String filename,
                       @NonNull String contentType,
                       @NonNull byte[] content,
@@ -77,22 +75,6 @@ public class Attachment {
         this.contentType = contentType;
         this.id = id;
         this.disposition = disposition;
-    }
-
-    /**
-     *
-     * @param filename filename to show up in email
-     * @param content file content
-     * @param contentType file content type
-     * @param id content identifier
-     * @deprecated Use {@link Attachment#Attachment(String, String, byte[], String, String)}
-     */
-    @Deprecated(since = "2.1.0", forRemoval = true)
-    public Attachment(@NonNull String filename,
-                      @NonNull String contentType,
-                      @NonNull byte[] content,
-                      @Nullable String id) {
-        this(filename, contentType, content, id, null);
     }
 
     /**
