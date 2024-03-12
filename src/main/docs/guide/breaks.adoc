@@ -1,5 +1,13 @@
-=== Micronaut Email 2
+This section documents breaking changes between Micronaut EMail versions:
 
-Micronaut Email 2 migrates to https://jakartaee.github.io/mail-api/[Jakarta Mail] package namespaces, from `javax.mail` to `jakarta.mail`. Moreover, it uses transitive dependency `jakarta.mail:jakarta.mail-api` instead of `com.sun.mail:javax.mail`. Jakarta Mail also separates API and Implementation. Previous implementation sources are now part of the https://eclipse-ee4j.github.io/angus-mail/[Eclipse Angus] project, the direct successor to JavaMail/JakartaMail. In addition to `jakarta-mail-api` an additional dependency on `org.eclipse.angus:angus-mail` is required. Note that for Eclipse Angus, module and package prefixes changed from `com.sun.mail` to `org.eclipse.angus.mail`.
+=== Micronaut Email 3.0.0
+
+- The constructor `io.micronaut.email.Attachment(String, String, byte[], String)` deprecated previously has been removed. Use `Attachment(String, String, byte[], String, String instead)`.
+
+- the class `io.micronaut.email.validation.AnyRecipientConstraintValidationFactory` deprecated previously has been removed. The `@Factory` annotation was intentionally removed. Thus, this class does nothing. `AnyRecipientValidator` is used instead.
+
+=== Micronaut Email 2.0.0
+
+Micronaut Email 2.0.0 migrates to https://jakartaee.github.io/mail-api/[Jakarta Mail] package namespaces, from `javax.mail` to `jakarta.mail`. Moreover, it uses transitive dependency `jakarta.mail:jakarta.mail-api` instead of `com.sun.mail:javax.mail`. Jakarta Mail also separates API and Implementation. Previous implementation sources are now part of the https://eclipse-ee4j.github.io/angus-mail/[Eclipse Angus] project, the direct successor to JavaMail/JakartaMail. In addition to `jakarta-mail-api` an additional dependency on `org.eclipse.angus:angus-mail` is required. Note that for Eclipse Angus, module and package prefixes changed from `com.sun.mail` to `org.eclipse.angus.mail`.
 
 This release also updates the ActiveCampaign Postmark library from 1.8.x to 1.9.0. Although it's a minor revision otherwise it refactors package names and the dependency groupId from `com.wildbit.java` to `com.postmarkapp`.

@@ -163,5 +163,15 @@
     "type": "io.micronaut.email.AbstractTransactionalEmailSender",
     "member": "Constructor io.micronaut.email.AbstractTransactionalEmailSender(java.util.concurrent.ExecutorService)",
     "reason": "make constructor of abstract class protected in the next mayor version of Micronaut Email"
+  },
+  {
+    "type": "io.micronaut.email.Attachment",
+    "member": "Constructor io.micronaut.email.Attachment(java.lang.String,java.lang.String,byte[],java.lang.String)",
+    "reason": "Removed deprecated constructor for Micronaut 5"
+  },
+  {
+    "type": "io.micronaut.email.validation.AnyRecipientConstraintValidationFactory",
+    "member": "Constructor io.micronaut.email.validation.AnyRecipientConstraintValidationFactory()",
+    "reason": "Removed deprecated class for Micronaut 5"
   }
 ]
