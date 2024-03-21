@@ -2,7 +2,7 @@
 micronaut-docs = "2.0.0"
 micronaut = "4.3.10"
 micronaut-test = "4.2.0"
-micronaut-gradle-plugin = "4.3.4"
+micronaut-gradle-plugin = "4.3.5"
 groovy = "4.0.18"
 
 managed-postmark = "1.11.1"
