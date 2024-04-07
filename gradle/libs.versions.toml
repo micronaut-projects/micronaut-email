@@ -19,10 +19,10 @@ micronaut-aws = "4.5.0"
 micronaut-reactor = "3.3.0"
 micronaut-serde = "2.9.0"
 micronaut-test-resources="2.4.0"
-micronaut-validation = "4.4.4"
 micronaut-views = "5.1.0"
 micronaut-hibernate-validator = "4.2.1"
 micronaut-logging = "1.2.1"
+micronaut-validation = "4.5.0"
 
 [libraries]
 # Managed dependencies
