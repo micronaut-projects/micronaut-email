@@ -9,4 +9,10 @@ dependencies {
     testImplementation(projects.testSuiteUtils)
     testImplementation(mn.micronaut.http)
     testImplementation(mnSerde.micronaut.serde.jackson)
+
+    constraints {
+        runtimeOnly("com.google.code.gson:gson:2.13.2"){
+            because("Older versions have security vulnerabilities")
+        }
+    }
 }
