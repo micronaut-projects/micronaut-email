@@ -9,8 +9,7 @@ dependencies {
     testRuntimeOnly(mnLogging.logback.classic)
     testImplementation(projects.micronautEmailTemplate)
     testImplementation(mnHibernateValidator.micronaut.hibernate.validator)
-    testImplementation("org.hibernate:hibernate-validator:8.0.3.Final") // remove when https://github.com/micronaut-projects/micronaut-hibernate-validator/pull/333 gets merged
-
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 tasks.withType<Test> {
     useJUnitPlatform()

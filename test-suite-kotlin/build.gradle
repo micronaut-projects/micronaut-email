@@ -19,6 +19,7 @@ dependencies {
     testImplementation(projects.micronautEmail)
     testImplementation(projects.micronautEmailTemplate)
     testImplementation(mnViews.micronaut.views.velocity)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.named('test') {
