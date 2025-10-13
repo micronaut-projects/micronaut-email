@@ -6,4 +6,5 @@ dependencies {
     testImplementation(projects.micronautEmailAmazonSes)
     testImplementation(mnTest.micronaut.test.junit5)
     testRuntimeOnly(libs.managed.eclipse.angus)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
