@@ -10,7 +10,7 @@ commons-io="2.20.0"
 managed-sendgrid = "4.10.3"
 managed-jakarta-mail = "2.1.5"
 managed-eclipse-angus = "2.0.5"
-managed-mailjet = "5.2.6"
+managed-mailjet = "6.0.1"
 
 poi-ooxml = "5.4.1"
 kotlin = "1.9.24"
