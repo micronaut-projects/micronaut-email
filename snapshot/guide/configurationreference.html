@@ -97,12 +97,12 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default from email address.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the contact sending the email.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the contact sending the email.</p></td>
 </tr>
 </tbody>
 </table>
@@ -110,43 +110,9 @@
 </div>
 <div class="sect2">
 <h3 id="_micronaut_email_javamail_config_properties">Micronaut Email Javamail Config Properties</h3>
-<a id="io.micronaut.email.javamail.sender.authentication.JavaMailAuthenticationConfigurationProperties" href="#io.micronaut.email.javamail.sender.authentication.JavaMailAuthenticationConfigurationProperties">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/email/javamail/sender/authentication/JavaMailAuthenticationConfigurationProperties.html">JavaMailAuthenticationConfigurationProperties</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If authentication is enabled. Default value: <code>true</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.username</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.password</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
 <a id="io.micronaut.email.javamail.sender.JavaMailConfigurationProperties" href="#io.micronaut.email.javamail.sender.JavaMailConfigurationProperties">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/email/javamail/sender/JavaMailConfigurationProperties.html">JavaMailConfigurationProperties</a></caption>
+<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/email/javamail/sender/JavaMailConfigurationProperties.html">JavaMailConfigurationProperties</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -168,7 +134,41 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.properties</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Map</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">properties as listed in Appendix A of the JavaMail spec (particularly mail.store.protocol, mail.transport.protocol, mail.host, mail.user, and mail.from).</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.email.javamail.sender.authentication.JavaMailAuthenticationConfigurationProperties" href="#io.micronaut.email.javamail.sender.authentication.JavaMailAuthenticationConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/email/javamail/sender/authentication/JavaMailAuthenticationConfigurationProperties.html">JavaMailAuthenticationConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If authentication is enabled. Default value: <code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication username.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication password.</p></td>
 </tr>
 </tbody>
 </table>
@@ -242,7 +242,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.api-token</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Postmark API token.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.track-opens</code></p></td>
@@ -284,7 +284,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.api-key</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The API (Application Programming Interface) keys to authenticate access to SendGrid service.</p></td>
 </tr>
 </tbody>
 </table>
