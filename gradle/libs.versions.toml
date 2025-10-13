@@ -24,7 +24,6 @@ micronaut-validation = "4.10.0"
 micronaut-views = "5.8.0"
 micronaut-hibernate-validator = "4.8.0"
 micronaut-logging = "1.7.0"
-sonatype-scan = "3.1.1"
 
 [libraries]
 # Managed dependencies
@@ -56,4 +55,3 @@ gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 gradle-kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 gradle-kotlin-noarg = { module = "org.jetbrains.kotlin:kotlin-noarg", version.ref = "kotlin" }
 micronaut-gradle-plugin = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref="micronaut-gradle-plugin" }
-sonatype-scan = { module = "org.sonatype.gradle.plugins:scan-gradle-plugin", version.ref = "sonatype-scan" }
