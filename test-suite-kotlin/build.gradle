@@ -2,6 +2,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
     id("org.jetbrains.kotlin.kapt")
     id("io.micronaut.build.internal.email-tests")
+    id "io.micronaut.build.internal.kotlin-base"
 }
 
 dependencies {
@@ -26,8 +27,3 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
