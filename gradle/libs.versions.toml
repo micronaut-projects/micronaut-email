@@ -1,8 +1,8 @@
 [versions]
 micronaut-docs = "3.0.0"
-micronaut-gradle-plugin = "4.5.5"
+micronaut-gradle-plugin = "4.6.1"
 micronaut = "4.10.8"
-micronaut-test = "4.9.0"
+micronaut-test = "4.10.1"
 groovy = "4.0.18"
 
 managed-postmark = "1.11.1"
@@ -13,7 +13,7 @@ managed-eclipse-angus = "2.0.5"
 managed-mailjet = "6.0.1"
 
 poi-ooxml = "5.4.1"
-kotlin = "1.9.24"
+kotlin = "2.2.20"
 spock = "2.3-groovy-4.0"
 
 micronaut-aws = "4.11.0"
