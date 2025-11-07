@@ -39,11 +39,11 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * <a href="https://sendgrid.com">SendGrid</a> implementation of {@link io.micronaut.email.TransactionalEmailSender} and {@link io.micronaut.email.AsyncTransactionalEmailSender} .
+ * <a href="https://sendgrid.com">SendGrid</a> implemenstation of {@link io.micronaut.email.TransactionalEmailSender} and {@link io.micronaut.email.AsyncTransactionalEmailSender} .
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Requires(beans = { SendGridConfiguration.class, SendgridEmailComposer.class })
+@Requires(beans = { SendGrid.class, SendgridEmailComposer.class })
 @Named(SendgridEmailSender.NAME)
 @Singleton
 public class SendgridEmailSender implements TransactionalEmailSender<Request, Response>,
@@ -59,12 +59,12 @@ public class SendgridEmailSender implements TransactionalEmailSender<Request, Re
     private final SendgridEmailComposer sendgridEmailComposer;
 
     /**
-     * @param sendGridConfiguration SendGrid Configuration
+     * @param sendgrid SendGrid instance
      * @param sendgridEmailComposer SendGrid Email composer
      */
-    public SendgridEmailSender(SendGridConfiguration sendGridConfiguration,
+    public SendgridEmailSender(SendGrid sendgrid,
                                SendgridEmailComposer sendgridEmailComposer) {
-        sendGrid = new SendGrid(sendGridConfiguration.getApiKey());
+        this.sendGrid = sendgrid;
         this.sendgridEmailComposer = sendgridEmailComposer;
     }
 
