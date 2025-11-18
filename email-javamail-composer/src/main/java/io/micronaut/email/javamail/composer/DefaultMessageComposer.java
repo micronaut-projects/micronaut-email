@@ -27,6 +27,7 @@ import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.inject.Singleton;
 import jakarta.mail.Address;
+import jakarta.mail.BodyPart;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
@@ -47,6 +48,9 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * {@link io.micronaut.context.annotation.DefaultImplementation} of {@link MessageComposer}.
@@ -60,6 +64,8 @@ public class DefaultMessageComposer implements MessageComposer {
     public static final String TYPE_TEXT_HTML_CHARSET_UTF_8 = "text/html; charset=UTF-8";
     private static final Logger LOG = LoggerFactory.getLogger(DefaultMessageComposer.class);
     private static final String SUBTYPE_ALTERNATIVE = "alternative";
+    private static final String SUBTYPE_RELATED = "related";
+    private static final String SUBTYPE_MIXED = "mixed";
     private static final EnumMap<BodyType, String> BODY_TYPES;
 
     static {
@@ -89,13 +95,24 @@ public class DefaultMessageComposer implements MessageComposer {
             message.setReplyTo(contactAddresses(email.getReplyToCollection()));
         }
 
-        MimeMultipart multipart = new MimeMultipart();
+        MimeMultipart multipart = new MimeMultipart(SUBTYPE_MIXED);
 
-        Body body = email.getBody();
-        if (body != null) {
-            multipart.addBodyPart(bodyPart(body));
+        Map<Boolean, List<Attachment>> attachmentsGroupedByInline = groupAttachmentsByInline(email);
+        List<Attachment> inlineAttachments = attachmentsGroupedByInline.getOrDefault(Boolean.TRUE, Collections.emptyList());
+        List<Attachment> regularAttachments = attachmentsGroupedByInline.getOrDefault(Boolean.FALSE, Collections.emptyList());
+
+        BodyPart body = null;
+        if (!inlineAttachments.isEmpty()) {
+            body = relatedBodyPart(email.getBody(), inlineAttachments);
         }
-        for (MimeBodyPart bodyPart : attachmentBodyParts(email)) {
+        else if (email.getBody() != null) {
+            body = alternativeBodyPart(email.getBody());
+        }
+
+        if (body != null) {
+            multipart.addBodyPart(body);
+        }
+        for (MimeBodyPart bodyPart : attachmentBodyParts(regularAttachments)) {
             multipart.addBodyPart(bodyPart);
         }
         message.setContent(multipart);
@@ -103,7 +120,33 @@ public class DefaultMessageComposer implements MessageComposer {
     }
 
     @NonNull
-    private MimeBodyPart bodyPart(@NonNull Body body) throws MessagingException {
+    private static Map<Boolean, List<Attachment>> groupAttachmentsByInline(Email email) {
+        return Optional.ofNullable(email.getAttachments())
+            .orElse(Collections.emptyList())
+            .stream().collect(Collectors.groupingBy(
+                a -> "inline".equals(a.getDisposition()),
+                Collectors.toList()
+            ));
+    }
+
+    @NonNull
+    private MimeBodyPart relatedBodyPart(@NonNull Body body, @NonNull List<Attachment> inlineAttachments) throws MessagingException {
+        final MimeBodyPart mbp = new MimeBodyPart();
+        MimeMultipart alternativeBody = new MimeMultipart(SUBTYPE_RELATED);
+        mbp.setContent(alternativeBody);
+        for (MimeBodyPart part : bodyParts(body)) {
+            alternativeBody.addBodyPart(part);
+        }
+
+        for (MimeBodyPart part : attachmentBodyParts(inlineAttachments)) {
+            alternativeBody.addBodyPart(part);
+        }
+
+        return mbp;
+    }
+
+    @NonNull
+    private MimeBodyPart alternativeBodyPart(@NonNull Body body) throws MessagingException {
         final MimeBodyPart mbp = new MimeBodyPart();
         MimeMultipart alternativeBody = new MimeMultipart(SUBTYPE_ALTERNATIVE);
         mbp.setContent(alternativeBody);
@@ -149,12 +192,13 @@ public class DefaultMessageComposer implements MessageComposer {
     }
 
     @NonNull
-    private List<MimeBodyPart> attachmentBodyParts(@NonNull Email email) throws MessagingException {
-        if (email.getAttachments() == null) {
+    private List<MimeBodyPart> attachmentBodyParts(@NonNull List<Attachment> attachments) throws MessagingException {
+        if (attachments.isEmpty()) {
             return Collections.emptyList();
         }
+
         List<MimeBodyPart> list = new ArrayList<>();
-        for (Attachment attachment : email.getAttachments()) {
+        for (Attachment attachment : attachments) {
             MimeBodyPart mimeBodyPart = attachmentBodyPart(attachment);
             list.add(mimeBodyPart);
         }
