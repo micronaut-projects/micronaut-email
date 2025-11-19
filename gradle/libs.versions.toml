@@ -13,7 +13,7 @@ managed-eclipse-angus = "2.0.5"
 managed-mailjet = "6.0.1"
 
 poi-ooxml = "5.4.1"
-kotlin = "2.2.20"
+kotlin = "2.2.21"
 spock = "2.3-groovy-4.0"
 
 micronaut-aws = "4.11.0"
