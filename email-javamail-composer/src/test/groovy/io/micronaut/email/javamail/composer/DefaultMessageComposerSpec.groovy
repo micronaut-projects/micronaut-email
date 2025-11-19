@@ -48,10 +48,91 @@ class DefaultMessageComposerSpec extends Specification {
         contentId     | disposition  | expectedContentId    | expectedDisposition
         null          | null         | null                 | "attachment"
         "my-file"     | null         | ["my-file"]          | "attachment"
-        "my-file"     | "inline"     | ["my-file"]          | "inline"
         "my-file"     | "attachment" | ["my-file"]          | "attachment"
-        null          | "inline"     | null                 | "inline"
         null          | "attachment" | null                 | "attachment"
+    }
+
+    @Unroll
+    void "test inline attachments with id: #contentId and disposition: #disposition"(String contentId, String disposition) {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+        String filename = "icon.png"
+        String contentType = "application/png"
+        String content = "hello"
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .attachment {it.filename(filename).id(contentId).disposition(disposition).contentType(contentType).content(content.bytes) }
+                .build()
+        when:
+        Message message = defaultMessageComposer.compose(email, null)
+        then:
+        with(message.content as MimeMultipart) {
+            it.contentType.startsWith("multipart/mixed")
+            parts.size() == 1
+            with(parts[0].content as MimeMultipart) {
+                it.contentType.startsWith("multipart/related")
+                parts.size() == 2
+                parts[0].content == "Lore ipsum body"
+                (parts[1].content as InputStream).text == content
+                parts[1].disposition == expectedDisposition
+                parts[1].fileName == filename
+                parts[1].contentType == contentType
+                parts[1].getHeader('Content-ID') == expectedContentId
+            }
+        }
+        where:
+        contentId     | disposition  | expectedContentId    | expectedDisposition
+        "icon"        | "inline"     | ["icon"]             | "inline"
+        null          | "inline"     | null                 | "inline"
+    }
+
+    void "test combined regular and inline attachments"() {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+        String regularFilename = "document.pdf"
+        String regularContentType = "application/pdf"
+        String regularContent = "PDF content"
+        String inlineFilename = "logo.png"
+        String inlineContentType = "image/png"
+        String inlineContent = "PNG content"
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .attachment {it.filename(inlineFilename).id("logo").disposition("inline").contentType(inlineContentType).content(inlineContent.bytes) }
+                .attachment {it.filename(regularFilename).contentType(regularContentType).content(regularContent.bytes) }
+                .build()
+        when:
+        Message message = defaultMessageComposer.compose(email, null)
+        then:
+        with(message.content as MimeMultipart) {
+            it.contentType.startsWith("multipart/mixed")
+            parts.size() == 2
+            // First part is the related multipart containing body and inline attachment
+            with(parts[0].content as MimeMultipart) {
+                it.contentType.startsWith("multipart/related")
+                parts.size() == 2
+                parts[0].content == "Lore ipsum body"
+                (parts[1].content as InputStream).text == inlineContent
+                parts[1].disposition == "inline"
+                parts[1].fileName == inlineFilename
+                parts[1].contentType == inlineContentType
+                parts[1].getHeader('Content-ID') == ["logo"]
+            }
+            // Second part is the regular attachment
+            (parts[1].content as InputStream).text == regularContent
+            parts[1].disposition == "attachment"
+            parts[1].fileName == regularFilename
+            parts[1].contentType == regularContentType
+        }
     }
 
     void "from, to and subject are put to the mime message"() {
