@@ -10,7 +10,7 @@ dependencies {
     testImplementation(platform(mn.micronaut.core.bom))
     testImplementation(mnValidation.micronaut.validation)
 
-    testImplementation(libs.spock.core) {
+    testImplementation(mnTest.micronaut.test.spock ) {
         exclude module: 'groovy-all'
     }
     testImplementation(projects.testSuiteUtils)

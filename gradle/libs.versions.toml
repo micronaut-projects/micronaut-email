@@ -1,9 +1,6 @@
 [versions]
-micronaut-docs = "3.0.0"
 micronaut-gradle-plugin = "4.6.1"
 micronaut = "4.10.9"
-micronaut-test = "4.10.1"
-groovy = "4.0.18"
 
 managed-postmark = "1.11.1"
 commons-io="2.21.0"
@@ -14,7 +11,6 @@ managed-mailjet = "6.0.1"
 
 poi-ooxml = "5.5.0"
 kotlin = "2.2.21"
-spock = "2.3-groovy-4.0"
 
 micronaut-aws = "4.11.0"
 micronaut-reactor = "3.9.1"
@@ -47,7 +43,6 @@ junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi-ooxml" }
 ses = { module = "software.amazon.awssdk:ses" }
-spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
 
 # Plugins
