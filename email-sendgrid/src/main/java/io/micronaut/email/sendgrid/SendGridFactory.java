@@ -29,7 +29,7 @@ import jakarta.inject.Singleton;
  */
 @Factory
 @Requires(beans = SendGridConfiguration.class)
-public class SendGridFactory {
+class SendGridFactory {
 
     /**
      * @param configuration SendGrid Configuration
@@ -37,7 +37,7 @@ public class SendGridFactory {
      */
     @Singleton
     @NonNull
-    public SendGrid buildSendGrid(SendGridConfiguration configuration) {
+    SendGrid buildSendGrid(@NonNull SendGridConfiguration configuration) {
         return new SendGrid(configuration.getApiKey());
     }
 }
