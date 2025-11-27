@@ -40,6 +40,8 @@ import jakarta.mail.util.ByteArrayDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -155,7 +157,7 @@ public class DefaultMessageComposer implements MessageComposer {
     }
 
     @NonNull
-    private Address[] contactAddresses(@NonNull Collection<Contact> contacts) throws AddressException {
+    private Address[] contactAddresses(@NonNull Collection<Contact> contacts) throws MessagingException {
         List<Address> addressList = new ArrayList<>();
         for (Contact contact : contacts) {
             addressList.add(contactToAddress(contact));
@@ -219,11 +221,16 @@ public class DefaultMessageComposer implements MessageComposer {
         return att;
     }
 
-    private InternetAddress contactToAddress(Contact contact) throws AddressException {
+    private InternetAddress contactToAddress(Contact contact) throws MessagingException {
         if (StringUtils.isNotEmpty(contact.getName())) {
-            return InternetAddress.parse(contact.getName() + " <" + contact.getEmail() + ">")[0];
+            try {
+                return new InternetAddress(contact.getEmail(), contact.getName(), StandardCharsets.UTF_8.name());
+            } catch (UnsupportedEncodingException e) {
+                // This should never occur since UTF-8 is a supported encoding.
+                throw new MessagingException(e.getLocalizedMessage(),  e);
+            }
         } else {
-            return InternetAddress.parse(contact.getEmail())[0];
+            return new InternetAddress(contact.getEmail());
         }
     }
 }

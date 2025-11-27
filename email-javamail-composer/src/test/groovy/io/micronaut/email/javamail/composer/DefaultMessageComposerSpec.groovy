@@ -1,5 +1,6 @@
 package io.micronaut.email.javamail.composer
 
+import io.micronaut.email.Contact
 import io.micronaut.email.Email
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -257,5 +258,28 @@ class DefaultMessageComposerSpec extends Specification {
         [replyTo1, replyTo2] == message.replyTo.toList().collect {it.address }
         subject == message.getSubject()
         !message.getRecipients(Message.RecipientType.CC)
+    }
+
+    void "#fromPersonal gets encoded correctly"() {
+        given:
+
+        Email email = Email.builder()
+                .from(new Contact(from, fromPersonal))
+                .to("receiver@example.com")
+                .subject("Apple Music")
+                .body("Lore ipsum body")
+                .build()
+        when:
+        Message message = defaultMessageComposer.compose(email, null)
+
+        then:
+        [from] == message.from.toList().collect {it.address }
+        [encodedPersonal] == message.from.toList().collect {it.encodedPersonal }
+
+        where:
+        from                    | fromPersonal         || encodedPersonal
+        "sender@example.com"    | "John Doe"           || "John Doe"
+        "sender@example.com"    | "Jürgen Klinsmann"   || "=?UTF-8?Q?J=C3=BCrgen_Klinsmann?="
+        "sender@example.com"    | "Gérard Depardieu"   || "=?UTF-8?Q?G=C3=A9rard_Depardieu?="
     }
 }

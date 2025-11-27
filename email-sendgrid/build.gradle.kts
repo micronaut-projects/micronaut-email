@@ -6,6 +6,7 @@ dependencies {
     api(libs.managed.sendgrid.java)
     api(projects.micronautEmail)
     implementation(mnReactor.micronaut.reactor)
+    testAnnotationProcessor(mn.micronaut.inject.java)
     testImplementation(mn.micronaut.http)
     testImplementation(projects.testSuiteUtils)
     testImplementation(mnSerde.micronaut.serde.jackson)
