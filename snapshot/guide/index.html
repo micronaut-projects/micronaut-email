@@ -1074,6 +1074,23 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-se
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>You can create a bean of type <code>BeanCreatedEventListener&lt;SendGrid&gt;</code> to further customize the <code>SendGrid</code> instance.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
+class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;SendGrid&gt; {
+
+    @Override
+    public SendGrid onCreated(@NonNull BeanCreatedEvent&lt;SendGrid&gt; event) {
+        SendGrid sendGrid = event.getBean();
+        sendGrid.setRateLimitSleep(5000);
+        return sendGrid;
+    }
+}</code></pre>
+</div>
+</div>
 
 <h2 id="mailjet"><a class="anchor" href="#mailjet"></a>9.4 Mailjet</h2>
 
