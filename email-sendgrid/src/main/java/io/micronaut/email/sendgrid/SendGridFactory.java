@@ -19,6 +19,7 @@ package io.micronaut.email.sendgrid;
 import com.sendgrid.SendGrid;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 
@@ -28,6 +29,7 @@ import jakarta.inject.Singleton;
  * @author Daniel Muhra
  */
 @Factory
+@Internal
 @Requires(beans = SendGridConfiguration.class)
 class SendGridFactory {
 
