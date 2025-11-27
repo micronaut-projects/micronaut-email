@@ -25,6 +25,7 @@ import io.micronaut.email.AsyncTransactionalEmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailException;
 import io.micronaut.email.TransactionalEmailSender;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.reactivestreams.Publisher;
@@ -62,10 +63,21 @@ public class SendgridEmailSender implements TransactionalEmailSender<Request, Re
      * @param sendgrid SendGrid instance
      * @param sendgridEmailComposer SendGrid Email composer
      */
+    @Inject
     public SendgridEmailSender(SendGrid sendgrid,
                                SendgridEmailComposer sendgridEmailComposer) {
         this.sendGrid = sendgrid;
         this.sendgridEmailComposer = sendgridEmailComposer;
+    }
+
+    /**
+     * @param sendGridConfiguration SendGrid Configuration
+     * @param sendgridEmailComposer SendGrid Email composer
+     */
+    @Deprecated(forRemoval = true, since = "2.10.1")
+    public SendgridEmailSender(SendGridConfiguration sendGridConfiguration,
+                               SendgridEmailComposer sendgridEmailComposer) {
+        this(new SendGrid(sendGridConfiguration.getApiKey()), sendgridEmailComposer);
     }
 
     @Override
