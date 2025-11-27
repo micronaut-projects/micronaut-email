@@ -31,7 +31,6 @@ import jakarta.mail.BodyPart;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
-import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
@@ -49,7 +48,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -104,8 +102,7 @@ public class DefaultMessageComposer implements MessageComposer {
         BodyPart body = null;
         if (!inlineAttachments.isEmpty()) {
             body = relatedBodyPart(email.getBody(), inlineAttachments);
-        }
-        else if (email.getBody() != null) {
+        } else if (email.getBody() != null) {
             body = alternativeBodyPart(email.getBody());
         }
 
