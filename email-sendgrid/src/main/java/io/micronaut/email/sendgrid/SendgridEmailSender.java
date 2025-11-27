@@ -25,6 +25,7 @@ import io.micronaut.email.AsyncTransactionalEmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailException;
 import io.micronaut.email.TransactionalEmailSender;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.reactivestreams.Publisher;
@@ -39,11 +40,11 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * <a href="https://sendgrid.com">SendGrid</a> implementation of {@link io.micronaut.email.TransactionalEmailSender} and {@link io.micronaut.email.AsyncTransactionalEmailSender} .
+ * <a href="https://sendgrid.com">SendGrid</a> implemenstation of {@link io.micronaut.email.TransactionalEmailSender} and {@link io.micronaut.email.AsyncTransactionalEmailSender} .
  * @author Sergio del Amo
  * @since 1.0.0
  */
-@Requires(beans = { SendGridConfiguration.class, SendgridEmailComposer.class })
+@Requires(beans = { SendGrid.class, SendgridEmailComposer.class })
 @Named(SendgridEmailSender.NAME)
 @Singleton
 public class SendgridEmailSender implements TransactionalEmailSender<Request, Response>,
@@ -59,13 +60,24 @@ public class SendgridEmailSender implements TransactionalEmailSender<Request, Re
     private final SendgridEmailComposer sendgridEmailComposer;
 
     /**
+     * @param sendgrid SendGrid instance
+     * @param sendgridEmailComposer SendGrid Email composer
+     */
+    @Inject
+    public SendgridEmailSender(SendGrid sendgrid,
+                               SendgridEmailComposer sendgridEmailComposer) {
+        this.sendGrid = sendgrid;
+        this.sendgridEmailComposer = sendgridEmailComposer;
+    }
+
+    /**
      * @param sendGridConfiguration SendGrid Configuration
      * @param sendgridEmailComposer SendGrid Email composer
      */
+    @Deprecated(forRemoval = true, since = "2.10.1")
     public SendgridEmailSender(SendGridConfiguration sendGridConfiguration,
                                SendgridEmailComposer sendgridEmailComposer) {
-        sendGrid = new SendGrid(sendGridConfiguration.getApiKey());
-        this.sendgridEmailComposer = sendgridEmailComposer;
+        this(new SendGrid(sendGridConfiguration.getApiKey()), sendgridEmailComposer);
     }
 
     @Override
