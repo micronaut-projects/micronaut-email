@@ -65,10 +65,10 @@ class JavaxMailEmailSenderSpec extends Specification {
         @Override
         @NonNull
         Session session() {
-            return Session.getInstance(properties, new Authenticator() {
+            return Session.getInstance(properties, new jakarta.mail.Authenticator() {
                 @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    new PasswordAuthentication(System.getenv("GMAIL_USERNAME"), System.getenv("GMAIL_PASSWORD"))
+                protected jakarta.mail.PasswordAuthentication getPasswordAuthentication() {
+                    new jakarta.mail.PasswordAuthentication(System.getenv("GMAIL_USERNAME"), System.getenv("GMAIL_PASSWORD"))
                 }
             })
         }
