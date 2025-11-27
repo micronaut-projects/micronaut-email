@@ -11,6 +11,7 @@ managed-sendgrid = "4.10.3"
 managed-jakarta-mail = "2.1.5"
 managed-eclipse-angus = "2.0.5"
 managed-mailjet = "5.2.6"
+managed-mailtrap = "1.1.0"
 
 poi-ooxml = "5.4.1"
 kotlin = "1.9.24"
@@ -32,6 +33,7 @@ managed-sendgrid-java = { module = "com.sendgrid:sendgrid-java", version.ref = "
 managed-jakarta-mail = { module = "jakarta.mail:jakarta.mail-api", version.ref = "managed-jakarta-mail" }
 managed-eclipse-angus = { module = "org.eclipse.angus:angus-mail", version.ref = "managed-eclipse-angus" }
 managed-mailjet-client = { module = "com.mailjet:mailjet-client", version.ref = "managed-mailjet" }
+managed-mailtrap = { module = "io.mailtrap:mailtrap-java", version.ref = "managed-mailtrap" }
 
 # Micronaut
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
