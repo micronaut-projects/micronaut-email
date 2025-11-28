@@ -21,7 +21,7 @@ import jakarta.inject.Singleton;
 
 /**
  * Builds {@link ConstraintValidator} for {@link io.micronaut.email.validation.AnyRecipient} for {@link Email}.
- * @deprecated {@link AnyRecipientValidator} is used instead. The {@link @Factory} annotation was intentionally removed. Thus, this class does nothing.
+ * @deprecated {@link AnyRecipientValidator} is used instead. The {@link io.micronaut.context.annotation.Factory} annotation was intentionally removed. Thus, this class does nothing.
  * @author Sergio del Amo
  * @since 1.0.0
  */
