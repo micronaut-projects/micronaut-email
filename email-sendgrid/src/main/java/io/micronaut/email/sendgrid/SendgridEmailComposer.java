@@ -61,8 +61,13 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         return createRequest(createMail(email));
     }
 
+    /**
+     *
+     * @param email Email
+     * @return SendGrid representation of Email
+     */
     @NonNull
-    private Mail createMail(@NonNull Email email) {
+    Mail createMail(@NonNull Email email) {
         Mail mail = new Mail();
         mail.setFrom(createForm(email));
         mail.setSubject(email.getSubject());
@@ -74,13 +79,32 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         if (email.getAttachments() != null) {
             for (Attachment att : email.getAttachments()) {
                 mail.addAttachments(new Attachments.Builder(att.getFilename(), new ByteArrayInputStream(att.getContent()))
-                        .withType(att.getContentType())
-                        .withContentId(att.getId())
-                        .withDisposition(att.getDisposition())
-                        .build());
+                    .withType(att.getContentType())
+                    .withContentId(att.getId())
+                    .withDisposition(att.getDisposition())
+                    .build());
             }
         }
         return mail;
+    }
+
+    /**
+     *
+     * @param email Email
+     * @return List of contents created with the email body.
+     */
+    @NonNull
+    static List<Content> contentOfEmail(@NonNull Email email) {
+        Body body = email.getBody();
+        if (body == null) {
+            return Collections.emptyList();
+        }
+        List<Content> result = new ArrayList<>();
+        body.get(BodyType.TEXT)
+            .ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_PLAIN, s)));
+        body.get(BodyType.HTML)
+            .ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_HTML, s)));
+        return result;
     }
 
     @NonNull
@@ -157,19 +181,5 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         } catch (IOException e) {
             throw new EmailException(e);
         }
-    }
-
-    @NonNull
-    private List<Content> contentOfEmail(@NonNull Email email) {
-        Body body = email.getBody();
-        if (body == null) {
-            return Collections.emptyList();
-        }
-        List<Content> result = new ArrayList<>();
-        Optional<String> str = body.get(BodyType.TEXT);
-        str.ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_PLAIN, s)));
-        str = body.get(BodyType.HTML);
-        str.ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_HTML, s)));
-        return result;
     }
 }

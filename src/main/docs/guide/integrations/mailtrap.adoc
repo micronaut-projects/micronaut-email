@@ -1,0 +1,7 @@
+To integrate with https://www.mailtrap.io[Mailtrap], add the following dependency to your application.
+
+dependency:micronaut-email-mailtrap[groupId="io.micronaut.email"]
+
+You need to supply your Mailtrap's token via configuration:
+
+include::{includedir}configurationProperties/io.mailtrap.config.MailtrapConfig$Builder.adoc[]
