@@ -2,10 +2,14 @@ package io.micronaut.email.mailtrap;
 
 import io.mailtrap.model.request.emails.Address;
 import io.mailtrap.model.request.emails.MailtrapMail;
+import io.micronaut.email.Attachment;
 import io.micronaut.email.Email;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +28,13 @@ class MailtrapEmailComposerTest {
             .to(RECIPIENT_EMAIL)
             .subject(subject)
             .body(text)
+            .attachment(Attachment.builder()
+                .filename("welcome.png")
+                .id("welcome.png")
+                .disposition("inline")
+                .contentType("image/jpg")
+                .content(new File("src/test/resources/cat.jpg"))
+                .build())
             .build();
         MailtrapMail mail = composer.compose(email).build();
         final MailtrapMail expected = MailtrapMail.builder()
@@ -38,6 +49,6 @@ class MailtrapEmailComposerTest {
         assertEquals(expected.getBcc(), mail.getBcc());
         assertEquals(expected.getSubject(), mail.getSubject());
         assertEquals(expected.getText(), mail.getText());
+        assertEquals(1, mail.getAttachments().size());
     }
-
 }
