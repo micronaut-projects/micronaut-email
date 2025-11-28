@@ -1,6 +1,6 @@
 [versions]
 micronaut-gradle-plugin = "4.6.1"
-micronaut = "4.10.9"
+micronaut = "5.0.0-M1"
 
 managed-postmark = "1.11.1"
 commons-io="2.21.0"
