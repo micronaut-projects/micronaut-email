@@ -36,6 +36,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,25 +61,50 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         return createRequest(createMail(email));
     }
 
+    /**
+     *
+     * @param email Email
+     * @return SendGrid representation of Email
+     */
     @NonNull
-    private Mail createMail(@NonNull Email email) {
+    Mail createMail(@NonNull Email email) {
         Mail mail = new Mail();
         mail.setFrom(createForm(email));
         mail.setSubject(email.getSubject());
         createReplyTo(email).ifPresent(mail::setReplyTo);
         mail.addPersonalization(createPersonalization(email));
-        contentOfEmail(email).ifPresent(mail::addContent);
-
+        for (Content content : contentOfEmail(email)) {
+            mail.addContent(content);
+        }
         if (email.getAttachments() != null) {
             for (Attachment att : email.getAttachments()) {
                 mail.addAttachments(new Attachments.Builder(att.getFilename(), new ByteArrayInputStream(att.getContent()))
-                        .withType(att.getContentType())
-                        .withContentId(att.getId())
-                        .withDisposition(att.getDisposition())
-                        .build());
+                    .withType(att.getContentType())
+                    .withContentId(att.getId())
+                    .withDisposition(att.getDisposition())
+                    .build());
             }
         }
         return mail;
+    }
+
+    /**
+     *
+     * @param email Email
+     * @return List of contents created with the email body.
+     */
+    @NonNull
+    static List<Content> contentOfEmail(@NonNull Email email) {
+        Body body = email.getBody();
+        if (body == null) {
+            return Collections.emptyList();
+        }
+        List<Content> result = new ArrayList<>();
+        body.get(BodyType.TEXT)
+            .ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_PLAIN, s)));
+        body.get(BodyType.HTML)
+            .ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_HTML, s)));
+        return result;
     }
 
     @NonNull
@@ -153,19 +181,5 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         } catch (IOException e) {
             throw new EmailException(e);
         }
-    }
-
-    @NonNull
-    private Optional<Content> contentOfEmail(@NonNull Email email) {
-        Body body = email.getBody();
-        if (body == null) {
-            return Optional.empty();
-        }
-        Optional<String> str = body.get(BodyType.HTML);
-        if (str.isPresent()) {
-            return Optional.of(new Content(CONTENT_TYPE_TEXT_HTML, str.get()));
-        }
-        str = body.get(BodyType.TEXT);
-        return str.map(s -> new Content(CONTENT_TYPE_TEXT_PLAIN, s));
     }
 }
