@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,5 +51,14 @@ class MailtrapEmailComposerTest {
         assertEquals(expected.getSubject(), mail.getSubject());
         assertEquals(expected.getText(), mail.getText());
         assertEquals(1, mail.getAttachments().size());
+
+        assertDoesNotThrow(() -> composer.compose(email, builder ->  builder.templateUuid("813e39db-0000-0000-0000-0e6ba8b1fe88")
+            .templateVariables(Map.of(
+                "user_name", "Jack Sparrow",
+                "next_step_link", "https://mailtrap.io/",
+                "get_started_link", "https://mailtrap.io/",
+                "integer", 123,
+                "boolean", false
+            ))));
     }
 }
