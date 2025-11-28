@@ -8,4 +8,5 @@
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
+    <logger name="io.micronaut.email.mailtrap" level="TRACE"/>
 </configuration>
