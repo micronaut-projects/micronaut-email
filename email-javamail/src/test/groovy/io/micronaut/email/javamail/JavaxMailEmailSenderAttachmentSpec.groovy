@@ -74,9 +74,9 @@ class JavaxMailEmailSenderAttachmentSpec extends Specification {
         @Override
         @NonNull
         Session session() {
-            return Session.getInstance(properties, new Authenticator() {
+            return Session.getInstance(properties, new jakarta.mail.Authenticator() {
                 @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
+                protected jakarta.mail.PasswordAuthentication getPasswordAuthentication() {
                     new PasswordAuthentication(System.getenv("GMAIL_USERNAME"), System.getenv("GMAIL_PASSWORD"))
                 }
             })

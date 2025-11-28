@@ -1,7 +1,9 @@
 package io.micronaut.email.javamail.composer
 
+import io.micronaut.email.Attachment
 import io.micronaut.email.Contact
 import io.micronaut.email.Email
+
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import jakarta.mail.Message
@@ -16,7 +18,7 @@ class DefaultMessageComposerSpec extends Specification {
     DefaultMessageComposer defaultMessageComposer
 
     @Unroll
-    void "test attachments with id: #contentId and disposition: #disposition"(String contentId, String disposition) {
+    void "test attachments with id: #contentId and disposition: #disposition"(String contentId, String disposition, String[] expectedContentId, String expectedDisposition) {
         given:
         String from = "sender@example.com"
         String to = "receiver@example.com"
@@ -45,13 +47,93 @@ class DefaultMessageComposerSpec extends Specification {
             parts[1].getHeader('Content-ID') == expectedContentId
         }
         where:
-        contentId     | disposition  | expectedContentId    | expectedDisposition
-        null          | null         | null                 | "attachment"
-        "my-file"     | null         | ["my-file"]          | "attachment"
-        "my-file"     | "inline"     | ["my-file"]          | "inline"
-        "my-file"     | "attachment" | ["my-file"]          | "attachment"
-        null          | "inline"     | null                 | "inline"
-        null          | "attachment" | null                 | "attachment"
+        contentId     | disposition  | expectedContentId       | expectedDisposition
+        null          | null         | null                    | "attachment"
+        "my-file"     | null         | ["<my-file>"] as String[] | "attachment"
+        "my-file"     | "attachment" | ["<my-file>"] as String[] | "attachment"
+        null          | "attachment" | null                    | "attachment"
+    }
+
+    @Unroll
+    void "test inline attachments with id: #contentId and disposition: #disposition"(String contentId, String disposition, String[] expectedContentId, String expectedDisposition) {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+        String filename = "icon.png"
+        String contentType = "application/png"
+        String content = "hello"
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .attachment(Attachment.builder().filename(filename).id(contentId).contentType(contentType).content(content.bytes).disposition("inline").build())
+                .build()
+        when:
+        Message message = defaultMessageComposer.compose(email, null)
+        then:
+        with(message.content as MimeMultipart) {
+            it.contentType.startsWith("multipart/mixed")
+            parts.size() == 1
+            with(parts[0].content as MimeMultipart) {
+                it.contentType.startsWith("multipart/related")
+                parts.size() == 2
+                parts[0].content == "Lore ipsum body"
+                (parts[1].content as InputStream).text == content
+                parts[1].disposition == expectedDisposition
+                parts[1].fileName == filename
+                parts[1].contentType == contentType
+                parts[1].getHeader('Content-ID') == expectedContentId
+            }
+        }
+        where:
+        contentId     | disposition  | expectedContentId      | expectedDisposition
+        "icon"        | "inline"     | ["<icon>"] as String[] | "inline"
+    }
+
+    void "test combined regular and inline attachments"() {
+        given:
+        String from = "sender@example.com"
+        String to = "receiver@example.com"
+        String subject = "Apple Music"
+        String regularFilename = "document.pdf"
+        String regularContentType = "application/pdf"
+        String regularContent = "PDF content"
+        String inlineFilename = "logo.png"
+        String inlineContentType = "image/png"
+        String inlineContent = "PNG content"
+        Email email = Email.builder()
+                .from(from)
+                .to(to)
+                .subject(subject)
+                .body("Lore ipsum body")
+                .attachment(Attachment.builder().filename(inlineFilename).id("logo").contentType(inlineContentType).content(inlineContent.bytes).disposition("inline").build())
+                .attachment {it.filename(regularFilename).contentType(regularContentType).content(regularContent.bytes) }
+                .build()
+        when:
+        Message message = defaultMessageComposer.compose(email, null)
+        then:
+        with(message.content as MimeMultipart) {
+            it.contentType.startsWith("multipart/mixed")
+            parts.size() == 2
+            // First part is the related multipart containing body and inline attachment
+            with(parts[0].content as MimeMultipart) {
+                it.contentType.startsWith("multipart/related")
+                parts.size() == 2
+                parts[0].content == "Lore ipsum body"
+                (parts[1].content as InputStream).text == inlineContent
+                parts[1].disposition == "inline"
+                parts[1].fileName == inlineFilename
+                parts[1].contentType == inlineContentType
+                parts[1].getHeader('Content-ID') == ["<logo>"] as String[]
+            }
+            // Second part is the regular attachment
+            (parts[1].content as InputStream).text == regularContent
+            parts[1].disposition == "attachment"
+            parts[1].fileName == regularFilename
+            parts[1].contentType == regularContentType
+        }
     }
 
     void "from, to and subject are put to the mime message"() {
