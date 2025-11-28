@@ -4,7 +4,6 @@ io.micronaut.email.javamail.composer
 io.micronaut.email.javamail.sender
 io.micronaut.email.javamail.sender.authentication
 io.micronaut.email.mailjet
-io.micronaut.email.mailtrap
 io.micronaut.email.postmark
 io.micronaut.email.sendgrid
 io.micronaut.email.ses
