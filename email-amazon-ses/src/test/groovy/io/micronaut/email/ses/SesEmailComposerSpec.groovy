@@ -40,7 +40,7 @@ class SesEmailComposerSpec extends Specification {
         raw.contains("To: $to")
         raw.contains("Subject: $subject")
         raw.contains(body)
-        !contentId || raw.contains("Content-ID: $contentId")
+        !contentId || raw.contains("Content-ID: <$contentId>")
         raw.contains("Content-Disposition: $expectedDisposition; filename=$filename")
         raw.contains("Content-Type: $contentType")
         raw.contains(content)
@@ -178,7 +178,7 @@ class SesEmailComposerSpec extends Specification {
         subject == request.message().subject().data()
         !request.destination().ccAddresses()
     }
-    
+
     @Unroll
     void "from field should allow including the sender name"(String name, String email, String expected) {
         given:

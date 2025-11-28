@@ -36,6 +36,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,8 +68,9 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         mail.setSubject(email.getSubject());
         createReplyTo(email).ifPresent(mail::setReplyTo);
         mail.addPersonalization(createPersonalization(email));
-        contentOfEmail(email).ifPresent(mail::addContent);
-
+        for (Content content : contentOfEmail(email)) {
+            mail.addContent(content);
+        }
         if (email.getAttachments() != null) {
             for (Attachment att : email.getAttachments()) {
                 mail.addAttachments(new Attachments.Builder(att.getFilename(), new ByteArrayInputStream(att.getContent()))
@@ -156,16 +160,16 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
     }
 
     @NonNull
-    private Optional<Content> contentOfEmail(@NonNull Email email) {
+    private List<Content> contentOfEmail(@NonNull Email email) {
         Body body = email.getBody();
         if (body == null) {
-            return Optional.empty();
+            return Collections.emptyList();
         }
-        Optional<String> str = body.get(BodyType.HTML);
-        if (str.isPresent()) {
-            return Optional.of(new Content(CONTENT_TYPE_TEXT_HTML, str.get()));
-        }
-        str = body.get(BodyType.TEXT);
-        return str.map(s -> new Content(CONTENT_TYPE_TEXT_PLAIN, s));
+        List<Content> result = new ArrayList<>();
+        Optional<String> str = body.get(BodyType.TEXT);
+        str.ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_PLAIN, s)));
+        str = body.get(BodyType.HTML);
+        str.ifPresent(s -> result.add(new Content(CONTENT_TYPE_TEXT_HTML, s)));
+        return result;
     }
 }
