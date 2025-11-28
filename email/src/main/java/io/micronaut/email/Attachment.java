@@ -15,13 +15,13 @@
  */
 package io.micronaut.email;
 
+import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -187,9 +187,10 @@ public class Attachment {
                     return content(new FileInputStream(file));
                 }
                 byte[] bytes = new byte[(int) file.length()];
-                DataInputStream dis = new DataInputStream(new FileInputStream(file));
-                dis.readFully(bytes);
-                return content(bytes);
+                try (DataInputStream dis = new DataInputStream(new FileInputStream(file))) {
+                    dis.readFully(bytes);
+                    return content(bytes);
+                }
             } catch (FileNotFoundException e) {
                 throw new IllegalArgumentException("Could not read attachment file to bytes");
             } catch (IOException e) {
@@ -205,18 +206,7 @@ public class Attachment {
         @NonNull
         public Builder content(@NonNull InputStream inputStream) {
             try {
-                //TODO use the following once JDK 11 is the minimum
-                //return content(inputStream.readAllBytes());
-                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                int nRead;
-                byte[] data = new byte[4];
-                while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-                    buffer.write(data, 0, nRead);
-                }
-                buffer.flush();
-                byte[] result = buffer.toByteArray();
-                buffer.close();
-                return content(result);
+                return content(inputStream.readAllBytes());
             } catch (FileNotFoundException e) {
                 throw new IllegalArgumentException("Could not read attachment file to bytes");
             } catch (IOException e) {

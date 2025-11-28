@@ -413,8 +413,6 @@ public final class Email implements Recipients {
             return attachment(builder.build());
         }
 
-
-
         /**
          *
          * @param body Email's body
