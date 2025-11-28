@@ -18,6 +18,7 @@ integrations:
   postmark: Postmark
   sendgrid: SendGrid
   mailjet: Mailjet
+  mailtrap: Mailtrap
   javamail: Jakarta Mail
 emailGuides: Guides
 repository: Repository
