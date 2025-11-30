@@ -80,13 +80,13 @@ public final class Email implements Recipients {
      * @param body Email Body
      */
     private Email(@NonNull Contact from,
-                 @Nullable List<Contact> replyTo,
-                 @Nullable List<Contact> to,
-                 @Nullable List<Contact> cc,
-                 @Nullable List<Contact> bcc,
-                 @NonNull String subject,
-                 @Nullable List<Attachment> attachments,
-                 @Nullable Body body) {
+                  @Nullable List<Contact> replyTo,
+                  @Nullable List<Contact> to,
+                  @Nullable List<Contact> cc,
+                  @Nullable List<Contact> bcc,
+                  @NonNull String subject,
+                  @Nullable List<Attachment> attachments,
+                  @Nullable Body body) {
         this.from = from;
         this.replyTo = replyTo;
         this.to = to;
@@ -414,6 +414,46 @@ public final class Email implements Recipients {
         }
 
         /**
+         * Attach a FileAttachment in a type-safe way, mapped to Attachment internally.
+         * @param fileAttachment FileAttachment to attach
+         * @return Email Builder
+         */
+        @NonNull
+        public Email.Builder attachment(@NonNull FileAttachment fileAttachment) {
+            if (fileAttachment == null) {
+                throw new IllegalArgumentException("fileAttachment cannot be null");
+            }
+            Attachment attachment = new Attachment(
+                fileAttachment.getFilename(),
+                fileAttachment.getContentType(),
+                fileAttachment.getContent(),
+                null,
+                null
+            );
+            return attachment(attachment);
+        }
+
+        /**
+         * Attach an InlineAttachment in a type-safe way, mapped to Attachment internally.
+         * @param inlineAttachment InlineAttachment to attach
+         * @return Email Builder
+         */
+        @NonNull
+        public Email.Builder attachment(@NonNull InlineAttachment inlineAttachment) {
+            if (inlineAttachment == null) {
+                throw new IllegalArgumentException("inlineAttachment cannot be null");
+            }
+            Attachment attachment = new Attachment(
+                inlineAttachment.getFilename(),
+                inlineAttachment.getContentType(),
+                inlineAttachment.getContent(),
+                inlineAttachment.getContentId() != null ? inlineAttachment.getContentId().getValue() : null,
+                "inline"
+            );
+            return attachment(attachment);
+        }
+
+        /**
          *
          * @param body Email's body
          * @return The Email Builder
@@ -462,13 +502,13 @@ public final class Email implements Recipients {
         @NonNull
         public Email build() {
             return new Email(from,
-                    replyTo,
-                    to,
-                    cc,
-                    bcc,
-                    subject,
-                    attachments,
-                    body);
+                replyTo,
+                to,
+                cc,
+                bcc,
+                subject,
+                attachments,
+                body);
         }
 
         /**
