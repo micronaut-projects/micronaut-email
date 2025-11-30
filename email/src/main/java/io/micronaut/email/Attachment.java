@@ -133,6 +133,16 @@ public class Attachment {
     }
 
     /**
+     * Checks whether this attachment should be treated as inline.
+     *
+     * @return {@code true} if the disposition is {@code "inline"}
+     * @since 3.0.0
+     */
+    public boolean isInline() {
+        return "inline".equals(disposition);
+    }
+
+    /**
      * Attachment's builder.
      */
     public static class Builder {
@@ -243,10 +253,10 @@ public class Attachment {
         @NonNull
         public Attachment build() {
             return new Attachment(Objects.requireNonNull(filename),
-                    Objects.requireNonNull(contentType),
-                    Objects.requireNonNull(content),
-                    id,
-                    disposition);
+                Objects.requireNonNull(contentType),
+                Objects.requireNonNull(content),
+                id,
+                disposition);
         }
     }
 }
