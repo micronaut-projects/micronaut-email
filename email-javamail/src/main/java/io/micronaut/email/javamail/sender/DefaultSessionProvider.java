@@ -17,8 +17,8 @@ package io.micronaut.email.javamail.sender;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.annotation.Secondary;
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import jakarta.inject.Singleton;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Session;

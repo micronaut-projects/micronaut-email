@@ -16,7 +16,7 @@
 package io.micronaut.email.ses;
 
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.core.async.annotation.SingleResult;
 import io.micronaut.email.AsyncTransactionalEmailSender;
 import io.micronaut.email.Email;
