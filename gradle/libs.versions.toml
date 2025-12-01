@@ -10,7 +10,7 @@ managed-eclipse-angus = "2.0.5"
 managed-mailjet = "6.0.1"
 managed-mailtrap = "1.1.0"
 
-poi-ooxml = "5.5.0"
+poi-ooxml = "5.5.1"
 kotlin = "2.2.21"
 
 micronaut-aws = "4.11.0"
