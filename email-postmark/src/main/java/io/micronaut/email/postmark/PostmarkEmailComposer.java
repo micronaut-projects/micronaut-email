@@ -16,7 +16,7 @@
 package io.micronaut.email.postmark;
 
 import com.postmarkapp.postmark.client.data.model.message.Message;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.BodyType;

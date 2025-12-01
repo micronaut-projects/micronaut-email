@@ -16,7 +16,7 @@
 package io.micronaut.email;
 
 import io.micronaut.context.annotation.EachBean;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.function.Consumer;

@@ -16,8 +16,8 @@
 package io.micronaut.email.template;
 
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import io.micronaut.email.BodyType;
 import io.micronaut.views.ViewsRenderer;
 import io.micronaut.views.ViewsRendererLocator;

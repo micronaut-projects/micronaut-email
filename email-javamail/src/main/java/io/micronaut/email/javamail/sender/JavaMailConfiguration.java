@@ -15,7 +15,7 @@
  */
 package io.micronaut.email.javamail.sender;
 
-import io.micronaut.core.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import io.micronaut.core.util.Toggleable;
 import java.util.Map;
 

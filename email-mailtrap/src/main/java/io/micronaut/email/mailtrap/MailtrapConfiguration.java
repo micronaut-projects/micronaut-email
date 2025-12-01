@@ -16,7 +16,7 @@
 package io.micronaut.email.mailtrap;
 
 import io.mailtrap.config.MailtrapConfig;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.core.util.Toggleable;
 
 /**

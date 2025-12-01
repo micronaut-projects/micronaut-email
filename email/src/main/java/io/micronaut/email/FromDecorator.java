@@ -16,7 +16,7 @@
 package io.micronaut.email;
 
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.configuration.FromConfiguration;
 import jakarta.inject.Singleton;
 

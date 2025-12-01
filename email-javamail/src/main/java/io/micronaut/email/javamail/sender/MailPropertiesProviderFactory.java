@@ -17,7 +17,7 @@ package io.micronaut.email.javamail.sender;
 
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.exceptions.DisabledBeanException;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import jakarta.inject.Singleton;
 
 import java.util.Properties;

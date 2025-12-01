@@ -15,7 +15,7 @@
  */
 package io.micronaut.email.javamail.sender;
 
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Properties;
 

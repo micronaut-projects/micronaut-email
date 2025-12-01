@@ -20,7 +20,7 @@ import io.mailtrap.model.request.emails.MailtrapMail;
 import io.mailtrap.model.response.emails.SendResponse;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailException;
 import io.micronaut.email.TransactionalEmailSender;
