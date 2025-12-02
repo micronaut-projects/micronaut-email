@@ -27,37 +27,12 @@ import java.util.Objects;
  * surrounding angle brackets). Use {@link #toHeaderValue()} to obtain a header-safe
  * representation (with &lt; and &gt;).
  *
- * @author Vinit Shinde
  * @since 3.0.0
  */
-public final class ContentId {
+public record ContentId(@NonNull String value) {
 
-    /**
-     * The raw content-id value (without angle brackets).
-     *
-     * Example: {@code "image-1234"}. Must be unique within an email when used for inline
-     * attachments.
-     */
-    @NonNull
-    private final String value;
-
-    /**
-     * Creates a new ContentId.
-     *
-     * @param value the identifier value, must be unique per email and not {@code null}
-     */
-    public ContentId(@NonNull String value) {
-        this.value = Objects.requireNonNull(value, "ContentId value must not be null");
-    }
-
-    /**
-     * Returns the raw content-id value without angle brackets.
-     *
-     * @return the content id value, never {@code null}
-     */
-    @NonNull
-    public String getValue() {
-        return value;
+    public ContentId {
+        Objects.requireNonNull(value, "ContentId value must not be null");
     }
 
     /**
@@ -71,42 +46,5 @@ public final class ContentId {
     public String toHeaderValue() {
         return "<" + value + ">";
     }
-
-    /**
-     * Compares this ContentId to another object for equality.
-     *
-     * @param o the object to compare with
-     * @return {@code true} if the other object is a {@link ContentId} with the same value
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ContentId)) {
-            return false;
-        }
-        ContentId contentId = (ContentId) o;
-        return value.equals(contentId.value);
-    }
-
-    /**
-     * Returns a hash code based on the underlying value.
-     *
-     * @return the hash code
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
-
-    /**
-     * Returns a string representation for debugging purposes.
-     *
-     * @return a string representation of this ContentId
-     */
-    @Override
-    public String toString() {
-        return "ContentId{" + value + "}";
-    }
 }
+

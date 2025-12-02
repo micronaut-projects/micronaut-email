@@ -80,13 +80,13 @@ public final class Email implements Recipients {
      * @param body Email Body
      */
     private Email(@NonNull Contact from,
-                  @Nullable List<Contact> replyTo,
-                  @Nullable List<Contact> to,
-                  @Nullable List<Contact> cc,
-                  @Nullable List<Contact> bcc,
-                  @NonNull String subject,
-                  @Nullable List<Attachment> attachments,
-                  @Nullable Body body) {
+                 @Nullable List<Contact> replyTo,
+                 @Nullable List<Contact> to,
+                 @Nullable List<Contact> cc,
+                 @Nullable List<Contact> bcc,
+                 @NonNull String subject,
+                 @Nullable List<Attachment> attachments,
+                 @Nullable Body body) {
         this.from = from;
         this.replyTo = replyTo;
         this.to = to;
@@ -412,7 +412,6 @@ public final class Email implements Recipients {
             attachment.accept(builder);
             return attachment(builder.build());
         }
-
         /**
          * Attach a FileAttachment in a type-safe way, mapped to Attachment internally.
          * @param fileAttachment FileAttachment to attach
@@ -447,7 +446,7 @@ public final class Email implements Recipients {
                 inlineAttachment.getFilename(),
                 inlineAttachment.getContentType(),
                 inlineAttachment.getContent(),
-                inlineAttachment.getContentId() != null ? inlineAttachment.getContentId().getValue() : null,
+                inlineAttachment.getContentId() != null ? inlineAttachment.getContentId().value() : null,
                 "inline"
             );
             return attachment(attachment);
@@ -502,13 +501,13 @@ public final class Email implements Recipients {
         @NonNull
         public Email build() {
             return new Email(from,
-                replyTo,
-                to,
-                cc,
-                bcc,
-                subject,
-                attachments,
-                body);
+                    replyTo,
+                    to,
+                    cc,
+                    bcc,
+                    subject,
+                    attachments,
+                    body);
         }
 
         /**
