@@ -131,7 +131,13 @@ public class Attachment {
     public String getDisposition() {
         return this.disposition;
     }
-
+    
+    /**
+     * Checks whether this attachment should be treated as inline.
+     *
+     * @return {@code true} if the disposition is {@code "inline"}
+     * @since 3.0.0
+     */
     public boolean isInline() {
         return INLINE.equals(disposition);
     }
