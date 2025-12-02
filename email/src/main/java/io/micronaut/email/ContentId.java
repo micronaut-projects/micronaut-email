@@ -31,10 +31,6 @@ import java.util.Objects;
  */
 public record ContentId(@NonNull String value) {
 
-    public ContentId {
-        Objects.requireNonNull(value, "ContentId value must not be null");
-    }
-
     /**
      * Returns the formatted header value suitable for use in a Content-ID header.
      *
