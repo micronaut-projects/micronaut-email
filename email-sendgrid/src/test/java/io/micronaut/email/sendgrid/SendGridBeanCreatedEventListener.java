@@ -4,7 +4,7 @@ import com.sendgrid.SendGrid;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.event.BeanCreatedEvent;
 import io.micronaut.context.event.BeanCreatedEventListener;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import jakarta.inject.Singleton;
 
 @Requires(property = "spec.name", value = "SendGridSpec")

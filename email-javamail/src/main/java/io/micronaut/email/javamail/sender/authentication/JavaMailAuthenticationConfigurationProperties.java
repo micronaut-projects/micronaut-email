@@ -16,7 +16,7 @@
 package io.micronaut.email.javamail.sender.authentication;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.javamail.sender.JavaMailConfigurationProperties;
 
 import jakarta.validation.constraints.NotBlank;

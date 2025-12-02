@@ -17,7 +17,7 @@ package io.micronaut.email.javamail.sender;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.annotation.Secondary;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.AbstractTransactionalEmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailException;

@@ -17,7 +17,7 @@ package io.micronaut.email.javamail.sender.authentication;
 
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import jakarta.inject.Singleton;
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;

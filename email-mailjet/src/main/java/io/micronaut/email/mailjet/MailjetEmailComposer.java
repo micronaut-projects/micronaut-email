@@ -17,7 +17,7 @@ package io.micronaut.email.mailjet;
 
 import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.resource.Emailv31;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.Body;

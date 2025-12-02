@@ -19,7 +19,7 @@ import io.mailtrap.model.request.emails.Address;
 import io.mailtrap.model.request.emails.EmailAttachment;
 import io.mailtrap.model.request.emails.MailtrapMail;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.email.Attachment;
 import io.micronaut.email.BodyType;

@@ -19,7 +19,7 @@ import io.mailtrap.config.MailtrapConfig;
 import io.micronaut.context.annotation.ConfigurationBuilder;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 
 @ConfigurationProperties(MailtrapConfiguration.PREFIX)
 @Internal
