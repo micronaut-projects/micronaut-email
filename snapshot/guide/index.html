@@ -15,7 +15,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" href="../css/multi-language-sample.css"/>
     <script src="../js/docs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
     <script type="text/javascript">
         function addJsClass(el) {
             var classes = document.body.className.split(" ");
@@ -23,9 +23,7 @@
             document.body.className = classes.join(" ");
         }
     </script>
-    <style type="text/css">
-        .lang-java { display: block }; .lang-python { display: block }; .lang-kotlin { display: block }; .lang-groovy { display: block }; 
-    </style>
+
 </head>
 
 <body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
@@ -139,13 +137,13 @@
         <h1>Micronaut Email</h1>
         <p></p>
         <p>Integration with Transaction Email Providers</p>
-        <p><strong>Version:</strong> 3.0.0-SNAPSHOT </p>
+        <p><strong>Version:</strong> 2.11.1-SNAPSHOT </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -158,32 +156,16 @@
 <h1 id="breaks"><a class="anchor" href="#breaks"></a>2 Breaking Changes</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/breaks.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/breaks.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
 
 
-<div class="paragraph">
-<p>This section documents breaking changes between Micronaut EMail versions:</p>
-</div>
 <div class="sect2">
-<h3 id="_micronaut_email_3_0_0">Micronaut Email 3.0.0</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>The constructor <code>io.micronaut.email.Attachment(String, String, byte[], String)</code> deprecated previously has been removed. Use <code>Attachment(String, String, byte[], String, String instead)</code>.</p>
-</li>
-<li>
-<p>the class <code>io.micronaut.email.validation.AnyRecipientConstraintValidationFactory</code> deprecated previously has been removed. The <code>@Factory</code> annotation was intentionally removed. Thus, this class does nothing. <code>AnyRecipientValidator</code> is used instead.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_micronaut_email_2_0_0">Micronaut Email 2.0.0</h3>
+<h3 id="_micronaut_email_2">Micronaut Email 2</h3>
 <div class="paragraph">
-<p>Micronaut Email 2.0.0 migrates to <a href="https://jakartaee.github.io/mail-api/">Jakarta Mail</a> package namespaces, from <code>javax.mail</code> to <code>jakarta.mail</code>. Moreover, it uses transitive dependency <code>jakarta.mail:jakarta.mail-api</code> instead of <code>com.sun.mail:javax.mail</code>. Jakarta Mail also separates API and Implementation. Previous implementation sources are now part of the <a href="https://eclipse-ee4j.github.io/angus-mail/">Eclipse Angus</a> project, the direct successor to JavaMail/JakartaMail. In addition to <code>jakarta-mail-api</code> an additional dependency on <code>org.eclipse.angus:angus-mail</code> is required. Note that for Eclipse Angus, module and package prefixes changed from <code>com.sun.mail</code> to <code>org.eclipse.angus.mail</code>.</p>
+<p>Micronaut Email 2 migrates to <a href="https://jakartaee.github.io/mail-api/">Jakarta Mail</a> package namespaces, from <code>javax.mail</code> to <code>jakarta.mail</code>. Moreover, it uses transitive dependency <code>jakarta.mail:jakarta.mail-api</code> instead of <code>com.sun.mail:javax.mail</code>. Jakarta Mail also separates API and Implementation. Previous implementation sources are now part of the <a href="https://eclipse-ee4j.github.io/angus-mail/">Eclipse Angus</a> project, the direct successor to JavaMail/JakartaMail. In addition to <code>jakarta-mail-api</code> an additional dependency on <code>org.eclipse.angus:angus-mail</code> is required. Note that for Eclipse Angus, module and package prefixes changed from <code>com.sun.mail</code> to <code>org.eclipse.angus.mail</code>.</p>
 </div>
 <div class="paragraph">
 <p>This release also updates the ActiveCampaign Postmark library from 1.8.x to 1.9.0. Although it&#8217;s a minor revision otherwise it refactors package names and the dependency groupId from <code>com.wildbit.java</code> to <code>com.postmarkapp</code>.</p>
@@ -193,7 +175,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>3 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -209,7 +191,7 @@
 <h1 id="quickStart"><a class="anchor" href="#quickStart"></a>4 Quick Start</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/quickStart.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/quickStart.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -251,29 +233,6 @@ public class WelcomeService {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
-
-import io.micronaut.email.EmailSender
-import io.micronaut.email.Email
-import io.micronaut.email.MultipartBody
-import jakarta.inject.Singleton
-
-@Singleton
-class WelcomeService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
-    fun sendWelcomeEmail() {
-        emailSender.send(
-            Email.builder()
-                .from("sender@example.com")
-                .to("john@example.com")
-                .subject("Micronaut test")
-                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;", "Hello dear Micronaut user"))
-        )
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
 
 
@@ -299,11 +258,34 @@ class WelcomeService {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.EmailSender
+import io.micronaut.email.Email
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+
+@Singleton
+class WelcomeService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
+    fun sendWelcomeEmail() {
+        emailSender.send(
+            Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;", "Hello dear Micronaut user"))
+        )
+    }
+}</code></pre>
+</div>
+</div>
 
 <h1 id="attachments"><a class="anchor" href="#attachments"></a>5 Attachments</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/attachments.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/attachments.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -366,45 +348,6 @@ public class SendAttachmentService {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
-
-import io.micronaut.email.*
-import jakarta.inject.Singleton
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import java.io.ByteArrayOutputStream
-
-@Singleton
-class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
-
-    fun sendWelcomeEmail() {
-        emailSender.send(
-            Email.builder()
-                .from("sender@example.com")
-                .to("john@example.com")
-                .subject("Monthly reports")
-                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Attached Monthly reports&lt;/strong&gt;.&lt;/body&gt;&lt;/html&gt;", "Attached Monthly reports"))
-                .attachment(
-                    Attachment.builder()
-                    .filename("reports.xlsx")
-                    .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                    .content(excel())
-                    .build()))
-    }
-
-    private fun excel(): ByteArray {
-        val wb = XSSFWorkbook()
-        wb.createSheet("Reports")
-        val bos = ByteArrayOutputStream()
-        bos.use { byteArrayOutputStream -&gt;
-            wb.write(byteArrayOutputStream)
-        }
-        return bos.toByteArray()
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
 
 import io.micronaut.email.Attachment
@@ -449,11 +392,50 @@ class SendAttachmentService {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.*
+import jakarta.inject.Singleton
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import java.io.ByteArrayOutputStream
+
+@Singleton
+class SendAttachmentService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
+
+    fun sendWelcomeEmail() {
+        emailSender.send(
+            Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Monthly reports")
+                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Attached Monthly reports&lt;/strong&gt;.&lt;/body&gt;&lt;/html&gt;", "Attached Monthly reports"))
+                .attachment(
+                    Attachment.builder()
+                    .filename("reports.xlsx")
+                    .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .content(excel())
+                    .build()))
+    }
+
+    private fun excel(): ByteArray {
+        val wb = XSSFWorkbook()
+        wb.createSheet("Reports")
+        val bos = ByteArrayOutputStream()
+        bos.use { byteArrayOutputStream -&gt;
+            wb.write(byteArrayOutputStream)
+        }
+        return bos.toByteArray()
+    }
+}</code></pre>
+</div>
+</div>
 
 <h1 id="decorators"><a class="anchor" href="#decorators"></a>6 Decorators</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/decorators.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/decorators.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -466,17 +448,15 @@ class SendAttachmentService {
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/configuration/FromConfigurationProperties.html">FromConfigurationProperties</a></caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Default value</th>
 </tr>
 </thead>
 <tbody>
@@ -484,13 +464,11 @@ class SendAttachmentService {
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Default from email address.</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>micronaut.email.from.name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name of the contact sending the email.</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -504,7 +482,7 @@ class SendAttachmentService {
 <h1 id="customization"><a class="anchor" href="#customization"></a>7 Customizing Emails</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/customization.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/customization.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -569,52 +547,6 @@ public class CustomizedJavaMailService {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
-
-import io.micronaut.email.Email
-import io.micronaut.email.EmailSender
-import io.micronaut.email.MultipartBody
-import jakarta.inject.Singleton
-import jakarta.mail.Message
-import jakarta.mail.MessagingException
-import org.slf4j.LoggerFactory
-
-/**
- * An example of customization for JavaMail messages
- */
-@Singleton
-class CustomizedJavaMailService(private val emailSender: EmailSender&lt;Message, *&gt;) {
-
-    fun sendCustomizedEmail() {
-        val email = Email.builder()
-            .from("sender@example.com")
-            .to("john@example.com")
-            .subject("Micronaut test")
-            .body(
-                MultipartBody(
-                    "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
-                    "Hello dear Micronaut user"
-                )
-            )
-
-        // Customize the message with a header prior to sending
-        emailSender.send(email) { message: Message -&gt;
-            try {
-                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;")
-            } catch (e: MessagingException) {
-                LOG.error("Failed to add header", e)
-            }
-        }
-    }
-
-    companion object {
-        private val LOG = LoggerFactory.getLogger(CustomizedJavaMailService::class.java)
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
 
 import io.micronaut.email.Email
@@ -664,11 +596,57 @@ class CustomizedJavaMailService {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import jakarta.inject.Singleton
+import jakarta.mail.Message
+import jakarta.mail.MessagingException
+import org.slf4j.LoggerFactory
+
+/**
+ * An example of customization for JavaMail messages
+ */
+@Singleton
+class CustomizedJavaMailService(private val emailSender: EmailSender&lt;Message, *&gt;) {
+
+    fun sendCustomizedEmail() {
+        val email = Email.builder()
+            .from("sender@example.com")
+            .to("john@example.com")
+            .subject("Micronaut test")
+            .body(
+                MultipartBody(
+                    "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                    "Hello dear Micronaut user"
+                )
+            )
+
+        // Customize the message with a header prior to sending
+        emailSender.send(email) { message: Message -&gt;
+            try {
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;")
+            } catch (e: MessagingException) {
+                LOG.error("Failed to add header", e)
+            }
+        }
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(CustomizedJavaMailService::class.java)
+    }
+}</code></pre>
+</div>
+</div>
 
 <h1 id="template"><a class="anchor" href="#template"></a>8 Templates</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/template.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/template.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -691,8 +669,7 @@ class CustomizedJavaMailService {
     &lt;artifactId&gt;micronaut-email-template&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You can use any Template Engines supported by <a href="https://micronaut-projects.github.io/micronaut-views/latest/guide/">Micronaut Views</a>.</p>
@@ -714,8 +691,7 @@ class CustomizedJavaMailService {
     &lt;artifactId&gt;micronaut-views-velocity&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>Specify the email text or HTML as a <a href="../api/io/micronaut/email/template/TemplateBody.html">TemplateBody</a> to send a template.</p>
@@ -764,41 +740,6 @@ public class WelcomeWithTemplateService {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
-
-import io.micronaut.email.BodyType
-import io.micronaut.email.Email
-import io.micronaut.email.EmailSender
-import io.micronaut.email.MultipartBody
-import io.micronaut.email.template.TemplateBody
-import io.micronaut.views.ModelAndView
-import jakarta.inject.Singleton
-
-@Singleton
-class WelcomeWithTemplateService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
-
-    fun sendWelcomeEmail() {
-        val model = mapOf(
-            "message" to "Hello dear Micronaut user",
-            "copyright" to "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
-            "address" to "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141"
-        )
-        emailSender.send(
-            Email.builder()
-                .from("sender@example.com")
-                .to("john@example.com")
-                .subject("Micronaut test")
-                .body(MultipartBody(
-                    TemplateBody(BodyType.HTML, ModelAndView("htmltemplate", model)),
-                    TemplateBody(BodyType.TEXT, ModelAndView("texttemplate", model))))
-        )
-    }
-
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs
 
 import io.micronaut.email.BodyType
@@ -832,6 +773,41 @@ class WelcomeWithTemplateService {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs
+
+import io.micronaut.email.BodyType
+import io.micronaut.email.Email
+import io.micronaut.email.EmailSender
+import io.micronaut.email.MultipartBody
+import io.micronaut.email.template.TemplateBody
+import io.micronaut.views.ModelAndView
+import jakarta.inject.Singleton
+
+@Singleton
+class WelcomeWithTemplateService(private val emailSender: EmailSender&lt;Any, Any&gt;) {
+
+    fun sendWelcomeEmail() {
+        val model = mapOf(
+            "message" to "Hello dear Micronaut user",
+            "copyright" to "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
+            "address" to "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141"
+        )
+        emailSender.send(
+            Email.builder()
+                .from("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(MultipartBody(
+                    TemplateBody(BodyType.HTML, ModelAndView("htmltemplate", model)),
+                    TemplateBody(BodyType.TEXT, ModelAndView("texttemplate", model))))
+        )
+    }
+
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>In the previous example, you could have a Velocity template such as:</p>
 </div>
@@ -856,7 +832,7 @@ $copyright</code></pre>
 <h1 id="integrations"><a class="anchor" href="#integrations"></a>9 Integrations</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/integrations.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/integrations.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -867,7 +843,7 @@ $copyright</code></pre>
 <h2 id="ses"><a class="anchor" href="#ses"></a>9.1 SES</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/integrations/ses.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/integrations/ses.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -890,8 +866,7 @@ $copyright</code></pre>
     &lt;artifactId&gt;micronaut-email-amazon-ses&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>This integration uses <a href="https://micronaut-projects.github.io/micronaut-aws/latest/guide/#sdkv2">Micronaut AWS SDK v2 integration</a>.</p>
@@ -928,7 +903,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <h2 id="postmark"><a class="anchor" href="#postmark"></a>9.2 Postmark</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/integrations/postmark.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/integrations/postmark.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -951,8 +926,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
     &lt;artifactId&gt;micronaut-email-postmark&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You need to supply your Postmark&#8217;s <em>API token</em> via configuration:</p>
@@ -961,17 +935,15 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/postmark/PostmarkConfigurationProperties.html">PostmarkConfigurationProperties</a></caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Default value</th>
 </tr>
 </thead>
 <tbody>
@@ -979,25 +951,21 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If Postmark integration is enabled. Default value: <code>true</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.api-token</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Postmark API token.</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.track-opens</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether to track if the email is opened. Default value: <code>false</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postmark.track-links</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../api/io/micronaut/email/TrackLinks.html">TrackLinks</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether to track the email&#8217;s links. Default value DO_NOT_TRACK.</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1005,7 +973,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <h2 id="sendgrid"><a class="anchor" href="#sendgrid"></a>9.3 SendGrid</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/integrations/sendgrid.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/integrations/sendgrid.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1028,8 +996,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
     &lt;artifactId&gt;micronaut-email-sendgrid&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You need to supply your SendGrid&#8217;s <em>API key and secret</em> via configuration:</p>
@@ -1038,17 +1005,15 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/sendgrid/SendGridConfigurationProperties.html">SendGridConfigurationProperties</a></caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Default value</th>
 </tr>
 </thead>
 <tbody>
@@ -1056,13 +1021,11 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If SendGrid integration is enabled. Default value true</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.api-key</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The API (Application Programming Interface) keys to authenticate access to SendGrid service.</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1099,7 +1062,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <h2 id="mailjet"><a class="anchor" href="#mailjet"></a>9.4 Mailjet</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/integrations/mailjet.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/integrations/mailjet.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1122,8 +1085,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
     &lt;artifactId&gt;micronaut-email-mailjet&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You need to supply your Mailjet&#8217;s <em>API key and secret</em> via configuration:</p>
@@ -1132,17 +1094,15 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/mailjet/MailjetConfigurationProperties.html">MailjetConfigurationProperties</a></caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Default value</th>
 </tr>
 </thead>
 <tbody>
@@ -1150,25 +1110,21 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If Mailjet integration is enabled. Default value: <code>true</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.version</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Version. Default value: <code>"v3.1"</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.api-key</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Key.</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailjet.api-secret</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mailjet API Secret.</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -1176,7 +1132,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <h2 id="mailtrap"><a class="anchor" href="#mailtrap"></a>9.5 Mailtrap</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/integrations/mailtrap.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/integrations/mailtrap.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1199,8 +1155,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
     &lt;artifactId&gt;micronaut-email-mailtrap&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You need to supply your Mailtrap&#8217;s token via configuration:</p>
@@ -1209,17 +1164,15 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/io/mailtrap/config/MailtrapConfig.Builder.html">MailtrapConfig$Builder</a></caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Property</th>
 <th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Default value</th>
 </tr>
 </thead>
 <tbody>
@@ -1227,37 +1180,36 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailtrap.connection-timeout</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.time.Duration</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailtrap.token</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailtrap.http-client</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">io.mailtrap.http.CustomHttpClient</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailtrap.sandbox</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailtrap.bulk</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailtrap.inbox-id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.Long</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mailtrap.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If Mailtrap integration is enabled. Default value true</p></td>
 </tr>
 </tbody>
 </table>
@@ -1265,7 +1217,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <h2 id="javamail"><a class="anchor" href="#javamail"></a>9.6 Jakarta Mail</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/integrations/javamail.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/integrations/javamail.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1288,8 +1240,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
     &lt;artifactId&gt;micronaut-email-javamail&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>In addition, you will need to provide a runtime dependency on an implementation of the Jakarta Mail api. <a href="https://eclipse-ee4j.github.io/angus-mail/">Eclipse Angus</a> is the direct successor to prior versions of JavaMail/JakartaMail.</p>
@@ -1309,8 +1260,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You need to provide beans of type <a href="../api/io/micronaut/email/javamail/sender/MailPropertiesProvider.html">MailPropertiesProvider</a> and <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> to match your configuration.</p>
@@ -1385,7 +1335,7 @@ javamail.authentication.password=my.password</code></pre>
 <h1 id="emailGuides"><a class="anchor" href="#emailGuides"></a>10 Guides</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/emailGuides.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/emailGuides.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1401,7 +1351,7 @@ javamail.authentication.password=my.password</code></pre>
 <h1 id="repository"><a class="anchor" href="#repository"></a>11 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.0.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/2.11.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
