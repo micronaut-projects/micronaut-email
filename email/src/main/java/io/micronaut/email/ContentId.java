@@ -32,6 +32,19 @@ import java.util.Objects;
 public record ContentId(@NonNull String value) {
 
     /**
+     * Constructs a new {@code ContentId}.
+     *
+     * <p>The {@code value} must not be {@code null}. A {@link NullPointerException}
+     * is thrown otherwise. This enforces the requirement that inline email
+     * attachments define a non-null Content-ID.</p>
+     *
+     * @throws NullPointerException if {@code value} is {@code null}
+     */
+    public ContentId {
+        Objects.requireNonNull(value, "ContentId value must not be null");
+    }
+
+    /**
      * Returns the formatted header value suitable for use in a Content-ID header.
      *
      * For example, a value of {@code "img-1"} will be returned as {@code "<img-1>"}.

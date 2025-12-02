@@ -148,12 +148,158 @@ class EmailAttachmentSpec extends Specification {
         cid.toHeaderValue() == "<cid123>"
     }
 
+    @Unroll
+    void "test toHeaderValue formats various content id values correctly: #desc"() {
+        when:
+        def cid = new ContentId(inputValue)
+
+        then:
+        cid.toHeaderValue() == expectedHeaderValue
+
+        where:
+        desc                          | inputValue                  || expectedHeaderValue
+        "simple alphanumeric"         | "img-1"                     || "<img-1>"
+        "with dots"                   | "attachment.123.xyz"        || "<attachment.123.xyz>"
+        "with underscores"            | "image_file_001"            || "<image_file_001>"
+        "email-like format"           | "logo@example.com"          || "<logo@example.com>"
+        "uuid format"                 | "550e8400-e29b-41d4-a716"   || "<550e8400-e29b-41d4-a716>"
+        "single character"            | "x"                         || "<x>"
+        "already has angle brackets"  | "<wrapped>"                 || "<<wrapped>>"
+    }
+
+    void "test toHeaderValue returns non-null value"() {
+        given:
+        def cid = new ContentId("test-id")
+
+        when:
+        def headerValue = cid.toHeaderValue()
+
+        then:
+        headerValue != null
+        headerValue instanceof String
+    }
+
     void "test ContentId rejects null value"() {
         when:
         new ContentId(null)
 
         then:
         thrown(NullPointerException)
+    }
+
+    // ATTACHMENT ISINLINE TESTS
+
+    void "test Attachment isInline returns true for inline disposition"() {
+        given:
+        def attachment = new Attachment(
+                "logo.png",
+                "image/png",
+                "DATA".bytes,
+                "cid-123",
+                "inline"
+        )
+
+        expect:
+        attachment.isInline()
+    }
+
+    void "test Attachment isInline returns false for null disposition"() {
+        given:
+        def attachment = new Attachment(
+                "document.pdf",
+                "application/pdf",
+                "DATA".bytes,
+                null,
+                null
+        )
+
+        expect:
+        !attachment.isInline()
+    }
+
+    void "test Attachment isInline returns false for attachment disposition"() {
+        given:
+        def attachment = new Attachment(
+                "report.pdf",
+                "application/pdf",
+                "DATA".bytes,
+                null,
+                "attachment"
+        )
+
+        expect:
+        !attachment.isInline()
+    }
+
+    @Unroll
+    void "test Attachment isInline with various dispositions: #desc"() {
+        given:
+        def attachment = new Attachment(
+                "file.txt",
+                "text/plain",
+                "DATA".bytes,
+                null,
+                disposition
+        )
+
+        expect:
+        attachment.isInline() == expectedIsInline
+
+        where:
+        desc                      | disposition   || expectedIsInline
+        "exactly inline"          | "inline"      || true
+        "null disposition"        | null          || false
+        "attachment disposition"  | "attachment"  || false
+        "empty string"            | ""            || false
+        "INLINE uppercase"        | "INLINE"      || false
+        "Inline mixed case"       | "Inline"      || false
+        "inline with spaces"      | " inline "    || false
+        "form-data"               | "form-data"   || false
+    }
+
+    void "test InlineAttachment created attachment isInline is true"() {
+        given:
+        def inline = InlineAttachment.builder()
+                .filename("image.png")
+                .contentType("image/png")
+                .content("IMG".bytes)
+                .contentId("test-cid")
+                .build()
+
+        when:
+        def email = Email.builder()
+                .from("sender@example.com")
+                .to("test@example.com")
+                .subject("Test")
+                .body("Body")
+                .attachment(inline)
+                .build()
+
+        then:
+        email.attachments.size() == 1
+        email.attachments[0].isInline()
+    }
+
+    void "test FileAttachment created attachment isInline is false"() {
+        given:
+        def file = FileAttachment.builder()
+                .filename("document.pdf")
+                .contentType("application/pdf")
+                .content("PDF".bytes)
+                .build()
+
+        when:
+        def email = Email.builder()
+                .from("sender@example.com")
+                .to("test@example.com")
+                .subject("Test")
+                .body("Body")
+                .attachment(file)
+                .build()
+
+        then:
+        email.attachments.size() == 1
+        !email.attachments[0].isInline()
     }
 
     // BACKWARD COMPATIBILITY TESTS
