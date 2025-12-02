@@ -13,7 +13,7 @@ managed-eclipse-angus = "2.0.5"
 managed-mailjet = "5.2.6"
 managed-mailtrap = "1.1.0"
 
-poi-ooxml = "5.4.1"
+poi-ooxml = "5.5.1"
 kotlin = "1.9.24"
 spock = "2.3-groovy-4.0"
 
