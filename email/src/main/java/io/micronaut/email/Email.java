@@ -196,8 +196,7 @@ public final class Email implements Recipients {
      *
      * @return Builder
      */
-    @NonNull
-    public static Email.Builder builder() {
+    public static Email.@NonNull Builder builder() {
         return new Builder();
     }
 
@@ -234,8 +233,7 @@ public final class Email implements Recipients {
          * @param from contact sending the email
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder from(@NonNull String from) {
+        public Email.@NonNull Builder from(@NonNull String from) {
             this.from = new Contact(from);
             return this;
         }
@@ -245,8 +243,7 @@ public final class Email implements Recipients {
          * @param from contact sending the email
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder from(@NonNull Contact from) {
+        public Email.@NonNull Builder from(@NonNull Contact from) {
             this.from = from;
             return this;
         }
@@ -256,8 +253,7 @@ public final class Email implements Recipients {
          * @param replyTo Reply to contact
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder replyTo(@NonNull String replyTo) {
+        public Email.@NonNull Builder replyTo(@NonNull String replyTo) {
             addReplyTo(new Contact(replyTo));
             return this;
         }
@@ -267,8 +263,7 @@ public final class Email implements Recipients {
          * @param replyTo Reply to contact
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder replyTo(@NonNull Contact replyTo) {
+        public Email.@NonNull Builder replyTo(@NonNull Contact replyTo) {
             addReplyTo(replyTo);
             return this;
         }
@@ -285,8 +280,7 @@ public final class Email implements Recipients {
          * @param to Recipients to
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder to(@NonNull String to) {
+        public Email.@NonNull Builder to(@NonNull String to) {
             if (this.to == null) {
                 this.to = new ArrayList<>();
             }
@@ -299,8 +293,7 @@ public final class Email implements Recipients {
          * @param to Recipients to
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder to(@NonNull Contact to) {
+        public Email.@NonNull Builder to(@NonNull Contact to) {
             addTo(to);
             return this;
         }
@@ -317,8 +310,7 @@ public final class Email implements Recipients {
          * @param cc carbon copy recipient.
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder cc(@NonNull Contact cc) {
+        public Email.@NonNull Builder cc(@NonNull Contact cc) {
             addCc(cc);
             return this;
         }
@@ -335,8 +327,7 @@ public final class Email implements Recipients {
          * @param cc carbon copy recipient.
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder cc(@NonNull String cc) {
+        public Email.@NonNull Builder cc(@NonNull String cc) {
             if (this.cc == null) {
                 this.cc = new ArrayList<>();
             }
@@ -349,8 +340,7 @@ public final class Email implements Recipients {
          * @param bcc blind carbon copy recipient.
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder bcc(@NonNull Contact bcc) {
+        public Email.@NonNull Builder bcc(@NonNull Contact bcc) {
             addBcc(bcc);
             return this;
         }
@@ -367,8 +357,7 @@ public final class Email implements Recipients {
          * @param bcc blind carbon copy recipient.
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder bcc(@NonNull String bcc) {
+        public Email.@NonNull Builder bcc(@NonNull String bcc) {
             if (this.bcc == null) {
                 this.bcc = new ArrayList<>();
             }
@@ -381,8 +370,7 @@ public final class Email implements Recipients {
          * @param subject Email subject
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder subject(@NonNull String subject) {
+        public Email.@NonNull Builder subject(@NonNull String subject) {
             this.subject = subject;
             return this;
         }
@@ -392,8 +380,7 @@ public final class Email implements Recipients {
          * @param attachment Email attachment
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder attachment(@NonNull Attachment attachment) {
+        public Email.@NonNull Builder attachment(@NonNull Attachment attachment) {
             if (this.attachments == null) {
                 attachments = new ArrayList<>();
             }
@@ -406,8 +393,7 @@ public final class Email implements Recipients {
          * @param attachment attachment builder consumer
          * @return Email Builder
          */
-        @NonNull
-        public Email.Builder attachment(@NonNull Consumer<Attachment.Builder> attachment) {
+        public Email.@NonNull Builder attachment(@NonNull Consumer<Attachment.Builder> attachment) {
             Attachment.Builder builder = Attachment.builder();
             attachment.accept(builder);
             return attachment(builder.build());

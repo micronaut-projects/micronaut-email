@@ -55,7 +55,7 @@ public interface TemplateBodyDecorator extends EmailDecorator {
                                                  @Nullable Object data);
 
     @Override
-    default void decorate(@NonNull @NotNull Email.Builder emailBuilder) {
+    default void decorate(@NotNull Email.@NonNull Builder emailBuilder) {
         Optional<Body> optionalBody = emailBuilder.getBody();
         if (optionalBody.isPresent()) {
             Body body = optionalBody.get();

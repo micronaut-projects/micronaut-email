@@ -33,5 +33,5 @@ public interface EmailDecorator extends Ordered {
      * Populates an email.
      * @param emailBuilder Email Builder
      */
-    void decorate(@NonNull @NotNull Email.Builder emailBuilder);
+    void decorate(@NotNull Email.@NonNull Builder emailBuilder);
 }

@@ -123,8 +123,7 @@ public class SendgridEmailComposer implements EmailComposer<Request> {
         return Optional.of(replyTo);
     }
 
-    @NonNull
-    private com.sendgrid.helpers.mail.objects.Email createForm(@NonNull Email email) {
+    private com.sendgrid.helpers.mail.objects.@NonNull Email createForm(@NonNull Email email) {
         com.sendgrid.helpers.mail.objects.Email from = new com.sendgrid.helpers.mail.objects.Email();
         from.setEmail(email.getFrom().getEmail());
         if (email.getFrom().getName() != null) {

@@ -35,7 +35,7 @@ public interface EmailSender<I, O> extends Named {
      * @throws EmailException Wrapper of any exception thrown while sending email
      */
     @NonNull
-    default O send(@NonNull @NotNull Email.Builder emailBuilder) throws EmailException {
+    default O send(@NotNull Email.@NonNull Builder emailBuilder) throws EmailException {
         return send(emailBuilder, i -> { });
     }
 
@@ -47,6 +47,6 @@ public interface EmailSender<I, O> extends Named {
      * @throws EmailException Wrapper of any exception thrown while sending email
      */
     @NonNull
-    O send(@NonNull @NotNull Email.Builder emailBuilder,
+    O send(@NotNull Email.@NonNull Builder emailBuilder,
            @NonNull @NotNull Consumer<I> emailRequest) throws EmailException;
 }
