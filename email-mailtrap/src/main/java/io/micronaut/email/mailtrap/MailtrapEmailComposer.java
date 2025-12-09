@@ -38,7 +38,7 @@ import java.util.Base64;
 @Internal
 class MailtrapEmailComposer implements EmailComposer<MailtrapMail.MailtrapMailBuilder> {
     @Override
-    public @NonNull MailtrapMail.MailtrapMailBuilder compose(@NonNull Email email) throws EmailException {
+    public MailtrapMail.@NonNull MailtrapMailBuilder compose(@NonNull Email email) throws EmailException {
         var builder = MailtrapMail.builder()
             .subject(email.getSubject())
             .from(address(email.getFrom()));

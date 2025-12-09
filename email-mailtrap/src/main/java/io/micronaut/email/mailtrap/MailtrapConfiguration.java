@@ -38,6 +38,5 @@ public interface MailtrapConfiguration extends Toggleable {
      *
      * @return Mailtrap configuration.
      */
-    @NonNull
-    MailtrapConfig.Builder getConfig();
+    MailtrapConfig.@NonNull Builder getConfig();
 }

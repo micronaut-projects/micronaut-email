@@ -36,7 +36,7 @@ class MailtrapConfigurationProperties implements MailtrapConfiguration {
     private final MailtrapConfig.Builder config = new MailtrapConfig.Builder();
 
     @Override
-    public @NonNull MailtrapConfig.Builder getConfig() {
+    public MailtrapConfig.@NonNull Builder getConfig() {
         return config;
     }
 

@@ -48,7 +48,7 @@ public class DefaultEmailSender<I, O> implements EmailSender<I, O> {
 
     @Override
     @NonNull
-    public O send(@NonNull @NotNull Email.Builder emailBuilder, @NonNull @NotNull Consumer<I> emailRequest) throws EmailException {
+    public O send(@NotNull Email.@NonNull Builder emailBuilder, @NonNull @NotNull Consumer<I> emailRequest) throws EmailException {
         for (EmailDecorator decorator : decorators) {
             decorator.decorate(emailBuilder);
         }

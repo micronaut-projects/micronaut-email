@@ -106,8 +106,7 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
         return requestBuilder.build();
     }
 
-    @NonNull
-    private Destination.Builder destinationBuilder(@NonNull Email email) {
+    private Destination.@NonNull Builder destinationBuilder(@NonNull Email email) {
         Destination.Builder destinationBuilder = Destination.builder();
         if (email.getTo() != null) {
             destinationBuilder.toAddresses(email.getTo().stream().map(Contact::getEmail).toList());
@@ -121,16 +120,14 @@ public class SesEmailComposer implements EmailComposer<SesRequest> {
         return destinationBuilder;
     }
 
-    @NonNull
-    private software.amazon.awssdk.services.ses.model.Message message(@NonNull Email email) {
+    private software.amazon.awssdk.services.ses.model.@NonNull Message message(@NonNull Email email) {
         return software.amazon.awssdk.services.ses.model.Message.builder()
                 .subject(Content.builder().data(email.getSubject()).build())
                 .body(bodyBuilder(email).build())
                 .build();
     }
 
-    @NonNull
-    private Body.Builder bodyBuilder(@NonNull Email email) {
+    private Body.@NonNull Builder bodyBuilder(@NonNull Email email) {
         Body.Builder bodyBuilder = Body.builder();
         io.micronaut.email.Body body = email.getBody();
         if (body != null) {

@@ -39,7 +39,7 @@ public interface AsyncEmailSender<I, O> extends Named {
      */
     @NonNull
     @SingleResult
-    default Publisher<O> sendAsync(@NonNull @NotNull Email.Builder emailBuilder) throws EmailException {
+    default Publisher<O> sendAsync(@NotNull Email.@NonNull Builder emailBuilder) throws EmailException {
         return sendAsync(emailBuilder, i -> { });
     }
 
@@ -52,6 +52,6 @@ public interface AsyncEmailSender<I, O> extends Named {
      */
     @NonNull
     @SingleResult
-    Publisher<O> sendAsync(@NonNull @NotNull Email.Builder emailBuilder,
+    Publisher<O> sendAsync(@NotNull Email.@NonNull Builder emailBuilder,
                            @NonNull @NotNull Consumer<I> emailRequest) throws EmailException;
 }
