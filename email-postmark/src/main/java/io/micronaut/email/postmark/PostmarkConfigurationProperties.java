@@ -17,7 +17,7 @@ package io.micronaut.email.postmark;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.TrackLinks;
 
 import jakarta.validation.constraints.NotBlank;

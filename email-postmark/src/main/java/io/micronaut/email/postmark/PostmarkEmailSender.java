@@ -21,7 +21,7 @@ import com.postmarkapp.postmark.client.data.model.message.Message;
 import com.postmarkapp.postmark.client.data.model.message.MessageResponse;
 import com.postmarkapp.postmark.client.exception.PostmarkException;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.AbstractTransactionalEmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailException;

@@ -17,7 +17,7 @@ package io.micronaut.email.mailjet;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import jakarta.validation.constraints.NotBlank;
 
 /**

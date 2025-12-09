@@ -15,7 +15,7 @@
  */
 package io.micronaut.email;
 
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.core.order.Ordered;
 
 import jakarta.validation.constraints.NotNull;

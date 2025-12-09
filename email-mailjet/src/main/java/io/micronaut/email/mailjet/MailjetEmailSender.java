@@ -21,7 +21,7 @@ import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.AsyncTransactionalEmailSender;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailException;

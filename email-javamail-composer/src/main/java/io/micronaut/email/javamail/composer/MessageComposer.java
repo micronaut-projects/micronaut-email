@@ -16,7 +16,7 @@
 package io.micronaut.email.javamail.composer;
 
 import io.micronaut.context.annotation.DefaultImplementation;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.email.Email;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
