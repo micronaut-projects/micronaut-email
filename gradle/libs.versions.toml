@@ -3,7 +3,6 @@ micronaut-gradle-plugin = "4.6.1"
 micronaut = "5.0.0-M2"
 
 managed-postmark = "1.11.1"
-commons-io="2.21.0"
 managed-sendgrid = "4.10.3"
 managed-jakarta-mail = "2.1.5"
 managed-eclipse-angus = "2.0.5"
@@ -41,7 +40,6 @@ micronaut-views = {module = "io.micronaut.views:micronaut-views-bom", version.re
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi-ooxml" }
 ses = { module = "software.amazon.awssdk:ses" }
-commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
 
 # Plugins
 micronaut-gradle-plugin = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref="micronaut-gradle-plugin" }
