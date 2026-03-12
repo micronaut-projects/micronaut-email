@@ -12,5 +12,5 @@ dependencies {
 }
 micronautBuild {
     binaryCompatibility.enabled = false
-    testFramework = io.micronaut.build.TestFramework.JUNIT5
+    testFramework = io.micronaut.build.TestFramework.JUNIT6
 }
