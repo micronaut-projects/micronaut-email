@@ -14,7 +14,7 @@ dependencies {
     testImplementation(projects.testSuiteUtils)
 
     constraints {
-        runtimeOnly("org.apache.tika:tika-core:3.2.3"){
+        runtimeOnly("org.apache.tika:tika-core:3.3.0"){
             because("Older versions have security vulnerabilities")
         }
     }
