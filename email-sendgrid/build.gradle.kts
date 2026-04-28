@@ -6,7 +6,7 @@ dependencies {
     api(libs.managed.sendgrid.java)
     // sendgrid depends on com.fasterxml.jackson.core/jackson-core@2.14.1 which contains a 1 vulnerability
     // https://ossindex.sonatype.org/vulnerability/CVE-2025-52999?component-type=maven&component-name=com.fasterxml.jackson.core%2Fjackson-core
-    implementation("com.fasterxml.jackson.core:jackson-core:2.15.0") // postmark depends on jackson-core  version
+    implementation("com.fasterxml.jackson.core:jackson-core:2.21.3") // postmark depends on jackson-core  version
 
     api(projects.micronautEmail)
     implementation(mnReactor.micronaut.reactor)
