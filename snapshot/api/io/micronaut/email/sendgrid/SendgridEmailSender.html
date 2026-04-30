@@ -82,7 +82,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1 title="Class SendgridEmailSender" class="title">Class SendgridEmailSender</h1>
 </div>
-<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance">io.micronaut.email.sendgrid.SendgridEmailSender</div>
 </div>
 <section class="class-description" id="class-description">
@@ -96,7 +96,7 @@ loadScripts(document, 'script');</script>
 @Named("sendgrid")
 @Singleton
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">SendgridEmailSender</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
+<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../TransactionalEmailSender.html" title="interface in io.micronaut.email">TransactionalEmailSender</a>&lt;com.sendgrid.Request, com.sendgrid.Response&gt;, <a href="../AsyncTransactionalEmailSender.html" title="interface in io.micronaut.email">AsyncTransactionalEmailSender</a>&lt;com.sendgrid.Request, com.sendgrid.Response&gt;</span></div>
 <div class="block"><a href="https://sendgrid.com">SendGrid</a> implemenstation of <a href="../TransactionalEmailSender.html" title="interface in io.micronaut.email"><code>TransactionalEmailSender</code></a> and <a href="../AsyncTransactionalEmailSender.html" title="interface in io.micronaut.email"><code>AsyncTransactionalEmailSender</code></a> .</div>
 <dl class="notes">
@@ -118,7 +118,7 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#NAME" class="member-name-link">NAME</a></code></div>
 <div class="col-last even-row-color">
 <div class="block"><a href="SendgridEmailSender.html" title="class in io.micronaut.email.sendgrid"><code>SendgridEmailSender</code></a> name.</div>
@@ -156,18 +156,18 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getName()" class="member-name-link">getName</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull com.sendgrid.Response</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#send(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">send</a><wbr>(@NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
- @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</code></div>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends an email.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NonNull org.reactivestreams.Publisher<wbr>&lt;com.sendgrid.Response&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sendAsync(io.micronaut.email.Email,java.util.function.Consumer)" class="member-name-link">sendAsync</a><wbr>(@NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
- @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</code></div>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends an email.</div>
 </div>
@@ -175,8 +175,8 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#method-summary" title="class or interface in java.lang" class="external-link">Object</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#method-summary" title="class or interface in java.lang" class="external-link">Object</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-io.micronaut.email.AsyncTransactionalEmailSender">Methods inherited from interface&nbsp;<a href="../AsyncTransactionalEmailSender.html#method-summary" title="interface in io.micronaut.email">AsyncTransactionalEmailSender</a></h3>
 <code><a href="../AsyncTransactionalEmailSender.html#sendAsync(io.micronaut.email.Email)" title="sendAsync(Email)">sendAsync</a></code></div>
@@ -198,7 +198,7 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <section class="detail" id="NAME">
 <h3>NAME</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">NAME</span></div>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">NAME</span></div>
 <div class="block"><a href="SendgridEmailSender.html" title="class in io.micronaut.email.sendgrid"><code>SendgridEmailSender</code></a> name.</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -238,8 +238,8 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <section class="detail" id="&lt;init&gt;(io.micronaut.email.sendgrid.SendGridConfiguration,io.micronaut.email.sendgrid.SendgridEmailComposer)">
 <h3>SendgridEmailSender</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Deprecated.html#forRemoval()" title="class or interface in java.lang" class="external-link">forRemoval</a>=true,
-            <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Deprecated.html#since()" title="class or interface in java.lang" class="external-link">since</a>="2.10.1")
+<div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#forRemoval()" title="class or interface in java.lang" class="external-link">forRemoval</a>=true,
+            <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#since()" title="class or interface in java.lang" class="external-link">since</a>="2.10.1")
 </span><span class="modifiers">public</span>&nbsp;<span class="element-name">SendgridEmailSender</span><wbr><span class="parameters">(<a href="SendGridConfiguration.html" title="interface in io.micronaut.email.sendgrid">SendGridConfiguration</a>&nbsp;sendGridConfiguration,
  <a href="SendgridEmailComposer.html" title="class in io.micronaut.email.sendgrid">SendgridEmailComposer</a>&nbsp;sendgridEmailComposer)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div>
@@ -263,7 +263,7 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <section class="detail" id="getName()">
 <h3>getName</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getName</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getName</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>getName</code>&nbsp;in interface&nbsp;<code>io.micronaut.core.naming.Named</code></dd>
@@ -278,7 +278,7 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull com.sendgrid.Response</span>&nbsp;<span class="element-name">send</span><wbr><span class="parameters">(@NotNull @Valid
  @NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
  @NotNull
- @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</span>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</span>
                                     throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../TransactionalEmailSender.html#send(io.micronaut.email.Email,java.util.function.Consumer)">TransactionalEmailSender</a></code></span></div>
 <div class="block">Sends an email.</div>
@@ -303,7 +303,7 @@ implements <a href="../TransactionalEmailSender.html" title="interface in io.mic
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">@NonNull org.reactivestreams.Publisher&lt;com.sendgrid.Response&gt;</span>&nbsp;<span class="element-name">sendAsync</span><wbr><span class="parameters">(@NotNull @Valid
  @NonNull @NotNull @Valid <a href="../Email.html" title="class in io.micronaut.email">Email</a>&nbsp;email,
  @NotNull
- @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</span>
+ @NonNull @NotNull <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;com.sendgrid.Request&gt;&nbsp;emailRequest)</span>
                                                                         throws <span class="exceptions"><a href="../EmailException.html" title="class in io.micronaut.email">EmailException</a></span></div>
 <div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../AsyncTransactionalEmailSender.html#sendAsync(io.micronaut.email.Email,java.util.function.Consumer)">AsyncTransactionalEmailSender</a></code></span></div>
 <div class="block">Sends an email.</div>
