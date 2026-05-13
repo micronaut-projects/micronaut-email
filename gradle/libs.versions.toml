@@ -1,6 +1,6 @@
 [versions]
 micronaut-gradle-plugin = "5.0.0-M1"
-micronaut = "5.0.0-RC2"
+micronaut = "5.0.0"
 
 managed-postmark = "1.13.0"
 managed-sendgrid = "4.10.3"
