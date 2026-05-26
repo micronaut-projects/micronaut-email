@@ -29,7 +29,7 @@ public interface SendGridConfiguration extends Toggleable {
 
     /**
      *
-     * @return The API (Application Programming Interface) keys to authenticate access to SendGrid service.
+     * @return The API key to authenticate access to the SendGrid service.
      */
     @NonNull
     String getApiKey();

@@ -6,9 +6,14 @@ In addition, you will need to provide a runtime dependency on an implementation 
 
 dependency:angus-mail[groupId="org.eclipse.angus",scope="runtime"]
 
-You need to provide beans of type api:io.micronaut.email.javamail.sender.MailPropertiesProvider[] and api:io.micronaut.email.javamail.sender.SessionProvider[] to match your configuration.
+Micronaut Email can create beans of type api:io.micronaut.email.javamail.sender.MailPropertiesProvider[] and api:io.micronaut.email.javamail.sender.SessionProvider[] from `javamail.properties`.
+Configure the Jakarta Mail properties required by your transport, such as SMTP host, port, and TLS settings:
 
-### Authentication via configuration
+include::{includedir}configurationProperties/io.micronaut.email.javamail.sender.JavaMailConfigurationProperties.adoc[]
+
+Alternatively, provide your own api:io.micronaut.email.javamail.sender.MailPropertiesProvider[] or api:io.micronaut.email.javamail.sender.SessionProvider[] beans when you need complete control over the Jakarta Mail `Session`.
+
+== Authentication via configuration
 
 As an alternative to providing your own api:io.micronaut.email.javamail.sender.SessionProvider[] for authentication, you can configure password based authentication via configuration:
 
@@ -19,3 +24,5 @@ javamail:
     username: 'my.username'
     password: 'my.password'
 ----
+
+include::{includedir}configurationProperties/io.micronaut.email.javamail.sender.authentication.JavaMailAuthenticationConfigurationProperties.adoc[]

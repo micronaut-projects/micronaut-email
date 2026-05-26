@@ -61,7 +61,7 @@ public class SendGridConfigurationProperties implements SendGridConfiguration {
 
     /**
      *
-     * @return The API (Application Programming Interface) keys to authenticate access to SendGrid service.
+     * @return The API key to authenticate access to the SendGrid service.
      */
     @Override
     @NonNull
@@ -71,7 +71,7 @@ public class SendGridConfigurationProperties implements SendGridConfiguration {
 
     /**
      *
-     * @param apiKey The API (Application Programming Interface) keys to authenticate access to SendGrid service.
+     * @param apiKey The API key to authenticate access to the SendGrid service.
      */
     public void setApiKey(@NonNull String apiKey) {
         this.apiKey = apiKey;
