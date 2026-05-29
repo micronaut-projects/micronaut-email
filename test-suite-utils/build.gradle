@@ -8,6 +8,7 @@ dependencies {
     api(libs.managed.jakarta.mail)
     api(libs.poi.ooxml)
     testRuntimeOnly(mnTest.junit.platform.launcher)
+    api(mnTestResources.testcontainers.core)
 }
 
 spotless {

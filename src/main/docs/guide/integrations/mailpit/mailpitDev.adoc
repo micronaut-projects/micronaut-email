@@ -1,0 +1,41 @@
+Given such as class, which is transaction email provider agnostic:
+
+snippet::io.micronaut.email.mailpit.client.OrderService[]
+
+You could be sending emails in production with <<ses, Amazon SES>>, <<postmark, Postmark>>, <<sendgrid, SendGrid>>, <<mailjet, Mailjet>>
+and you may wish to send emails while developing the application to Mailpit using <<javamail, Jakarta Mail>>.
+
+First, https://mailpit.axllent.org/docs/install/[run Mailpit]. For example, you can run it with Docker:
+
+[source,bash]
+----
+docker run --rm --name mailpit -p 1025:1025 -p 8025:8025 axllent/mailpit
+----
+
+You could add as https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/#_development_only_dependencies[Development Only dependencies],
+the Jakarta Mail integration:
+
+dependency:micronaut-email-javamail[groupId="io.micronaut.email", scope="developmentOnly"]
+
+And a runtime dependency on a Jakarta Mail implementation:
+
+dependency:angus-mail[groupId="org.eclipse.angus",scope="developmentOnly"]
+
+Then, if you run with the `dev` environment as the https://docs.micronaut.io/latest/guide/#defaultEnvironment[default environment],
+add a development only configuration file (e.g. `application-dev.properties`) configuring Jakarta Mail to send emails through Mailpit:
+
+[configuration]
+----
+ses:
+  enabled: false
+postmark:
+  enabled: false
+sendgrid:
+  enabled: false
+mailjet:
+  enabled: false
+javamail:
+  properties:
+    mail.smtp.host: localhost
+    mail.smtp.port: 1025
+----

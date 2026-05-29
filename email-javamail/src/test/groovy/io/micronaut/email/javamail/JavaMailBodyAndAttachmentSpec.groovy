@@ -1,57 +1,46 @@
 package io.micronaut.email.javamail
 
-import com.fasterxml.jackson.annotation.JsonProperty
-import groovy.transform.ToString
 import io.micronaut.context.ApplicationContext
-import io.micronaut.context.annotation.Requires
-import io.micronaut.core.annotation.Introspected
 import io.micronaut.email.Attachment
 import io.micronaut.email.Contact
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
+import io.micronaut.email.mailpit.client.MailpitClient
+import io.micronaut.email.mailpit.client.model.MailpitAddress
+import io.micronaut.email.mailpit.client.model.MailpitDeleteMessagesRequest
+import io.micronaut.email.mailpit.client.model.MailpitMessage
+import io.micronaut.email.mailpit.client.model.MailpitMessageSummary
+import io.micronaut.email.test.Mailpit
 import io.micronaut.email.test.SpreadsheetUtils
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.MediaType
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.client.annotation.Client
+import jakarta.mail.Session
+import jakarta.mail.internet.MimeMessage
 import jakarta.mail.internet.MimeMultipart
-import jakarta.mail.util.ByteArrayDataSource
 import org.testcontainers.DockerClientFactory
-import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.wait.strategy.Wait
-import org.testcontainers.utility.DockerImageName
 import spock.lang.AutoCleanup
-import spock.lang.Shared
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 class JavaMailBodyAndAttachmentSpec extends Specification {
-
-    @Shared
-    @AutoCleanup
-    GenericContainer<?> mailHog = new GenericContainer<>(DockerImageName.parse("mailhog/mailhog"))
-            .withExposedPorts(1025, 8025)
-            .waitingFor(Wait.forHttp("/").forPort(8025))
-
     @AutoCleanup
     ApplicationContext applicationContext
 
     private PollingConditions conditions = new PollingConditions()
 
     def setup() {
-        mailHog.start()
         applicationContext = ApplicationContext.run([
                 "spec.name"          : "JavaxMailEmailSenderAttachmentSpec",
-                "mailhog.uri"        : "http://${mailHog.getHost()}:${mailHog.getMappedPort(8025)}/",
-                'javamail.properties': ['mail.smtp.host': mailHog.getHost(),
-                                        "mail.smtp.port": mailHog.getMappedPort(1025)]])
+                'javamail.properties': Mailpit.getJavaMailProperties(),
+        ] + Mailpit.getProperties())
+        applicationContext.getBean(MailpitClient).deleteMessages(new MailpitDeleteMessagesRequest([]))
     }
 
     @spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })
     def "can send an email from #desc contact details"(Object from, String expectedFrom, String desc) {
         given:
         EmailSender emailSender = applicationContext.getBean(EmailSender)
-        MailhogClient client = applicationContext.getBean(MailhogClient)
+        MailpitClient client = applicationContext.getBean(MailpitClient)
 
         and:
         Contact namedContact = new Contact("receiver@here.com", "Kif")
@@ -77,12 +66,11 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
 
         then:
         conditions.eventually {
-            with(client.messages().items[0]) {
-                content.headers.Subject == subject
-                content.headers.From == expectedFrom
-                content.headers.To == 'Kif <receiver@here.com>, noname@here.com, someone@here.com'
-                content.headers.Cc == 'noname@here.com, someone@here.com, Kif <receiver@here.com>'
-            }
+            MailpitMessage message = client.getMessage(client.listMessages(0, 1).messages()[0].id())
+            message.subject() == subject
+            formatAddress(message.from()) == expectedFrom
+            message.to().collect { formatAddress(it) }.join(', ') == 'Kif <receiver@here.com>, noname@here.com, someone@here.com'
+            message.cc().collect { formatAddress(it) }.join(', ') == 'noname@here.com, someone@here.com, Kif <receiver@here.com>'
         }
 
         where:
@@ -96,7 +84,7 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
     def "Can send an email with alternate bodies and attachments"() {
         given:
         EmailSender emailSender = applicationContext.getBean(EmailSender)
-        MailhogClient client = applicationContext.getBean(MailhogClient)
+        MailpitClient client = applicationContext.getBean(MailpitClient)
 
         and:
         Contact from = new Contact("sender@here.com", "Zapp Brannigan")
@@ -120,27 +108,31 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
 
         then:
         conditions.eventually {
-            with(client.messages().items[0]) {
-                content.headers.Subject == subject
-                content.headers.From == "$from.name <$from.email>"
-                content.headers.To == "$to.name <$to.email>"
+            MailpitMessageSummary summary = client.listMessages(0, 1).messages()[0]
+            MailpitMessage message = client.getMessage(summary.id())
+            message.subject() == subject
+            formatAddress(message.from()) == "$from.name <$from.email>"
+            message.to().collect { formatAddress(it) }.join(', ') == "$to.name <$to.email>"
+            message.text() == "Hello world"
+            message.html() == "<h1>Hola Mundo</h1>"
+            message.attachments().collect { it.fileName() } == [filename, filename2]
+            message.attachments().collect { it.contentType() } == [MediaType.MICROSOFT_EXCEL_OPEN_XML, MediaType.APPLICATION_OCTET_STREAM]
 
-                with(content.decoded()) {
-                    // Alternative body messages come first
-                    with(getBodyPart(0)) {
-                        contentType.startsWith('multipart/alternative')
-                        content.parts.find { it.contentType.startsWith(MediaType.TEXT_PLAIN) }.content == text
-                        content.parts.find { it.contentType.startsWith(MediaType.TEXT_HTML) }.content == html
-                    }
-                    // Then the attachment(s)
-                    with(getBodyPart(1)) {
-                        contentType.startsWith(MediaType.MICROSOFT_EXCEL_OPEN_XML)
-                        getHeader(HttpHeaders.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename"
-                    }
-                    with(getBodyPart(2)) {
-                        contentType.startsWith(MediaType.APPLICATION_OCTET_STREAM)
-                        getHeader(HttpHeaders.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename2"
-                    }
+            with(decodeRawMessage(client.getRawMessage(summary.id()))) {
+                // Alternative body messages come first
+                with(getBodyPart(0)) {
+                    contentType.startsWith('multipart/alternative')
+                    content.parts.find { it.contentType.startsWith(MediaType.TEXT_PLAIN) }.content == text
+                    content.parts.find { it.contentType.startsWith(MediaType.TEXT_HTML) }.content == html
+                }
+                // Then the attachment(s)
+                with(getBodyPart(1)) {
+                    contentType.startsWith(MediaType.MICROSOFT_EXCEL_OPEN_XML)
+                    getHeader(HttpHeaders.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename"
+                }
+                with(getBodyPart(2)) {
+                    contentType.startsWith(MediaType.APPLICATION_OCTET_STREAM)
+                    getHeader(HttpHeaders.CONTENT_DISPOSITION.toString()).head() == "attachment; filename=$filename2"
                 }
             }
         }
@@ -154,38 +146,14 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
                 .build()
     }
 
-    @Requires(property = "spec.name", value = "JavaxMailEmailSenderAttachmentSpec")
-    @Client('${mailhog.uri}')
-    static interface MailhogClient {
-
-        @Get("/api/v2/messages")
-        MessageResponse messages()
+    private static MimeMultipart decodeRawMessage(String rawMessage) {
+        new MimeMessage(
+                Session.getDefaultInstance(new Properties()),
+                new ByteArrayInputStream(rawMessage.getBytes('UTF-8'))
+        ).content as MimeMultipart
     }
 
-    @Introspected
-    @ToString
-    static class MessageResponse {
-        List<Item> items
-    }
-
-    @Introspected
-    @ToString
-    static class Item {
-        @JsonProperty("Content")
-        Content content
-    }
-
-    @Introspected
-    @ToString
-    static class Content {
-        @JsonProperty("Headers")
-        Map<String, String> headers
-
-        @JsonProperty("Body")
-        String body
-
-        MimeMultipart decoded() {
-            new MimeMultipart(new ByteArrayDataSource(body, headers[HttpHeaders.CONTENT_TYPE]))
-        }
+    private static String formatAddress(MailpitAddress address) {
+        address.name() ? "${address.name()} <${address.address()}>" : address.address()
     }
 }
