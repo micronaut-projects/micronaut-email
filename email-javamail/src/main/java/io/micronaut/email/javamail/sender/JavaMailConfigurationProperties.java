@@ -49,9 +49,9 @@ public class JavaMailConfigurationProperties implements JavaMailConfiguration {
     }
 
     /**
-     * If Mailjet integration is enabled. Default value: `{@value #DEFAULT_ENABLED}`
+     * If Jakarta Mail integration is enabled. Default value: `{@value #DEFAULT_ENABLED}`
      *
-     * @param enabled True if security is enabled
+     * @param enabled True if Jakarta Mail integration is enabled
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
