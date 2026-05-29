@@ -165,28 +165,32 @@
 
 
 <div class="paragraph">
-<p>This section documents breaking changes between Micronaut EMail versions:</p>
+<p>This section documents breaking changes between Micronaut Email versions:</p>
 </div>
-<div class="sect2">
-<h3 id="_micronaut_email_3_0_0">Micronaut Email 3.0.0</h3>
+<div class="sect1">
+<h2 id="_micronaut_email_3_0_0">Micronaut Email 3.0.0</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>The constructor <code>io.micronaut.email.Attachment(String, String, byte[], String)</code> deprecated previously has been removed. Use <code>Attachment(String, String, byte[], String, String instead)</code>.</p>
+<p>The previously deprecated constructor <code>io.micronaut.email.Attachment(String, String, byte[], String)</code> has been removed. Use <code>Attachment(String, String, byte[], String, String)</code> instead.</p>
 </li>
 <li>
-<p>the class <code>io.micronaut.email.validation.AnyRecipientConstraintValidationFactory</code> deprecated previously has been removed. The <code>@Factory</code> annotation was intentionally removed. Thus, this class does nothing. <code>AnyRecipientValidator</code> is used instead.</p>
+<p>The previously deprecated class <code>io.micronaut.email.validation.AnyRecipientConstraintValidationFactory</code> has been removed. The <code>@Factory</code> annotation was intentionally removed. Thus, this class does nothing. <code>AnyRecipientValidator</code> is used instead.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_micronaut_email_2_0_0">Micronaut Email 2.0.0</h3>
+</div>
+<div class="sect1">
+<h2 id="_micronaut_email_2_0_0">Micronaut Email 2.0.0</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Micronaut Email 2.0.0 migrates to <a href="https://jakartaee.github.io/mail-api/">Jakarta Mail</a> package namespaces, from <code>javax.mail</code> to <code>jakarta.mail</code>. Moreover, it uses transitive dependency <code>jakarta.mail:jakarta.mail-api</code> instead of <code>com.sun.mail:javax.mail</code>. Jakarta Mail also separates API and Implementation. Previous implementation sources are now part of the <a href="https://eclipse-ee4j.github.io/angus-mail/">Eclipse Angus</a> project, the direct successor to JavaMail/JakartaMail. In addition to <code>jakarta-mail-api</code> an additional dependency on <code>org.eclipse.angus:angus-mail</code> is required. Note that for Eclipse Angus, module and package prefixes changed from <code>com.sun.mail</code> to <code>org.eclipse.angus.mail</code>.</p>
 </div>
 <div class="paragraph">
 <p>This release also updates the ActiveCampaign Postmark library from 1.8.x to 1.9.0. Although it&#8217;s a minor revision otherwise it refactors package names and the dependency groupId from <code>com.wildbit.java</code> to <code>com.postmarkapp</code>.</p>
+</div>
 </div>
 </div>
 
@@ -1032,7 +1036,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 </p>
 </div>
 <div class="paragraph">
-<p>You need to supply your SendGrid&#8217;s <em>API key and secret</em> via configuration:</p>
+<p>You need to supply your SendGrid <em>API key</em> via configuration:</p>
 </div>
 <a id="io.micronaut.email.sendgrid.SendGridConfigurationProperties" href="#io.micronaut.email.sendgrid.SendGridConfigurationProperties">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
@@ -1061,7 +1065,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendgrid.api-key</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The API (Application Programming Interface) keys to authenticate access to SendGrid service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The API key to authenticate access to the SendGrid service.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1313,10 +1317,47 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 </p>
 </div>
 <div class="paragraph">
-<p>You need to provide beans of type <a href="../api/io/micronaut/email/javamail/sender/MailPropertiesProvider.html">MailPropertiesProvider</a> and <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> to match your configuration.</p>
+<p>Micronaut Email can create beans of type <a href="../api/io/micronaut/email/javamail/sender/MailPropertiesProvider.html">MailPropertiesProvider</a> and <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> from <code>javamail.properties</code>.
+Configure the Jakarta Mail properties required by your transport, such as SMTP host, port, and TLS settings:</p>
 </div>
-<div class="sect2">
-<h3 id="_authentication_via_configuration">Authentication via configuration</h3>
+<a id="io.micronaut.email.javamail.sender.JavaMailConfigurationProperties" href="#io.micronaut.email.javamail.sender.JavaMailConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/email/javamail/sender/JavaMailConfigurationProperties.html">JavaMailConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If Jakarta Mail integration is enabled. Default value: <code>true</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.properties</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">properties as listed in Appendix A of the JavaMail spec (particularly mail.store.protocol, mail.transport.protocol, mail.host, mail.user, and mail.from).</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Alternatively, provide your own <a href="../api/io/micronaut/email/javamail/sender/MailPropertiesProvider.html">MailPropertiesProvider</a> or <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> beans when you need complete control over the Jakarta Mail <code>Session</code>.</p>
+</div>
+<div class="sect1">
+<h2 id="_authentication_via_configuration">Authentication via configuration</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>As an alternative to providing your own <a href="../api/io/micronaut/email/javamail/sender/SessionProvider.html">SessionProvider</a> for authentication, you can configure password based authentication via configuration:</p>
 </div>
@@ -1379,6 +1420,45 @@ javamail.authentication.password=my.password</code></pre>
 </div>
 </div>
 </div>
+</div>
+<a id="io.micronaut.email.javamail.sender.authentication.JavaMailAuthenticationConfigurationProperties" href="#io.micronaut.email.javamail.sender.authentication.JavaMailAuthenticationConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Configuration Properties for <a href="../api/io/micronaut/email/javamail/sender/authentication/JavaMailAuthenticationConfigurationProperties.html">JavaMailAuthenticationConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If authentication is enabled. Default value: <code>true</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication username.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>javamail.authentication.password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication password.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
