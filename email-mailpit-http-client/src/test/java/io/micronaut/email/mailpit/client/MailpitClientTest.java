@@ -1,6 +1,6 @@
 package io.micronaut.email.mailpit.client;
 
-import io.micronaut.context.ApplicationContext;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.mailpit.client.model.MailpitAttachment;
 import io.micronaut.email.mailpit.client.model.MailpitDeleteMessagesRequest;
 import io.micronaut.email.mailpit.client.model.MailpitMessage;
@@ -15,11 +15,11 @@ import io.micronaut.email.test.Mailpit;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import io.micronaut.test.support.TestPropertyProvider;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.DockerClientFactory;
+import org.junit.jupiter.api.TestInstance;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
@@ -32,40 +32,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MailpitClientTest {
+@MicronautTest(startApplication = false)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class MailpitClientTest implements TestPropertyProvider {
 
     private static final byte[] ATTACHMENT_CONTENT = "attachment content".getBytes(StandardCharsets.UTF_8);
 
-    private GenericContainer<?> mailpit;
-    private ApplicationContext applicationContext;
-    private MailpitClient client;
-
-    @BeforeEach
-    void setUp() {
-        Assumptions.assumeTrue(DockerClientFactory.instance().isDockerAvailable());
-        applicationContext = ApplicationContext.run(Mailpit.getProperties().entrySet()
-            .stream()
-            .collect(Collectors.toMap(
-                Map.Entry::getKey,
-                Map.Entry::getValue
-
-            )));
-        client = applicationContext.getBean(MailpitClient.class);
-        assertEquals("ok", client.deleteMessages(new MailpitDeleteMessagesRequest(List.of())));
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (applicationContext != null) {
-            applicationContext.close();
-        }
-        if (mailpit != null) {
-            mailpit.stop();
-        }
-    }
-
     @Test
-    void canSendInspectTagAndDeleteMessages() {
+    void canSendInspectTagAndDeleteMessages(MailpitClient client) {
         String subject = "Mailpit API Test " + System.nanoTime();
 
         var sendResponse = client.send(new MailpitSendRequest(
@@ -124,5 +98,10 @@ class MailpitClientTest {
         assertEquals("ok", client.deleteTag("Renamed"));
         assertEquals("ok", client.deleteMessages(new MailpitDeleteMessagesRequest(List.of(id))));
         assertEquals(0, client.listMessages(0, 10).total());
+    }
+
+    @Override
+    public @NonNull Map<String, String> getProperties() {
+        return Mailpit.getProperties();
     }
 }
