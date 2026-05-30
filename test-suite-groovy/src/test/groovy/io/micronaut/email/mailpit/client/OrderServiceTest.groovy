@@ -14,6 +14,7 @@ import spock.lang.Specification
 
 @Property(name = "spec.name", value = "OrderServiceTest")
 @Property(name = "micronaut.email.from.email", value = "info@micronaut.io")
+@spock.lang.Requires({ org.testcontainers.DockerClientFactory.instance().isDockerAvailable() })
 @MicronautTest(startApplication = false)
 class OrderServiceTest extends Specification implements TestPropertyProvider {
     @Inject

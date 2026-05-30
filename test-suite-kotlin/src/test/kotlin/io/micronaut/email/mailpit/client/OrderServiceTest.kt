@@ -67,9 +67,12 @@ internal class OrderServiceTest : TestPropertyProvider {
         }
 
         private fun getRunningContainer(): GenericContainer<*> {
-            do {
+            org.junit.jupiter.api.Assumptions.assumeTrue(
+                org.testcontainers.DockerClientFactory.instance().isDockerAvailable()
+            )
+            if (!container.isRunning) {
                 container.start()
-            } while (!container.isRunning)
+            }
             return container
         }
 
