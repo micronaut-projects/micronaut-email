@@ -4,11 +4,9 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
-import java.io.Closeable;
-import java.io.IOException;
 import java.util.Map;
 
-public class Mailpit implements Closeable {
+public class Mailpit {
     private Mailpit() {
     }
 
@@ -43,8 +41,7 @@ public class Mailpit implements Closeable {
             "http://"+ container.getHost() + ":" + container.getMappedPort(8025));
     }
 
-    @Override
-    public void close() throws IOException {
+    public static void close() {
         container.close();
     }
 }
