@@ -21,9 +21,9 @@ public class Mailpit implements Closeable {
     }
 
     private static GenericContainer<?> getRunningContainer() {
-        do {
+        if (!container.isRunning()) {
             container.start();
-        } while (!container.isRunning());
+        }
         return container;
     }
 
