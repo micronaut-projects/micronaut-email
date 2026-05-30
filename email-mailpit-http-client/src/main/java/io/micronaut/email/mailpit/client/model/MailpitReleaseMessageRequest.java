@@ -16,6 +16,7 @@
 package io.micronaut.email.mailpit.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Experimental;
 import io.micronaut.serde.annotation.Serdeable;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
  * @param to Recipient email addresses.
  * @since 3.1.0
  */
+@Experimental
 @Serdeable
 public record MailpitReleaseMessageRequest(
     @JsonProperty("To") List<String> to

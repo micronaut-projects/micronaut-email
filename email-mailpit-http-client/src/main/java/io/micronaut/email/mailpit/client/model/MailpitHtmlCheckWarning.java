@@ -16,6 +16,7 @@
 package io.micronaut.email.mailpit.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Experimental;
 import io.micronaut.serde.annotation.Serdeable;
 import org.jspecify.annotations.Nullable;
 
@@ -37,6 +38,7 @@ import java.util.Map;
  * @param score Warning score.
  * @since 3.1.0
  */
+@Experimental
 @Serdeable
 public record MailpitHtmlCheckWarning(
     @JsonProperty("Slug") @Nullable String slug,

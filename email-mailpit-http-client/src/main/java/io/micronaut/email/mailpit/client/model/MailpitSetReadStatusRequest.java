@@ -16,6 +16,7 @@
 package io.micronaut.email.mailpit.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Experimental;
 import io.micronaut.serde.annotation.Serdeable;
 import org.jspecify.annotations.Nullable;
 
@@ -29,6 +30,7 @@ import java.util.List;
  * @param search Optional search query.
  * @since 3.1.0
  */
+@Experimental
 @Serdeable
 public record MailpitSetReadStatusRequest(
     @JsonProperty("IDs") @Nullable List<String> ids,

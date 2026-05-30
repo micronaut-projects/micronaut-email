@@ -15,6 +15,7 @@
  */
 package io.micronaut.email.mailpit.client;
 
+import io.micronaut.core.annotation.Experimental;
 import io.micronaut.email.mailpit.client.model.MailpitAppInformation;
 import io.micronaut.email.mailpit.client.model.MailpitChaosTriggers;
 import io.micronaut.email.mailpit.client.model.MailpitDeleteMessagesRequest;
@@ -51,6 +52,7 @@ import java.util.Map;
  *
  * @since 3.1.0
  */
+@Experimental
 @Client(id = "mailpit", errorType = String.class)
 public interface MailpitClient {
 

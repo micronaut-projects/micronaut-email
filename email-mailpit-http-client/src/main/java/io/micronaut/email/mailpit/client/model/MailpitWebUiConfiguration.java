@@ -16,6 +16,7 @@
 package io.micronaut.email.mailpit.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Experimental;
 import io.micronaut.serde.annotation.Serdeable;
 import org.jspecify.annotations.Nullable;
 
@@ -30,6 +31,7 @@ import org.jspecify.annotations.Nullable;
  * @param hideDeleteAllButton Whether the delete all button is hidden.
  * @since 3.1.0
  */
+@Experimental
 @Serdeable
 public record MailpitWebUiConfiguration(
     @JsonProperty("Label") @Nullable String label,

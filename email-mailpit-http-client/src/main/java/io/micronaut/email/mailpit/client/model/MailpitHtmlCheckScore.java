@@ -16,6 +16,7 @@
 package io.micronaut.email.mailpit.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Experimental;
 import io.micronaut.serde.annotation.Serdeable;
 
 /**
@@ -27,6 +28,7 @@ import io.micronaut.serde.annotation.Serdeable;
  * @param unsupported Unsupported percentage.
  * @since 3.1.0
  */
+@Experimental
 @Serdeable
 public record MailpitHtmlCheckScore(
     @JsonProperty("Found") int found,

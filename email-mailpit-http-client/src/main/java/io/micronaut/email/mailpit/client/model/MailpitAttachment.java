@@ -16,6 +16,7 @@
 package io.micronaut.email.mailpit.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Experimental;
 import io.micronaut.serde.annotation.Serdeable;
 import org.jspecify.annotations.Nullable;
 
@@ -30,6 +31,7 @@ import org.jspecify.annotations.Nullable;
  * @param checksums Attachment checksums.
  * @since 3.1.0
  */
+@Experimental
 @Serdeable
 public record MailpitAttachment(
     @JsonProperty("PartID") @Nullable String partId,
