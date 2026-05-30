@@ -71,9 +71,12 @@ class OrderServiceTest implements TestPropertyProvider {
         }
 
         private static GenericContainer<?> getRunningContainer() {
-            do {
+            org.junit.jupiter.api.Assumptions.assumeTrue(
+                org.testcontainers.DockerClientFactory.instance().isDockerAvailable()
+            );
+            if (!container.isRunning()) {
                 container.start();
-            } while (!container.isRunning());
+            }
             return container;
         }
 
