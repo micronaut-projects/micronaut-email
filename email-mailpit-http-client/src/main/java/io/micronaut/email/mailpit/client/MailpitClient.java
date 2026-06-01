@@ -227,7 +227,7 @@ public interface MailpitClient {
      * @param request Release message request.
      * @return Plain text response.
      */
-    @Post(value = "/api/v1/message/{id}/release", consumes = MediaType.APPLICATION_JSON)
+    @Post(value = "/api/v1/message/{id}/release", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
     String releaseMessage(@PathVariable("id") String id,
                           @Body MailpitReleaseMessageRequest request);
 
