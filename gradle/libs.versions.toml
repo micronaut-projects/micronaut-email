@@ -37,6 +37,7 @@ micronaut-test-resources = { module = "io.micronaut.testresources:micronaut-test
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
 micronaut-views = {module = "io.micronaut.views:micronaut-views-bom", version.ref = "micronaut-views" }
 
+testcontainers-junit-jupiter = { module = "org.testcontainers:testcontainers-junit-jupiter" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi-ooxml" }
 ses = { module = "software.amazon.awssdk:ses" }

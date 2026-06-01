@@ -10,7 +10,9 @@ dependencies {
     testAnnotationProcessor(mn.micronaut.inject.java)
     testImplementation(mn.micronaut.http.client)
     testImplementation(mnSerde.micronaut.serde.jackson)
+    testImplementation(platform(mnTest.boms.testcontainers))
     testImplementation(mnTestResources.testcontainers.core)
+    testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(projects.testSuiteUtils)
 }
 
