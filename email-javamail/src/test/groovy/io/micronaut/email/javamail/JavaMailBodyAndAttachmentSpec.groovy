@@ -29,11 +29,12 @@ class JavaMailBodyAndAttachmentSpec extends Specification {
     private PollingConditions conditions = new PollingConditions()
 
     def setup() {
-        applicationContext = ApplicationContext.run([
-                "spec.name"          : "JavaxMailEmailSenderAttachmentSpec",
-                'javamail.properties': Mailpit.getJavaMailProperties(),
-        ] + Mailpit.getProperties())
+        applicationContext = ApplicationContext.run(Mailpit.properties)
         applicationContext.getBean(MailpitClient).deleteMessages(new MailpitDeleteMessagesRequest([]))
+    }
+
+    def cleanupSpec() {
+        Mailpit.close()
     }
 
     @spock.lang.Requires({ DockerClientFactory.instance().isDockerAvailable() })

@@ -17,6 +17,7 @@ import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -105,5 +106,10 @@ class MailpitClientTest implements TestPropertyProvider {
     @Override
     public @NonNull Map<String, String> getProperties() {
         return Mailpit.getProperties();
+    }
+
+    @AfterAll
+    public static void cleanUpSpec() {
+        Mailpit.close();
     }
 }

@@ -25,18 +25,10 @@ public class Mailpit {
         return container;
     }
 
-    public static Map<String, Object> getJavaMailProperties() {
-        return getJavaMailProperties(getRunningContainer());
-    }
-
-    public static Map<String, Object> getJavaMailProperties(GenericContainer<?> container) {
-        return Map.of(
-            "mail.smtp.host", container.getHost(),
-            "mail.smtp.port", container.getMappedPort(1025));
-    }
-
     public static Map<String, String> getProperties(GenericContainer<?> container) {
         return Map.of(
+            "javamail.properties.mail.smtp.host", container.getHost(),
+            "javamail.properties.mail.smtp.port", "" + container.getMappedPort(1025),
             "micronaut.http.services.mailpit.url",
             "http://"+ container.getHost() + ":" + container.getMappedPort(8025));
     }
