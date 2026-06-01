@@ -1,0 +1,5 @@
+You can use Mailpit and the <<mailpitHttpClient, Micronaut Mailpit HTTP Client>> to test the logic in your application that is responsible for sending emails.
+
+The following test verifies the behavior of the `OrderService` bean shown in the <<mailpitDev, Mailpit for Development>> section, running Mailpit via Testcontainers.
+
+snippet::io.micronaut.email.mailpit.client.OrderServiceTest[]

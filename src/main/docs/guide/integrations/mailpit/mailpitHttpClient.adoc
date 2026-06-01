@@ -1,0 +1,20 @@
+The Mailpit HTTP client module provides a declarative HTTP client for https://mailpit.axllent.org/docs/api-v1/[Mailpit API v1].
+It is useful for test assertions and development tooling that need to inspect messages captured by Mailpit.
+
+To use the client, add the following dependency:
+
+dependency:micronaut-email-mailpit-http-client[groupId="io.micronaut.email"]
+
+You also need a Micronaut HTTP Client implementation dependency on your classpath (either the https://docs.micronaut.io/latest/guide/#nettyHttpClient[Micronaut HTTP Client based on Netty] or the https://docs.micronaut.io/latest/guide/#jdkHttpClient[Micronaut HTTP Client based on the built-in JDK HTTP Client]).
+
+The module exposes api:io.micronaut.email.mailpit.client.MailpitClient[], a Micronaut HTTP Client declared with the service ID `mailpit`.
+Configure the named HTTP service to point at the Mailpit web UI and API port:
+
+[configuration]
+----
+micronaut:
+  http:
+    services:
+      mailpit:
+        url: http://localhost:8025
+----

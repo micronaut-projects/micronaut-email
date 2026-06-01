@@ -1,5 +1,7 @@
 package io.micronaut.email.docs;
 
+import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.util.StringUtils;
 import org.jspecify.annotations.NonNull;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailException;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+@Requires(property = "mock.emailsender", value = StringUtils.TRUE)
 @Named("mock")
 @Singleton
 public class MockEmailSender<I> implements TransactionalEmailSender<I, Email> {

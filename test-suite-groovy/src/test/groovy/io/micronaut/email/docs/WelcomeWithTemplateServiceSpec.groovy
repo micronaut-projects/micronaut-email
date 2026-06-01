@@ -1,10 +1,14 @@
 package io.micronaut.email.docs
 
+import io.micronaut.context.annotation.Property
+import io.micronaut.core.util.StringUtils
 import io.micronaut.email.BodyType
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
 
+@Property(name = "mock.emailsender", value = StringUtils.TRUE)
+@Property(name = "javamail.enabled", value = StringUtils.FALSE)
 @MicronautTest(startApplication = false)
 class WelcomeWithTemplateServiceSpec extends Specification {
 

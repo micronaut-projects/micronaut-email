@@ -20,6 +20,10 @@ integrations:
   mailjet: Mailjet
   mailtrap: Mailtrap
   javamail: Jakarta Mail
+  mailpit:
+    title: Mailpit
+    mailpitDev: Mailpit for Development
+    mailpitHttpClient: Mailpit HTTP Client
+    mailpitTest: Mailpit for Testing
 emailGuides: Guides
 repository: Repository
-

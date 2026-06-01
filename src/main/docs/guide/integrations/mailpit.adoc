@@ -1,0 +1,4 @@
+____
+https://mailpit.axllent.org/[Mailpit] is a small, fast, low-memory, zero-dependency, multi-platform email testing tool and API for developers.
+It acts as an SMTP server, provides a modern web interface to view and test captured emails, and provides an API for automated integration testing.
+____

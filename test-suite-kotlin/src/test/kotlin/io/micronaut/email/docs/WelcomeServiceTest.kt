@@ -1,5 +1,7 @@
 package io.micronaut.email.docs
 
+import io.micronaut.context.annotation.Property
+import io.micronaut.core.util.StringUtils
 import io.micronaut.email.BodyType
 import jakarta.inject.Inject
 import org.junit.jupiter.api.Test
@@ -9,6 +11,8 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertEquals
 
+@Property(name = "mock.emailsender", value = StringUtils.TRUE)
+@Property(name = "javamail.enabled", value = StringUtils.FALSE)
 @MicronautTest(startApplication = false)
 class WelcomeServiceTest {
     @Inject

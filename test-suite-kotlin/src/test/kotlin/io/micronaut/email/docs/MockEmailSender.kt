@@ -1,6 +1,8 @@
 package io.micronaut.email.docs
 
+import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
+import io.micronaut.core.util.StringUtils
 import io.micronaut.email.Email
 import io.micronaut.email.EmailException
 import io.micronaut.email.TransactionalEmailSender
@@ -8,6 +10,7 @@ import jakarta.inject.Named
 import jakarta.inject.Singleton
 import java.util.function.Consumer
 
+@Requires(property = "mock.emailsender", value = StringUtils.TRUE)
 @Named("mock")
 @Singleton
 class MockEmailSender<I, O> : TransactionalEmailSender<I, Email> {
