@@ -134,7 +134,7 @@ public interface MailpitClient {
      * @param request Delete messages request.
      * @return Plain text response.
      */
-    @Delete(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON)
+    @Delete(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
     String deleteMessages(@Body MailpitDeleteMessagesRequest request);
 
     /**
