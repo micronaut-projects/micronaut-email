@@ -10,7 +10,7 @@ public class Mailpit {
     private Mailpit() {
     }
 
-    private static GenericContainer<?> container = new GenericContainer<>(DockerImageName.parse("axllent/mailpit"))
+    private static final GenericContainer<?> container = new GenericContainer<>(DockerImageName.parse("axllent/mailpit"))
         .withExposedPorts(1025, 8025)
         .waitingFor(Wait.forHttp("/").forPort(8025));
 
