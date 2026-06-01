@@ -34,6 +34,7 @@ import io.micronaut.email.mailpit.client.model.MailpitWebUiConfiguration;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
@@ -90,7 +91,7 @@ public interface MailpitClient {
      * @param triggers Chaos trigger settings.
      * @return Updated chaos trigger settings.
      */
-    @Put(value = "/api/v1/chaos", consumes = MediaType.APPLICATION_JSON)
+    @Put(value = "/api/v1/chaos")
     MailpitChaosTriggers setChaos(@Body MailpitChaosTriggers triggers);
 
     /**
@@ -112,7 +113,8 @@ public interface MailpitClient {
      * @param request Read status request.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Put(value = "/api/v1/messages")
     String setReadStatus(@Body MailpitSetReadStatusRequest request);
 
     /**
@@ -123,7 +125,8 @@ public interface MailpitClient {
      * @param timezone Optional timezone identifier for search date filters.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Put(value = "/api/v1/messages")
     String setReadStatus(@Body MailpitSetReadStatusRequest request,
                          @Nullable @QueryValue("tz") String timezone);
 
@@ -134,7 +137,8 @@ public interface MailpitClient {
      * @param request Delete messages request.
      * @return Plain text response.
      */
-    @Delete(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Delete(value = "/api/v1/messages")
     String deleteMessages(@Body MailpitDeleteMessagesRequest request);
 
     /**
@@ -161,7 +165,8 @@ public interface MailpitClient {
      * @param timezone Optional timezone identifier for date filters.
      * @return Plain text response.
      */
-    @Delete(value = "/api/v1/search", produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Delete(value = "/api/v1/search")
     String deleteSearch(@QueryValue("query") String query,
                         @Nullable @QueryValue("tz") String timezone);
 
@@ -216,7 +221,8 @@ public interface MailpitClient {
      * @param id Message database ID or {@code latest}.
      * @return Raw message source.
      */
-    @Get(value = "/api/v1/message/{id}/raw", produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Get(value = "/api/v1/message/{id}/raw")
     String getRawMessage(@PathVariable("id") String id);
 
     /**
@@ -227,7 +233,8 @@ public interface MailpitClient {
      * @param request Release message request.
      * @return Plain text response.
      */
-    @Post(value = "/api/v1/message/{id}/release", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Post(value = "/api/v1/message/{id}/release")
     String releaseMessage(@PathVariable("id") String id,
                           @Body MailpitReleaseMessageRequest request);
 
@@ -270,7 +277,8 @@ public interface MailpitClient {
      * @param request Send request.
      * @return Send response.
      */
-    @Post(value = "/api/v1/send", consumes = MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Post(value = "/api/v1/send")
     MailpitSendResponse send(@Body MailpitSendRequest request);
 
     /**
@@ -289,7 +297,8 @@ public interface MailpitClient {
      * @param request Set tags request.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/tags", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Put(value = "/api/v1/tags")
     String setMessageTags(@Body MailpitSetTagsRequest request);
 
     /**
@@ -300,7 +309,8 @@ public interface MailpitClient {
      * @param request Rename request.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/tags/{tag}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Put(value = "/api/v1/tags/{tag}")
     String renameTag(@PathVariable("tag") String tag,
                      @Body MailpitRenameTagRequest request);
 
@@ -311,7 +321,8 @@ public interface MailpitClient {
      * @param tag Tag name.
      * @return Plain text response.
      */
-    @Delete(value = "/api/v1/tags/{tag}", produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Delete(value = "/api/v1/tags/{tag}")
     String deleteTag(@PathVariable("tag") String tag);
 
     /**
@@ -322,7 +333,8 @@ public interface MailpitClient {
      * @param embed Whether Mailpit should render iframe-friendly HTML.
      * @return Rendered HTML.
      */
-    @Get(value = "/view/{id}.html", produces = MediaType.TEXT_HTML)
+    @Consumes(MediaType.TEXT_HTML)
+    @Get(value = "/view/{id}.html")
     String renderHtml(@PathVariable("id") String id,
                       @Nullable @QueryValue("embed") String embed);
 
@@ -333,6 +345,7 @@ public interface MailpitClient {
      * @param id Message database ID or {@code latest}.
      * @return Rendered text.
      */
-    @Get(value = "/view/{id}.txt", produces = MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Get(value = "/view/{id}.txt")
     String renderText(@PathVariable("id") String id);
 }
