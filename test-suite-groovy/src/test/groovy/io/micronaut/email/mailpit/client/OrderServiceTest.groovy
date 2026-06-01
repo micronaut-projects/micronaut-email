@@ -73,9 +73,9 @@ class OrderServiceTest extends Specification implements TestPropertyProvider {
         }
 
         private static GenericContainer<?> getRunningContainer() {
-            do {
+            if (!container.isRunning()) {
                 container.start()
-            } while (!container.isRunning())
+            }
             container
         }
 
