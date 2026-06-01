@@ -289,7 +289,7 @@ public interface MailpitClient {
      * @param request Set tags request.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/tags", consumes = MediaType.APPLICATION_JSON)
+    @Put(value = "/api/v1/tags", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
     String setMessageTags(@Body MailpitSetTagsRequest request);
 
     /**
