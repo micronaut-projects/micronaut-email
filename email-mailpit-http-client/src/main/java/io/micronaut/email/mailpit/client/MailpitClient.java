@@ -300,7 +300,7 @@ public interface MailpitClient {
      * @param request Rename request.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/tags/{tag}", consumes = MediaType.APPLICATION_JSON)
+    @Put(value = "/api/v1/tags/{tag}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
     String renameTag(@PathVariable("tag") String tag,
                      @Body MailpitRenameTagRequest request);
 
