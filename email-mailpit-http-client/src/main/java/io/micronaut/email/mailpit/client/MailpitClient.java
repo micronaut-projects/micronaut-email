@@ -112,7 +112,7 @@ public interface MailpitClient {
      * @param request Read status request.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON)
+    @Put(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
     String setReadStatus(@Body MailpitSetReadStatusRequest request);
 
     /**
@@ -123,7 +123,7 @@ public interface MailpitClient {
      * @param timezone Optional timezone identifier for search date filters.
      * @return Plain text response.
      */
-    @Put(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON)
+    @Put(value = "/api/v1/messages", consumes = MediaType.APPLICATION_JSON, produces = MediaType.TEXT_PLAIN)
     String setReadStatus(@Body MailpitSetReadStatusRequest request,
                          @Nullable @QueryValue("tz") String timezone);
 
