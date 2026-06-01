@@ -13,8 +13,6 @@ include::{includedir}configurationProperties/io.micronaut.email.javamail.sender.
 
 Alternatively, provide your own api:io.micronaut.email.javamail.sender.MailPropertiesProvider[] or api:io.micronaut.email.javamail.sender.SessionProvider[] beans when you need complete control over the Jakarta Mail `Session`.
 
-TIP: See <<mailpit, Mailpit>> for a local SMTP testing setup that uses Jakarta Mail.
-
 == Authentication via configuration
 
 As an alternative to providing your own api:io.micronaut.email.javamail.sender.SessionProvider[] for authentication, you can configure password based authentication via configuration:
