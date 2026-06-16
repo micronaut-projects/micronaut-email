@@ -15,11 +15,9 @@
  */
 package io.micronaut.email;
 
-import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.io.DataInputStream;
@@ -55,6 +53,8 @@ public class Attachment {
 
     @Nullable
     private final String disposition;
+
+    public static final String INLINE = "inline";
 
     /**
      *
@@ -130,6 +130,16 @@ public class Attachment {
     @Nullable
     public String getDisposition() {
         return this.disposition;
+    }
+    
+    /**
+     * Checks whether this attachment should be treated as inline.
+     *
+     * @return {@code true} if the disposition is {@code "inline"}
+     * @since 3.0.0
+     */
+    public boolean isInline() {
+        return INLINE.equals(disposition);
     }
 
     /**

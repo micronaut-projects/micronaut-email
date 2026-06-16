@@ -398,6 +398,45 @@ public final class Email implements Recipients {
             attachment.accept(builder);
             return attachment(builder.build());
         }
+        /**
+         * Attach a FileAttachment in a type-safe way, mapped to Attachment internally.
+         * @param fileAttachment FileAttachment to attach
+         * @return Email Builder
+         */
+        @NonNull
+        public Email.Builder attachment(@NonNull FileAttachment fileAttachment) {
+            if (fileAttachment == null) {
+                throw new IllegalArgumentException("fileAttachment cannot be null");
+            }
+            Attachment attachment = new Attachment(
+                fileAttachment.getFilename(),
+                fileAttachment.getContentType(),
+                fileAttachment.getContent(),
+                null,
+                null
+            );
+            return attachment(attachment);
+        }
+
+        /**
+         * Attach an InlineAttachment in a type-safe way, mapped to Attachment internally.
+         * @param inlineAttachment InlineAttachment to attach
+         * @return Email Builder
+         */
+        @NonNull
+        public Email.Builder attachment(@NonNull InlineAttachment inlineAttachment) {
+            if (inlineAttachment == null) {
+                throw new IllegalArgumentException("inlineAttachment cannot be null");
+            }
+            Attachment attachment = new Attachment(
+                inlineAttachment.getFilename(),
+                inlineAttachment.getContentType(),
+                inlineAttachment.getContent(),
+                inlineAttachment.getContentId() != null ? inlineAttachment.getContentId().value() : null,
+                "inline"
+            );
+            return attachment(attachment);
+        }
 
         /**
          *
