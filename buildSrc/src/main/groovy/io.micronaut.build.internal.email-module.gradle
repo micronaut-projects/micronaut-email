@@ -3,3 +3,13 @@ plugins {
     id "io.micronaut.build.internal.module"
 }
 
+dependencies {
+    constraints {
+        implementation("com.fasterxml.jackson.core:jackson-core:2.22.1") {
+            because("Older versions have security vulnerabilities")
+        }
+        implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1") {
+            because("Older versions have security vulnerabilities")
+        }
+    }
+}
