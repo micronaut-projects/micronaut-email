@@ -10,7 +10,4 @@ TIP: See the guide for https://guides.micronaut.io/latest/micronaut-email-sendgr
 
 You can create a bean of type `BeanCreatedEventListener<SendGrid>` to further customize the `SendGrid` instance.
 
-[source,java]
-----
-include::email-sendgrid/src/test/java/io/micronaut/email/sendgrid/SendGridBeanCreatedEventListener.java[indent=0,tag=clazz]
-----
+snippet::io.micronaut.email.docs.sendgrid.SendGridBeanCreatedEventListener[tags="clazz"]

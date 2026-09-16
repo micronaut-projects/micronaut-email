@@ -6,7 +6,7 @@ pluginManagement {
 }
 
 plugins {
-    id("io.micronaut.build.shared.settings") version "8.0.2"
+    id("io.micronaut.build.shared.settings") version "8.1.1"
 }
 
 rootProject.name = 'email-parent'
@@ -27,6 +27,7 @@ include 'test-suite'
 include 'test-suite-hibernate-validator'
 include 'test-suite-groovy'
 include 'test-suite-kotlin'
+include 'test-suite-python'
 include 'test-suite-mailpit-http-client-serialization-tck'
 include 'test-suite-mailpit-http-client-serialization-tck-serde'
 include 'test-suite-mailpit-http-client-serialization-tck-jacksondatabind'
