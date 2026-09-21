@@ -3,10 +3,10 @@ from typing import Annotated
 from jakarta.inject import Inject
 from micronaut.context.annotation import Property
 from micronaut.email import BodyType
+from micronaut.email.mock import MockEmailSender
 from micronaut.test.extensions.junit5.annotation import MicronautTest
-from org.junit.jupiter.api import Disabled, Test
+from org.junit.jupiter.api import Test
 
-from .MockEmailSender import MockEmailSender
 from .WelcomeWithTemplateService import WelcomeWithTemplateService
 
 
@@ -17,8 +17,6 @@ class WelcomeWithTemplateServiceTest:
     welcome_service: Annotated[WelcomeWithTemplateService, Inject]
     email_sender: Annotated[MockEmailSender, Inject]
 
-    # TODO(python): keyword alias on foreign object
-    @Disabled("Email.Builder.from_ alias is not resolved on the builder returned by Email.builder() (Python compiler gap)")
     @Test
     def transactional_email_is_correctly_built(self):
         # given
@@ -28,9 +26,9 @@ class WelcomeWithTemplateServiceTest:
         # when:
         self.welcome_service.send_welcome_email()
         # then:
-        assert 1 == len(self.email_sender.get_emails())
+        assert 1 == self.email_sender.getEmails().size()
 
-        email = self.email_sender.get_emails()[0]
+        email = self.email_sender.getEmails().get(0)
         assert "sender@example.com" == email.getFrom().getEmail()
         assert email.getFrom().getName() is None
         assert 1 == email.getTo().size()

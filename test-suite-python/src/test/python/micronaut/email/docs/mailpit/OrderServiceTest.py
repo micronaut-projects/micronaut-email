@@ -6,7 +6,7 @@ from micronaut.context.annotation import Property
 from micronaut.email.configuration import FromConfiguration
 from micronaut.email.mailpit.client import MailpitClient
 from micronaut.test.extensions.junit5.annotation import MicronautTest
-from org.junit.jupiter.api import AfterAll, Assumptions, Disabled, Test
+from org.junit.jupiter.api import AfterAll, Assumptions, Test
 from org.testcontainers import DockerClientFactory
 
 from micronaut.email.test import Mailpit
@@ -29,8 +29,6 @@ class OrderServiceTest:
     def cleanup_spec() -> None:
         Mailpit.close()
 
-    # TODO(python): keyword alias on foreign object
-    @Disabled("MailpitMessage.from_ alias is not resolved on the message returned by MailpitClient.getMessage() (Python compiler gap)")
     @Test
     def order_service(self):
         Assumptions.assumeTrue(DockerClientFactory.instance().isDockerAvailable(), "Docker is not available")
