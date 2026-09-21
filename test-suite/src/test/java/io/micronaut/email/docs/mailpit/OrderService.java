@@ -1,4 +1,4 @@
-package io.micronaut.email.mailpit.client;
+package io.micronaut.email.docs.mailpit;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.email.Email;

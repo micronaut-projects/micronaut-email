@@ -1,6 +1,6 @@
 Given a class like this, which is transactional email provider-agnostic:
 
-snippet::io.micronaut.email.mailpit.client.OrderService[]
+snippet::io.micronaut.email.docs.mailpit.OrderService[]
 
 You could be sending emails in production with <<ses, Amazon SES>>, <<postmark, Postmark>>, <<sendgrid, SendGrid>>, or <<mailjet, Mailjet>>,
 and you may wish to send emails to Mailpit while developing the application using <<javamail, Jakarta Mail>>.
