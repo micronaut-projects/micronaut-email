@@ -1,0 +1,43 @@
+To integrate with https://resend.com[Resend], add the following dependency to your application.
+
+dependency:micronaut-email-resend[groupId="io.micronaut.email"]
+
+The integration calls the https://resend.com/docs/api-reference/emails/send-email[Resend API] with the Micronaut HTTP Client. You also need a Micronaut HTTP Client implementation dependency on your classpath (either the https://docs.micronaut.io/latest/guide/#nettyHttpClient[Micronaut HTTP Client based on Netty] or the https://docs.micronaut.io/latest/guide/#jdkHttpClient[Micronaut HTTP Client based on the built-in JDK HTTP Client]) and a JSON serialization implementation such as https://micronaut-projects.github.io/micronaut-serialization/latest/guide/[Micronaut Serialization].
+
+You need to supply your Resend _API key_ via configuration:
+
+include::{includedir}configurationProperties/io.micronaut.email.resend.ResendConfigurationProperties.adoc[]
+
+== Customizing the request
+
+api:io.micronaut.email.Email[] covers the sender, recipients, subject, body and attachments. To use other Resend features, such as tags, custom headers, scheduled emails, templates or https://resend.com/docs/dashboard/emails/idempotency-keys[idempotency keys], use the `Consumer` variant of api:io.micronaut.email.EmailSender[] to customize the `ResendEmailRequest.Builder`, which builds the api:io.micronaut.email.resend.model.ResendEmailRequest[].
+
+[source,java]
+----
+include::email-resend/src/test/java/io/micronaut/email/resend/docs/NewsletterService.java[indent=0,tag=clazz]
+----
+
+NOTE: A Resend template cannot be combined with an HTML or text body. If you set a template, clear the body with `request.html(null).text(null)`.
+
+== Blocking and non-blocking
+
+api:io.micronaut.email.EmailSender[] blocks until Resend responds. Don't use it in a Netty event loop thread. Either offload the execution to a different thread, for example with `@ExecuteOn(TaskExecutors.BLOCKING)`, or use api:io.micronaut.email.AsyncEmailSender[], which does not block.
+
+== Errors
+
+If Resend responds with an https://resend.com/docs/api-reference/errors[error], the sender throws a api:io.micronaut.email.resend.ResendEmailException[]. It exposes the HTTP status code and the error name and message returned by Resend.
+
+== HTTP Client configuration
+
+The integration uses an HTTP Client with the service ID `resend`, which targets `https://api.resend.com`. You can configure it, for example to change the read timeout, via https://docs.micronaut.io/latest/guide/#serviceDiscoveryManual[HTTP service configuration]:
+
+[configuration]
+----
+micronaut:
+  http:
+    services:
+      resend:
+        read-timeout: 5s
+----
+
+If you set `micronaut.http.services.resend.url`, the HTTP Client sends the requests to that URL instead of the Resend API.

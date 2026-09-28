@@ -8,8 +8,8 @@ documentation, tests, or build logic that directly supports those modules.
 
 - `email`: core email API and shared behavior.
 - `email-javamail`, `email-javamail-composer`, `email-sendgrid`,
-  `email-amazon-ses`, `email-postmark`, `email-mailjet`, `email-mailtrap`, and
-  `email-template`: provider and integration modules.
+  `email-amazon-ses`, `email-postmark`, `email-mailjet`, `email-mailtrap`,
+  `email-resend`, and `email-template`: provider and integration modules.
 - `email-bom`: dependency-management BOM.
 - `test-suite*` and `test-suite-utils`: functional and compatibility tests.
 - `src/main/docs`: user guide sources.

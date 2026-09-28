@@ -2,7 +2,7 @@ Given a class like this, which is transactional email provider-agnostic:
 
 snippet::io.micronaut.email.mailpit.client.OrderService[]
 
-You could be sending emails in production with <<ses, Amazon SES>>, <<postmark, Postmark>>, <<sendgrid, SendGrid>>, or <<mailjet, Mailjet>>,
+You could be sending emails in production with <<ses, Amazon SES>>, <<postmark, Postmark>>, <<sendgrid, SendGrid>>, <<mailjet, Mailjet>>, or <<resend, Resend>>,
 and you may wish to send emails to Mailpit while developing the application using <<javamail, Jakarta Mail>>.
 
 First, https://mailpit.axllent.org/docs/install/[run Mailpit]. For example, you can run it with Docker:
@@ -32,6 +32,8 @@ postmark:
 sendgrid:
   enabled: false
 mailjet:
+  enabled: false
+resend:
   enabled: false
 javamail:
   properties:

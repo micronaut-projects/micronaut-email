@@ -19,6 +19,7 @@ integrations:
   sendgrid: SendGrid
   mailjet: Mailjet
   mailtrap: Mailtrap
+  resend: Resend
   javamail: Jakarta Mail
   mailpit:
     title: Mailpit
