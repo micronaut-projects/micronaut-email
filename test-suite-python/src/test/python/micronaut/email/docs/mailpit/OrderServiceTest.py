@@ -15,7 +15,8 @@ from .OrderService import OrderService
 
 # The Mailpit Testcontainers container properties (SMTP host/port and the Mailpit HTTP client URL) are supplied
 # by the Java io.micronaut.email.docs.MailpitTestConfigurer application context configurer of the "mailpit"
-# environment, see DISABLED_TESTS.md.
+# environment: Micronaut Test calls TestPropertyProvider before the context, and with it the GraalPy runtime,
+# exists, so a Python test class cannot provide them.
 @Property(name="spec.name", value="OrderServiceTest")
 @Property(name="micronaut.email.from.email", value="info@micronaut.io")
 @MicronautTest(startApplication=False, environments=["mailpit"])

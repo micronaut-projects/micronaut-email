@@ -6,11 +6,24 @@ from jakarta.mail.internet import MimeMessage
 from java.util import Properties
 from micronaut.context.annotation import Property
 from micronaut.email import BodyType
-from micronaut.email.mock import MockEmailSender
 from micronaut.test.extensions.junit5.annotation import MicronautTest
 from org.junit.jupiter.api import Test
 
 from .CustomizedJavaMailService import CustomizedJavaMailService
+from .MockEmailSender import MockEmailSender
+
+
+class MessageHeaderCapture(MimeMessage):
+    """Records the header the customizer adds instead of building a real message"""
+
+    def __init__(self, session: Session) -> None:
+        super().__init__(session)
+        self.header_name: str | None = None
+        self.header_value: str | None = None
+
+    def addHeader(self, name: str, value: str) -> None:
+        self.header_name = name
+        self.header_value = value
 
 
 @MicronautTest(startApplication=False)
@@ -26,9 +39,9 @@ class CustomizedJavaMailServiceTest:
         self.customized_java_mail_service.send_customized_email()
 
         # then:
-        assert 1 == self.email_sender.getEmails().size()
-        email = self.email_sender.getEmails().get(0)
-        consumer = self.email_sender.getRequests().get(0)
+        assert 1 == len(self.email_sender.get_emails())
+        email = self.email_sender.get_emails()[0]
+        consumer = self.email_sender.get_requests()[0]
         assert "sender@example.com" == email.getFrom().getEmail()
         assert email.getFrom().getName() is None
         assert 1 == email.getTo().size()
@@ -44,11 +57,9 @@ class CustomizedJavaMailServiceTest:
         assert "<html><body><strong>Hello</strong> dear Micronaut user.</body></html>" == email.getBody().get(BodyType.HTML).get()
 
         # when:
-        message = MimeMessage(Session.getInstance(Properties()))
-        consumer(message)  # the Consumer stored by the Java mock comes back to Python as the function passed to send()
+        message = MessageHeaderCapture(Session.getInstance(Properties()))
+        consumer(message)  # the request customizer comes back to Python as the function passed to send()
 
         # then:
-        header = message.getHeader("List-Unsubscribe")
-        assert header is not None
-        assert 1 == len(header)
-        assert "<mailto:list@host.com?subject=unsubscribe>" == header[0]
+        assert "List-Unsubscribe" == message.header_name
+        assert "<mailto:list@host.com?subject=unsubscribe>" == message.header_value
