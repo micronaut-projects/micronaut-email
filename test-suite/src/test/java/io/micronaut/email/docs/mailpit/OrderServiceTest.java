@@ -1,8 +1,9 @@
-package io.micronaut.email.mailpit.client;
+package io.micronaut.email.docs.mailpit;
 
 import io.micronaut.context.annotation.Property;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.configuration.FromConfiguration;
+import io.micronaut.email.mailpit.client.MailpitClient;
 import io.micronaut.email.mailpit.client.model.MailpitAddress;
 import io.micronaut.email.mailpit.client.model.MailpitMessage;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;

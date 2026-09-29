@@ -1,11 +1,19 @@
 plugins {
     `java-library`
     id("io.micronaut.build.internal.email-tests")
+    id("io.micronaut.build.internal.python")
 }
 
 dependencies {
+    // The Java helper in src/test/java (Mailpit @ContextConfigurer) is processed by javac
     testAnnotationProcessor(mn.micronaut.inject.java)
-    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
+
+    // Annotation processors of the Python sources MUST be testImplementation (not testAnnotationProcessor):
+    // the Python compiler takes the (jar-resolved) compile classpath as its annotation processor path.
+    testImplementation(mnValidation.micronaut.validation.processor)
+    testImplementation(mnSerde.micronaut.serde.processor)
+    testImplementation(mn.micronaut.inject.python.test)
+    testImplementation(mn.micronaut.context.python)
 
     testImplementation(mnValidation.micronaut.validation)
 
@@ -19,12 +27,14 @@ dependencies {
     testImplementation(projects.micronautEmailTemplate)
     testImplementation(projects.micronautEmailSendgrid)
     testImplementation(mn.micronaut.http.client)
-    testAnnotationProcessor(mnSerde.micronaut.serde.processor)
     testImplementation(mnSerde.micronaut.serde.jackson)
     testImplementation(mnViews.micronaut.views.velocity)
     testImplementation(projects.micronautEmailJavamail)
     testRuntimeOnly(libs.managed.eclipse.angus)
+    testRuntimeOnly(mnLogging.logback.classic)
 }
-tasks.test {
+
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+    systemProperty("micronaut.python.pool.enabled", "false")
 }

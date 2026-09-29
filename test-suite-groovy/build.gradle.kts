@@ -17,6 +17,7 @@ dependencies {
     testImplementation(projects.testSuiteUtils)
     testImplementation(projects.micronautEmail)
     testImplementation(projects.micronautEmailTemplate)
+    testImplementation(projects.micronautEmailSendgrid)
     testImplementation(mnTest.micronaut.test.spock)
     testImplementation(mn.micronaut.http.client)
     testImplementation(mnSerde.micronaut.serde.jackson)
