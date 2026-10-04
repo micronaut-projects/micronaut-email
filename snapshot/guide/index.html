@@ -1630,7 +1630,9 @@ javamail.authentication.password=my.password</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">javamail = {authentication = {username = "my.username", password = "my.password"}}</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[javamail.authentication]
+username = "my.username"
+password = "my.password"</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -1966,11 +1968,21 @@ javamail:
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">ses = {enabled = false}
-postmark = {enabled = false}
-sendgrid = {enabled = false}
-mailjet = {enabled = false}
-javamail = {properties = {"mail.smtp.host" = "localhost", "mail.smtp.port" = 1025}}</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[ses]
+enabled = false
+
+[postmark]
+enabled = false
+
+[sendgrid]
+enabled = false
+
+[mailjet]
+enabled = false
+
+[javamail.properties]
+"mail.smtp.host" = "localhost"
+"mail.smtp.port" = 1025</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -2113,7 +2125,8 @@ Configure the named HTTP service to point at the Mailpit web UI and API port:</p
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {http = {services = {mailpit = {url = "http://localhost:8025"}}}}</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut.http.services.mailpit]
+url = "http://localhost:8025"</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
