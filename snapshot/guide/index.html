@@ -24,7 +24,7 @@
         }
     </script>
     <style type="text/css">
-        .lang-java { display: block }; .lang-python { display: block }; .lang-kotlin { display: block }; .lang-groovy { display: block }; 
+        .lang-java { display: block }; .lang-python { display: block }; .lang-kotlin { display: block }; .lang-groovy { display: block }; .lang-scala { display: block }; 
     </style>
 </head>
 
@@ -147,13 +147,13 @@
         <h1>Micronaut Email</h1>
         <p></p>
         <p>Integration with Transaction Email Providers</p>
-        <p><strong>Version:</strong> 3.2.1-SNAPSHOT </p>
+        <p><strong>Version:</strong> 3.3.0-SNAPSHOT </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -166,7 +166,7 @@
 <h1 id="breaks"><a class="anchor" href="#breaks"></a>2 Breaking Changes</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/breaks.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/breaks.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -205,7 +205,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>3 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -221,7 +221,7 @@
 <h1 id="quickStart"><a class="anchor" href="#quickStart"></a>4 Quick Start</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/quickStart.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/quickStart.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -259,6 +259,25 @@ public class WelcomeService {
                 .body(new MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;", "Hello dear Micronaut user")));
     }
 }</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from jakarta.inject import Singleton
+from micronaut.email import Email, EmailSender, MultipartBody
+
+
+@Singleton
+class WelcomeService:
+    def __init__(self, email_sender: EmailSender):
+        self.email_sender = email_sender
+
+    def send_welcome_email(self) -&gt; None:
+        self.email_sender.send(Email.builder()
+                .from_("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;", "Hello dear Micronaut user")))</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -315,7 +334,7 @@ class WelcomeService {
 <h1 id="attachments"><a class="anchor" href="#attachments"></a>5 Attachments</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/attachments.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/attachments.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -374,6 +393,43 @@ public class SendAttachmentService {
         return bos.toByteArray();
     }
 }</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from jakarta.inject import Singleton
+from java.io import ByteArrayOutputStream
+from micronaut.email import Attachment, Email, EmailSender, MultipartBody
+from org.apache.poi.xssf.usermodel import XSSFWorkbook
+
+
+@Singleton
+class SendAttachmentService:
+    def __init__(self, email_sender: EmailSender):
+        self.email_sender = email_sender
+
+    def send_report(self) -&gt; None:
+        self.email_sender.send(Email.builder()
+                .from_("sender@example.com")
+                .to("john@example.com")
+                .subject("Monthly reports")
+                .body(MultipartBody("&lt;html&gt;&lt;body&gt;&lt;strong&gt;Attached Monthly reports&lt;/strong&gt;.&lt;/body&gt;&lt;/html&gt;", "Attached Monthly reports"))
+                .attachment(Attachment.builder()
+                        .filename("reports.xlsx")
+                        .contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                        .content(self.excel())
+                        .build()))
+
+    @staticmethod
+    def excel() -&gt; bytes:
+        wb = XSSFWorkbook()
+        wb.createSheet("Reports")
+        bos = ByteArrayOutputStream()
+        try:
+            wb.write(bos)
+        finally:
+            bos.close()
+        return bos.toByteArray()</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -465,7 +521,7 @@ class SendAttachmentService {
 <h1 id="decorators"><a class="anchor" href="#decorators"></a>6 Decorators</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/decorators.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/decorators.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -516,7 +572,7 @@ class SendAttachmentService {
 <h1 id="customization"><a class="anchor" href="#customization"></a>7 Customizing Emails</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/customization.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/customization.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -577,6 +633,46 @@ public class CustomizedJavaMailService {
         });
     }
 }</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import logging
+
+from jakarta.inject import Singleton
+from jakarta.mail import Message, MessagingException
+from micronaut.email import Email, EmailSender, MultipartBody
+
+LOG = logging.getLogger(__name__)
+
+
+@Singleton
+class CustomizedJavaMailService:
+    """An example of customization for JavaMail messages"""
+
+    def __init__(self, email_sender: EmailSender[Message, object]):
+        self.email_sender = email_sender
+
+    def send_customized_email(self) -&gt; None:
+        email = (Email.builder()
+                .from_("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(
+                        MultipartBody(
+                                "&lt;html&gt;&lt;body&gt;&lt;strong&gt;Hello&lt;/strong&gt; dear Micronaut user.&lt;/body&gt;&lt;/html&gt;",
+                                "Hello dear Micronaut user"
+                        )
+                ))
+
+        # Customize the message with a header prior to sending
+        def customize(message: Message) -&gt; None:
+            try:
+                message.addHeader("List-Unsubscribe", "&lt;mailto:list@host.com?subject=unsubscribe&gt;")
+            except MessagingException as e:
+                LOG.exception("Failed to add header")
+
+        self.email_sender.send(email, customize)</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -680,7 +776,7 @@ class CustomizedJavaMailService {
 <h1 id="template"><a class="anchor" href="#template"></a>8 Templates</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/template.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/template.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -704,6 +800,15 @@ class CustomizedJavaMailService {
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-template"</span>,
+]</code></pre>
+</div>
+</div>
 </p>
 </div>
 <div class="paragraph">
@@ -725,6 +830,15 @@ class CustomizedJavaMailService {
     &lt;groupId&gt;io.micronaut.views&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-views-velocity&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.views:micronaut-views-velocity"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -772,6 +886,34 @@ public class WelcomeWithTemplateService {
     }
 
 }</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from jakarta.inject import Singleton
+from micronaut.email import BodyType, Email, EmailSender, MultipartBody
+from micronaut.email.template import TemplateBody
+from micronaut.views import ModelAndView
+
+
+@Singleton
+class WelcomeWithTemplateService:
+    def __init__(self, email_sender: EmailSender):
+        self.email_sender = email_sender
+
+    def send_welcome_email(self) -&gt; None:
+        model = {
+            "message": "Hello dear Micronaut user",
+            "copyright": "© 2021 MICRONAUT FOUNDATION. ALL RIGHTS RESERVED",
+            "address": "12140 Woodcrest Executive Dr., Ste 300 St. Louis, MO 63141",
+        }
+        self.email_sender.send(Email.builder()
+                .from_("sender@example.com")
+                .to("john@example.com")
+                .subject("Micronaut test")
+                .body(MultipartBody(
+                        TemplateBody(BodyType.HTML, ModelAndView("htmltemplate", model)),
+                        TemplateBody(BodyType.TEXT, ModelAndView("texttemplate", model)))))</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -868,7 +1010,7 @@ $copyright</code></pre>
 <h1 id="integrations"><a class="anchor" href="#integrations"></a>9 Integrations</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -879,7 +1021,7 @@ $copyright</code></pre>
 <h2 id="ses"><a class="anchor" href="#ses"></a>9.1 SES</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/ses.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/ses.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -901,6 +1043,15 @@ $copyright</code></pre>
     &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-email-amazon-ses&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-amazon-ses"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -940,7 +1091,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <h2 id="postmark"><a class="anchor" href="#postmark"></a>9.2 Postmark</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/postmark.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/postmark.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -962,6 +1113,15 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
     &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-email-postmark&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-postmark"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1017,7 +1177,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
 <h2 id="sendgrid"><a class="anchor" href="#sendgrid"></a>9.3 SendGrid</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/sendgrid.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/sendgrid.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1039,6 +1199,15 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-am
     &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-email-sendgrid&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-sendgrid"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1093,7 +1262,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-email-se
 <div class="paragraph">
 <p>You can create a bean of type <code>BeanCreatedEventListener&lt;SendGrid&gt;</code> to further customize the <code>SendGrid</code> instance.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
 class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;SendGrid&gt; {
@@ -1107,11 +1276,49 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 }</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">@Singleton
+class SendGridBeanCreatedEventListener(BeanCreatedEventListener[SendGrid]):
+
+    def onCreated(self, event: BeanCreatedEvent[SendGrid]) -&gt; SendGrid:
+        send_grid = event.getBean()
+        send_grid.setRateLimitSleep(5000)
+        return send_grid</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Singleton
+class SendGridBeanCreatedEventListener : BeanCreatedEventListener&lt;SendGrid&gt; {
+
+    override fun onCreated(event: BeanCreatedEvent&lt;SendGrid&gt;): SendGrid {
+        val sendGrid = event.bean
+        sendGrid.rateLimitSleep = 5000
+        return sendGrid
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Singleton
+class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;SendGrid&gt; {
+
+    @Override
+    SendGrid onCreated(BeanCreatedEvent&lt;SendGrid&gt; event) {
+        SendGrid sendGrid = event.bean
+        sendGrid.rateLimitSleep = 5000
+        sendGrid
+    }
+}</code></pre>
+</div>
+</div>
 
 <h2 id="mailjet"><a class="anchor" href="#mailjet"></a>9.4 Mailjet</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/mailjet.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/mailjet.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1133,6 +1340,15 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
     &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-email-mailjet&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-mailjet"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1188,7 +1404,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <h2 id="mailtrap"><a class="anchor" href="#mailtrap"></a>9.5 Mailtrap</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/mailtrap.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/mailtrap.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1210,6 +1426,15 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
     &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-email-mailtrap&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-mailtrap"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1277,7 +1502,7 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 <h2 id="javamail"><a class="anchor" href="#javamail"></a>9.6 Jakarta Mail</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/javamail.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/javamail.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1301,6 +1526,15 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-javamail"</span>,
+]</code></pre>
+</div>
+</div>
 </p>
 </div>
 <div class="paragraph">
@@ -1320,6 +1554,15 @@ class SendGridBeanCreatedEventListener implements BeanCreatedEventListener&lt;Se
     &lt;artifactId&gt;angus-mail&lt;/artifactId&gt;
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"org.eclipse.angus:angus-mail"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1470,7 +1713,7 @@ javamail.authentication.password=my.password</code></pre>
 <h2 id="mailpit"><a class="anchor" href="#mailpit"></a>9.7 Mailpit</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/mailpit.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/mailpit.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1488,7 +1731,7 @@ It acts as an SMTP server, provides a modern web interface to view and test capt
 <h2 id="mailpitDev"><a class="anchor" href="#mailpitDev"></a>9.7.1 Mailpit for Development</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/mailpit/mailpitDev.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/mailpit/mailpitDev.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1499,7 +1742,7 @@ It acts as an SMTP server, provides a modern web interface to view and test capt
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.mailpit.client;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.docs.mailpit;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.email.Email;
@@ -1530,7 +1773,33 @@ public class OrderService {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.mailpit.client
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from typing import Annotated
+
+from jakarta.inject import Singleton
+from jakarta.validation.constraints import Email as EmailAddress, NotBlank
+from micronaut.context.annotation import Requires
+from micronaut.email import Email, EmailSender
+
+
+@Requires(property="spec.name", value="OrderServiceTest")
+@Singleton
+class OrderService:
+    def __init__(self, email_sender: EmailSender):
+        self.email_sender = email_sender
+
+    def send_order_email(self, recipient: Annotated[str, EmailAddress],
+                         order_number: Annotated[str, NotBlank]) -&gt; None:
+        text = "We have received your order " + order_number + ". You will receive your product soon."
+        html = "&lt;html&gt;&lt;body&gt;&lt;p&gt;" + text + "&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"
+        self.email_sender.send(Email.builder()
+                .to(recipient)
+                .subject("Order Number: " + order_number)
+                .body(html, text))</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs.mailpit
 
 import io.micronaut.context.annotation.Requires
 import io.micronaut.email.Email
@@ -1561,7 +1830,7 @@ class OrderService(private val emailSender: EmailSender&lt;*, *&gt;) {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.mailpit.client
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs.mailpit
 
 import io.micronaut.context.annotation.Requires
 import io.micronaut.email.Email
@@ -1622,6 +1891,15 @@ and you may wish to send emails to Mailpit while developing the application usin
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+build = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-javamail"</span>,
+]</code></pre>
+</div>
+</div>
 </p>
 </div>
 <div class="paragraph">
@@ -1641,6 +1919,15 @@ and you may wish to send emails to Mailpit while developing the application usin
     &lt;artifactId&gt;angus-mail&lt;/artifactId&gt;
     &lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+build = [
+    <span class="hljs-string">"org.eclipse.angus:angus-mail"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1762,7 +2049,7 @@ javamail {
 <h2 id="mailpitHttpClient"><a class="anchor" href="#mailpitHttpClient"></a>9.7.2 Mailpit HTTP Client</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/mailpit/mailpitHttpClient.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/mailpit/mailpitHttpClient.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1788,6 +2075,15 @@ It is useful for test assertions and development tooling that need to inspect me
     &lt;groupId&gt;io.micronaut.email&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-email-mailpit-http-client&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.email:micronaut-email-mailpit-http-client"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1869,7 +2165,7 @@ Configure the named HTTP service to point at the Mailpit web UI and API port:</p
 <h2 id="mailpitTest"><a class="anchor" href="#mailpitTest"></a>9.7.3 Mailpit for Testing</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/integrations/mailpit/mailpitTest.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/integrations/mailpit/mailpitTest.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1883,11 +2179,12 @@ Configure the named HTTP service to point at the Mailpit web UI and API port:</p
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.mailpit.client;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.email.docs.mailpit;
 
 import io.micronaut.context.annotation.Property;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.configuration.FromConfiguration;
+import io.micronaut.email.mailpit.client.MailpitClient;
 import io.micronaut.email.mailpit.client.model.MailpitAddress;
 import io.micronaut.email.mailpit.client.model.MailpitMessage;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
@@ -1982,10 +2279,69 @@ class OrderServiceTest implements TestPropertyProvider {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.mailpit.client
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from typing import Annotated
+
+from jakarta.inject import Inject
+from java.util import UUID
+from micronaut.context.annotation import Property
+from micronaut.email.configuration import FromConfiguration
+from micronaut.email.mailpit.client import MailpitClient
+from micronaut.test.extensions.junit5.annotation import MicronautTest
+from org.junit.jupiter.api import AfterAll, Assumptions, Test
+from org.testcontainers import DockerClientFactory
+
+from micronaut.email.test import Mailpit
+from .OrderService import OrderService
+
+
+# The Mailpit Testcontainers container properties (SMTP host/port and the Mailpit HTTP client URL) are supplied
+# by the Java io.micronaut.email.docs.MailpitTestConfigurer application context configurer of the "mailpit"
+# environment: Micronaut Test calls TestPropertyProvider before the context, and with it the GraalPy runtime,
+# exists, so a Python test class cannot provide them.
+@Property(name="spec.name", value="OrderServiceTest")
+@Property(name="micronaut.email.from.email", value="info@micronaut.io")
+@MicronautTest(startApplication=False, environments=["mailpit"])
+class OrderServiceTest:
+    order_service: Annotated[OrderService, Inject]
+    client: Annotated[MailpitClient, Inject]
+    from_configuration: Annotated[FromConfiguration, Inject]
+
+    @AfterAll
+    @staticmethod
+    def cleanup_spec() -&gt; None:
+        Mailpit.close()
+
+    @Test
+    def order_service(self):
+        Assumptions.assumeTrue(DockerClientFactory.instance().isDockerAvailable(), "Docker is not available")
+        recipient = "example@micronaut.io"
+        order_number = str(UUID.randomUUID().toString())
+        text = "We have received your order " + order_number + ". You will receive your product soon."
+        html = "&lt;html&gt;&lt;body&gt;&lt;p&gt;" + text + "&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"
+
+        self.order_service.send_order_email(recipient, order_number)
+
+        message = self.client.getMessage("latest")
+
+        assert message is not None
+        assert message.from_() is not None
+        assert message.to() is not None
+        sender = message.from_()
+        to = message.to()
+        assert self.from_configuration.getFrom().getEmail() == sender.address()
+        assert [recipient] == [address.address() for address in to]
+        assert "Order Number: " + order_number == message.subject()
+        assert text == message.text()
+        assert html == message.html()</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.email.docs.mailpit
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.email.configuration.FromConfiguration
+import io.micronaut.email.mailpit.client.MailpitClient
 import io.micronaut.email.mailpit.client.model.MailpitAddress
 import io.micronaut.email.mailpit.client.model.MailpitMessage
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
@@ -2079,10 +2435,11 @@ internal class OrderServiceTest : TestPropertyProvider {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.mailpit.client
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.email.docs.mailpit
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.email.configuration.FromConfiguration
+import io.micronaut.email.mailpit.client.MailpitClient
 import io.micronaut.email.mailpit.client.model.MailpitAddress
 import io.micronaut.email.mailpit.client.model.MailpitMessage
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
@@ -2175,11 +2532,18 @@ class OrderServiceTest extends Specification implements TestPropertyProvider {
 }</code></pre>
 </div>
 </div>
+<div class="sidebarblock lang-python">
+<div class="content">
+<div class="paragraph">
+<p>Micronaut Test calls <code>TestPropertyProvider</code> before the application context (and with it the GraalPy runtime) exists, so the Python test selects a <code>mailpit</code> environment and a small Java <code>@ContextConfigurer</code> class implementing <code>ApplicationContextConfigurer</code> supplies the SMTP host/port and the Mailpit HTTP client URL of the Testcontainers container for that environment.</p>
+</div>
+</div>
+</div>
 
 <h1 id="emailGuides"><a class="anchor" href="#emailGuides"></a>10 Guides</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/emailGuides.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/emailGuides.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2195,7 +2559,7 @@ class OrderServiceTest extends Specification implements TestPropertyProvider {
 <h1 id="repository"><a class="anchor" href="#repository"></a>11 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.2.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-email/edit/3.3.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
