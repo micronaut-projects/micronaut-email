@@ -11,6 +11,9 @@ dependencies {
     testImplementation(mnSerde.micronaut.serde.jackson)
 
     constraints {
+        runtimeOnly("org.json:json:20260719") {
+            because("Older versions have security vulnerabilities (GHSA-ghc9-756g-vrcv)")
+        }
         runtimeOnly("com.google.code.gson:gson:2.15.0"){
             because("Older versions have security vulnerabilities")
         }
